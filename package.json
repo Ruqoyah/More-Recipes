@@ -10,11 +10,11 @@
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.17.2",
     "chai": "^4.1.1",
-    "db": "^1.0.6",
     "dotenv": "^4.0.0",
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0",
+    "expect": "^1.20.2",
     "express": "^4.15.4",
     "jsonwebtoken": "^7.4.3",
     "morgan": "^1.8.2",
@@ -27,7 +27,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
