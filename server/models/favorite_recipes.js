@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    ufavorite_recipe: {
+    favorite_recipe: {
       type: DataTypes.STRING,
       allowNull: false
     },

@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import usersController from '../controllers/users';
+import recipesController from '../controllers/recipes';
 
 const app = express.Router();
 
@@ -37,6 +38,9 @@ app.use((req, res, next) => {
     });
   }
 });
+
+// add recipe
+app.post('/api/recipes', recipesController.addRecipes);
 
 
 export default app;

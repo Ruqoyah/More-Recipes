@@ -1,8 +1,0 @@
-{
-"development": {
-   "use_env_variable": "mydb"
- },
- "test": {
-   "use_env_variable": "mydb"
- }
-}

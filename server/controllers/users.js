@@ -65,13 +65,14 @@ export default {
       })
       .then((user) => {
         if (!user) {
-          res.status(401).json({ success: false, message: 'User not found' });
+          res.status(404).json({ success: false, message: 'User not found' });
         }
         if (!bcrypt.compareSync(req.body.password, user.password)) {
-          res.status(401).json({ success: false, message: 'Wrong password' });
+          res.status(400).json({ success: false, message: 'Wrong password' });
         } else {
-          const id = user.id;
-          const token = jwt.sign(id, 'superSecret');
+          // const id = user;
+          // console.log(id, '77777777777');
+          const token = jwt.sign({ userId: user }, 'superSecret');
           res.status(201).json({
             success: true,
             message: 'User successfully signed in!',
