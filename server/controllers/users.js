@@ -1,4 +1,5 @@
-
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import model from '../models';
 
 
@@ -36,8 +37,6 @@ export default {
                   .then((hash) => {
                     Users.create({
                       username: req.body.username,
-                      firstname: req.body.firstname,
-                      lastname: req.body.lastname,
                       email: req.body.email,
                       password: hash,
                       cpassword: hash
