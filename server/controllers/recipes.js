@@ -38,7 +38,7 @@ export default {
     }
   },
 
-  // get all users
+  // get all recipes
   getRecipes(req, res) {
     Recipes
       .findAll({})
