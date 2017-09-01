@@ -7,17 +7,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING
-      },
-      recipe_Id: {
+      userId: {
         type: Sequelize.INTEGER
       },
-      user_Id: {
+      recipeId: {
         type: Sequelize.INTEGER
-      },
-      favorite_recipe: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

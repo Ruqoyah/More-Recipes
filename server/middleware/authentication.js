@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+
 export default (req, res, next) => {
   // check header or url parameters or post parameters for token
   const token = req.body.token || req.query.token || req.headers['access-token'];

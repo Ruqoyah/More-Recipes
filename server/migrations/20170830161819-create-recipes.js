@@ -7,10 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_Id: {
-        type: Sequelize.INTEGER
-      },
-      recipe_name: {
+      recipeName: {
         type: Sequelize.STRING
       },
       ingredient: {

@@ -1,23 +1,17 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.createTable('Votes', {
+    queryInterface.createTable('Downvotes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.INTEGER
       },
-      recipe_name: {
-        type: Sequelize.STRING
-      },
-      upvote: {
-        type: Sequelize.STRING
-      },
-      downvote: {
-        type: Sequelize.STRING
+      recipeId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -29,5 +23,5 @@ module.exports = {
       }
     });
   },
-  down: queryInterface => queryInterface.dropTable('Votes'),
+  down: queryInterface => queryInterface.dropTable('Downvotes'),
 };

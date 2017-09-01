@@ -1,28 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
-  const favoriteRecipes = sequelize.define('favoriteRecipes', {
+  const Upvotes = sequelize.define('Upvotes', {
     userId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     recipeId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
-        favoriteRecipes.BelongsTo(models.Recipes, {
-          foreignKey: 'recipeId',
-          onDelete: 'CASCADE'
-        });
-        favoriteRecipes.BelongsTo(models.Users, {
+        Upvotes.belongsTo(models.Users, {
           foreignKey: 'userId',
           onDelete: 'CASCADE'
         });
       }
     }
   });
-  return favoriteRecipes;
+  return Upvotes;
 };
-

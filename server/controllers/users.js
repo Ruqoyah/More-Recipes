@@ -17,7 +17,7 @@ export default {
         },
       })
       .then((user) => {
-        if (user) {
+        if (req.body.username === user) {
           res.status(400).send({ message: 'Username already exists' });
         } else {
           Users
@@ -36,6 +36,7 @@ export default {
                 bcrypt.hash(req.body.password, saltRounds)
                   .then((hash) => {
                     Users.create({
+                      fullName: req.body.fullName,
                       username: req.body.username,
                       email: req.body.email,
                       password: hash,
@@ -43,7 +44,7 @@ export default {
                     })
                       .then(display => res.status(201).send({
                         success: true,
-                        message: 'User has been signed up successfully',
+                        message: 'You have successfully signed up',
                         username: display.username
                       }))
                       .catch(error => res.status(400).send(error));
@@ -73,7 +74,7 @@ export default {
           const token = jwt.sign({ userId: user }, 'superSecret');
           res.status(201).json({
             success: true,
-            message: 'User successfully signed in!',
+            message: 'You have successfully signed in!',
             authentication: token,
             userId: user.id
           });
@@ -89,7 +90,7 @@ export default {
         if (users) {
           res.json(users);
         } else {
-          res.status(400).send('No User found');
+          res.status(404).send('No User found');
         }
       });
   }

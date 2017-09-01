@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Reviews = sequelize.define('Reviews', {
-    username: {
+    userId: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    recipe_id: {
+    recipeId: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
+        Reviews.belongsTo(models.Users, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
+        });
       }
     }
   });

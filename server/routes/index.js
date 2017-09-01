@@ -15,11 +15,14 @@ app.post('/api/users/signin', usersController.signin);
 // route middleware to verify a token
 app.use(auth.default);
 
-// signin
+// get all users
 app.get('/api/users', usersController.getUsers);
 
 // add recipe
 app.post('/api/recipes', recipesController.addRecipes);
+
+// get all recipes
+app.get('/api/recipes', recipesController.getRecipes);
 
 
 export default app;

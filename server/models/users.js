@@ -1,12 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
@@ -20,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
+        Users.hasMany(models.favoriteRecipes, {
+          foreignKey: 'userId'
+        });
       }
     }
   });
