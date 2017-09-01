@@ -1,0 +1,47 @@
+body {
+    background: url(images/designed.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.header {
+    width: 320px;
+    margin: 15% auto 0px;
+    color: #fff;
+    background: #00A859;
+    text-align: center;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+}
+
+form {
+    width: 320px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.input-group {
+    margin: 10px 0px 10px 0px;
+}
+
+.btn {
+   padding: 10px;
+}
+
+.join {
+    text-align: center;
+}
+
+.footer{
+    background-color: #3F3F3F;
+    margin-top: 48%;
+    margin-bottom: 0px;
+    padding-top: 5%;
+    padding-right: 5%;
+    padding-bottom: 25%;
+    text-align: center;
+    color: #fff;
+    font-size:12px;
+}
