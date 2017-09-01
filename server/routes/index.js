@@ -19,10 +19,13 @@ app.use(auth.default);
 app.get('/api/users', usersController.getUsers);
 
 // add recipe
-app.post('/api/recipes', recipesController.addRecipes);
+app.post('/api/recipes', recipesController.addRecipe);
 
 // get all recipes
 app.get('/api/recipes', recipesController.getRecipes);
+
+// modify recipe
+app.put('/api/recipes/:recipeId', recipesController.modifyRecipe);
 
 
 export default app;

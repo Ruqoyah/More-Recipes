@@ -4,7 +4,7 @@ const Recipes = model.Recipes;
 
 export default {
   // add a recipe
-  addRecipes(req, res) {
+  addRecipe(req, res) {
     if (!req.body.recipeName) {
       res.status(400).send({ message: 'Enter recipe name' });
     }
@@ -28,14 +28,30 @@ export default {
             ingredient: req.body.ingredient,
             details: req.body.details
           })
-            .then(createGroup => res.status(201).send({
+            .then(addRecipes => res.status(201).send({
               success: true,
-              recipeName: createGroup.recipeName,
-              message: 'Recipe added successfully'
+              recipeName: addRecipes.recipeName,
+              message: 'Recipe added successfully',
+              recipeId: addRecipes.id
             }))
             .catch(error => res.status(400).send(error));
         });
     }
+  },
+
+  // modify recipe
+  modifyRecipe(req, res) {
+    Recipes
+      .update(req.body,
+        {
+          where: {
+            id: req.params.recipeId
+          }
+        })
+      .then(() => res.status(200).send({
+        message: 'Recipe modified successfully!'
+      }))
+      .catch(error => res.status(400).send(error));
   },
 
   // get all recipes
