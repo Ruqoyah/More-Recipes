@@ -42,16 +42,59 @@ export default {
   // modify recipe
   modifyRecipe(req, res) {
     Recipes
-      .update(req.body,
-        {
-          where: {
-            id: req.params.recipeId
-          }
-        })
-      .then(() => res.status(200).send({
-        message: 'Recipe modified successfully!'
-      }))
-      .catch(error => res.status(400).send(error));
+      .findOne({
+        where: {
+          id: req.params.recipeId
+        }
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          res.status(404).send({
+            message: 'Recipe id does not exist'
+          });
+        } else {
+          Recipes
+            .update(req.body,
+              {
+                where: {
+                  id: req.params.recipeId
+                }
+              })
+            .then(() => res.status(200).send({
+              message: 'Recipe modified successfully!'
+            }))
+            .catch(error => res.status(400).send(error));
+        }
+      });
+  },
+
+  deleteRecipe(req, res) {
+    Recipes
+      .findOne({
+        where: {
+          id: req.params.recipeId
+        }
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          res.status(404).send({
+            message: 'Recipe Id does not exist'
+          });
+        } else {
+          Recipes
+            .destroy({
+              where: {
+                id: req.params.recipeId
+              }
+            })
+            .then(() => {
+              res.status(200).send({
+                message: 'Recipe deleted successfully!'
+              });
+            })
+            .catch(error => res.status(404).send(error));
+        }
+      });
   },
 
   // get all recipes

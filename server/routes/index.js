@@ -27,5 +27,8 @@ app.get('/api/recipes', recipesController.getRecipes);
 // modify recipe
 app.put('/api/recipes/:recipeId', recipesController.modifyRecipe);
 
+// delete recipe
+app.delete('/api/recipes/:recipeId', recipesController.deleteRecipe);
+
 
 export default app;
