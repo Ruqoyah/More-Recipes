@@ -38,10 +38,10 @@ app.post('/api/recipes/:recipeId/reviews', reviewsController.postReview);
 // get reviews
 app.get('/api/recipes/:recipeId/reviews', reviewsController.getReviews);
 
-// post recipes
+// post favorite recipes
 app.post('/api/users/:userId/recipes', favoriteRecipesController.favoriteRecipe);
 
-// post recipes
+// get all favorite recipes
 app.get('/api/users/:userId/recipes', favoriteRecipesController.getfavoriteRecipe);
 
 

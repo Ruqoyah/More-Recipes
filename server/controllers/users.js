@@ -17,7 +17,7 @@ export default {
         },
       })
       .then((user) => {
-        if (req.body.username === user) {
+        if (user) {
           res.status(400).send({ message: 'Username already exists' });
         } else {
           Users
@@ -26,11 +26,10 @@ export default {
                 email: req.body.email
               },
             })
-            .then((createdUser) => {
-              if (createdUser) {
+            .then((email) => {
+              if (email) {
                 res.status(400).send({ message: 'Email already exists' });
-              }
-              if (req.body.password !== req.body.cpassword) {
+              } else if (req.body.password !== req.body.cpassword) {
                 res.status(400).send({ message: 'Password does not match' });
               } else {
                 bcrypt.hash(req.body.password, saltRounds)
@@ -67,15 +66,14 @@ export default {
       .then((user) => {
         if (!user) {
           res.status(404).json({ success: false, message: 'User not found' });
-        }
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
+        } else if (!bcrypt.compareSync(req.body.password, user.password)) {
           res.status(400).json({ success: false, message: 'Wrong password' });
         } else {
           const token = jwt.sign({ userId: user }, 'superSecret');
           res.status(201).json({
             success: true,
             message: 'You have successfully signed in!',
-            authentication: token,
+            token,
             userId: user.id
           });
         }
@@ -87,11 +85,14 @@ export default {
     Users
       .findAll({})
       .then((users) => {
-        if (users) {
-          res.json(users);
+        if (users.length < 1) {
+          res.status(404).send({
+            message: 'No User found'
+          });
         } else {
-          res.status(404).send('No User found');
+          res.status(201).send(users);
         }
-      });
+      })
+      .catch(error => res.status(404).send(error));
   }
 };

@@ -7,11 +7,9 @@ export default {
   addRecipe(req, res) {
     if (!req.body.recipeName) {
       res.status(400).send({ message: 'Enter recipe name' });
-    }
-    if (!req.body.ingredient) {
+    } else if (!req.body.ingredient) {
       res.status(400).send({ message: 'Input ingredient' });
-    }
-    if (!req.body.details) {
+    } else if (!req.body.details) {
       res.status(400).send({ message: 'Input details' });
     } else {
       Recipes
@@ -52,6 +50,12 @@ export default {
           res.status(404).send({
             message: 'Recipe id does not exist'
           });
+        } else if (!req.body.recipeName) {
+          res.status(400).send({ message: 'Recipe name can\'t be empty' });
+        } else if (!req.body.ingredient) {
+          res.status(400).send({ message: 'Ingredient can\'t be empty' });
+        } else if (!req.body.details) {
+          res.status(400).send({ message: 'Details can\'t be empty' });
         } else {
           Recipes
             .update(req.body,
@@ -68,6 +72,7 @@ export default {
       });
   },
 
+  // delete recipe
   deleteRecipe(req, res) {
     Recipes
       .findOne({
@@ -97,16 +102,19 @@ export default {
       });
   },
 
-  // get all recipes
+  // get all users
   getRecipes(req, res) {
     Recipes
       .findAll({})
       .then((recipes) => {
-        if (recipes) {
-          res.json(recipes);
+        if (recipes.length < 1) {
+          res.status(404).send({
+            message: 'No Recipe found'
+          });
         } else {
-          res.status(404).send('No Recipe found');
+          res.status(201).send(recipes);
         }
-      });
+      })
+      .catch(error => res.status(404).send(error));
   }
 };
