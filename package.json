@@ -26,8 +26,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "./node_modules/.bin/babel-node ./app.js",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register"
+    "start": "./node_modules/.bin/babel-node ./app.js"
   },
   "repository": {
     "type": "git",
