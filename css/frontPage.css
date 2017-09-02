@@ -1,6 +1,7 @@
+
 body {
     background-color: #D3D3D3;
-    background-size: cover;
+    background-size: 100%;
 }
 
 .navbar {
@@ -34,11 +35,11 @@ h5 {
 }
 
 .footer{
-    background: url(images/background.png);
+    background: url(../images/background.png);
     margin-top: 5%;
     padding-top: 5%;
     padding-right: 5%;
-    padding-bottom: 15%;
+    padding-bottom: -20;
     text-align: center;
     color: #fff;
     font-size:12px;

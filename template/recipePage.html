@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/recipePage.css">
+    <title>Recipes</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="../images/logo.png" width="270" height="59" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <div class="dropdown">
+                    <nav class="navbar navbar-light bg-light">
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </nav>
+                    <nav class="navbar navbar-light bg-light"></nav>
+            </ul>
+            </div>
+            <a class="navbar-brand" href="#"><img src="../images/bell.png" width="44" height="45" alt="bell"></a>
+            <a class="navbar-brand" href="#"><img src="../images/picture.png" width="45" height="45" alt="picture"></a>
+            <div class="dropdown">
+                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
+                 <div class="dropdown-menu">
+                     <a class="dropdown-item" href="#">View profile</a>
+                     <a class="dropdown-item" href="#">My Recipes</a>
+                     <a class="dropdown-item" href="#">Favorite Recipes</a>
+                     <div class="dropdown-divider"></div>
+                     <a class="dropdown-item" href="#">Log out</a>
+                 </div>
+            </div>
+    </nav>
+
+    <div class="card-deck">
+        <div class="card">
+            <img class="card-img-top" src="../images/strawberries and steak.png" alt="strawberries and steak">
+            <div class="card-body">
+                <h4 class="card-title">Strawberries and Steak</h4>
+                <p class="card-text">Fresh greens are tossed with strawberries, toasted pecans, and blue cheese. A lively dressing unites all
+                    the flavors into a springtime delight!</p>
+                <p class="card-text text-right"><small class="text-muted">Recipe by James</small></p>
+                <a href="#" class="btn btn-success">Read more</a>
+                <span class="downvote"><img src="../images/downvote.png" width="30" height="30" alt="downvote"> </span>
+                <span class="upvote"><img src="../images/upvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/favorite.png" width="30" height="30" alt="favorite"> </span>
+            </div>
+            
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Review </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="../images/dessert salad.png" alt="dessert salad">
+            <div class="card-body">
+                <h4 class="card-title">Delight Dessert Salad</h4>
+                <p class="card-text">A fun salad that kids, and just about everyone else, will love. Fruit cocktail, grapes, mandarin oranges,
+                    whipped topping and mini marshmallows, are stirred together and chilled. Serves eight.</p>
+                <p class="card-text text-right"><small class="text-muted">Recipe by Anne</small></p>
+                <a href="#" class="btn btn-success">Read more</a>
+                <span class="downvote"><img src="../images/downvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/upvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/favorite.png" width="30" height="30" alt="favorite"> </span>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Review </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="../images/dessert pizza.png" alt="dessert pizza">
+            <div class="card-body">
+                <h4 class="card-title">Dessert Pizza</h4>
+                <p class="card-text">The crust is made from cookie dough and cooked until golden brown. The topping is a whipped topping and a
+                    swirl of fresh fruit slices -kiwi, strawberries or peaches.</p>
+                <p class="card-text text-right"><small class="text-muted">Recipe by Joy</small></p>
+                <a href="#" class="btn btn-success">Read more</a>
+                <span class="downvote"><img src="../images/downvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/upvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/favorite.png" width="30" height="30" alt="favorite"> </span>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Review </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div> </br>
+    <div class="card-deck">
+        <div class="card">
+            <img class="card-img-top" src="../images/black rice.png" alt="black rice">
+            <div class="card-body">
+                <h4 class="card-title">Black Rice</h4>
+                <p class="card-text">This black rice pilaf with onion and almonds is a unique, flavorful side dish that is quick and easy to make
+                    and pairs well with many mains.</p>
+                <p class="card-text text-right"><small class="text-muted">Recipe by Jones</small></p>
+                <a href="#" class="btn btn-success">Read more</a>
+                <span class="downvote"><img src="../images/downvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/upvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/favorite.png" width="30" height="30" alt="favorite"> </span>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Review </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="../images/rice pudding.png" alt="rice pudding">
+            <div class="card-body">
+                <h4 class="card-title">Creamy Rice Pudding</h4>
+                <p class="card-text">With golden raisins and a pinch of nutmeg or cinnamon, this creamy, classic rice pudding makes a quick and
+                    easy dessert that everyone will love.</p>
+                <p class="card-text text-right"><small class="text-muted">Recipe by Mary</small></p>
+                <a href="#" class="btn btn-success">Read more</a>
+                <span class="downvote"><img src="../images/downvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/upvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/favorite.png" width="30" height="30" alt="favorite"> </span>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Review </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="../images/persian rice.png" alt="persian rice">
+            <div class="card-body">
+                <h4 class="card-title">Persian Rice</h4>
+                <p class="card-text">Chef John's recipe for Persian rice, made with a pinch of saffron, will have you producing perfect results every time.</p>
+                <p class="card-text text-right"><small class="text-muted">Recipe by Joy</small></p>
+                <a href="#" class="btn btn-success">Read more</a>
+                <span class="downvote"><img src="../images/downvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/upvote.png" width="30" height="30" alt="upvote"> </span>
+                <span class="upvote"><img src="../images/favorite.png" width="30" height="30" alt="favorite"> </span>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Review </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="post-form">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    </br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h6>Support</h6>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="col">
+                    <h6>About Us</h6>
+                    <a href="#">Newsroom</a>
+                    <p>© 2017 Morerecipes.com </p>
+                    <p>All Rights Reserved</p>
+                </div>
+                <div class="col">
+                    <h6>Advertising</h6>
+                    <a href="#">Advertise with Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</html>
