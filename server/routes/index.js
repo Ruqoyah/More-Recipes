@@ -1,6 +1,8 @@
 import express from 'express';
 import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
+import reviewsController from '../controllers/reviews';
+import favoriteRecipesController from '../controllers/favoriteRecipes';
 import * as auth from '../middleware/authentication';
 
 const app = express.Router();
@@ -29,6 +31,18 @@ app.put('/api/recipes/:recipeId', recipesController.modifyRecipe);
 
 // delete recipe
 app.delete('/api/recipes/:recipeId', recipesController.deleteRecipe);
+
+// post review
+app.post('/api/recipes/:recipeId/reviews', reviewsController.postReview);
+
+// get reviews
+app.get('/api/recipes/:recipeId/reviews', reviewsController.getReviews);
+
+// post recipes
+app.post('/api/users/:userId/recipes', favoriteRecipesController.favoriteRecipe);
+
+// post recipes
+app.get('/api/users/:userId/recipes', favoriteRecipesController.getfavoriteRecipe);
 
 
 export default app;

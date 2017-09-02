@@ -23,5 +23,5 @@ module.exports = {
       }
     });
   },
-  down: queryInterface => queryInterface.dropTable('Favorite_Recipes'),
+  down: queryInterface => queryInterface.dropTable('favoriteRecipes'),
 };
