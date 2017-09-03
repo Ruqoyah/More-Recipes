@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Downvotes = sequelize.define('Downvotes', {
+  const Votes = sequelize.define('Votes', {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -7,17 +7,21 @@ module.exports = (sequelize, DataTypes) => {
     recipeId: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    vote: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
-        Downvotes.belongsTo(models.Users, {
+        Votes.belongsTo(models.Users, {
           foreignKey: 'userId',
           onDelete: 'CASCADE'
         });
       }
     }
   });
-  return Downvotes;
+  return Votes;
 };
