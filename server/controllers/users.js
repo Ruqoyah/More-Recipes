@@ -1,56 +1,33 @@
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import model from '../models';
+import db from '../models';
 
+dotenv.load();
+const secret = process.env.superSecret;
 
-const Users = model.Users;
+const { Users } = db;
 
 const saltRounds = 10;
 
 export default {
   // create user
   signup(req, res) {
-    Users
-      .findOne({
-        where: {
-          username: req.body.username
-        },
-      })
-      .then((user) => {
-        if (user) {
-          res.status(400).send({ message: 'Username already exists' });
-        } else {
-          Users
-            .findOne({
-              where: {
-                email: req.body.email
-              },
-            })
-            .then((email) => {
-              if (email) {
-                res.status(400).send({ message: 'Email already exists' });
-              } else if (req.body.password !== req.body.cpassword) {
-                res.status(400).send({ message: 'Password does not match' });
-              } else {
-                bcrypt.hash(req.body.password, saltRounds)
-                  .then((hash) => {
-                    Users.create({
-                      fullName: req.body.fullName,
-                      username: req.body.username,
-                      email: req.body.email,
-                      password: hash,
-                      cpassword: hash
-                    })
-                      .then(display => res.status(201).send({
-                        success: true,
-                        message: 'You have successfully signed up',
-                        username: display.username
-                      }))
-                      .catch(error => res.status(400).send(error));
-                  });
-              }
-            });
-        }
+    bcrypt.hash(req.body.password, saltRounds)
+      .then((hash) => {
+        Users.create({
+          fullName: req.body.fullName,
+          username: req.body.username,
+          email: req.body.email,
+          password: hash,
+          cpassword: hash
+        })
+          .then(display => res.status(201).send({
+            success: true,
+            message: 'You have successfully signed up',
+            username: display.username
+          }))
+          .catch(error => res.status(400).send(error));
       });
   },
 
@@ -59,24 +36,21 @@ export default {
   signin(req, res) {
     Users
       .findOne({
-        where: {
-          username: req.body.username
-        },
+        where: { username: req.body.username }
       })
       .then((user) => {
-        if (!user) {
-          res.status(404).json({ success: false, message: 'User not found' });
-        } else if (!bcrypt.compareSync(req.body.password, user.password)) {
-          res.status(400).json({ success: false, message: 'Wrong password' });
-        } else {
-          const token = jwt.sign({ userId: user }, 'superSecret');
-          res.status(201).json({
-            success: true,
-            message: 'You have successfully signed in!',
-            token,
-            userId: user.id
-          });
-        }
+        const currentUser = { userId: user.id,
+          username: user.username,
+          fullname: user.fullName,
+          isAdmin: user.isAdmin
+        };
+        const token = jwt.sign({ currentUser }, secret);
+        res.status(201).json({
+          success: true,
+          message: 'You have successfully signed in!',
+          token,
+          userId: user.id
+        });
       });
   },
 

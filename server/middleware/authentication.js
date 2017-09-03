@@ -1,5 +1,9 @@
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
+dotenv.load();
+
+const key = process.env.superSecret;
 
 export default (req, res, next) => {
   // check header or url parameters or post parameters for token
@@ -8,7 +12,7 @@ export default (req, res, next) => {
   // decode token
   if (token) {
     // verifies secret and checks exp
-    jwt.verify(token, 'superSecret', (err, decoded) => {
+    jwt.verify(token, key, (err, decoded) => {
       if (err) {
         res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {

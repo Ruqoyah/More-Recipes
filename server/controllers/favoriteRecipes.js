@@ -1,32 +1,20 @@
-import model from '../models';
+import db from '../models';
 
-const favoriteRecipes = model.favoriteRecipes;
+const { favoriteRecipes } = db;
 
 export default {
   // add favorite recipes
   favoriteRecipe(req, res) {
     favoriteRecipes
-      .findOne({
-        where: {
-          id: req.params.userId
-        }
+      .create({
+        recipeId: req.body.recipeId,
+        userId: req.params.userId,
+        recipeName: req.body.recipeName
       })
-      .then((user) => {
-        if (!user) {
-          res.status(404).send({
-            message: 'user Id does not exist'
-          });
-        } else {
-          favoriteRecipes
-            .create({
-              recipeId: req.body.recipeId,
-            })
-            .then(() => res.status(201).send({
-              message: 'Recipe modified successfully!'
-            }))
-            .catch(error => res.status(400).send(error));
-        }
-      });
+      .then(() => res.status(201).send({
+        message: `You successfully choose recipe id ${req.body.recipeId} as your favorite recipes`
+      }))
+      .catch(error => res.status(400).send(error));
   },
 
 
@@ -37,11 +25,14 @@ export default {
         where: { userId: req.params.userId }
       })
       .then((favoriteRecipe) => {
-        if (favoriteRecipe) {
-          res.send(favoriteRecipe);
+        if (favoriteRecipe.length < 1) {
+          res.status(404).send({
+            message: 'No favorite recipe found'
+          });
         } else {
-          res.status(400).send('No favorite recipe found');
+          res.status(201).send(favoriteRecipe);
         }
-      });
+      })
+      .catch(error => res.status(404).send(error));
   }
 };

@@ -1,6 +1,6 @@
-import model from '../models';
+import db from '../models';
 
-const Reviews = model.Reviews;
+const { Reviews } = db;
 
 export default {
   // post review
@@ -17,7 +17,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
-  // get all reviews
+  // get reviews
   getReviews(req, res) {
     Reviews
       .findAll({
