@@ -2,8 +2,8 @@ import db from '../models';
 
 const { Recipes } = db;
 
-
 export default {
+
   // add a recipe
   addRecipe(req, res) {
     Recipes.create({
@@ -65,5 +65,63 @@ export default {
         }
       })
       .catch(error => res.status(404).send(error));
+  },
+
+  /** Upvote a recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
+  upvoteRecipe(req, res) {
+    Recipes
+      .findOne({
+        where: {
+          id: req.params.recipeId
+        }
+      })
+      .then((recipe) => {
+        Recipes
+          .update({
+            votes: recipe.votes + 1
+          },
+          {
+            where: {
+              id: req.params.recipeId
+            }
+          });
+      })
+      .then(() => res.status(200).send({
+        message: 'Upvote added successfully!'
+      }))
+      .catch(error => res.status(400).send(error));
+  },
+
+  /** Downvote a recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
+  downvoteRecipe(req, res) {
+    Recipes
+      .findOne({
+        where: {
+          id: req.params.recipeId
+        }
+      })
+      .then((recipe) => {
+        Recipes
+          .update({
+            votes: recipe.votes - 1
+          }, {
+            where: {
+              id: req.params.recipeId
+            }
+          });
+      })
+      .then(() => res.status(200).send({
+        message: 'Downvote added successfully!'
+      }))
+      .catch(error => res.status(400).send(error));
   }
 };
+

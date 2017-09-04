@@ -3,9 +3,9 @@ import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
 import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
-import votesController from '../controllers/votes';
-import { validateRecipesId, validateUsersId, checkRecipeInput, checkRecipeId, checkUserInput, validateUsers, validateLoginUser, checkReviewInput } from '../middleware/validation';
+import { validateRecipesId, validateUsersId, checkRecipeInput, checkRecipeId, checkUserId, checkUserInput, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
 import * as auth from '../middleware/authentication';
+
 
 const app = express.Router();
 
@@ -47,9 +47,10 @@ app.post('/api/users/:userId/recipes', validateUsersId, checkRecipeId, favoriteR
 app.get('/api/users/:userId/recipes', validateUsersId, favoriteRecipesController.getfavoriteRecipe);
 
 // upvote for recipes
-app.post('/api/users/:userId/upvote/recipes', validateUsersId, checkRecipeId, votesController.upVote);
+app.post('/api/users/upvote/:recipeId', validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
 
 // downvote for recipes
-app.post('/api/users/:userId/downvote/recipes', validateUsersId, checkRecipeId, votesController.downVote);
+app.post('/api/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
+
 
 export default app;

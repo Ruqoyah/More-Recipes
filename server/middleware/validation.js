@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import db from '../models/';
 
-const { Recipes, Users } = db;
+const { Recipes, Users, Votes } = db;
 
 export const checkRecipeInput = (req, res, next) => {
   if (!req.body.recipeName) {
@@ -61,6 +61,26 @@ export const checkRecipeId = (req, res, next) => {
     });
   if (!req.body.recipeId) {
     return res.status(400).send({ message: 'Recipe Id can\'t be empty' });
+  }
+  next();
+};
+
+export const checkUserId = (req, res, next) => {
+  Recipes
+    .findOne({
+      where: {
+        id: req.body.userId
+      }
+    })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          message: 'user Id does not exist'
+        });
+      }
+    });
+  if (!req.body.userId) {
+    return res.status(400).send({ message: 'User Id can\'t be empty' });
   }
   next();
 };
@@ -144,3 +164,48 @@ export const validateUsersId = (req, res, next) => {
     });
 };
 
+
+export const validateUpVote = (req, res, next) => {
+  Votes
+    .findOne({
+      where: {
+        userId: req.body.userId,
+      }
+    })
+    .then((vote) => {
+      if (vote) {
+        return res.status(400).send({
+          message: 'You already upvoted'
+        });
+      }
+      Votes
+        .create({
+          recipeId: req.params.recipeId,
+          userId: req.body.userId
+        });
+      next();
+    });
+};
+
+export const validateDownVote = (req, res, next) => {
+  Votes
+    .findOne({
+      where: {
+        userId: req.body.userId,
+      }
+    })
+    .then((vote) => {
+      if (!vote) {
+        return res.status(400).send({
+          message: 'You already downvoted'
+        });
+      }
+      Votes
+        .destroy({
+          where: {
+            userId: req.body.userId
+          }
+        });
+      next();
+    });
+};
