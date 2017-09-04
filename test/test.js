@@ -3,56 +3,17 @@ import request from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
-const doBeforeAll = () => {
-  before((done) => {
-    models.Users.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.Recipes.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.favoriteRecipes.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.Reviews.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.Votes.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-    done();
+before((done) => {
+  models.sequelize.sync({ force: true }).then(() => {
+    done(null);
+  }).catch((errors) => {
+    done(errors);
   });
-};
-
-const doBeforeEach = () => {
-  beforeEach((done) => {
-    models.sequelize.sync();
-    done();
-  });
-};
+});
 
 describe('More-Recipe API: ', () => {
   describe('Creates data: ', () => {
-    this.timeout(15000);
-    doBeforeAll();
-    doBeforeEach();
     it('should create a new User', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -73,8 +34,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not pass back user password with response', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -94,8 +53,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user without passing in username', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -114,8 +71,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user without passing in fullname', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -134,8 +89,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user without passing in email', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -154,8 +107,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user without passing in password', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -174,8 +125,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user without passing in password', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -194,8 +143,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user with same username twice', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -216,8 +163,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user that password does not match', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -238,8 +183,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not create user with same email twice', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -259,8 +202,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should sign user in', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signin')
         .send({
@@ -277,8 +218,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not sign user in with incorrect password', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signin')
         .send({
@@ -295,8 +234,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not sign user in with incorrect credential', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signin')
         .send({
@@ -313,8 +250,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not pass back user password with response', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signin')
         .send({
@@ -332,8 +267,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not add recipe without providing a token', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/recipes')
         .send({
@@ -351,8 +284,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should be able to add recipe providing a token', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/recipes')
         .send({
@@ -371,8 +302,6 @@ describe('More-Recipe API: ', () => {
         });
     });
     it('should not be able to add recipe with an invalid token', (done) => {
-      this.timeout(15000);
-      setTimeout(done, 15000);
       request(app)
         .post('/api/recipes')
         .send({
