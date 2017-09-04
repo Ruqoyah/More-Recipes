@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         Recipes.belongsToMany(models.Users, {
           foreignKey: 'recipeId'
         });
+        Recipes.hasMany(models.Votes, {
+          foreignKey: 'recipeId'
+        });
       }
     }
   });

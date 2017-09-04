@@ -9,7 +9,6 @@ export default {
       .create({
         recipeId: req.body.recipeId,
         userId: req.params.userId,
-        recipeName: req.body.recipeName
       })
       .then(() => res.status(201).send({
         message: `You successfully choose recipe id ${req.body.recipeId} as your favorite recipes`

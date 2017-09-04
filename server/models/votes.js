@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     vote: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.BOOLEAN,
+      allowNull: true
     }
   }, {
     classMethods: {
@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         Votes.belongsTo(models.Users, {
           foreignKey: 'userId',
           onDelete: 'CASCADE'
+        });
+        Votes.belongsTo(models.Recipes, {
+          foreignKey: 'recipeId',
         });
       }
     }

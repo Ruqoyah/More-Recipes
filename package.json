@@ -15,6 +15,7 @@
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.2",
     "eslint-plugin-import": "^2.7.0",
+    "expect": "^1.20.2",
     "express": "^4.15.4",
     "jsonwebtoken": "^7.4.3",
     "morgan": "^1.8.2",
@@ -27,7 +28,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "./node_modules/.bin/babel-node ./app.js"
+    "start": "./node_modules/.bin/babel-node ./app.js",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register"
   },
   "repository": {
     "type": "git",

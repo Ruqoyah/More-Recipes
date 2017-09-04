@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       vote: {
-        type: Sequelize.STRING
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

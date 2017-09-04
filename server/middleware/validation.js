@@ -45,6 +45,26 @@ export const checkReviewInput = (req, res, next) => {
   next();
 };
 
+export const checkRecipeId = (req, res, next) => {
+  Recipes
+    .findOne({
+      where: {
+        id: req.body.recipeId
+      }
+    })
+    .then((recipe) => {
+      if (!recipe) {
+        return res.status(404).send({
+          message: 'recipe Id does not exist'
+        });
+      }
+    });
+  if (!req.body.recipeId) {
+    return res.status(400).send({ message: 'Recipe Id can\'t be empty' });
+  }
+  next();
+};
+
 export const validateUsers = (req, res, next) => {
   Users
     .findOne({
@@ -123,3 +143,4 @@ export const validateUsersId = (req, res, next) => {
       next();
     });
 };
+
