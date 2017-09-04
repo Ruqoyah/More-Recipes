@@ -47,9 +47,12 @@ const doBeforeEach = () => {
 
 describe('More-Recipe API: ', () => {
   describe('Creates data: ', () => {
+    this.timeout(15000);
     doBeforeAll();
     doBeforeEach();
     it('should create a new User', (done) => {
+      this.timeout(15000);
+      setTimeout(done, 15000);
       request(app)
         .post('/api/users/signup')
         .send({
@@ -68,7 +71,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('You have successfully signed up');
           done();
         });
-    }, 50000);
+    });
     it('should not pass back user password with response', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -87,7 +90,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.username).toBe('testuser2');
           done();
         });
-    }, 50000);
+    });
     it('should not create user without passing in username', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -105,7 +108,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Username is required');
           done();
         });
-    }, 50000);
+    });
     it('should not create user without passing in fullname', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -123,7 +126,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('fullName is required');
           done();
         });
-    }, 50000);
+    });
     it('should not create user without passing in email', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -141,7 +144,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Email is required');
           done();
         });
-    }, 50000);
+    });
     it('should not create user without passing in password', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -159,7 +162,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Password is required');
           done();
         });
-    }, 50000);
+    });
     it('should not create user without passing in password', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -177,7 +180,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('You need to confirm your password');
           done();
         });
-    }, 50000);
+    });
     it('should not create user with same username twice', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -197,7 +200,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Username already exists');
           done();
         });
-    }, 50000);
+    });
     it('should not create user that password does not match', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -217,7 +220,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Password does not match');
           done();
         });
-    }, 50000);
+    });
     it('should not create user with same email twice', (done) => {
       request(app)
         .post('/api/users/signup')
@@ -236,7 +239,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Email already exists');
           done();
         });
-    }, 50000);
+    });
     it('should sign user in', (done) => {
       request(app)
         .post('/api/users/signin')
@@ -252,7 +255,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('You have successfully signed in!');
           done();
         });
-    }, 50000);
+    });
     it('should not sign user in with incorrect password', (done) => {
       request(app)
         .post('/api/users/signin')
@@ -268,7 +271,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Wrong password');
           done();
         });
-    }, 50000);
+    });
     it('should not sign user in with incorrect credential', (done) => {
       request(app)
         .post('/api/users/signin')
@@ -284,7 +287,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('User not found');
           done();
         });
-    }, 5000);
+    });
     it('should not pass back user password with response', (done) => {
       request(app)
         .post('/api/users/signin')
@@ -301,7 +304,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('You have successfully signed in!');
           done();
         });
-    }, 50000);
+    });
     it('should not add recipe without providing a token', (done) => {
       request(app)
         .post('/api/recipes')
@@ -318,7 +321,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('No token provided.');
           done();
         });
-    }, 50000);
+    });
     it('should be able to add recipe providing a token', (done) => {
       request(app)
         .post('/api/recipes')
@@ -336,7 +339,7 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Recipe added successfully');
           done();
         });
-    }, 50000);
+    });
     it('should not be able to add recipe with an invalid token', (done) => {
       request(app)
         .post('/api/recipes')
@@ -353,6 +356,6 @@ describe('More-Recipe API: ', () => {
           expect(res.body.message).toBe('Failed to authenticate token.');
           done();
         });
-    }, 50000);
+    });
   });
 });

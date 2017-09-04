@@ -30,7 +30,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./app.js",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register"
+    "test": "./node_modules/.bin/mocha --timeout 15000 --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
