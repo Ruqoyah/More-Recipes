@@ -4,6 +4,7 @@ node_js:
   - 6.11.0
 services:
   - postgresql
+  
 script:
   - npm install
   - npm run test
