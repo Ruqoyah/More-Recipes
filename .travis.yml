@@ -8,4 +8,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database more-recipes;' -U postgres
+
+addons:
+  postgresql: "9.4"
