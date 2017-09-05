@@ -129,10 +129,10 @@ export default {
   getUpvoteRecipes(req, res) {
     Recipes
       .findAll({
-        where: Sequelize.where(
-          Sequelize.fn('max', Sequelize.col('recipes')),
-        )
+        order: [['votes', 'DESC']]
+      })
+      .then((display) => {
+        res.json(display);
       });
-    res.status(201).send();
   }
 };

@@ -53,7 +53,7 @@ app.post('/api/users/upvote/:recipeId', validateRecipesId, checkUserId, validate
 app.post('/api/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
 
 // get recipes with the most upvote 
-app.get('/api/recipes?sort=upvotes&order=ascending', recipesController.getUpvoteRecipes);
+app.get('/api/recipes?sort=upvotes&order=descending', recipesController.getUpvoteRecipes);
 
 
 export default app;
