@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./app.js",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register",
+    "test": "./node_modules/.bin/mocha --timeout 500000 --compilers js:babel-register",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {

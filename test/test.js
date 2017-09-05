@@ -3,16 +3,51 @@ import request from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
-before((done) => {
-  models.sequelize.sync({ force: true }).then(() => {
-    done(null);
-  }).catch((errors) => {
-    done(errors);
-  });
-});
+const doBeforeAll = () => {
+  before((done) => {
+    models.Users.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
 
+    models.Recipes.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
+
+    models.Reviews.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
+
+    models.favoriteRecipes.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
+
+    models.Votes.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
+    done();
+  });
+};
+
+const doBeforeEach = () => {
+  beforeEach((done) => {
+    models.sequelize.sync();
+    done();
+  });
+};
 describe('More-Recipe API: ', () => {
   describe('Creates data: ', () => {
+    doBeforeAll();
+    doBeforeEach();
     it('should create a new User', (done) => {
       request(app)
         .post('/api/users/signup')
