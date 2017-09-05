@@ -1,10 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import winston from 'winston';
-import dotenv from 'dotenv';
 import routes from './server/routes';
 
-dotenv.config();
+
 // Set up the express app
 const app = express();
 
