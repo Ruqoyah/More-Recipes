@@ -2,22 +2,24 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import dotenv from 'dotenv';
-import myConfig from '../config/config.json';
 
 dotenv.config();
 
 const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || 'development';
-const config = myConfig[env];
+const env = process.env.NODE_ENV || 'production';
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable]);
+if (env === 'production') {
+  sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD,
+    { dialect: process.env.DB_DIALECT, host: process.env.DB_HOST, port: process.env.DB_PORT });
+} else if (env === 'test') {
+  sequelize = new Sequelize(process.env.DB_TEST_NAME, process.env.DB_USERNAME,
+    process.env.DB_PASSWORD,
+    { dialect: process.env.DB_DIALECT, host: process.env.DB_HOST, port: process.env.DB_PORT });
 } else {
-  sequelize = new Sequelize(
-    config.database, config.username, config.password, config
-  );
+  sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD,
+    { dialect: process.env.DB_DIALECT, host: process.env.DB_HOST, port: process.env.DB_PORT });
 }
 
 fs

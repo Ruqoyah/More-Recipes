@@ -3,7 +3,6 @@ import db from '../models';
 const { Reviews } = db;
 
 export default {
-  // post review
   postReview(req, res) {
     Reviews
       .create({

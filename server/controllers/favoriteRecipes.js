@@ -3,7 +3,11 @@ import db from '../models';
 const { favoriteRecipes } = db;
 
 export default {
-  // add favorite recipes
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   */
+
   favoriteRecipe(req, res) {
     favoriteRecipes
       .create({
