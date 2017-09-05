@@ -5,5 +5,12 @@
     "database": "more-recipes",
     "port": 5433,
     "dialect": "postgres"
+},
+"test": {
+    "username": "postgres",
+    "password": "oriyomi123",
+    "database": "more-recipes",
+    "port": 5433,
+    "dialect": "postgres"
 }
 }
