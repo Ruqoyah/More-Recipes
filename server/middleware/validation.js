@@ -170,6 +170,7 @@ export const validateUpVote = (req, res, next) => {
     .findOne({
       where: {
         userId: req.body.userId,
+        recipeId: req.params.recipeId
       }
     })
     .then((vote) => {
@@ -192,6 +193,7 @@ export const validateDownVote = (req, res, next) => {
     .findOne({
       where: {
         userId: req.body.userId,
+        recipeId: req.params.recipeId
       }
     })
     .then((vote) => {
@@ -203,7 +205,8 @@ export const validateDownVote = (req, res, next) => {
       Votes
         .destroy({
           where: {
-            userId: req.body.userId
+            userId: req.body.userId,
+            recipeId: req.params.recipeId
           }
         });
       next();

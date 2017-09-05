@@ -1,3 +1,4 @@
+import sequelize from 'sequelize';
 import db from '../models';
 
 const { Recipes } = db;
@@ -122,6 +123,20 @@ export default {
         message: 'Downvote added successfully!'
       }))
       .catch(error => res.status(400).send(error));
+  },
+
+  // get recipes with the most upvote
+  getUpvoteRecipes(req, res) {
+    Recipes
+      .findAll({
+        order: sequelize.literal('max(votes) DESC')
+      })
+      .then((recipes) => {
+        if (recipes) {
+          return res.status(201).send(recipes);
+        }
+        Recipes
+          .catch(error => res.status(404).send(error));
+      });
   }
 };
-

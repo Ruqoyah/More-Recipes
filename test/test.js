@@ -266,6 +266,21 @@ describe('More-Recipe API: ', () => {
           done();
         });
     });
+    it('Get users', (done) => {
+      request(app)
+        .get('/api/users')
+        .send({
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        })
+        .expect(201)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res);
+          done();
+        });
+    });
     it('should not add recipe without providing a token', (done) => {
       request(app)
         .post('/api/recipes')
@@ -315,6 +330,57 @@ describe('More-Recipe API: ', () => {
             return done(err);
           }
           expect(res.body.message).toBe('Failed to authenticate token.');
+          done();
+        });
+    });
+    it('should not create recipe without recipe name', (done) => {
+      request(app)
+        .post('/api/recipes')
+        .send({
+          ingredient: 'pepper, flour, onions',
+          details: 'grind pepper and onion then bake',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        })
+        .expect(400)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('Enter recipe name');
+          done();
+        });
+    });
+    it('should not create recipe without ingredient', (done) => {
+      request(app)
+        .post('/api/recipes')
+        .send({
+          recipeName: 'Pizza',
+          details: 'grind pepper and onion then bake',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        })
+        .expect(400)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('Input ingredient');
+          done();
+        });
+    });
+    it('should not create recipe without details', (done) => {
+      request(app)
+        .post('/api/recipes')
+        .send({
+          recipeName: 'Pizza',
+          ingredient: 'pepper, flour, onions',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        })
+        .expect(400)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('Input details');
           done();
         });
     });

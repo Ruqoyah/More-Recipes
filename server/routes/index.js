@@ -38,7 +38,7 @@ app.delete('/api/recipes/:recipeId', validateRecipesId, recipesController.delete
 app.post('/api/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, reviewsController.postReview);
 
 // get reviews
-app.get('/api/recipes/:recipeId/reviews', reviewsController.getReviews);
+app.get('/api/recipes/:recipeId/reviews', validateRecipesId, reviewsController.getReviews);
 
 // post favorite recipes
 app.post('/api/users/:userId/recipes', validateUsersId, checkRecipeId, favoriteRecipesController.favoriteRecipe);
@@ -51,6 +51,9 @@ app.post('/api/users/upvote/:recipeId', validateRecipesId, checkUserId, validate
 
 // downvote for recipes
 app.post('/api/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
+
+// get recipes with the most upvote 
+app.get('/api/recipes?sort=upvotes&order=ascending', recipesController.getUpvoteRecipes);
 
 
 export default app;
