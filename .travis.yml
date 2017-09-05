@@ -12,11 +12,11 @@ script:
 before_script:
   - psql -c 'create database more_recipes;' -U postgres
   - npm install sequelize -g
-  - npm migrate
+  - npm run migrate
 
 after_script:
   - psql -c 'drop database more_recipes;' -U postgres
-  - npm coveralls
+  - npm run coveralls
 
 addons:
   postgresql: "9.4"
