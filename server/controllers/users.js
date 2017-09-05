@@ -22,12 +22,12 @@ export default {
           password: hash,
           cpassword: hash
         })
-          .then(display => res.status(201).send({
-            success: true,
+          .then(display => res.status(201).json({
+            status: 'success',
             message: 'You have successfully signed up',
             username: display.username
           }))
-          .catch(error => res.status(400).send(error));
+          .catch(error => res.status(400).json(error));
       });
   },
 
@@ -46,10 +46,9 @@ export default {
         };
         const token = jwt.sign({ currentUser }, secret);
         res.status(201).json({
-          success: true,
+          status: 'success',
           message: 'You have successfully signed in!',
-          token,
-          userId: user.id
+          data: { token, userId: user.id }
         });
       });
   },
@@ -60,13 +59,13 @@ export default {
       .findAll({})
       .then((users) => {
         if (users.length < 1) {
-          res.status(404).send({
+          res.status(404).json({
             message: 'No User found'
           });
         } else {
-          res.status(201).send(users);
+          res.status(201).json(users);
         }
       })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   }
 };

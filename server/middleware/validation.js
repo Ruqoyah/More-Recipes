@@ -5,42 +5,42 @@ const { Recipes, Users, Votes } = db;
 
 export const checkRecipeInput = (req, res, next) => {
   if (!req.body.recipeName) {
-    return res.status(400).send({ message: 'Enter recipe name' });
+    return res.status(400).json({ message: 'Enter recipe name' });
   }
   if (!req.body.ingredient) {
-    return res.status(400).send({ message: 'Input ingredient' });
+    return res.status(400).json({ message: 'Input ingredient' });
   }
   if (!req.body.details) {
-    return res.status(400).send({ message: 'Input details' });
+    return res.status(400).json({ message: 'Input details' });
   }
   next();
 };
 
 export const checkUserInput = (req, res, next) => {
   if (!req.body.username) {
-    return res.status(400).send({ message: 'Username is required' });
+    return res.status(400).json({ message: 'Username is required' });
   }
   if (!req.body.fullName) {
-    return res.status(400).send({ message: 'fullName is required' });
+    return res.status(400).json({ message: 'fullName is required' });
   }
   if (!req.body.email) {
-    return res.status(400).send({ message: 'Email is required' });
+    return res.status(400).json({ message: 'Email is required' });
   }
   if (!req.body.password) {
-    return res.status(400).send({ message: 'Password is required' });
+    return res.status(400).json({ message: 'Password is required' });
   }
   if (!req.body.cpassword) {
-    return res.status(400).send({ message: 'You need to confirm your password' });
+    return res.status(400).json({ message: 'You need to confirm your password' });
   }
   next();
 };
 
 export const checkReviewInput = (req, res, next) => {
   if (!req.body.review) {
-    return res.status(400).send({ message: 'Review can\'t be empty' });
+    return res.status(400).json({ message: 'Review can\'t be empty' });
   }
   if (!req.body.userId) {
-    return res.status(400).send({ message: 'You need to enter your user Id' });
+    return res.status(400).json({ message: 'You need to enter your user Id' });
   }
   next();
 };
@@ -54,13 +54,13 @@ export const checkRecipeId = (req, res, next) => {
     })
     .then((recipe) => {
       if (!recipe) {
-        return res.status(404).send({
+        return res.status(404).json({
           message: 'recipe Id does not exist'
         });
       }
     });
   if (!req.body.recipeId) {
-    return res.status(400).send({ message: 'Recipe Id can\'t be empty' });
+    return res.status(400).json({ message: 'Recipe Id can\'t be empty' });
   }
   next();
 };
@@ -74,13 +74,13 @@ export const checkUserId = (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({
+        return res.status(404).json({
           message: 'user Id does not exist'
         });
       }
     });
   if (!req.body.userId) {
-    return res.status(400).send({ message: 'User Id can\'t be empty' });
+    return res.status(400).json({ message: 'User Id can\'t be empty' });
   }
   next();
 };
@@ -94,7 +94,7 @@ export const validateUsers = (req, res, next) => {
     })
     .then((user) => {
       if (user) {
-        return res.status(400).send({ message: 'Username already exists' });
+        return res.status(400).json({ message: 'Username already exists' });
       }
       Users
         .findOne({
@@ -104,10 +104,10 @@ export const validateUsers = (req, res, next) => {
         })
         .then((email) => {
           if (email) {
-            return res.status(400).send({ message: 'Email already exists' });
+            return res.status(400).json({ message: 'Email already exists' });
           }
           if (req.body.password !== req.body.cpassword) {
-            return res.status(400).send({ message: 'Password does not match' });
+            return res.status(400).json({ message: 'Password does not match' });
           }
           next();
         });
@@ -139,7 +139,7 @@ export const validateRecipesId = (req, res, next) => {
     })
     .then((recipe) => {
       if (!recipe) {
-        return res.status(404).send({
+        return res.status(404).json({
           message: 'No recipe Id found'
         });
       }
@@ -156,7 +156,7 @@ export const validateUsersId = (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({
+        return res.status(404).json({
           message: 'user Id does not exist'
         });
       }
@@ -175,7 +175,7 @@ export const validateUpVote = (req, res, next) => {
     })
     .then((vote) => {
       if (vote) {
-        return res.status(400).send({
+        return res.status(400).json({
           message: 'You already upvoted'
         });
       }
@@ -198,7 +198,7 @@ export const validateDownVote = (req, res, next) => {
     })
     .then((vote) => {
       if (!vote) {
-        return res.status(400).send({
+        return res.status(400).json({
           message: 'You already downvoted'
         });
       }

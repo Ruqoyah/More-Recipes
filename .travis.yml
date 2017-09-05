@@ -6,17 +6,12 @@ node_js:
 
 services:
   - postgresql
+  
 script:
   - npm run test
   
 before_script:
-  - psql -c 'create database more_recipes;' -U postgres
+  - psql -c 'create database more_recipes_test;' -U postgres
   - npm install sequelize -g
   - npm run migrate
 
-after_script:
-  - psql -c 'drop database more_recipes;' -U postgres
-  - npm run coveralls
-
-addons:
-  postgresql: "9.4"

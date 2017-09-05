@@ -11,13 +11,13 @@ export default {
       ingredient: req.body.ingredient,
       details: req.body.details
     })
-      .then(addRecipes => res.status(201).send({
-        success: true,
+      .then(addRecipes => res.status(201).json({
+        status: 'success',
         recipeName: addRecipes.recipeName,
         message: 'Recipe added successfully',
         recipeId: addRecipes.id
       }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json(error));
   },
 
   // modify recipe
@@ -29,10 +29,11 @@ export default {
             id: req.params.recipeId
           }
         })
-      .then(() => res.status(200).send({
+      .then(() => res.status(200).json({
+        status: 'success',
         message: 'Recipe modified successfully!'
       }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json(error));
   },
 
   // delete recipe
@@ -44,11 +45,12 @@ export default {
         }
       })
       .then(() => {
-        res.status(200).send({
+        res.status(200).json({
+          status: 'success',
           message: 'Recipe deleted successfully!'
         });
       })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   },
 
   // get recipes
@@ -61,10 +63,10 @@ export default {
             message: 'No Recipe found'
           });
         } else {
-          res.status(201).send(recipes);
+          res.status(201).json(recipes);
         }
       })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).json(error));
   },
 
   /** Upvote a recipe
@@ -90,10 +92,11 @@ export default {
             }
           });
       })
-      .then(() => res.status(200).send({
+      .then(() => res.status(200).json({
+        status: 'success',
         message: 'Upvote added successfully!'
       }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json(error));
   },
 
   /** Downvote a recipe
@@ -118,10 +121,11 @@ export default {
             }
           });
       })
-      .then(() => res.status(200).send({
+      .then(() => res.status(200).json({
+        status: 'success',
         message: 'Downvote added successfully!'
       }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json(error));
   },
 
   // get recipes with the most upvote

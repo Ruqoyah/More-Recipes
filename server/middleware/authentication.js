@@ -24,7 +24,7 @@ export default (req, res, next) => {
   } else {
     // if there is no token
     // return an error
-    return res.status(403).send({
+    return res.status(403).json({
       success: false,
       message: 'No token provided.'
     });
