@@ -1,0 +1,42 @@
+body {
+    background: url(../images/designed.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.header {
+    width: 300px;
+    margin: 8% auto 0px;
+    color: #fff;
+    background: #D54239;
+    text-align: center;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+}
+
+form {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.input-group {
+    margin: 10px 0px 10px 0px;
+}
+
+.btn {
+   padding: 10px;
+}
+
+.footer{
+    background-color: #3F3F3F;
+    margin-top: 68%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-right: 5%;
+    text-align: center;
+    color: #fff;
+    font-size:12px;
+}

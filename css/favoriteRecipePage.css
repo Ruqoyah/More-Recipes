@@ -1,0 +1,68 @@
+body {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.navbar {
+    padding-top: 2%;
+    margin-bottom: 3%;
+}
+
+.footer{
+    background: url(../images/background.png) no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+}
+
+.container{
+    margin-top: 3%;
+    padding-top: 5%;
+    color: #fff;
+    font-size:12px;
+}
+
+.dropdown{
+    margin: 10px;
+}
+
+.upvote {
+  cursor: pointer; 
+  margin-left: 0%;
+} 
+
+.downvote {
+  cursor: pointer; 
+  margin-left: 20%;
+} 
+
+.chat-form {
+	display: flex;
+	align-items: flex-start;
+}
+
+.post-form textarea {
+	background: #fbfbfb;
+	width: 100%;
+	height: 50%;
+	border: 2px solid #eee;
+	border-radius: 3px;
+	resize:none;
+	padding: 10px;
+	font-size: 18px;
+	color: #333;
+}
+
+.post-form textarea:focus {
+	background: #fff
+}
+
+.post-form textarea::-webkit-scrollbar {
+	width: 10px;
+
+}
+
+.post-form textarea::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+
+}

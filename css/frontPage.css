@@ -1,0 +1,46 @@
+
+body {
+    background-color: #D3D3D3;
+    background-size: 100%;
+}
+
+.navbar {
+    padding-top: 2%;
+    padding-right: 4%;
+    padding-left: 4%;
+}
+
+.jumbotron {
+    text-align: center;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+h5 {
+    margin-top: 2%;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Baloo Bhaijaan', cursive;
+    font-size: 28px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.show-off {
+    font-size: 20px;
+}
+
+#carouselExampleControls{
+    margin-left: 4%;
+    margin-right: 4%; 
+}
+
+.footer{
+    background: url(../images/background.png);
+    margin-top: 5%;
+    padding-top: 5%;
+    padding-right: 5%;
+    padding-bottom: -20;
+    text-align: center;
+    color: #fff;
+    font-size:12px;
+}
