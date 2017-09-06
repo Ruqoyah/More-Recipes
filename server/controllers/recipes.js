@@ -29,7 +29,7 @@ export default {
             id: req.params.recipeId
           }
         })
-      .then(() => res.status(200).json({
+      .then(() => res.status(205).json({
         status: 'success',
         message: 'Recipe modified successfully!'
       }))
