@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - node
+  - 6.11.0
+services:
+  - postgresql
+script:
+  - npm install
+  - npm run test
+after_success:
+  - npm run coveralls
+env:
+  - NODE_ENV=test

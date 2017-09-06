@@ -1,5 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import winston from 'winston';
+import dotenv from 'dotenv';
+import routes from './server/routes';
+
+dotenv.config();
 
 // Set up the express app
 const app = express();
@@ -8,8 +13,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Require our routes into the application.
+app.use(routes);
+
 app.listen(process.env.PORT || 8000, () => {
-  console.log('server running');
+  winston.info('server running');
 });
 
-module.exports = app;
+export default app;

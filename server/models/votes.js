@@ -1,14 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Votes = sequelize.define('Votes', {
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
     recipeId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    vote: {
       type: DataTypes.STRING,
       allowNull: false
     }
@@ -19,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         Votes.belongsTo(models.Users, {
           foreignKey: 'userId',
           onDelete: 'CASCADE'
+        });
+        Votes.belongsToMany(models.Recipes, {
+          foreignKey: 'recipeId',
         });
       }
     }

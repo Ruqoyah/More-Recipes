@@ -12,11 +12,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    votes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    }
   }, {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
         Recipes.hasMany(models.favoriteRecipes, {
+          foreignKey: 'recipeId'
+        });
+        Recipes.belongsToMany(models.Users, {
+          foreignKey: 'recipeId'
+        });
+        Recipes.hasMany(models.Votes, {
           foreignKey: 'recipeId'
         });
       }
