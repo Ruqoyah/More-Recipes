@@ -9,4 +9,7 @@ module.exports = {
     port: process.env.DB_PORT,
     dialect: 'postgres'
   },
+  test: {
+    use_env_variable: 'DB_URL'
+  }
 };
