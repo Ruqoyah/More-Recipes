@@ -6,8 +6,6 @@ services:
   - postgresql
 script:
   - npm install
-  - npm run test
+  - npm run tests
 after_success:
   - npm run coveralls
-env:
-  - NODE_ENV=test
