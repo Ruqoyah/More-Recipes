@@ -33,8 +33,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./app.js",
-    "test": "./node_modules/.bin/mocha --timeout 500000 --compilers js:babel-register",
-    "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
+    "test": "./node_modules/.bin/mocha --timeout 500000 --compilers js:babel-register && npm run coveralls",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
