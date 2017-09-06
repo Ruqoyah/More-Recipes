@@ -1,6 +1,5 @@
 node_modules
 .env
 .coverall.yml
-.nyc_output
 coverage/*
 npm-debug.log*
