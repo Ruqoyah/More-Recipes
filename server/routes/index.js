@@ -9,51 +9,113 @@ import * as auth from '../middleware/authentication';
 
 const app = express.Router();
 
+/**
+ * @param  {} '/api/v1/users/signup'
+ * @param  {} checkUserInput
+ * @param  {} validateUsers
+ * @param  {} usersController.signup
+ */
+app.post('/api/v1/users/signup', checkUserInput, validateUsers, usersController.signup);
 
-// signup
-app.post('/api/users/signup', checkUserInput, validateUsers, usersController.signup);
+/**
+ * @param  {} '/api/v1/users/signin'
+ * @param  {} validateLoginUser
+ * @param  {} usersController.signin
+ */
+app.post('/api/v1/users/signin', validateLoginUser, usersController.signin);
 
-// signin
-app.post('/api/users/signin', validateLoginUser, usersController.signin);
-
-// route middleware to verify a token
+/**
+ * @param  {} auth.default
+ */
 app.use(auth.default);
 
-// get all users
-app.get('/api/users', usersController.getUsers);
+/**
+ * @param  {} '/api/v1/users'
+ * @param  {} usersController.getUsers
+ */
+app.get('/api/v1/users', usersController.getUsers);
 
-// add recipe
-app.post('/api/recipes', checkRecipeInput, recipesController.addRecipe);
+/**
+ * @param  {} '/api/v1/recipes'
+ * @param  {} checkRecipeInput
+ * @param  {} recipesController.addRecipe
+ */
+app.post('/api/v1/recipes', checkRecipeInput, recipesController.addRecipe);
 
-// get all recipes
-app.get('/api/recipes', recipesController.getRecipes);
+/**
+ * @param  {} '/api/v1/recipes'
+ * @param  {} recipesController.getRecipes
+ */
+app.get('/api/v1/recipes', recipesController.getRecipes);
 
-// modify recipe
-app.put('/api/recipes/:recipeId', validateRecipesId, checkRecipeInput, recipesController.modifyRecipe);
+/**
+ * @param  {recipeId'} '/api/v1/recipes/
+ * @param  {} validateRecipesId
+ * @param  {} checkRecipeInput
+ * @param  {} recipesController.modifyRecipe
+ */
+app.put('/api/v1/recipes/:recipeId', validateRecipesId, checkRecipeInput, recipesController.modifyRecipe);
 
-// delete recipe
-app.delete('/api/recipes/:recipeId', validateRecipesId, recipesController.deleteRecipe);
+/**
+ * @param  {recipeId'} '/api/v1/recipes/
+ * @param  {} validateRecipesId
+ * @param  {} recipesController.deleteRecipe
+ */
+app.delete('/api/v1/recipes/:recipeId', validateRecipesId, recipesController.deleteRecipe);
 
-// post review
-app.post('/api/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, reviewsController.postReview);
+/**
+ * @param  {recipeId/reviews'} '/api/v1/recipes/
+ * @param  {} validateRecipesId
+ * @param  {} checkReviewInput
+ * @param  {} reviewsController.postReview
+ */
+app.post('/api/v1/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, reviewsController.postReview);
 
-// get reviews
-app.get('/api/recipes/:recipeId/reviews', validateRecipesId, reviewsController.getReviews);
+/**
+ * @param  {recipeId/reviews'} '/api/v1/recipes/
+ * @param  {} validateRecipesId
+ * @param  {} reviewsController.getReviews
+ */
+app.get('/api/v1/recipes/:recipeId/reviews', validateRecipesId, reviewsController.getReviews);
 
-// post favorite recipes
-app.post('/api/users/:userId/recipes', validateUsersId, checkRecipeId, favoriteRecipesController.favoriteRecipe);
+/**
+ * @param  {userId/recipes'} '/api/v1/users/
+ * @param  {} validateUsersId
+ * @param  {} checkRecipeId
+ * @param  {} favoriteRecipesController.favoriteRecipe
+ */
+app.post('/api/v1/users/:userId/recipes', validateUsersId, checkRecipeId, favoriteRecipesController.favoriteRecipe);
 
-// get all favorite recipes
-app.get('/api/users/:userId/recipes', validateUsersId, favoriteRecipesController.getfavoriteRecipe);
+/**
+ * @param  {userId/recipes'} '/api/v1/users/
+ * @param  {} validateUsersId
+ * @param  {} favoriteRecipesController.getfavoriteRecipe
+ */
+app.get('/api/v1/users/:userId/recipes', validateUsersId, favoriteRecipesController.getfavoriteRecipe);
 
-// upvote for recipes
-app.post('/api/users/upvote/:recipeId', validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
+/**
+ * @param  {recipeId'} '/api/v1/users/upvote/
+ * @param  {} validateRecipesId
+ * @param  {} checkUserId
+ * @param  {} validateUpVote
+ * @param  {} recipesController.upvoteRecipe
+ */
+app.post('/api/v1/users/upvote/:recipeId', validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
 
-// downvote for recipes
-app.post('/api/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
+/**
+ * @param  {recipeId'} '/api/v1/users/downvote/
+ * @param  {} validateRecipesId
+ * @param  {} checkUserId
+ * @param  {} validateDownVote
+ * @param  {} recipesController.downvoteRecipe
+ */
+app.post('/api/v1/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
 
-// get recipes with the most upvote 
-app.get('/api/recipes?sort=upvotes&order=descending', recipesController.getUpvoteRecipes);
+/**
+ * @param  {} '/api/v1/recipes?sort=upvotes&order=descending'
+ * @param  {} recipesController.getUpvoteRecipes
+ */
+app.get('/api/v1/recipes?sort=upvotes&order=descending', recipesController.getUpvoteRecipes);
 
 
 export default app;
