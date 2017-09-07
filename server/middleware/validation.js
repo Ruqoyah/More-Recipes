@@ -47,6 +47,54 @@ export const checkUserInput = (req, res, next) => {
   next();
 };
 
+
+/** Check if user signup with a valid username, email and password
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkValidUserInput = (req, res, next) => {
+  req.checkBody(
+    {
+      username: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: 'Please provide a username with atleast 5 characters.'
+        }
+      },
+      email: {
+        notEmpty: true,
+        isEmail: {
+          errorMessage: 'Provide a valid a Email Adrress'
+        }
+      },
+      password: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 8 }],
+          errorMessage: 'Provide a valid password with minimum of 8 characters'
+        }
+      }
+    }
+  );
+  const errors = req.validationErrors();
+  if (errors) {
+    const allErrors = [];
+    errors.forEach((error) => {
+      allErrors.push({
+        error: error.msg,
+      });
+    });
+    return res.status(409)
+      .json(
+        allErrors
+      );
+  }
+  next();
+};
+
 /** Check if review and user id is empty
  * @param  {object} req - request
  * @param  {object} res - response
@@ -157,6 +205,16 @@ export const validateUsers = (req, res, next) => {
  */
 
 export const validateLoginUser = (req, res, next) => {
+  if (!req.body.username) {
+    return res.status(400).json({
+      message: 'Please provide your username'
+    });
+  }
+  if (!req.body.password) {
+    return res.status(400).json({
+      message: 'Please provide your password'
+    });
+  }
   Users
     .findOne({
       where: {
@@ -277,3 +335,4 @@ export const validateDownVote = (req, res, next) => {
       next();
     });
 };
+

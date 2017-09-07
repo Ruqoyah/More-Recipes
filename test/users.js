@@ -10,30 +10,6 @@ const doBeforeAll = () => {
       truncate: true,
       restartIdentity: true
     });
-
-    models.Recipes.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.Reviews.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.favoriteRecipes.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-
-    models.Votes.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
     done();
   });
 };
@@ -49,7 +25,7 @@ describe('More-Recipe API: ', () => {
   doBeforeEach();
   it('should create a new User', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser1',
         fullName: 'test user',
@@ -69,7 +45,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not pass back user password with response', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser2',
         fullName: 'test user',
@@ -88,7 +64,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not create user without passing in username', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         fullName: 'test user',
         email: 'testuser3@example.com',
@@ -106,7 +82,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not create user without passing in fullname', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser4',
         email: 'testuser4@example.com',
@@ -124,7 +100,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not create user without passing in email', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser5',
         fullName: 'test user',
@@ -142,7 +118,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not create user without passing in password', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser6',
         fullName: 'test user',
@@ -158,9 +134,9 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not create user without passing in password', (done) => {
+  it('should not create user without passing in cpassword', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser6',
         fullName: 'test user',
@@ -178,7 +154,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not create user with same username twice', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser2',
         fullName: 'test',
@@ -198,7 +174,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not create user that password does not match', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser4',
         fullName: 'test',
@@ -216,9 +192,9 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not create user with same email twice', (done) => {
+  it('should not create user with the same email twice', (done) => {
     request(app)
-      .post('/api/users/signup')
+      .post('/api/v1/users/signup')
       .send({
         username: 'testuser3',
         fullName: 'text user',
@@ -237,7 +213,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should sign user in', (done) => {
     request(app)
-      .post('/api/users/signin')
+      .post('/api/v1/users/signin')
       .send({
         username: 'testuser1',
         password: 'mypassword',
@@ -253,7 +229,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not sign user in with incorrect password', (done) => {
     request(app)
-      .post('/api/users/signin')
+      .post('/api/v1/users/signin')
       .send({
         username: 'testuser1',
         password: 'mypasswor',
@@ -269,7 +245,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not sign user in with incorrect credential', (done) => {
     request(app)
-      .post('/api/users/signin')
+      .post('/api/v1/users/signin')
       .send({
         username: 'testuser',
         password: 'mypasswor',
@@ -285,7 +261,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not pass back user password with response', (done) => {
     request(app)
-      .post('/api/users/signin')
+      .post('/api/v1/users/signin')
       .send({
         username: 'testuser2',
         email: 'testuser2@example.com',
@@ -302,7 +278,7 @@ describe('More-Recipe API: ', () => {
   });
   it('Get users', (done) => {
     request(app)
-      .get('/api/users')
+      .get('/api/v1/users')
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
       })
@@ -312,109 +288,6 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         expect(res);
-        done();
-      });
-  });
-  it('should not add recipe without providing a token', (done) => {
-    request(app)
-      .post('/api/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake'
-      })
-      .expect(403)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No token provided.');
-        done();
-      });
-  });
-  it('should be able to add recipe providing a token', (done) => {
-    request(app)
-      .post('/api/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
-      })
-      .expect(201)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Recipe added successfully');
-        done();
-      });
-  });
-  it('should not be able to add recipe with an invalid token', (done) => {
-    request(app)
-      .post('/api/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXlIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
-      })
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Failed to authenticate token.');
-        done();
-      });
-  });
-  it('should not create recipe without recipe name', (done) => {
-    request(app)
-      .post('/api/recipes')
-      .send({
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Enter recipe name');
-        done();
-      });
-  });
-  it('should not create recipe without ingredient', (done) => {
-    request(app)
-      .post('/api/recipes')
-      .send({
-        recipeName: 'Pizza',
-        details: 'grind pepper and onion then bake',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Input ingredient');
-        done();
-      });
-  });
-  it('should not create recipe without details', (done) => {
-    request(app)
-      .post('/api/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Input details');
         done();
       });
   });

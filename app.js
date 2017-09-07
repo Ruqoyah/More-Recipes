@@ -1,4 +1,5 @@
 import express from 'express';
+import validator from 'express-validator';
 import bodyParser from 'body-parser';
 import winston from 'winston';
 import dotenv from 'dotenv';
@@ -11,6 +12,7 @@ dotenv.config();
  */
 const app = express();
 
+app.use(validator());
 
 /** Parse incoming requests data (https://github.com/expressjs/body-parser)
  * @param  {} bodyParser.json(

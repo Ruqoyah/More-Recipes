@@ -3,15 +3,11 @@ import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
 import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
-import { validateRecipesId, validateUsersId, checkRecipeInput, checkRecipeId, checkUserId, checkUserInput, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
+import { validateRecipesId, validateUsersId, checkRecipeInput, checkRecipeId, checkUserId, checkUserInput, checkValidUserInput, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
 import * as auth from '../middleware/authentication';
 
 
 const app = express.Router();
-
-app.get('/api', (req, res) => res.status(200).send({
-  message: 'Welcome to More-Recipes API',
-}));
 
 /** Signup
  * @param  {} '/api/v1/users/signup'
@@ -19,7 +15,7 @@ app.get('/api', (req, res) => res.status(200).send({
  * @param  {} validateUsers
  * @param  {} usersController.signup
  */
-app.post('/api/v1/users/signup', checkUserInput, validateUsers, usersController.signup);
+app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, validateUsers, usersController.signup);
 
 /** Signin
  * @param  {} '/api/v1/users/signin'
