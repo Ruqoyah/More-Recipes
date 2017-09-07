@@ -3,6 +3,7 @@ import request from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
+
 const doBeforeAll = () => {
   before((done) => {
     models.Users.destroy({

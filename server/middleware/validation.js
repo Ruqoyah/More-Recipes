@@ -144,6 +144,9 @@ export const checkRecipeId = (req, res, next) => {
  */
 
 export const checkUserId = (req, res, next) => {
+  if (!req.body.userId) {
+    return res.status(400).json({ message: 'User Id can\'t be empty' });
+  }
   Recipes
     .findOne({
       where: {
@@ -156,11 +159,8 @@ export const checkUserId = (req, res, next) => {
           message: 'user Id does not exist'
         });
       }
+      next();
     });
-  if (!req.body.userId) {
-    return res.status(400).json({ message: 'User Id can\'t be empty' });
-  }
-  next();
 };
 
 /** Check if username and email already exist and password does not match

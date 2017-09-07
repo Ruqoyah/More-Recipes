@@ -3,6 +3,8 @@ import request from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
+let recipeId;
+
 const doBeforeAll = () => {
   before((done) => {
     models.Recipes.destroy({
@@ -54,6 +56,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
+        recipeId = res.body.recipeId;
         expect(res.body.message).toBe('Recipe added successfully');
         done();
       });
@@ -123,6 +126,158 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         expect(res.body.message).toBe('Input details');
+        done();
+      });
+  });
+  it('should be able to modify recipe', (done) => {
+    request(app)
+      .put(`/api/v1/recipes/${recipeId}`)
+      .send({
+        recipeName: 'Meat Pie',
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(205)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Recipe modified successfully!');
+        done();
+      });
+  });
+  it('should not be able to modify recipe if recipe id does not exist', (done) => {
+    request(app)
+      .put('/api/v1/recipes/5')
+      .send({
+        recipeName: 'Meat Pie',
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('No recipe Id found');
+        done();
+      });
+  });
+  it('should not be able to modify recipe if no input for recipe name', (done) => {
+    request(app)
+      .put(`/api/v1/recipes/${recipeId}`)
+      .send({
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Enter recipe name');
+        done();
+      });
+  });
+  it('should not be able to modify recipe if no input for ingredient', (done) => {
+    request(app)
+      .put(`/api/v1/recipes/${recipeId}`)
+      .send({
+        recipeName: 'Meat Pie',
+        details: 'grind pepper and onion then bake',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Input ingredient');
+        done();
+      });
+  });
+  it('should not be able to modify recipe if no input for details', (done) => {
+    request(app)
+      .put(`/api/v1/recipes/${recipeId}`)
+      .send({
+        recipeName: 'Meat Pie',
+        ingredient: 'pepper, flour, onions',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Input details');
+        done();
+      });
+  });
+  it('should not be able to delete recipe with invalid recipe id provided', (done) => {
+    request(app)
+      .delete('/api/v1/recipes/5')
+      .send({
+        recipeName: 'Meat Pie',
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('No recipe Id found');
+        done();
+      });
+  });
+  it('should be able to get all recipes', (done) => {
+    request(app)
+      .get('/api/v1/recipes')
+      .send({
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(201)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
+  it('should be able to delete recipe', (done) => {
+    request(app)
+      .delete(`/api/v1/recipes/${recipeId}`)
+      .send({
+        recipeName: 'Meat Pie',
+        ingredient: 'pepper, flour, onions',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Recipe deleted successfully!');
+        done();
+      });
+  });
+  it('should not be able to get recipes if not exist', (done) => {
+    request(app)
+      .get('/api/v1/recipes')
+      .send({
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
         done();
       });
   });
