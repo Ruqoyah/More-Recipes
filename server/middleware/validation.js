@@ -3,6 +3,12 @@ import db from '../models/';
 
 const { Recipes, Users, Votes } = db;
 
+/** Check if user recipe input is empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const checkRecipeInput = (req, res, next) => {
   if (!req.body.recipeName) {
     return res.status(400).json({ message: 'Enter recipe name' });
@@ -15,6 +21,12 @@ export const checkRecipeInput = (req, res, next) => {
   }
   next();
 };
+
+/** Check if user signup input is empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const checkUserInput = (req, res, next) => {
   if (!req.body.username) {
@@ -35,6 +47,12 @@ export const checkUserInput = (req, res, next) => {
   next();
 };
 
+/** Check if review and user id is empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const checkReviewInput = (req, res, next) => {
   if (!req.body.review) {
     return res.status(400).json({ message: 'Review can\'t be empty' });
@@ -44,6 +62,12 @@ export const checkReviewInput = (req, res, next) => {
   }
   next();
 };
+
+/** Check if recipe id input in body exist or empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const checkRecipeId = (req, res, next) => {
   Recipes
@@ -65,6 +89,12 @@ export const checkRecipeId = (req, res, next) => {
   next();
 };
 
+/** Check if user id input in body exist or empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const checkUserId = (req, res, next) => {
   Recipes
     .findOne({
@@ -84,6 +114,12 @@ export const checkUserId = (req, res, next) => {
   }
   next();
 };
+
+/** Check if username and email already exist and password does not match
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateUsers = (req, res, next) => {
   Users
@@ -114,6 +150,12 @@ export const validateUsers = (req, res, next) => {
     });
 };
 
+/** Check if user exist and if input an incorrect password
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const validateLoginUser = (req, res, next) => {
   Users
     .findOne({
@@ -132,6 +174,12 @@ export const validateLoginUser = (req, res, next) => {
     });
 };
 
+/** Check if recipe id input in param exist
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const validateRecipesId = (req, res, next) => {
   Recipes
     .findOne({
@@ -146,6 +194,12 @@ export const validateRecipesId = (req, res, next) => {
       next();
     });
 };
+
+/** Check if user id input in param exist
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateUsersId = (req, res, next) => {
   Users
@@ -164,6 +218,11 @@ export const validateUsersId = (req, res, next) => {
     });
 };
 
+/** Upvote vote table 
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateUpVote = (req, res, next) => {
   Votes
@@ -187,6 +246,12 @@ export const validateUpVote = (req, res, next) => {
       next();
     });
 };
+
+/** Destroy user id from vote table if user downvote
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateDownVote = (req, res, next) => {
   Votes

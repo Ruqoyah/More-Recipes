@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        // associations can be defined here
         Recipes.hasMany(models.favoriteRecipes, {
           foreignKey: 'recipeId'
         });

@@ -11,7 +11,12 @@ const { Users } = db;
 const saltRounds = 10;
 
 export default {
-  // create user
+
+  /** Signup user
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   signup(req, res) {
     bcrypt.hash(req.body.password, saltRounds)
       .then((hash) => {
@@ -31,8 +36,11 @@ export default {
       });
   },
 
+  /** Signin user
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
 
-  // user signin
   signin(req, res) {
     Users
       .findOne({
@@ -53,7 +61,11 @@ export default {
       });
   },
 
-  // get all users
+  /** Get users
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   getUsers(req, res) {
     Users
       .findAll({})

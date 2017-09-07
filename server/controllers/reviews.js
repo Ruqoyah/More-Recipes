@@ -3,6 +3,12 @@ import db from '../models';
 const { Reviews } = db;
 
 export default {
+
+  /** Post review
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   postReview(req, res) {
     Reviews
       .create({
@@ -16,7 +22,11 @@ export default {
       .catch(error => res.status(400).json(error));
   },
 
-  // get reviews
+  /** Get reviews
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   getReviews(req, res) {
     Reviews
       .findAll({

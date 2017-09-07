@@ -9,7 +9,11 @@ import * as auth from '../middleware/authentication';
 
 const app = express.Router();
 
-/**
+app.get('/api', (req, res) => res.status(200).send({
+  message: 'Welcome to More-Recipes API',
+}));
+
+/** Signup
  * @param  {} '/api/v1/users/signup'
  * @param  {} checkUserInput
  * @param  {} validateUsers
@@ -17,38 +21,38 @@ const app = express.Router();
  */
 app.post('/api/v1/users/signup', checkUserInput, validateUsers, usersController.signup);
 
-/**
+/** Signin
  * @param  {} '/api/v1/users/signin'
  * @param  {} validateLoginUser
  * @param  {} usersController.signin
  */
 app.post('/api/v1/users/signin', validateLoginUser, usersController.signin);
 
-/**
- * @param  {} auth.default
+/** route middleware to verify token
+ * @param  {object} auth.default
  */
 app.use(auth.default);
 
-/**
+/** Get all users
  * @param  {} '/api/v1/users'
  * @param  {} usersController.getUsers
  */
 app.get('/api/v1/users', usersController.getUsers);
 
-/**
+/** Add recipe
  * @param  {} '/api/v1/recipes'
  * @param  {} checkRecipeInput
  * @param  {} recipesController.addRecipe
  */
 app.post('/api/v1/recipes', checkRecipeInput, recipesController.addRecipe);
 
-/**
+/** Get all recipes
  * @param  {} '/api/v1/recipes'
  * @param  {} recipesController.getRecipes
  */
 app.get('/api/v1/recipes', recipesController.getRecipes);
 
-/**
+/** Modify recipe
  * @param  {recipeId'} '/api/v1/recipes/
  * @param  {} validateRecipesId
  * @param  {} checkRecipeInput
@@ -56,14 +60,14 @@ app.get('/api/v1/recipes', recipesController.getRecipes);
  */
 app.put('/api/v1/recipes/:recipeId', validateRecipesId, checkRecipeInput, recipesController.modifyRecipe);
 
-/**
+/** Delete recipe
  * @param  {recipeId'} '/api/v1/recipes/
  * @param  {} validateRecipesId
  * @param  {} recipesController.deleteRecipe
  */
 app.delete('/api/v1/recipes/:recipeId', validateRecipesId, recipesController.deleteRecipe);
 
-/**
+/** Post review
  * @param  {recipeId/reviews'} '/api/v1/recipes/
  * @param  {} validateRecipesId
  * @param  {} checkReviewInput
@@ -71,14 +75,14 @@ app.delete('/api/v1/recipes/:recipeId', validateRecipesId, recipesController.del
  */
 app.post('/api/v1/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, reviewsController.postReview);
 
-/**
+/** Get reviews
  * @param  {recipeId/reviews'} '/api/v1/recipes/
  * @param  {} validateRecipesId
  * @param  {} reviewsController.getReviews
  */
 app.get('/api/v1/recipes/:recipeId/reviews', validateRecipesId, reviewsController.getReviews);
 
-/**
+/** Post favorite recipes
  * @param  {userId/recipes'} '/api/v1/users/
  * @param  {} validateUsersId
  * @param  {} checkRecipeId
@@ -86,14 +90,14 @@ app.get('/api/v1/recipes/:recipeId/reviews', validateRecipesId, reviewsControlle
  */
 app.post('/api/v1/users/:userId/recipes', validateUsersId, checkRecipeId, favoriteRecipesController.favoriteRecipe);
 
-/**
+/** Get favorite recipes
  * @param  {userId/recipes'} '/api/v1/users/
  * @param  {} validateUsersId
  * @param  {} favoriteRecipesController.getfavoriteRecipe
  */
 app.get('/api/v1/users/:userId/recipes', validateUsersId, favoriteRecipesController.getfavoriteRecipe);
 
-/**
+/** Upvote recipe
  * @param  {recipeId'} '/api/v1/users/upvote/
  * @param  {} validateRecipesId
  * @param  {} checkUserId
@@ -102,7 +106,7 @@ app.get('/api/v1/users/:userId/recipes', validateUsersId, favoriteRecipesControl
  */
 app.post('/api/v1/users/upvote/:recipeId', validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
 
-/**
+/** Downvote recipe
  * @param  {recipeId'} '/api/v1/users/downvote/
  * @param  {} validateRecipesId
  * @param  {} checkUserId
@@ -111,7 +115,7 @@ app.post('/api/v1/users/upvote/:recipeId', validateRecipesId, checkUserId, valid
  */
 app.post('/api/v1/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
 
-/**
+/** Get recipes with the most upvote
  * @param  {} '/api/v1/recipes?sort=upvotes&order=descending'
  * @param  {} recipesController.getUpvoteRecipes
  */

@@ -4,7 +4,11 @@ const { Recipes } = db;
 
 export default {
 
-  // add a recipe
+/** Add recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   addRecipe(req, res) {
     Recipes.create({
       recipeName: req.body.recipeName,
@@ -20,7 +24,11 @@ export default {
       .catch(error => res.status(400).json(error));
   },
 
-  // modify recipe
+  /** Modify recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   modifyRecipe(req, res) {
     Recipes
       .update(req.body,
@@ -36,7 +44,11 @@ export default {
       .catch(error => res.status(400).json(error));
   },
 
-  // delete recipe
+  /** Delete recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   deleteRecipe(req, res) {
     Recipes
       .destroy({
@@ -53,7 +65,11 @@ export default {
       .catch(error => res.status(404).json(error));
   },
 
-  // get recipes
+  /** Get all recipes
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   getRecipes(req, res) {
     Recipes
       .findAll({})
@@ -128,7 +144,11 @@ export default {
       .catch(error => res.status(400).json(error));
   },
 
-  // get recipes with the most upvote
+  /** get recipes with the most upvote
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   getUpvoteRecipes(req, res) {
     Recipes
       .findAll({

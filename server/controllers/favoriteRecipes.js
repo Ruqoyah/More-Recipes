@@ -3,9 +3,10 @@ import db from '../models';
 const { favoriteRecipes } = db;
 
 export default {
-  /**
-   * @param  {object} req
-   * @param  {object} res
+
+  /** Add favorite recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
    */
 
   favoriteRecipe(req, res) {
@@ -22,7 +23,11 @@ export default {
   },
 
 
-  // get favorite recipes
+  /** Get favorite recipes
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   getfavoriteRecipe(req, res) {
     favoriteRecipes
       .findAll({
