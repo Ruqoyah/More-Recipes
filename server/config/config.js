@@ -11,5 +11,8 @@ module.exports = {
   },
   test: {
     use_env_variable: 'DB_URL'
+  },
+  production: {
+    use_env_variable: 'DB_URL_PROD'
   }
 };
