@@ -82,6 +82,63 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
+  it('should check if username exceeds 5 characters', (done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'test',
+        fullName: 'test user',
+        email: 'testuser1@example.com',
+        password: 'mypassword',
+        cpassword: 'mypassword'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
+  it('should check if email is valid', (done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'testuser1',
+        fullName: 'test user',
+        email: 'testuser1',
+        password: 'mypassword',
+        cpassword: 'mypassword'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
+  it('should check if password exceeds 8 characters', (done) => {
+    request(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'testuser1',
+        fullName: 'test user',
+        email: 'testuser1@example.com',
+        password: 'mypa',
+        cpassword: 'mypa'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
   it('should not create user without passing in fullname', (done) => {
     request(app)
       .post('/api/v1/users/signup')

@@ -62,6 +62,21 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
+  it('should be able to get favorite recipes', (done) => {
+    request(app)
+      .get(`/api/v1/users/${userId}/recipes`)
+      .send({
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('No favorite recipe found');
+        done();
+      });
+  });
   it('should be able to add favorite recipes', (done) => {
     request(app)
       .post(`/api/v1/users/${recipeId}/recipes`)
@@ -125,7 +140,7 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should be able to get favorite recipesof a user', (done) => {
+  it('should be able to get favorite recipes', (done) => {
     request(app)
       .get(`/api/v1/users/${userId}/recipes`)
       .send({

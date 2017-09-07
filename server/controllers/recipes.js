@@ -155,7 +155,7 @@ export default {
         order: [['votes', 'DESC']]
       })
       .then((display) => {
-        res.json(display);
+        res.status(201).json(display);
       });
   }
 };

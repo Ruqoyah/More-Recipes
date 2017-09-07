@@ -8,7 +8,13 @@ let userId;
 
 const doBeforeAll = () => {
   before((done) => {
-    models.Reviews.destroy({
+    models.Recipes.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true
+    });
+
+    models.Votes.destroy({
       cascade: true,
       truncate: true,
       restartIdentity: true
@@ -26,6 +32,23 @@ const doBeforeEach = () => {
 describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
+  it('should sign user in', (done) => {
+    request(app)
+      .post('/api/v1/users/signin')
+      .send({
+        username: 'testuser1',
+        password: 'mypassword',
+      })
+      .expect(201)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        userId = res.body.data.userId;
+        expect(res.body.message).toBe('You have successfully signed in!');
+        done();
+      });
+  });
   it('should be able to add recipe providing a token', (done) => {
     request(app)
       .post('/api/v1/recipes')
@@ -45,44 +68,26 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-
-  it('should not be able to get reviews for recipe', (done) => {
+  it('should be able to upvote recipes', (done) => {
     request(app)
-      .get(`/api/v1/recipes/${recipeId}/reviews`)
+      .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No review found');
-        done();
-      });
-  });
-  it('should be able to post reviews for recipe', (done) => {
-    request(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
-      .send({
-        review: 'Nice! It\'s a good recipe',
         userId: `${userId}`,
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
       })
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body.message).toBe('Upvote added successfully!');
         done();
       });
   });
-  it('should not be able to post reviews with invalid recipe id', (done) => {
+  it('should not be able to upvote recipes if provided an invalid recipe id', (done) => {
     request(app)
-      .post('/api/v1/recipes/5/reviews')
+      .post('/api/v1/users/upvote/6')
       .send({
-        review: 'Nice! It\'s a good recipe',
         userId: `${userId}`,
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
       })
@@ -95,9 +100,40 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to post reviews for recipe if no review inputed', (done) => {
+  it('should not upvote recipes if no user id', (done) => {
     request(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
+      .post(`/api/v1/users/upvote/${recipeId}`)
+      .send({
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('User Id can\'t be empty');
+        done();
+      });
+  });
+  it('should not upvote recipes if user id does not exist', (done) => {
+    request(app)
+      .post(`/api/v1/users/upvote/${recipeId}`)
+      .send({
+        userId: 10,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('User Id does not exist');
+        done();
+      });
+  });
+  it('should not upvote twice', (done) => {
+    request(app)
+      .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
         userId: `${userId}`,
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
@@ -107,29 +143,29 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Review can\'t be empty');
+        expect(res.body.message).toBe('You already upvoted');
         done();
       });
   });
-  it('should not be able to post reviews for recipe if no user id', (done) => {
+  it('should be able to downvote recipe', (done) => {
     request(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
+      .post(`/api/v1/users/downvote/${recipeId}`)
       .send({
-        review: 'Nice! It\'s a good recipe',
+        userId: `${userId}`,
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
       })
-      .expect(400)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('You need to enter your user Id');
+        expect(res.body.message).toBe('Downvote added successfully!');
         done();
       });
   });
-  it('should be able to get reviews for recipe', (done) => {
+  it('should be able to get recipes with the most upvote', (done) => {
     request(app)
-      .get(`/api/v1/recipes/${recipeId}/reviews`)
+      .get('/api/v1/recipes?sort=upvotes&order=descending')
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
       })
@@ -139,6 +175,22 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         expect(res);
+        done();
+      });
+  });
+  it('should not downvote twice', (done) => {
+    request(app)
+      .post(`/api/v1/users/downvote/${recipeId}`)
+      .send({
+        userId: `${userId}`,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('You already downvoted');
         done();
       });
   });

@@ -88,9 +88,7 @@ export const checkValidUserInput = (req, res, next) => {
       });
     });
     return res.status(409)
-      .json(
-        allErrors
-      );
+      .json(allErrors);
   }
   next();
 };
@@ -156,7 +154,7 @@ export const checkUserId = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          message: 'user Id does not exist'
+          message: 'User Id does not exist'
         });
       }
       next();
