@@ -15,13 +15,13 @@ const doBeforeAll = () => {
     done();
   });
 };
-
 const doBeforeEach = () => {
   beforeEach((done) => {
     models.sequelize.sync();
     done();
   });
 };
+
 describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
@@ -282,4 +282,3 @@ describe('More-Recipe API: ', () => {
       });
   });
 });
-

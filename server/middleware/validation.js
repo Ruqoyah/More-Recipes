@@ -260,6 +260,26 @@ export const validateRecipesId = (req, res, next) => {
  */
 
 export const validateUsersId = (req, res, next) => {
+  if (!req.body.userId) {
+    return res.status(400).json({ message: 'User Id can\'t be empty' });
+  }
+  Users
+    .findOne({
+      where: {
+        id: req.body.userId
+      }
+    })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          message: 'No user Id found'
+        });
+      }
+      next();
+    });
+};
+
+export const validateParamUserId = (req, res, next) => {
   Users
     .findOne({
       where: {
@@ -269,7 +289,7 @@ export const validateUsersId = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          message: 'user Id does not exist'
+          message: 'No user Id found'
         });
       }
       next();

@@ -3,7 +3,7 @@ import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
 import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
-import { validateRecipesId, validateUsersId, checkRecipeInput, checkRecipeId, checkUserId, checkUserInput, checkValidUserInput, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
+import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId, checkUserInput, checkValidUserInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
 import * as auth from '../middleware/authentication';
 
 
@@ -78,20 +78,21 @@ app.post('/api/v1/recipes/:recipeId/reviews', validateRecipesId, checkReviewInpu
  */
 app.get('/api/v1/recipes/:recipeId/reviews', validateRecipesId, reviewsController.getReviews);
 
-/** Post favorite recipes
- * @param  {userId/recipes'} '/api/v1/users/
- * @param  {} validateUsersId
- * @param  {} checkRecipeId
+
+/**
+ * @param  {recipeId/recipes'} '/api/v1/users/
+ * @param  {} checkUserId
+ * @param  {} validateRecipesId
  * @param  {} favoriteRecipesController.favoriteRecipe
  */
-app.post('/api/v1/users/:userId/recipes', validateUsersId, checkRecipeId, favoriteRecipesController.favoriteRecipe);
+app.post('/api/v1/users/:recipeId/recipes', validateRecipesId, validateUsersId, favoriteRecipesController.favoriteRecipe);
 
 /** Get favorite recipes
  * @param  {userId/recipes'} '/api/v1/users/
  * @param  {} validateUsersId
  * @param  {} favoriteRecipesController.getfavoriteRecipe
  */
-app.get('/api/v1/users/:userId/recipes', validateUsersId, favoriteRecipesController.getfavoriteRecipe);
+app.get('/api/v1/users/:userId/recipes', validateParamUserId, favoriteRecipesController.getfavoriteRecipe);
 
 /** Upvote recipe
  * @param  {recipeId'} '/api/v1/users/upvote/
