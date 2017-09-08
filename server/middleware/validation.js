@@ -93,7 +93,13 @@ export const checkValidUserInput = (req, res, next) => {
   next();
 };
 
-export const checkInvalidInput = (req, res, next) => {
+/** Check invalid input for users
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkUserInvalidInput = (req, res, next) => {
   if (req.body.username.match(/^[a-z]+$/g) == null) {
     return res.json({ message: 'Invalid Username' });
   }
@@ -102,6 +108,39 @@ export const checkInvalidInput = (req, res, next) => {
   }
   if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
     return res.json({ message: 'Invalid Input' });
+  }
+  next();
+};
+
+
+/** Check invalid input for recipe
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkRecipeInvalidInput = (req, res, next) => {
+  if (req.body.recipeName.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid Recipe Name' });
+  }
+  if (req.body.ingredient.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid Ingredient' });
+  }
+  if (req.body.details.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid Details' });
+  }
+  next();
+};
+
+/** Check invalid input for review recipe
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkReviewInvalidInput = (req, res, next) => {
+  if (req.body.review.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid input' });
   }
   next();
 };

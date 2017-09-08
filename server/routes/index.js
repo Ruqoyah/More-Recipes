@@ -3,7 +3,7 @@ import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
 import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
-import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId, checkUserInput, checkValidUserInput, checkInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
+import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId, checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput, checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
 import * as auth from '../middleware/authentication';
 
 
@@ -15,7 +15,7 @@ const app = express.Router();
  * @param  {} validateUsers
  * @param  {} usersController.signup
  */
-app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkInvalidInput, validateUsers, usersController.signup);
+app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput, validateUsers, usersController.signup);
 
 /** Signin
  * @param  {} '/api/v1/users/signin'
@@ -40,7 +40,7 @@ app.get('/api/v1/users', usersController.getUsers);
  * @param  {} checkRecipeInput
  * @param  {} recipesController.addRecipe
  */
-app.post('/api/v1/recipes', checkRecipeInput, recipesController.addRecipe);
+app.post('/api/v1/recipes', checkRecipeInput, checkRecipeInvalidInput, recipesController.addRecipe);
 
 /** Get all recipes
  * @param  {} '/api/v1/recipes'
@@ -54,7 +54,7 @@ app.get('/api/v1/recipes', recipesController.getRecipes);
  * @param  {} checkRecipeInput
  * @param  {} recipesController.modifyRecipe
  */
-app.put('/api/v1/recipes/:recipeId', validateRecipesId, checkRecipeInput, recipesController.modifyRecipe);
+app.put('/api/v1/recipes/:recipeId', validateRecipesId, checkRecipeInput, checkRecipeInvalidInput, recipesController.modifyRecipe);
 
 /** Delete recipe
  * @param  {recipeId'} '/api/v1/recipes/
@@ -69,7 +69,7 @@ app.delete('/api/v1/recipes/:recipeId', validateRecipesId, recipesController.del
  * @param  {} checkReviewInput
  * @param  {} reviewsController.postReview
  */
-app.post('/api/v1/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, reviewsController.postReview);
+app.post('/api/v1/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewsController.postReview);
 
 /** Get reviews
  * @param  {recipeId/reviews'} '/api/v1/recipes/
