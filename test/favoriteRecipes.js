@@ -62,7 +62,7 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should be able to get favorite recipes', (done) => {
+  it('should not be able to get favorite recipes that does not exist', (done) => {
     request(app)
       .get(`/api/v1/users/${userId}/recipes`)
       .send({
