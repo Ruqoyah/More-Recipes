@@ -5,7 +5,7 @@
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a food recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
 
 ## Installation
-> - Git clone this repository
+> - Git clone this repository : https://github.com/Ruqoyah/More-Recipes.git
 > - CD to the created directory
 > - run npm install
 > - run npm start to start server
@@ -28,3 +28,6 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 
 ## Author
 -  Rukayat Odukoya
+
+## License
+This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details
