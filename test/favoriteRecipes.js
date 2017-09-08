@@ -30,7 +30,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         password: 'mypassword',
       })
       .expect(201)

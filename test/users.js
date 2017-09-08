@@ -29,9 +29,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         fullName: 'test user',
-        email: 'testuser1@example.com',
+        email: 'temitayo@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -40,7 +40,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.username).toBe('testuser1');
+        expect(res.body.username).toBe('temitayo');
         expect(res.body.message).toBe('You have successfully signed up');
         done();
       });
@@ -49,9 +49,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser2',
+        username: 'ruqoyah',
         fullName: 'test user',
-        email: 'testuser2@example.com',
+        email: 'ruqoyah@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -60,7 +60,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.username).toBe('testuser2');
+        expect(res.body.username).toBe('ruqoyah');
         done();
       });
   });
@@ -69,7 +69,7 @@ describe('More-Recipe API: ', () => {
       .post('/api/v1/users/signup')
       .send({
         fullName: 'test user',
-        email: 'testuser3@example.com',
+        email: 'kola@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -88,7 +88,7 @@ describe('More-Recipe API: ', () => {
       .send({
         username: 'test',
         fullName: 'test user',
-        email: 'testuser1@example.com',
+        email: 'joyce@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -105,7 +105,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser1',
+        username: 'ruqoyah',
         fullName: 'test user',
         email: 'testuser1',
         password: 'mypassword',
@@ -124,7 +124,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser1',
+        username: 'temitope',
         fullName: 'test user',
         email: 'testuser1@example.com',
         password: 'mypa',
@@ -143,8 +143,8 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser4',
-        email: 'testuser4@example.com',
+        username: 'temitope',
+        email: 'temitope@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -161,7 +161,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser5',
+        username: 'temitope',
         fullName: 'test user',
         password: 'mypassword',
         cpassword: 'mypassword'
@@ -179,9 +179,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser6',
+        username: 'temitope',
         fullName: 'test user',
-        email: 'testuser6@example.com',
+        email: 'temitope@example.com',
         cpassword: 'mypassword'
       })
       .expect(400)
@@ -197,9 +197,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser6',
+        username: 'temitope',
         fullName: 'test user',
-        email: 'testuser6@example.com',
+        email: 'temitope@example.com',
         password: 'mypassword'
       })
       .expect(400)
@@ -215,10 +215,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser2',
-        fullName: 'test',
-        lastname: 'user',
-        email: 'testuser3@example.com',
+        username: 'temitayo',
+        fullName: 'test user',
+        email: 'joyce@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -235,10 +234,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser4',
-        fullName: 'test',
-        lastname: 'user',
-        email: 'testuser4@example.com',
+        username: 'joyce',
+        fullName: 'test user',
+        email: 'joyce@example.com',
         password: 'mypassword',
         cpassword: 'mypasswor'
       })
@@ -255,9 +253,9 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser3',
+        username: 'temitope',
         fullName: 'text user',
-        email: 'testuser2@example.com',
+        email: 'temitayo@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -274,7 +272,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         password: 'mypassword',
       })
       .expect(201)
@@ -290,7 +288,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         password: 'mypasswor',
       })
       .expect(400)
@@ -306,7 +304,7 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser',
+        username: 'temita',
         password: 'mypasswor',
       })
       .expect(404)
@@ -322,8 +320,8 @@ describe('More-Recipe API: ', () => {
     request(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser2',
-        email: 'testuser2@example.com',
+        username: 'temitayo',
+        email: 'temitayo@example.com',
         password: 'mypassword',
       })
       .expect(201)
