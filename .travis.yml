@@ -1,29 +1,16 @@
 language: node_js
-
-node_js: "7"
-
-install:
-- npm install
-
-script:
-- npm test
-
-env:
-- NODE_ENV=test
-
-cache:
-  directories:
-  - "node_modules"
-
+node_js:
+  - node
+  - 6.11.0
 services:
-- postgresql
-
-before_script:
-- createuser oriyomi -s -U postgres
-- createdb moreRecipes --username=postgres
-- sequelize db:migrate
-
-notifications:
-  webhooks: https://coveralls.io/webhook repo_token=7yowXLWuuvTUGR5B6WH2KPfRQES3rHVuz
-
-after_success: npm run coverage
+  - postgresql
+cache:
+directories:
+ - node_modules
+script:
+  - npm install
+  - npm run test
+after_success:
+  - npm run coveralls
+env:
+  - NODE_ENV=test
