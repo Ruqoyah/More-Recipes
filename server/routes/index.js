@@ -46,7 +46,7 @@ app.post('/api/v1/recipes', checkRecipeInput, checkRecipeInvalidInput, recipesCo
  * @param  {} '/api/v1/recipes'
  * @param  {} recipesController.getRecipes
  */
-app.get('/api/v1/recipes', recipesController.getRecipes);
+app.get('/api/v1/recipes', recipesController.getRecipes, recipesController.getUpvoteRecipes);
 
 /** Modify recipe
  * @param  {recipeId'} '/api/v1/recipes/
@@ -111,12 +111,6 @@ app.post('/api/v1/users/upvote/:recipeId', validateRecipesId, checkUserId, valid
  * @param  {} recipesController.downvoteRecipe
  */
 app.post('/api/v1/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
-
-/** Get recipes with the most upvote
- * @param  {} '/api/v1/recipes?sort=upvotes&order=descending'
- * @param  {} recipesController.getUpvoteRecipes
- */
-app.get('/api/v1/recipes?sort=upvotes&order=descending', recipesController.getUpvoteRecipes);
 
 
 export default app;

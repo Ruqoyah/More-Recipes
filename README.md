@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=ft-server-code-%23150664257)](https://travis-ci.org/Ruqoyah/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=ft-update-server-code-150877782)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=ft-update-server-code-150877782)
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 
 # More-Recipes

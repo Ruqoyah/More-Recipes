@@ -10,7 +10,7 @@ export default {
    */
 
   postReview(req, res) {
-    Reviews
+    return Reviews
       .create({
         recipeId: req.params.recipeId,
         review: req.body.review,
@@ -28,7 +28,7 @@ export default {
    */
 
   getReviews(req, res) {
-    Reviews
+    return Reviews
       .findAll({
         where: { recipeId: req.params.recipeId }
       })

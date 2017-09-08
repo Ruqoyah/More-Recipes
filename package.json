@@ -37,6 +37,7 @@
     "start": "./node_modules/.bin/babel-node ./app.js",
     "test": "mocha --timeout 500000 --compilers js:babel-register && npm run coveralls test/**/*.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "eslint ./",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
   "repository": {
@@ -53,5 +54,8 @@
   "bugs": {
     "url": "https://github.com/Ruqoyah/More-Recipes/issues"
   },
-  "homepage": "https://github.com/Ruqoyah/More-Recipes#readme"
+  "homepage": "https://github.com/Ruqoyah/More-Recipes#readme",
+  "devDependencies": {
+    "eslint-to-editorconfig": "^1.2.0"
+  }
 }

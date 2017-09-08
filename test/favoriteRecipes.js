@@ -1,5 +1,5 @@
 import expect from 'expect';
-import request from 'supertest';
+import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
@@ -27,7 +27,7 @@ describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
   it('should sign user in', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signin')
       .send({
         username: 'temitayo',
@@ -44,7 +44,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to add recipe providing a token', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -57,13 +57,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        recipeId = res.body.recipeId;
+        recipeId = res.body.data.recipeId;
         expect(res.body.message).toBe('Recipe added successfully');
         done();
       });
   });
   it('should not be able to get favorite recipes that does not exist', (done) => {
-    request(app)
+    supertest(app)
       .get(`/api/v1/users/${userId}/recipes`)
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
@@ -78,7 +78,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to add favorite recipes', (done) => {
-    request(app)
+    supertest(app)
       .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
         userId: `${userId}`,
@@ -94,7 +94,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to add favorite recipes', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/8/recipes')
       .send({
         userId: `${userId}`,
@@ -110,7 +110,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to add favorite recipes', (done) => {
-    request(app)
+    supertest(app)
       .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
@@ -125,7 +125,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to add favorite recipes', (done) => {
-    request(app)
+    supertest(app)
       .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
         userId: 8,
@@ -141,7 +141,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to get favorite recipes', (done) => {
-    request(app)
+    supertest(app)
       .get(`/api/v1/users/${userId}/recipes`)
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'

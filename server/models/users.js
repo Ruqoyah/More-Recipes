@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default(sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     fullName: {
       type: DataTypes.STRING,
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     classMethods: {
-      associate: (models) => {
+      associate(models) {
         Users.hasMany(models.favoriteRecipes, {
           foreignKey: 'userId'
         });

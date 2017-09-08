@@ -101,13 +101,13 @@ export const checkValidUserInput = (req, res, next) => {
 
 export const checkUserInvalidInput = (req, res, next) => {
   if (req.body.username.match(/^[a-z]+$/g) == null) {
-    return res.json({ message: 'Invalid Username' });
+    return res.status(409).json({ message: 'Invalid Username' });
   }
   if (req.body.password.match(/^[a-z]+$/g) == null) {
-    return res.json({ message: 'Invalid Password' });
+    return res.status(409).json({ message: 'Invalid Password' });
   }
   if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
-    return res.json({ message: 'Invalid Input' });
+    return res.status(409).json({ message: 'Invalid Input' });
   }
   next();
 };
@@ -121,13 +121,13 @@ export const checkUserInvalidInput = (req, res, next) => {
 
 export const checkRecipeInvalidInput = (req, res, next) => {
   if (req.body.recipeName.match(/^[^ ]+( [^ ]+)*$/g) == null) {
-    return res.json({ message: 'Invalid Recipe Name' });
+    return res.status(409).json({ message: 'Invalid Recipe Name' });
   }
   if (req.body.ingredient.match(/^[^ ]+( [^ ]+)*$/g) == null) {
-    return res.json({ message: 'Invalid Ingredient' });
+    return res.status(409).json({ message: 'Invalid Ingredient' });
   }
   if (req.body.details.match(/^[^ ]+( [^ ]+)*$/g) == null) {
-    return res.json({ message: 'Invalid Details' });
+    return res.status(409).json({ message: 'Invalid Details' });
   }
   next();
 };
@@ -140,7 +140,7 @@ export const checkRecipeInvalidInput = (req, res, next) => {
 
 export const checkReviewInvalidInput = (req, res, next) => {
   if (req.body.review.match(/^[^ ]+( [^ ]+)*$/g) == null) {
-    return res.json({ message: 'Invalid input' });
+    return res.status(409).json({ message: 'Invalid input' });
   }
   next();
 };
@@ -197,7 +197,7 @@ export const checkUserId = (req, res, next) => {
   if (!req.body.userId) {
     return res.status(400).json({ message: 'User Id can\'t be empty' });
   }
-  Recipes
+  Users
     .findOne({
       where: {
         id: req.body.userId

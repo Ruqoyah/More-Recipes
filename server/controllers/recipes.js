@@ -10,7 +10,7 @@ export default {
    */
 
   addRecipe(req, res) {
-    Recipes.create({
+    return Recipes.create({
       recipeName: req.body.recipeName,
       ingredient: req.body.ingredient,
       details: req.body.details
@@ -19,7 +19,7 @@ export default {
         status: 'success',
         recipeName: addRecipes.recipeName,
         message: 'Recipe added successfully',
-        recipeId: addRecipes.id
+        data: { recipeId: addRecipes.id }
       }))
       .catch(error => res.status(400).json(error));
   },
@@ -30,7 +30,7 @@ export default {
    */
 
   modifyRecipe(req, res) {
-    Recipes
+    return Recipes
       .update(req.body,
         {
           where: {
@@ -50,7 +50,7 @@ export default {
    */
 
   deleteRecipe(req, res) {
-    Recipes
+    return Recipes
       .destroy({
         where: {
           id: req.params.recipeId
@@ -71,8 +71,8 @@ export default {
    */
 
   getRecipes(req, res) {
-    Recipes
-      .findAll({})
+    return Recipes
+      .findAll()
       .then((recipes) => {
         if (recipes.length < 1) {
           res.status(404).send({
@@ -91,7 +91,7 @@ export default {
    */
 
   upvoteRecipe(req, res) {
-    Recipes
+    return Recipes
       .findOne({
         where: {
           id: req.params.recipeId
@@ -121,7 +121,7 @@ export default {
    */
 
   downvoteRecipe(req, res) {
-    Recipes
+    return Recipes
       .findOne({
         where: {
           id: req.params.recipeId

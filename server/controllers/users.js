@@ -42,7 +42,7 @@ export default {
    */
 
   signin(req, res) {
-    Users
+    return Users
       .findOne({
         where: { username: req.body.username }
       })
@@ -67,8 +67,8 @@ export default {
    */
 
   getUsers(req, res) {
-    Users
-      .findAll({})
+    return Users
+      .findAll()
       .then((users) => {
         if (users.length < 1) {
           res.status(404).json({
