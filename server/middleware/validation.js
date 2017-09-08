@@ -3,6 +3,12 @@ import db from '../models/';
 
 const { Recipes, Users, Votes } = db;
 
+/** Check if user recipe input is empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const checkRecipeInput = (req, res, next) => {
   if (!req.body.recipeName) {
     return res.status(400).json({ message: 'Enter recipe name' });
@@ -15,6 +21,12 @@ export const checkRecipeInput = (req, res, next) => {
   }
   next();
 };
+
+/** Check if user signup input is empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const checkUserInput = (req, res, next) => {
   if (!req.body.username) {
@@ -35,6 +47,110 @@ export const checkUserInput = (req, res, next) => {
   next();
 };
 
+
+/** Check if user signup with a valid username, email and password
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkValidUserInput = (req, res, next) => {
+  req.checkBody(
+    {
+      username: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: 'Please provide a username with atleast 5 characters.'
+        }
+      },
+      email: {
+        notEmpty: true,
+        isEmail: {
+          errorMessage: 'Provide a valid a Email Adrress'
+        }
+      },
+      password: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 8 }],
+          errorMessage: 'Provide a valid password with minimum of 8 characters'
+        }
+      }
+    }
+  );
+  const errors = req.validationErrors();
+  if (errors) {
+    const allErrors = [];
+    errors.forEach((error) => {
+      allErrors.push({
+        error: error.msg,
+      });
+    });
+    return res.status(409)
+      .json(allErrors);
+  }
+  next();
+};
+
+/** Check invalid input for users
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkUserInvalidInput = (req, res, next) => {
+  if (req.body.username.match(/^[a-z]+$/g) == null) {
+    return res.json({ message: 'Invalid Username' });
+  }
+  if (req.body.password.match(/^[a-z]+$/g) == null) {
+    return res.json({ message: 'Invalid Password' });
+  }
+  if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
+    return res.json({ message: 'Invalid Input' });
+  }
+  next();
+};
+
+
+/** Check invalid input for recipe
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkRecipeInvalidInput = (req, res, next) => {
+  if (req.body.recipeName.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid Recipe Name' });
+  }
+  if (req.body.ingredient.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid Ingredient' });
+  }
+  if (req.body.details.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid Details' });
+  }
+  next();
+};
+
+/** Check invalid input for review recipe
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const checkReviewInvalidInput = (req, res, next) => {
+  if (req.body.review.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+    return res.json({ message: 'Invalid input' });
+  }
+  next();
+};
+
+/** Check if review and user id is empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const checkReviewInput = (req, res, next) => {
   if (!req.body.review) {
     return res.status(400).json({ message: 'Review can\'t be empty' });
@@ -44,6 +160,12 @@ export const checkReviewInput = (req, res, next) => {
   }
   next();
 };
+
+/** Check if recipe id input in body exist or empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const checkRecipeId = (req, res, next) => {
   Recipes
@@ -65,7 +187,16 @@ export const checkRecipeId = (req, res, next) => {
   next();
 };
 
+/** Check if user id input in body exist or empty
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const checkUserId = (req, res, next) => {
+  if (!req.body.userId) {
+    return res.status(400).json({ message: 'User Id can\'t be empty' });
+  }
   Recipes
     .findOne({
       where: {
@@ -75,15 +206,18 @@ export const checkUserId = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          message: 'user Id does not exist'
+          message: 'User Id does not exist'
         });
       }
+      next();
     });
-  if (!req.body.userId) {
-    return res.status(400).json({ message: 'User Id can\'t be empty' });
-  }
-  next();
 };
+
+/** Check if username and email already exist and password does not match
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateUsers = (req, res, next) => {
   Users
@@ -114,7 +248,23 @@ export const validateUsers = (req, res, next) => {
     });
 };
 
+/** Check if user exist and if input an incorrect password
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const validateLoginUser = (req, res, next) => {
+  if (!req.body.username) {
+    return res.status(400).json({
+      message: 'Please provide your username'
+    });
+  }
+  if (!req.body.password) {
+    return res.status(400).json({
+      message: 'Please provide your password'
+    });
+  }
   Users
     .findOne({
       where: {
@@ -132,6 +282,12 @@ export const validateLoginUser = (req, res, next) => {
     });
 };
 
+/** Check if recipe id input in param exist
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const validateRecipesId = (req, res, next) => {
   Recipes
     .findOne({
@@ -147,7 +303,33 @@ export const validateRecipesId = (req, res, next) => {
     });
 };
 
+/** Check if user id input in param exist
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
 export const validateUsersId = (req, res, next) => {
+  if (!req.body.userId) {
+    return res.status(400).json({ message: 'User Id can\'t be empty' });
+  }
+  Users
+    .findOne({
+      where: {
+        id: req.body.userId
+      }
+    })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({
+          message: 'No user Id found'
+        });
+      }
+      next();
+    });
+};
+
+export const validateParamUserId = (req, res, next) => {
   Users
     .findOne({
       where: {
@@ -157,13 +339,18 @@ export const validateUsersId = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          message: 'user Id does not exist'
+          message: 'No user Id found'
         });
       }
       next();
     });
 };
 
+/** Upvote vote table 
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateUpVote = (req, res, next) => {
   Votes
@@ -187,6 +374,12 @@ export const validateUpVote = (req, res, next) => {
       next();
     });
 };
+
+/** Destroy user id from vote table if user downvote
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateDownVote = (req, res, next) => {
   Votes
@@ -212,3 +405,4 @@ export const validateDownVote = (req, res, next) => {
       next();
     });
 };
+

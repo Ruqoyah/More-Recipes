@@ -3,26 +3,31 @@ import db from '../models';
 const { favoriteRecipes } = db;
 
 export default {
-  /**
-   * @param  {object} req
-   * @param  {object} res
+
+  /** Add favorite recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
    */
 
   favoriteRecipe(req, res) {
     favoriteRecipes
       .create({
-        recipeId: req.body.recipeId,
-        userId: req.params.userId,
+        recipeId: req.params.recipeId,
+        userId: req.body.userId,
       })
       .then(() => res.status(201).json({
         status: 'success',
-        message: `You successfully choose recipe id ${req.body.recipeId} as your favorite recipes`
+        message: `You successfully choose recipe id ${req.params.recipeId} as your favorite recipes`
       }))
       .catch(error => res.status(400).json(error));
   },
 
 
-  // get favorite recipes
+  /** Get favorite recipes
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
   getfavoriteRecipe(req, res) {
     favoriteRecipes
       .findAll({

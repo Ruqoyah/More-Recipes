@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        // associations can be defined here
         Votes.belongsTo(models.Users, {
           foreignKey: 'userId',
           onDelete: 'CASCADE'
