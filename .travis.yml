@@ -20,7 +20,7 @@ services:
 
 before_script:
 - createuser oriyomi -s -U postgres
-- createdb moreRecipesTest --username=postgres
+- createdb moreRecipes --username=postgres
 - sequelize db:migrate
 
 notifications:
