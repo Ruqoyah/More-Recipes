@@ -93,6 +93,19 @@ export const checkValidUserInput = (req, res, next) => {
   next();
 };
 
+export const checkInvalidInput = (req, res, next) => {
+  if (req.body.username.match(/^[a-z]+$/g) == null) {
+    return res.json({ message: 'Invalid Username' });
+  }
+  if (req.body.password.match(/^[a-z]+$/g) == null) {
+    return res.json({ message: 'Invalid Password' });
+  }
+  if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
+    return res.json({ message: 'Invalid Input' });
+  }
+  next();
+};
+
 /** Check if review and user id is empty
  * @param  {object} req - request
  * @param  {object} res - response

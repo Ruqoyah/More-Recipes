@@ -3,7 +3,7 @@ import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
 import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
-import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId, checkUserInput, checkValidUserInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
+import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId, checkUserInput, checkValidUserInput, checkInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
 import * as auth from '../middleware/authentication';
 
 
@@ -15,7 +15,7 @@ const app = express.Router();
  * @param  {} validateUsers
  * @param  {} usersController.signup
  */
-app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, validateUsers, usersController.signup);
+app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkInvalidInput, validateUsers, usersController.signup);
 
 /** Signin
  * @param  {} '/api/v1/users/signin'
