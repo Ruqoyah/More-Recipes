@@ -19,7 +19,7 @@ services:
 - postgresql
 
 before_script:
-- createuser postgres -s -U postgres
+- createuser oriyomi -s -U postgres
 - createdb moreRecipesTest --username=postgres
 - sequelize db:migrate
 
