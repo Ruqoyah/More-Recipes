@@ -16,7 +16,7 @@ app.use(validator());
 
 /** Parse incoming requests data (https://github.com/expressjs/body-parser)
  * @param  {} bodyParser.json(
- * @param  {false}} ;app.use(bodyParser.urlencoded({extended
+ * @param  {false}} ;app.use
  */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
