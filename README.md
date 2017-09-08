@@ -26,4 +26,5 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 > - POST : /api/v1/users/downvote/:recipeId An API route that allow user to downvote recipes
 > - GET : /api/v1/recipes?sort=upvotes&order=descending An API route that allow user get most upvote recipes
 
-
+#### Author
+Rukayat Odukoya
