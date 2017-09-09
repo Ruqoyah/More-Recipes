@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=ft-server-code-%23150664257)](https://travis-ci.org/Ruqoyah/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=ft-update-server-code-150877782)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=ft-update-server-code-150877782)
+[![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=ft-add-more-tests-150914567)](https://travis-ci.org/Ruqoyah/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=ft-update-server-code-150877782)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=ft-update-server-code-150877782)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 
@@ -10,6 +10,12 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 > - CD to the created directory
 > - run npm install
 > - run npm start to start server
+
+## Dependencies
+> - babel-cli    - babel-core    - babel-preset-es2015   - babel-preset-stage-2
+> - bcrypt   - body-parser    - chai   - coveralls    - dotenv  - expect
+> - express  - express-validator  - jsonwebtoken   - mocha   - mocha-lcov-reporter
+> - morgan   - nyc    - pg   - pg-hstore  - sequelize   - sequelize-cli   - supertest
 
 ## API Routes
 > - POST : /api/v1/users/signup API routes for users to create accounts 
