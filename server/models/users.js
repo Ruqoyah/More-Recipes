@@ -26,7 +26,7 @@ export default(sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         Users.hasMany(models.favoriteRecipes, {
-          foreignKey: 'userId'
+          foreignKey: 'userId',
         });
         Users.hasMany(models.Votes, {
           foreignKey: 'userId'

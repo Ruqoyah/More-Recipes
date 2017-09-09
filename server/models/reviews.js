@@ -21,6 +21,7 @@ export default(sequelize, DataTypes) => {
         });
         Reviews.hasMany(models.Recipes, {
           foreignKey: 'recipeId',
+          onDelete: 'CASCADE'
         });
       }
     }

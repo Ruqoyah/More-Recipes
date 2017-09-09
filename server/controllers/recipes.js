@@ -37,10 +37,14 @@ export default {
             id: req.params.recipeId
           }
         })
-      .then(() => res.status(205).json({
-        status: 'success',
-        message: 'Recipe modified successfully!'
-      }))
+      .then(() => {
+        Recipes.findById(req.params.recipeId).then(result => res.status(205).json({
+          status: 'success',
+          message: 'Recipe modified successfully!',
+          data:
+          { recipeName: result.recipeName, ingredient: result.ingredient, details: result.details }
+        }));
+      })
       .catch(error => res.status(400).json(error));
   },
 
