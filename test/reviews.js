@@ -26,6 +26,23 @@ const doBeforeEach = () => {
 describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
+  it('should sign user in', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signin')
+      .send({
+        username: 'temitayo',
+        password: 'mypassword',
+      })
+      .expect(201)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        userId = res.body.data.userId;
+        expect(res.body.message).toBe('You have successfully signed in!');
+        done();
+      });
+  });
   it('should be able to add recipe providing a token', (done) => {
     supertest(app)
       .post('/api/v1/recipes')
