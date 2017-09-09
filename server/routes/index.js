@@ -46,7 +46,7 @@ app.post('/api/v1/recipes', checkRecipeInput, checkRecipeInvalidInput, recipesCo
  * @param  {} '/api/v1/recipes'
  * @param  {} recipesController.getRecipes
  */
-app.get('/api/v1/recipes', recipesController.getRecipes, recipesController.getUpvoteRecipes);
+app.get('/api/v1/recipes', recipesController.getRecipes);
 
 /** Modify recipe
  * @param  {recipeId'} '/api/v1/recipes/
