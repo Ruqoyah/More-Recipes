@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./app.js",
-    "test": "mocha --timeout 500000 --compilers js:babel-register && npm run coveralls test/**/*.js",
+    "test": "./node_modules/.bin/mocha --timeout 500000 --compilers js:babel-register && npm run coveralls",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
