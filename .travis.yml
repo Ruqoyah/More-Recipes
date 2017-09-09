@@ -1,19 +1,17 @@
 language: node_js
-node_js: "7"
-install:
-- npm install
-script:
-- npm test
-env:
-- NODE_ENV=test
-cache:
- directories:
-  - "node_modules"
+node_js:
+  - node
+  - 6.11.0
 services:
- - postgresql
-before_script:
-- npm install nyc -g
-- npm install mocha -g
-- createdb more_recipes_test --username=postgres
-notifications:
- webhooks: https://coveralls.io/webhook
+  - postgresql
+cache:
+directories:
+ - node_modules
+script:
+  - npm install
+  - npm run test
+after_success:
+  - npm run coveralls
+env:
+  - NODE_ENV=test
+
