@@ -1,7 +1,8 @@
 import expect from 'expect';
-import request from 'supertest';
+import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
+
 
 let recipeId;
 let userId;
@@ -26,8 +27,25 @@ const doBeforeEach = () => {
 describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
+  it('should sign user in', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signin')
+      .send({
+        username: 'temitayo',
+        password: 'mypassword',
+      })
+      .expect(201)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        userId = res.body.data.userId;
+        expect(res.body.message).toBe('You have successfully signed in!');
+        done();
+      });
+  });
   it('should be able to add recipe providing a token', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -40,14 +58,14 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        recipeId = res.body.recipeId;
+        recipeId = res.body.data.recipeId;
         expect(res.body.message).toBe('Recipe added successfully');
         done();
       });
   });
 
   it('should not be able to get reviews for recipe', (done) => {
-    request(app)
+    supertest(app)
       .get(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
@@ -62,7 +80,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to post reviews for recipe', (done) => {
-    request(app)
+    supertest(app)
       .post(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         review: 'Nice! It\'s a good recipe',
@@ -78,8 +96,8 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to post reviews with invalid recipe id', (done) => {
-    request(app)
+  it('should check review input', (done) => {
+    supertest(app)
       .post('/api/v1/recipes/5/reviews')
       .send({
         review: 'Nice! It\'s a good recipe',
@@ -95,8 +113,25 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
+  it('should not be able to post reviews with invalid recipe id', (done) => {
+    supertest(app)
+      .post(`/api/v1/recipes/${recipeId}/reviews`)
+      .send({
+        review: '      Nice! It\'s a good recipe',
+        userId: `${userId}`,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Invalid input');
+        done();
+      });
+  });
   it('should not be able to post reviews for recipe if no review inputed', (done) => {
-    request(app)
+    supertest(app)
       .post(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         userId: `${userId}`,
@@ -112,7 +147,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to post reviews for recipe if no user id', (done) => {
-    request(app)
+    supertest(app)
       .post(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         review: 'Nice! It\'s a good recipe',
@@ -128,7 +163,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to get reviews for recipe', (done) => {
-    request(app)
+    supertest(app)
       .get(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'

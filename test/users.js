@@ -1,5 +1,5 @@
 import expect from 'expect';
-import request from 'supertest';
+import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
@@ -26,12 +26,12 @@ describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
   it('should create a new User', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         fullName: 'test user',
-        email: 'testuser1@example.com',
+        email: 'temitayo@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -40,18 +40,75 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.username).toBe('testuser1');
+        expect(res.body.username).toBe('temitayo');
         expect(res.body.message).toBe('You have successfully signed up');
         done();
       });
   });
-  it('should not pass back user password with response', (done) => {
-    request(app)
+  it('check user input', (done) => {
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser2',
+        username: 'temi tayo',
         fullName: 'test user',
-        email: 'testuser2@example.com',
+        email: 'temitayo@example.com',
+        password: 'mypassword',
+        cpassword: 'mypassword'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Invalid Username');
+        done();
+      });
+  });
+  it('check user input', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'temitayo',
+        fullName: 'test user',
+        email: 'temitayo@example.com',
+        password: 'mypassword12',
+        cpassword: 'mypassword'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Invalid Password');
+        done();
+      });
+  });
+  it('check user input', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'temitayo',
+        fullName: '  test user',
+        email: 'temitayo@example.com',
+        password: 'mypassword',
+        cpassword: 'mypassword'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Invalid Input');
+        done();
+      });
+  });
+  it('should not pass back user password with response', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'ruqoyah',
+        fullName: 'test user',
+        email: 'ruqoyah@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -60,16 +117,16 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.username).toBe('testuser2');
+        expect(res.body.username).toBe('ruqoyah');
         done();
       });
   });
   it('should not create user without passing in username', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
         fullName: 'test user',
-        email: 'testuser3@example.com',
+        email: 'kola@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -83,12 +140,12 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should check if username exceeds 5 characters', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
         username: 'test',
         fullName: 'test user',
-        email: 'testuser1@example.com',
+        email: 'joyce@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -102,10 +159,10 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should check if email is valid', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser1',
+        username: 'ruqoyah',
         fullName: 'test user',
         email: 'testuser1',
         password: 'mypassword',
@@ -121,10 +178,10 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should check if password exceeds 8 characters', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser1',
+        username: 'temitope',
         fullName: 'test user',
         email: 'testuser1@example.com',
         password: 'mypa',
@@ -140,11 +197,11 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user without passing in fullname', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser4',
-        email: 'testuser4@example.com',
+        username: 'temitope',
+        email: 'temitope@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -158,10 +215,10 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user without passing in email', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser5',
+        username: 'temitope',
         fullName: 'test user',
         password: 'mypassword',
         cpassword: 'mypassword'
@@ -176,12 +233,12 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user without passing in password', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser6',
+        username: 'temitope',
         fullName: 'test user',
-        email: 'testuser6@example.com',
+        email: 'temitope@example.com',
         cpassword: 'mypassword'
       })
       .expect(400)
@@ -194,12 +251,12 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user without passing in cpassword', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser6',
+        username: 'temitope',
         fullName: 'test user',
-        email: 'testuser6@example.com',
+        email: 'temitope@example.com',
         password: 'mypassword'
       })
       .expect(400)
@@ -212,13 +269,12 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user with same username twice', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser2',
-        fullName: 'test',
-        lastname: 'user',
-        email: 'testuser3@example.com',
+        username: 'temitayo',
+        fullName: 'test user',
+        email: 'joyce@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -232,13 +288,12 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user that password does not match', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser4',
-        fullName: 'test',
-        lastname: 'user',
-        email: 'testuser4@example.com',
+        username: 'joyce',
+        fullName: 'test user',
+        email: 'joyce@example.com',
         password: 'mypassword',
         cpassword: 'mypasswor'
       })
@@ -252,12 +307,12 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create user with the same email twice', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signup')
       .send({
-        username: 'testuser3',
+        username: 'temitope',
         fullName: 'text user',
-        email: 'testuser2@example.com',
+        email: 'temitayo@example.com',
         password: 'mypassword',
         cpassword: 'mypassword'
       })
@@ -271,10 +326,10 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should sign user in', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         password: 'mypassword',
       })
       .expect(201)
@@ -287,10 +342,10 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not sign user in with incorrect password', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser1',
+        username: 'temitayo',
         password: 'mypasswor',
       })
       .expect(400)
@@ -303,10 +358,10 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not sign user in with incorrect credential', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser',
+        username: 'temita',
         password: 'mypasswor',
       })
       .expect(404)
@@ -319,11 +374,11 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not pass back user password with response', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/users/signin')
       .send({
-        username: 'testuser2',
-        email: 'testuser2@example.com',
+        username: 'temitayo',
+        email: 'temitayo@example.com',
         password: 'mypassword',
       })
       .expect(201)
@@ -336,7 +391,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('Get users', (done) => {
-    request(app)
+    supertest(app)
       .get('/api/v1/users')
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'

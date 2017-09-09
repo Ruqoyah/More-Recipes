@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default(sequelize, DataTypes) => {
   const Reviews = sequelize.define('Reviews', {
     userId: {
       type: DataTypes.STRING,
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         });
         Reviews.hasMany(models.Recipes, {
           foreignKey: 'recipeId',
+          onDelete: 'CASCADE'
         });
       }
     }

@@ -10,7 +10,7 @@ export default {
    */
 
   favoriteRecipe(req, res) {
-    favoriteRecipes
+    return favoriteRecipes
       .create({
         recipeId: req.params.recipeId,
         userId: req.body.userId,
@@ -29,7 +29,7 @@ export default {
    */
 
   getfavoriteRecipe(req, res) {
-    favoriteRecipes
+    return favoriteRecipes
       .findAll({
         where: { userId: req.params.userId }
       })

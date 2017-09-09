@@ -10,7 +10,7 @@ export default {
    */
 
   addRecipe(req, res) {
-    Recipes.create({
+    return Recipes.create({
       recipeName: req.body.recipeName,
       ingredient: req.body.ingredient,
       details: req.body.details
@@ -19,7 +19,7 @@ export default {
         status: 'success',
         recipeName: addRecipes.recipeName,
         message: 'Recipe added successfully',
-        recipeId: addRecipes.id
+        data: { recipeId: addRecipes.id }
       }))
       .catch(error => res.status(400).json(error));
   },
@@ -30,17 +30,21 @@ export default {
    */
 
   modifyRecipe(req, res) {
-    Recipes
+    return Recipes
       .update(req.body,
         {
           where: {
             id: req.params.recipeId
           }
         })
-      .then(() => res.status(205).json({
-        status: 'success',
-        message: 'Recipe modified successfully!'
-      }))
+      .then(() => {
+        Recipes.findById(req.params.recipeId).then(result => res.status(205).json({
+          status: 'success',
+          message: 'Recipe modified successfully!',
+          data:
+          { recipeName: result.recipeName, ingredient: result.ingredient, details: result.details }
+        }));
+      })
       .catch(error => res.status(400).json(error));
   },
 
@@ -50,7 +54,7 @@ export default {
    */
 
   deleteRecipe(req, res) {
-    Recipes
+    return Recipes
       .destroy({
         where: {
           id: req.params.recipeId
@@ -71,19 +75,30 @@ export default {
    */
 
   getRecipes(req, res) {
-    Recipes
-      .findAll({})
-      .then((recipes) => {
-        if (recipes.length < 1) {
-          res.status(404).send({
-            message: 'No Recipe found'
-          });
-        } else {
-          res.status(201).json(recipes);
-        }
-      })
-      .catch(error => res.status(404).json(error));
+    if (req.query.sort && req.query.order) {
+      Recipes
+        .findAll({
+          order: [['votes', 'DESC']]
+        })
+        .then((display) => {
+          res.status(201).json(display);
+        });
+    } else {
+      return Recipes
+        .findAll()
+        .then((recipes) => {
+          if (recipes.length < 1) {
+            res.status(404).send({
+              message: 'No Recipe found'
+            });
+          } else {
+            res.status(201).json(recipes);
+          }
+        })
+        .catch(error => res.status(404).json(error));
+    }
   },
+
 
   /** Upvote a recipe
    * @param  {object} req - request
@@ -91,7 +106,7 @@ export default {
    */
 
   upvoteRecipe(req, res) {
-    Recipes
+    return Recipes
       .findOne({
         where: {
           id: req.params.recipeId
@@ -121,7 +136,7 @@ export default {
    */
 
   downvoteRecipe(req, res) {
-    Recipes
+    return Recipes
       .findOne({
         where: {
           id: req.params.recipeId
@@ -142,20 +157,5 @@ export default {
         message: 'Downvote added successfully!'
       }))
       .catch(error => res.status(400).json(error));
-  },
-
-  /** get recipes with the most upvote
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  getUpvoteRecipes(req, res) {
-    Recipes
-      .findAll({
-        order: [['votes', 'DESC']]
-      })
-      .then((display) => {
-        res.status(201).json(display);
-      });
   }
 };

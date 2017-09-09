@@ -1,7 +1,8 @@
 import expect from 'expect';
-import request from 'supertest';
+import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
+
 
 let recipeId;
 
@@ -26,7 +27,7 @@ describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
   it('should not add recipe without providing a token', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -43,7 +44,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to add recipe providing a token', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -56,13 +57,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        recipeId = res.body.recipeId;
+        recipeId = res.body.data.recipeId;
         expect(res.body.message).toBe('Recipe added successfully');
         done();
       });
   });
   it('should not be able to add recipe with an invalid token', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -79,7 +80,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create recipe without recipe name', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         ingredient: 'pepper, flour, onions',
@@ -96,7 +97,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create recipe without ingredient', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -113,7 +114,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not create recipe without details', (done) => {
-    request(app)
+    supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
@@ -130,7 +131,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to modify recipe', (done) => {
-    request(app)
+    supertest(app)
       .put(`/api/v1/recipes/${recipeId}`)
       .send({
         recipeName: 'Meat Pie',
@@ -148,7 +149,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to modify recipe if recipe id does not exist', (done) => {
-    request(app)
+    supertest(app)
       .put('/api/v1/recipes/5')
       .send({
         recipeName: 'Meat Pie',
@@ -166,7 +167,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to modify recipe if no input for recipe name', (done) => {
-    request(app)
+    supertest(app)
       .put(`/api/v1/recipes/${recipeId}`)
       .send({
         ingredient: 'pepper, flour, onions',
@@ -183,7 +184,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to modify recipe if no input for ingredient', (done) => {
-    request(app)
+    supertest(app)
       .put(`/api/v1/recipes/${recipeId}`)
       .send({
         recipeName: 'Meat Pie',
@@ -200,7 +201,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to modify recipe if no input for details', (done) => {
-    request(app)
+    supertest(app)
       .put(`/api/v1/recipes/${recipeId}`)
       .send({
         recipeName: 'Meat Pie',
@@ -217,7 +218,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to delete recipe with invalid recipe id provided', (done) => {
-    request(app)
+    supertest(app)
       .delete('/api/v1/recipes/5')
       .send({
         recipeName: 'Meat Pie',
@@ -235,7 +236,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to get all recipes', (done) => {
-    request(app)
+    supertest(app)
       .get('/api/v1/recipes')
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
@@ -250,7 +251,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should be able to delete recipe', (done) => {
-    request(app)
+    supertest(app)
       .delete(`/api/v1/recipes/${recipeId}`)
       .send({
         recipeName: 'Meat Pie',
@@ -267,7 +268,7 @@ describe('More-Recipe API: ', () => {
       });
   });
   it('should not be able to get recipes if not exist', (done) => {
-    request(app)
+    supertest(app)
       .get('/api/v1/recipes')
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'

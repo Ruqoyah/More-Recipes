@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const favoriteRecipes = sequelize.define('favoriteRecipes', {
     userId: {
       type: DataTypes.STRING,
