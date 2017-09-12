@@ -14,14 +14,39 @@ export default {
       .create({
         recipeId: req.params.recipeId,
         userId: req.body.userId,
+        category: req.body.category
       })
-      .then(() => res.status(201).json({
+      .then(favorite => res.status(200).json({
         status: 'success',
-        message: `You successfully choose recipe id ${req.params.recipeId} as your favorite recipes`
+        message: `You successfully choose recipe id ${req.params.recipeId} as your favorite recipes`,
+        data: { userId: favorite.userId, recipeId: favorite.recipeId }
       }))
       .catch(error => res.status(400).json(error));
   },
 
+  recipeCategory(req, res) {
+    return favoriteRecipes
+      .findOne({ where:
+        { userId: req.body.userId, recipeId: req.params.recipeId }
+      })
+      .then((recipe) => {
+        if (req.body.category === 'undefined') {
+          return res.status(200).send({
+            status: 'success',
+            message: `Recipe added to ${recipe.category} category`
+          });
+        }
+        recipe
+          .update({ category: req.body.category || recipe.category })
+          .then(() => {
+            res.status(200).send({
+              status: 'success',
+              message: `Recipe added to ${recipe.category} category`
+            });
+          });
+      })
+      .catch(error => res.status(400).json(error));
+  },
 
   /** Get favorite recipes
    * @param  {object} req - request
@@ -31,7 +56,15 @@ export default {
   getfavoriteRecipe(req, res) {
     return favoriteRecipes
       .findAll({
-        where: { userId: req.params.userId }
+        where: { userId: req.params.userId },
+        include: [{
+          model: db.Recipes,
+          attributes: ['recipeName', 'ingredient', 'details', 'votes'],
+          include: [{
+            model: db.Users,
+            attributes: ['fullName', 'updatedAt']
+          }]
+        }],
       })
       .then((favoriteRecipe) => {
         if (favoriteRecipe.length < 1) {

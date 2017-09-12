@@ -1,4 +1,4 @@
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     fullName: {
       type: DataTypes.STRING,
@@ -18,21 +18,24 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    cpassword: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    classMethods: {
-      associate(models) {
-        Users.hasMany(models.favoriteRecipes, {
-          foreignKey: 'userId',
-        });
-        Users.hasMany(models.Votes, {
-          foreignKey: 'userId'
-        });
-      }
+    isAdmin: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   });
+  Users.associate = (models) => {
+    Users.hasMany(models.Recipes, {
+      foreignKey: 'userId'
+    });
+    Users.hasMany(models.Reviews, {
+      foreignKey: 'userId'
+    });
+    Users.hasMany(models.favoriteRecipes, {
+      foreignKey: 'userId',
+    });
+    Users.hasMany(models.Votes, {
+      foreignKey: 'userId'
+    });
+  };
   return Users;
 };

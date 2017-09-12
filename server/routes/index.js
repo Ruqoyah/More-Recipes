@@ -3,8 +3,11 @@ import usersController from '../controllers/users';
 import recipesController from '../controllers/recipes';
 import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
-import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId, checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput, checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput, validateUpVote, validateDownVote } from '../middleware/validation';
-import * as auth from '../middleware/authentication';
+import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
+  checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
+  checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
+  validateUpVote, validateDownVote } from '../middleware/validation';
+import authentication from '../middleware/authentication';
 
 
 const app = express.Router();
@@ -15,7 +18,8 @@ const app = express.Router();
  * @param  {} validateUsers
  * @param  {} usersController.signup
  */
-app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput, validateUsers, usersController.signup);
+app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput,
+  validateUsers, usersController.signup);
 
 /** Signin
  * @param  {} '/api/v1/users/signin'
@@ -27,26 +31,25 @@ app.post('/api/v1/users/signin', validateLoginUser, usersController.signin);
 /** route middleware to verify token
  * @param  {object} auth.default
  */
-app.use(auth.default);
 
 /** Get all users
  * @param  {} '/api/v1/users'
  * @param  {} usersController.getUsers
  */
-app.get('/api/v1/users', usersController.getUsers);
+app.get('/api/v1/users', authentication.isLoggedIn, authentication.isAdmin, authentication.getUsers);
 
 /** Add recipe
  * @param  {} '/api/v1/recipes'
  * @param  {} checkRecipeInput
  * @param  {} recipesController.addRecipe
  */
-app.post('/api/v1/recipes', checkRecipeInput, checkRecipeInvalidInput, recipesController.addRecipe);
+app.post('/api/v1/recipes', authentication.isLoggedIn, validateUsersId, checkRecipeInput, checkRecipeInvalidInput, recipesController.addRecipe);
 
 /** Get all recipes
  * @param  {} '/api/v1/recipes'
  * @param  {} recipesController.getRecipes
  */
-app.get('/api/v1/recipes', recipesController.getRecipes);
+app.get('/api/v1/recipes', authentication.isLoggedIn, recipesController.getRecipes);
 
 /** Modify recipe
  * @param  {recipeId'} '/api/v1/recipes/
@@ -54,14 +57,14 @@ app.get('/api/v1/recipes', recipesController.getRecipes);
  * @param  {} checkRecipeInput
  * @param  {} recipesController.modifyRecipe
  */
-app.put('/api/v1/recipes/:recipeId', validateRecipesId, checkRecipeInput, checkRecipeInvalidInput, recipesController.modifyRecipe);
+app.put('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, recipesController.modifyRecipe);
 
 /** Delete recipe
  * @param  {recipeId'} '/api/v1/recipes/
  * @param  {} validateRecipesId
  * @param  {} recipesController.deleteRecipe
  */
-app.delete('/api/v1/recipes/:recipeId', validateRecipesId, recipesController.deleteRecipe);
+app.delete('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, recipesController.deleteRecipe);
 
 /** Post review
  * @param  {recipeId/reviews'} '/api/v1/recipes/
@@ -69,14 +72,14 @@ app.delete('/api/v1/recipes/:recipeId', validateRecipesId, recipesController.del
  * @param  {} checkReviewInput
  * @param  {} reviewsController.postReview
  */
-app.post('/api/v1/recipes/:recipeId/reviews', validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewsController.postReview);
+app.post('/api/v1/recipes/:recipeId/reviews', authentication.isLoggedIn, validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewsController.postReview);
 
 /** Get reviews
  * @param  {recipeId/reviews'} '/api/v1/recipes/
  * @param  {} validateRecipesId
  * @param  {} reviewsController.getReviews
  */
-app.get('/api/v1/recipes/:recipeId/reviews', validateRecipesId, reviewsController.getReviews);
+app.get('/api/v1/recipes/:recipeId/reviews', authentication.isLoggedIn, validateRecipesId, reviewsController.getReviews);
 
 
 /**
@@ -85,14 +88,15 @@ app.get('/api/v1/recipes/:recipeId/reviews', validateRecipesId, reviewsControlle
  * @param  {} validateRecipesId
  * @param  {} favoriteRecipesController.favoriteRecipe
  */
-app.post('/api/v1/users/:recipeId/recipes', validateRecipesId, validateUsersId, favoriteRecipesController.favoriteRecipe);
+app.post('/api/v1/users/:recipeId/recipes', authentication.isLoggedIn, validateRecipesId, validateUsersId, favoriteRecipesController.favoriteRecipe);
 
+app.put('/api/v1/users/:recipeId/recipes', authentication.isLoggedIn, validateRecipesId, validateUsersId, favoriteRecipesController.recipeCategory);
 /** Get favorite recipes
  * @param  {userId/recipes'} '/api/v1/users/
  * @param  {} validateUsersId
  * @param  {} favoriteRecipesController.getfavoriteRecipe
  */
-app.get('/api/v1/users/:userId/recipes', validateParamUserId, favoriteRecipesController.getfavoriteRecipe);
+app.get('/api/v1/users/:userId/recipes', authentication.isLoggedIn, validateParamUserId, favoriteRecipesController.getfavoriteRecipe);
 
 /** Upvote recipe
  * @param  {recipeId'} '/api/v1/users/upvote/
@@ -101,7 +105,7 @@ app.get('/api/v1/users/:userId/recipes', validateParamUserId, favoriteRecipesCon
  * @param  {} validateUpVote
  * @param  {} recipesController.upvoteRecipe
  */
-app.post('/api/v1/users/upvote/:recipeId', validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
+app.post('/api/v1/users/upvote/:recipeId', authentication.isLoggedIn, validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
 
 /** Downvote recipe
  * @param  {recipeId'} '/api/v1/users/downvote/
@@ -110,7 +114,7 @@ app.post('/api/v1/users/upvote/:recipeId', validateRecipesId, checkUserId, valid
  * @param  {} validateDownVote
  * @param  {} recipesController.downvoteRecipe
  */
-app.post('/api/v1/users/downvote/:recipeId', validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
+app.post('/api/v1/users/downvote/:recipeId', authentication.isLoggedIn, validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
 
 
 export default app;

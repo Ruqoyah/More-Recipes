@@ -1,4 +1,4 @@
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Recipes = sequelize.define('Recipes', {
     recipeName: {
       type: DataTypes.STRING,
@@ -12,25 +12,33 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id',
+        as: 'userId',
+      }
+    },
     votes: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
     }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Recipes.hasMany(models.favoriteRecipes, {
-          foreignKey: 'recipeId'
-        });
-        Recipes.belongsToMany(models.Users, {
-          foreignKey: 'recipeId'
-        });
-        Recipes.hasMany(models.Votes, {
-          foreignKey: 'recipeId'
-        });
-      }
-    }
   });
+  Recipes.associate = (models) => {
+    Recipes.belongsTo(models.Users, {
+      foreignKey: 'userId'
+    });
+    Recipes.hasMany(models.Reviews, {
+      foreignKey: 'recipeId'
+    });
+    Recipes.hasMany(models.favoriteRecipes, {
+      foreignKey: 'recipeId'
+    });
+    Recipes.hasMany(models.Votes, {
+      foreignKey: 'recipeId'
+    });
+  };
   return Recipes;
 };

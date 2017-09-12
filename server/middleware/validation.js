@@ -41,9 +41,6 @@ export const checkUserInput = (req, res, next) => {
   if (!req.body.password) {
     return res.status(400).json({ message: 'Password is required' });
   }
-  if (!req.body.cpassword) {
-    return res.status(400).json({ message: 'You need to confirm your password' });
-  }
   next();
 };
 
@@ -100,10 +97,10 @@ export const checkValidUserInput = (req, res, next) => {
  */
 
 export const checkUserInvalidInput = (req, res, next) => {
-  if (req.body.username.match(/^[a-z]+$/g) == null) {
+  if (req.body.username.match(/^[A-Z][a-z]+$/g) == null) {
     return res.status(409).json({ message: 'Invalid Username' });
   }
-  if (req.body.password.match(/^[a-z]+$/g) == null) {
+  if (req.body.password.match(/^([^ ]+)*$/g) == null) {
     return res.status(409).json({ message: 'Invalid Password' });
   }
   if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
@@ -240,9 +237,6 @@ export const validateUsers = (req, res, next) => {
           if (email) {
             return res.status(400).json({ message: 'Email already exists' });
           }
-          if (req.body.password !== req.body.cpassword) {
-            return res.status(400).json({ message: 'Password does not match' });
-          }
           next();
         });
     });
@@ -276,7 +270,7 @@ export const validateLoginUser = (req, res, next) => {
         return res.status(404).json({ success: false, message: 'User not found' });
       }
       if (!bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(400).json({ success: false, message: 'Wrong password' });
+        return res.status(400).json({ success: false, message: 'Invalid Credentials.' });
       }
       next();
     });

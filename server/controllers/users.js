@@ -24,8 +24,8 @@ export default {
           fullName: req.body.fullName,
           username: req.body.username,
           email: req.body.email,
-          password: hash,
-          cpassword: hash
+          isAdmin: req.body.isAdmin,
+          password: hash
         })
           .then(display => res.status(201).json({
             status: 'success',
@@ -59,25 +59,5 @@ export default {
           data: { token, userId: user.id }
         });
       });
-  },
-
-  /** Get users
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  getUsers(req, res) {
-    return Users
-      .findAll()
-      .then((users) => {
-        if (users.length < 1) {
-          res.status(404).json({
-            message: 'No User found'
-          });
-        } else {
-          res.status(201).json(users);
-        }
-      })
-      .catch(error => res.status(404).json(error));
   }
 };

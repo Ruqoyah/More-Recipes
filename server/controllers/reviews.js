@@ -16,8 +16,10 @@ export default {
         review: req.body.review,
         userId: req.body.userId
       })
-      .then(review => res.status(201).json({
-        review: (review.review)
+      .then(review => res.status(200).json({
+        status: 'success',
+        review: (review.review),
+        data: { userId: review.userId, recipeId: review.recipeId }
       }))
       .catch(error => res.status(400).json(error));
   },
