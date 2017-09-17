@@ -7,7 +7,7 @@ import searchRecipesController from '../controllers/searchRecipes';
 import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
   checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
-  validatefavRecipe, validateUpVote, validateDownVote } from '../middleware/validation';
+  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote, validateDownVote } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -19,7 +19,7 @@ const app = express.Router();
  * @param  {} validateUsers
  * @param  {} usersController.signup
  */
-app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput,
+app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput, signupNotification,
   validateUsers, usersController.signup);
 
 /** Signin
@@ -58,7 +58,16 @@ app.get('/api/v1/recipes', authentication.isLoggedIn, searchRecipesController.ge
  * @param  {} checkRecipeInput
  * @param  {} recipesController.modifyRecipe
  */
-app.put('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, recipesController.modifyRecipe);
+app.put('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, favRecipeNotification, recipesController.modifyRecipe);
+
+/** View Recipe
+ * @param  {recipeId'} '/api/v1/recipes/
+ * @param  {} authentication.isLoggedIn
+ * @param  {} validateRecipesId
+ * @param  {} checkRecipeInput
+ * @param  {} recipesController.modifyRecipe
+ */
+app.get('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, recipesController.viewRecipe);
 
 /** Delete recipe
  * @param  {recipeId'} '/api/v1/recipes/
@@ -75,7 +84,7 @@ app.delete('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecip
  * @param  {} checkReviewInput
  * @param  {} reviewsController.postReview
  */
-app.post('/api/v1/recipes/:recipeId/reviews', authentication.isLoggedIn, validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewsController.postReview);
+app.post('/api/v1/recipes/:recipeId/reviews', authentication.isLoggedIn, validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewNotification, reviewsController.postReview);
 
 /** Get reviews
  * @param  {recipeId/reviews'} '/api/v1/recipes/

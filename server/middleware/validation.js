@@ -1,7 +1,92 @@
+import nodemailer from 'nodemailer';
+import winston from 'winston';
+import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import db from '../models/';
 
+dotenv.load();
+
 const { Recipes, Users, favoriteRecipes, Votes } = db;
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PASS
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+export const reviewNotification = (req, res, next) => {
+  Recipes
+    .findOne({ where: { id: req.params.recipeId } })
+    .then((recipe) => {
+      Users
+        .findOne({ where: { id: recipe.userId } })
+        .then((user) => {
+          const mailOptions = {
+            from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+            to: user.email,
+            subject: 'You have a new Review',
+            text: 'Someone just review your recipe, click on the link below to check',
+          };
+
+          transporter.sendMail(mailOptions, (error, res) => {
+            if (error) {
+              winston.info(error);
+            }
+            winston.info('Email sent to: %s', res);
+            next();
+          });
+        });
+    });
+};
+
+export const signupNotification = (req, res, next) => {
+  const mailOptions = {
+    from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+    to: `${req.body.email}`,
+    subject: 'Your More-Recipes account has been created',
+    text: `Thank you for signing up with More-Recipes, username: ${req.body.username}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, res) => {
+    if (error) {
+      winston.info(error);
+    }
+    winston.info('Email sent to: %s', res);
+    next();
+  });
+};
+
+export const favRecipeNotification = (req, res, next) => {
+  favoriteRecipes
+    .findOne({ where: { recipeId: req.params.recipeId } })
+    .then((recipe) => {
+      Users
+        .findOne({ where: { id: recipe.userId } })
+        .then((user) => {
+          const mailOptions = {
+            from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+            to: user.email,
+            subject: 'Edit Recipe',
+            text: 'One of your favorite recipe has been modify, click on the link below to check',
+          };
+
+          transporter.sendMail(mailOptions, (error, res) => {
+            if (error) {
+              winston.info(error);
+            }
+            winston.info('Email sent to: %s', res);
+            next();
+          });
+        });
+    });
+};
 
 /** Check if user recipe input is empty
  * @param  {object} req - request
@@ -97,7 +182,7 @@ export const checkValidUserInput = (req, res, next) => {
  */
 
 export const checkUserInvalidInput = (req, res, next) => {
-  if (req.body.username.match(/^[A-Z][a-z]+$/g) == null) {
+  if (req.body.username.match(/^[a-z]+$/g) == null) {
     return res.status(409).json({ message: 'Invalid Username' });
   }
   if (req.body.password.match(/^([^ ]+)*$/g) == null) {

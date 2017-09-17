@@ -159,5 +159,28 @@ export default {
         }));
       })
       .catch(error => res.status(400).json(error));
-  }
+  },
+
+  /** View recipe
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+
+  viewRecipe(req, res) {
+    return Recipes
+      .findOne({
+        where: {
+          id: req.params.recipeId
+        }
+      })
+      .then((recipe) => {
+        recipe.increment('views').then(() => {
+          recipe.reload()
+            .then(() => res.status(200).send(recipe));
+        });
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
 };
+
