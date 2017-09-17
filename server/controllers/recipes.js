@@ -54,11 +54,11 @@ export default {
               Recipes.findById(req.params.recipeId).then(result => res.status(200).json({
                 status: 'success',
                 message: 'Recipe modified successfully!',
-                data:
-          { recipeName: result.recipeName,
-            ingredient: result.ingredient,
-            details: result.details,
-            userId: result.userId }
+                data: {
+                  recipeName: result.recipeName,
+                  ingredient: result.ingredient,
+                  details: result.details,
+                  userId: result.userId }
               }));
             }));
       })
@@ -95,54 +95,6 @@ export default {
       })
       .catch(error => res.status(404).json(error));
   },
-
-  /** Get all recipes
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  getRecipes(req, res) {
-    if (req.query.sort && req.query.order) {
-      Recipes
-        .findAll({
-          include: [{
-            model: db.Reviews,
-            attributes: ['review'],
-            include: [{
-              model: db.Users,
-              attributes: ['fullName', 'updatedAt']
-            }]
-          }],
-          order: [['votes', 'DESC']],
-          limit: 5
-        })
-        .then((display) => {
-          res.status(201).json(display);
-        });
-    } else {
-      Recipes
-        .findAll({
-          include: [{
-            model: db.Reviews,
-            attributes: ['review'],
-            include: [{
-              model: db.Users,
-              attributes: ['fullName', 'updatedAt']
-            }]
-          }],
-        })
-        .then((recipes) => {
-          if (recipes.length < 1) {
-            return res.status(404).send({
-              message: 'No Recipe found'
-            });
-          }
-          return res.status(200).json(recipes);
-        })
-        .catch(error => res.status(404).json(error));
-    }
-  },
-
 
   /** Upvote a recipe
    * @param  {object} req - request

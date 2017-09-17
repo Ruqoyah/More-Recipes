@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import db from '../models/';
 
-const { Recipes, Users, Votes } = db;
+const { Recipes, Users, favoriteRecipes, Votes } = db;
 
 /** Check if user recipe input is empty
  * @param  {object} req - request
@@ -297,6 +297,30 @@ export const validateRecipesId = (req, res, next) => {
     });
 };
 
+/** check if favorite recipe already exist
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const validatefavRecipe = (req, res, next) => {
+  favoriteRecipes
+    .findOne({
+      where: {
+        userId: req.body.userId,
+        recipeId: req.params.recipeId
+      }
+    })
+    .then((favorite) => {
+      if (favorite) {
+        return res.status(400).json({
+          message: 'You already favorite recipe'
+        });
+      }
+      next();
+    });
+};
+
 /** Check if user id input in param exist
  * @param  {object} req - request
  * @param  {object} res - response
@@ -322,6 +346,12 @@ export const validateUsersId = (req, res, next) => {
       next();
     });
 };
+
+/** validate user id param
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateParamUserId = (req, res, next) => {
   Users
