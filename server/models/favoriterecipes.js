@@ -7,21 +7,22 @@ export default (sequelize, DataTypes) => {
     recipeId: {
       type: DataTypes.STRING,
       allowNull: false
-    }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        favoriteRecipes.BelongsTo(models.Recipes, {
-          foreignKey: 'recipeId',
-          onDelete: 'CASCADE'
-        });
-        favoriteRecipes.BelongsTo(models.Users, {
-          foreignKey: 'userId',
-          onDelete: 'CASCADE'
-        });
-      }
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
+  favoriteRecipes.associate = (models) => {
+    favoriteRecipes.belongsTo(models.Recipes, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE'
+    });
+    favoriteRecipes.belongsTo(models.Users, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
+  };
   return favoriteRecipes;
 };
 

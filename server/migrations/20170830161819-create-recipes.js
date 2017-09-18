@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => 
     queryInterface.createTable('Recipes', {
       id: {
         allowNull: false,
@@ -16,7 +16,21 @@ module.exports = {
       details: {
         type: Sequelize.STRING
       },
+      userId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId',
+        }
+      },
       votes: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      views: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0
@@ -29,7 +43,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
-  },
+    }),
   down: queryInterface => queryInterface.dropTable('Recipes'),
 };

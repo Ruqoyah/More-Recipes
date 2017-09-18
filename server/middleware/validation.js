@@ -1,7 +1,116 @@
+import nodemailer from 'nodemailer';
+import winston from 'winston';
+import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import db from '../models/';
+import recipes from '../controllers/recipes';
 
-const { Recipes, Users, Votes } = db;
+dotenv.load();
+
+const { Recipes, Users, favoriteRecipes, Votes } = db;
+
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PASS
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+/** Get notification each time recipe get review
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const reviewNotification = (req, res, next) => {
+  Recipes
+    .findOne({ where: { id: req.params.recipeId } })
+    .then((recipe) => {
+      Users
+        .findOne({ where: { id: recipe.userId } })
+        .then((user) => {
+          const mailOptions = {
+            from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+            to: user.email,
+            subject: 'You have a new Review',
+            text: 'Someone just review your recipe, click on the link below to check',
+          };
+
+          transporter.sendMail(mailOptions, (error, res) => {
+            if (error) {
+              winston.info(error);
+            }
+            winston.info('Email sent to: %s', res);
+            next();
+          });
+        });
+    });
+};
+
+/** Get a signup notification
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const signupNotification = (req, res, next) => {
+  const mailOptions = {
+    from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+    to: `${req.body.email}`,
+    subject: 'Your More-Recipes account has been created',
+    text: `Thank you for signing up with More-Recipes, username: ${req.body.username}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, res) => {
+    if (error) {
+      winston.info(error);
+    }
+    winston.info('Email sent to: %s', res);
+    next();
+  });
+};
+
+/** Get notification when favourite recipe is updated
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const favRecipeNotification = (req, res, next) => {
+  favoriteRecipes
+    .findOne({ where: {
+      id: req.params.recipeId } })
+    .then((recipe) => {
+      if (!recipe) {
+        recipes.modifyRecipe(req, res);
+      } else {
+        Users
+          .findOne({ where: { id: recipe.userId } })
+          .then((user) => {
+            const mailOptions = {
+              from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+              to: user.email,
+              subject: 'Edit Recipe',
+              text: 'One of your favorite recipe has been modify, click on the link below to check',
+            };
+
+            transporter.sendMail(mailOptions, (error, res) => {
+              if (error) {
+                winston.info(error);
+              }
+              winston.info('Email sent to: %s', res);
+              next();
+            });
+          });
+      }
+    });
+};
 
 /** Check if user recipe input is empty
  * @param  {object} req - request
@@ -40,9 +149,6 @@ export const checkUserInput = (req, res, next) => {
   }
   if (!req.body.password) {
     return res.status(400).json({ message: 'Password is required' });
-  }
-  if (!req.body.cpassword) {
-    return res.status(400).json({ message: 'You need to confirm your password' });
   }
   next();
 };
@@ -103,7 +209,7 @@ export const checkUserInvalidInput = (req, res, next) => {
   if (req.body.username.match(/^[a-z]+$/g) == null) {
     return res.status(409).json({ message: 'Invalid Username' });
   }
-  if (req.body.password.match(/^[a-z]+$/g) == null) {
+  if (req.body.password.match(/^([^ ]+)*$/g) == null) {
     return res.status(409).json({ message: 'Invalid Password' });
   }
   if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
@@ -240,9 +346,6 @@ export const validateUsers = (req, res, next) => {
           if (email) {
             return res.status(400).json({ message: 'Email already exists' });
           }
-          if (req.body.password !== req.body.cpassword) {
-            return res.status(400).json({ message: 'Password does not match' });
-          }
           next();
         });
     });
@@ -276,7 +379,7 @@ export const validateLoginUser = (req, res, next) => {
         return res.status(404).json({ success: false, message: 'User not found' });
       }
       if (!bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(400).json({ success: false, message: 'Wrong password' });
+        return res.status(400).json({ success: false, message: 'Invalid Credentials.' });
       }
       next();
     });
@@ -297,6 +400,30 @@ export const validateRecipesId = (req, res, next) => {
       if (!recipe) {
         return res.status(404).json({
           message: 'No recipe Id found'
+        });
+      }
+      next();
+    });
+};
+
+/** check if favorite recipe already exist
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
+
+export const validatefavRecipe = (req, res, next) => {
+  favoriteRecipes
+    .findOne({
+      where: {
+        userId: req.body.userId,
+        recipeId: req.params.recipeId
+      }
+    })
+    .then((favorite) => {
+      if (favorite) {
+        return res.status(400).json({
+          message: 'You already favorite recipe'
         });
       }
       next();
@@ -328,6 +455,12 @@ export const validateUsersId = (req, res, next) => {
       next();
     });
 };
+
+/** validate user id param
+ * @param  {object} req - request
+ * @param  {object} res - response
+ * @param  {object} next - next
+ */
 
 export const validateParamUserId = (req, res, next) => {
   Users
@@ -370,6 +503,13 @@ export const validateUpVote = (req, res, next) => {
         .create({
           recipeId: req.params.recipeId,
           userId: req.body.userId
+        })
+        .then((upvote) => {
+          res.status(200).json({
+            status: 'success',
+            message: 'Upvote added successfully!',
+            data: { userId: upvote.userId, recipeId: upvote.recipeId }
+          });
         });
       next();
     });
@@ -401,6 +541,13 @@ export const validateDownVote = (req, res, next) => {
             userId: req.body.userId,
             recipeId: req.params.recipeId
           }
+        })
+        .then(() => {
+          res.status(200).json({
+            status: 'success',
+            message: 'Downvote added successfully!',
+            data: { userId: vote.userId, recipeId: vote.recipeId }
+          });
         });
       next();
     });

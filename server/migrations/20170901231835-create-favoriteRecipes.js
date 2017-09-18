@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => 
     queryInterface.createTable('favoriteRecipes', {
       id: {
         allowNull: false,
@@ -13,6 +13,10 @@ module.exports = {
       recipeId: {
         type: Sequelize.INTEGER
       },
+      category: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -21,7 +25,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
-  },
+    }),
   down: queryInterface => queryInterface.dropTable('favoriteRecipes'),
 };

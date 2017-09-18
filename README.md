@@ -1,9 +1,12 @@
-[![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=ft-add-more-tests-150914567)](https://travis-ci.org/Ruqoyah/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=ft-update-server-code-150877782)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=ft-update-server-code-150877782)
+[![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=ft-implement-feedback-150996460)](https://travis-ci.org/Ruqoyah/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=ft-implement-feedback-150996460)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=ft-implement-feedback-150996460)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 
 # More-Recipes
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a food recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
+
+## Heroku link
+https://more-recipes-app.herokuapp.com/
 
 ## Installation
 > - Git clone this repository : https://github.com/Ruqoyah/More-Recipes.git
@@ -23,15 +26,18 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 > - GET : /api/v1/users An API route that get all users 
 > - POST : /api/v1/recipes An API route that allow login user to add recipes
 > - GET : /api/v1/recipes An API route that get all recipes
+> - GET : /api/v1/recipes/:recipeId An API route that allow user to view recipe 
 > - PUT : /api/v1/recipes/:recipeId An API route that allow login user modify recipes
 > - DELETE : /api/v1/recipes/:recipeId An API route that allow login user to delete recipes
 > - POST : /api/v1/recipes/:recipeId/reviews An API route that allow login user to post review on a recipes
 > - GET : /api/v1/recipes/:recipeId/reviews An API route that get all reviews 
 > - POST : /api/v1/users/:recipeId/recipes An API route that allow user add favorite recipes
+> - PUT : /api/v1/users/:recipeId/recipes An API route that allow user to add favorite recipe to a category
 > - GET : /api/v1/users/:userId/recipes An API route that get a user favorite recipes
 > - POST : /api/v1/users/upvote/:recipeId An API route that allow user to upvote recipes
 > - POST : /api/v1/users/downvote/:recipeId An API route that allow user to downvote recipes
 > - GET : /api/v1/recipes?sort=upvotes&order=descending An API route that allow user get most upvote recipes
+> - GET : /api/v1/recipes?search=:keyword An API route that allow user search recipe
 
 ## Author
 -  Rukayat Odukoya
