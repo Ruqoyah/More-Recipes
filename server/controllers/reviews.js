@@ -40,7 +40,7 @@ export default {
             message: 'No review found'
           });
         } else {
-          res.status(201).json(reviews);
+          res.status(200).json(reviews);
         }
       })
       .catch(error => res.status(404).json(error));

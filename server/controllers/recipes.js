@@ -109,24 +109,11 @@ export default {
         }
       })
       .then((recipe) => {
-        Recipes
-          .update({
-            votes: recipe.votes + 1
-          },
-          {
-            where: {
-              id: req.params.recipeId
-            }
-          });
+        recipe.increment('votes').then(() => {
+          recipe.reload();
+        });
       })
-      .then(() => {
-        db.Votes.findById(req.params.recipeId).then(upvote => res.status(200).json({
-          status: 'success',
-          message: 'Upvote added successfully!',
-          data: { userId: upvote.userId, recipeId: upvote.recipeId }
-        }));
-      })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(400).send(error));
   },
 
   /** Downvote a recipe
@@ -142,23 +129,11 @@ export default {
         }
       })
       .then((recipe) => {
-        Recipes
-          .update({
-            votes: recipe.votes - 1
-          }, {
-            where: {
-              id: req.params.recipeId
-            }
-          });
+        recipe.decrement('votes').then(() => {
+          recipe.reload();
+        });
       })
-      .then(() => {
-        db.Votes.findById(req.params.recipeId).then(downvote => res.status(200).json({
-          status: 'success',
-          message: 'Downvote added successfully!',
-          data: { userId: downvote.userId, recipeId: downvote.recipeId }
-        }));
-      })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(400).send(error));
   },
 
   /** View recipe
@@ -180,7 +155,7 @@ export default {
         });
       })
       .catch(error => res.status(400).send(error));
-  },
+  }
 
 };
 

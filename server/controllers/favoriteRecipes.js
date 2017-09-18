@@ -72,7 +72,7 @@ export default {
             message: 'No favorite recipe found'
           });
         } else {
-          res.status(201).json(favoriteRecipe);
+          res.status(200).json(favoriteRecipe);
         }
       })
       .catch(error => res.status(404).json(error));

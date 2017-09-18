@@ -32,8 +32,7 @@ describe('More-Recipe API: ', () => {
         username: 'temitayo',
         fullName: 'test user',
         email: 'temitayo@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(201)
       .end((err, res) => {
@@ -45,6 +44,24 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
+  it('should not create User with invalid email', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signup')
+      .send({
+        username: 'oriyomi',
+        fullName: 'test user',
+        email: 'temitayo',
+        password: 'mypassword'
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
   it('check user input', (done) => {
     supertest(app)
       .post('/api/v1/users/signup')
@@ -52,8 +69,7 @@ describe('More-Recipe API: ', () => {
         username: 'temi tayo',
         fullName: 'test user',
         email: 'temitayo@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(409)
       .end((err, res) => {
@@ -71,8 +87,7 @@ describe('More-Recipe API: ', () => {
         username: 'temitayo',
         fullName: 'test user',
         email: 'temitayo@example.com',
-        password: 'mypassword12',
-        cpassword: 'mypassword'
+        password: 'mypassword 12',
       })
       .expect(409)
       .end((err, res) => {
@@ -91,7 +106,6 @@ describe('More-Recipe API: ', () => {
         fullName: '  test user',
         email: 'temitayo@example.com',
         password: 'mypassword',
-        cpassword: 'mypassword'
       })
       .expect(409)
       .end((err, res) => {
@@ -109,8 +123,7 @@ describe('More-Recipe API: ', () => {
         username: 'ruqoyah',
         fullName: 'test user',
         email: 'ruqoyah@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(201)
       .end((err, res) => {
@@ -127,8 +140,7 @@ describe('More-Recipe API: ', () => {
       .send({
         fullName: 'test user',
         email: 'kola@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(400)
       .end((err, res) => {
@@ -146,8 +158,7 @@ describe('More-Recipe API: ', () => {
         username: 'test',
         fullName: 'test user',
         email: 'joyce@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(409)
       .end((err, res) => {
@@ -165,8 +176,7 @@ describe('More-Recipe API: ', () => {
         username: 'ruqoyah',
         fullName: 'test user',
         email: 'testuser1',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(409)
       .end((err, res) => {
@@ -184,8 +194,7 @@ describe('More-Recipe API: ', () => {
         username: 'temitope',
         fullName: 'test user',
         email: 'testuser1@example.com',
-        password: 'mypa',
-        cpassword: 'mypa'
+        password: 'mypa'
       })
       .expect(409)
       .end((err, res) => {
@@ -202,8 +211,7 @@ describe('More-Recipe API: ', () => {
       .send({
         username: 'temitope',
         email: 'temitope@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(400)
       .end((err, res) => {
@@ -220,8 +228,7 @@ describe('More-Recipe API: ', () => {
       .send({
         username: 'temitope',
         fullName: 'test user',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(400)
       .end((err, res) => {
@@ -238,8 +245,7 @@ describe('More-Recipe API: ', () => {
       .send({
         username: 'temitope',
         fullName: 'test user',
-        email: 'temitope@example.com',
-        cpassword: 'mypassword'
+        email: 'temitope@example.com'
       })
       .expect(400)
       .end((err, res) => {
@@ -250,24 +256,6 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not create user without passing in cpassword', (done) => {
-    supertest(app)
-      .post('/api/v1/users/signup')
-      .send({
-        username: 'temitope',
-        fullName: 'test user',
-        email: 'temitope@example.com',
-        password: 'mypassword'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('You need to confirm your password');
-        done();
-      });
-  });
   it('should not create user with same username twice', (done) => {
     supertest(app)
       .post('/api/v1/users/signup')
@@ -275,8 +263,7 @@ describe('More-Recipe API: ', () => {
         username: 'temitayo',
         fullName: 'test user',
         email: 'joyce@example.com',
-        password: 'mypassword',
-        cpassword: 'mypassword'
+        password: 'mypassword'
       })
       .expect(400)
       .end((err, res) => {
@@ -284,25 +271,6 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         expect(res.body.message).toBe('Username already exists');
-        done();
-      });
-  });
-  it('should not create user that password does not match', (done) => {
-    supertest(app)
-      .post('/api/v1/users/signup')
-      .send({
-        username: 'joyce',
-        fullName: 'test user',
-        email: 'joyce@example.com',
-        password: 'mypassword',
-        cpassword: 'mypasswor'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Password does not match');
         done();
       });
   });
@@ -330,9 +298,9 @@ describe('More-Recipe API: ', () => {
       .post('/api/v1/users/signin')
       .send({
         username: 'temitayo',
-        password: 'mypassword',
+        password: 'mypassword'
       })
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -353,7 +321,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Wrong password');
+        expect(res.body.message).toBe('Invalid Credentials.');
         done();
       });
   });
@@ -378,10 +346,9 @@ describe('More-Recipe API: ', () => {
       .post('/api/v1/users/signin')
       .send({
         username: 'temitayo',
-        email: 'temitayo@example.com',
         password: 'mypassword',
       })
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -390,13 +357,28 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('Get users', (done) => {
+  it('User should not be able to get all users', (done) => {
     supertest(app)
       .get('/api/v1/users')
       .send({
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
       })
-      .expect(201)
+      .expect(403)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
+  it('Admin should be able to get all users', (done) => {
+    supertest(app)
+      .get('/api/v1/users')
+      .send({
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoicnVrYXlhdCIsImZ1bGxuYW1lIjoicnVrYXlhdCBvZHVrb3lhIiwiaXNBZG1pbiI6MX0sImlhdCI6MTUwNTY4Nzg0NH0.cG16W4YvYAWdLUjOYpXVp7lZFDn647mRSUSxJUzzFeE'
+      })
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);

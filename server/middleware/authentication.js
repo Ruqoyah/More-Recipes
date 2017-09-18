@@ -23,7 +23,7 @@ export default {
             message: 'No User found'
           });
         } else {
-          res.status(201).json(users);
+          res.status(200).json(users);
         }
       })
       .catch(error => res.status(404).json(error));

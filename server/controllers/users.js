@@ -53,7 +53,7 @@ export default {
           isAdmin: user.isAdmin
         };
         const token = jwt.sign({ currentUser }, secret);
-        res.status(201).json({
+        res.status(200).json({
           status: 'success',
           message: 'You have successfully signed in!',
           data: { token, userId: user.id }

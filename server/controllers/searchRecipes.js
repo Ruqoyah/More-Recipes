@@ -5,6 +5,8 @@ const { Recipes } = db;
 export default {
 
   /** Get all recipes
+   * Search Recipes
+   * Get recipes with the most upvote
    * @param  {object} req - request
    * @param  {object} res - response
    */
