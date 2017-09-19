@@ -11,6 +11,7 @@ const { Recipes, Users, favoriteRecipes, Votes } = db;
 
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
+  host: 'smtp.gmail.com',
   port: 465,
   secure: true,
   auth: {
@@ -36,7 +37,7 @@ export const reviewNotification = (req, res, next) => {
         .findOne({ where: { id: recipe.userId } })
         .then((user) => {
           const mailOptions = {
-            from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+            from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
             to: user.email,
             subject: 'You have a new Review',
             text: 'Someone just review your recipe, click on the link below to check',
@@ -60,20 +61,43 @@ export const reviewNotification = (req, res, next) => {
  */
 
 export const signupNotification = (req, res, next) => {
-  const mailOptions = {
-    from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
-    to: `${req.body.email}`,
-    subject: 'Your More-Recipes account has been created',
-    text: `Thank you for signing up with More-Recipes, username: ${req.body.username}`,
-  };
+  Users
+    .findOne({
+      where: {
+        username: req.body.username
+      },
+    })
+    .then((user) => {
+      if (user) {
+        return res.status(400).json({ message: 'Username already exists' });
+      }
+      Users
+        .findOne({
+          where: {
+            email: req.body.email
+          },
+        })
+        .then((email) => {
+          if (email) {
+            return res.status(400).json({ message: 'Email already exists' });
+          }
+          const mailOptions = {
+            from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
+            to: `${req.body.email}`,
+            subject: 'Your More-Recipes account has been created',
+            text: `Thank you for signing up with More-Recipes, username: ${req.body.username}`,
+          };
 
-  transporter.sendMail(mailOptions, (error, res) => {
-    if (error) {
-      winston.info(error);
-    }
-    winston.info('Email sent to: %s', res);
-    next();
-  });
+          transporter.sendMail(mailOptions, (error, res) => {
+            if (error) {
+              winston.info(error);
+            }
+            winston.info('Email sent to: %s', res);
+          });
+
+          next();
+        });
+    });
 };
 
 /** Get notification when favourite recipe is updated
@@ -94,7 +118,7 @@ export const favRecipeNotification = (req, res, next) => {
           .findOne({ where: { id: recipe.userId } })
           .then((user) => {
             const mailOptions = {
-              from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
+              from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
               to: user.email,
               subject: 'Edit Recipe',
               text: 'One of your favorite recipe has been modify, click on the link below to check',
