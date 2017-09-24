@@ -18,10 +18,10 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
-      // $: 'jquery',
-      // jQuery: 'jquery',
-      // 'window.jQuery': 'jquery',
-      // Hammer: 'hammerjs/hammer'
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      Tether: 'tether'
     })
   ],
   module: {
@@ -75,9 +75,10 @@ module.exports = {
         exclude: /node_modules/,
         include: __dirname,
       },
-      // {
-      //   loader: 'imports-loader?jQuery=jquery,$=jquery,hammerjs'
-      // },
+      {
+        test: /bootstrap-css\/bin\//,
+        loader: 'imports-loader?jQuery=jquery,$=jquery,tether'
+      },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       },

@@ -1,5 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Signup from './components/Signup';
+import Signup from './components/Signup/Signup';
+import Login from './components/Login/Login'
+import Homepage from './components/Homepage/Homepage'
+import './public/styles/style.scss';
 
-render(<Signup />, document.getElementById('app'));
+
+
+
+render(<Homepage />, document.getElementById('app'));

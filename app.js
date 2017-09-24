@@ -13,6 +13,7 @@ const app = express();
 dotenv.load();
 app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
+app.use(express.static('./client/public/')); // configure static files folder
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(routes);
