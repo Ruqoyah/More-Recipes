@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Link } from 'react-router-dom'
 
 
 export default class Login extends Component {
@@ -22,10 +23,10 @@ componentDidMount(){
             <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
         </div>
         <div className="input-group">
-            <a href="#" className="btn btn-outline-success btn-lg btn-block">Login</a>
+            <Link to="recipe" className="btn btn-outline-success btn-lg btn-block">Login</Link>
         </div>
         <div className="join">
-            <a href="#">New to More Recipes? Join Free!</a>
+            <Link to="signup">New to More Recipes? Join Free!</Link>
         </div>
     </form>
 

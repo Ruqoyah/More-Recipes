@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Link } from 'react-router-dom';
 
 export default class Homepage extends Component {
 
@@ -38,8 +39,8 @@ export default class Homepage extends Component {
             <img src="images/logo.png" width="60%" height="30%" alt="bell" />
             <h5>More-Recipes is a platform for users to share the awesome and exciting recipe ideas they have invented or learnt</h5>
             <p className="show-off">Show off your latest recipe and get feedback.</p>
-            <a href="#" className="btn btn-outline-danger btn-lg"> Create a profile</a>
-            <a href="#" className="btn btn-outline-success btn-lg"> Login</a>
+            <Link to="signup" className="btn btn-outline-danger btn-lg"> Create a profile</Link>
+            <Link to="login" className="btn btn-outline-success btn-lg"> Login</Link>
         </div>
     </div>
 

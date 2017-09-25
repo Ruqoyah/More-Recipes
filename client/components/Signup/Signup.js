@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
-export default class  Register extends Component {
+export default class Signup extends Component {
   componentDidMount(){
     document.body.style.backgroundImage = "url(/images/designed.png)"
     document.body.className="body-component-b"
@@ -40,7 +40,7 @@ export default class  Register extends Component {
             <span className="custom-file-control">Upload Picture</span>
         </label>
         <div className="input-group">
-            <a href="#" className="btn btn-outline-danger btn-lg btn-block">Finish</a>
+            <Link to="login" className="btn btn-outline-danger btn-lg btn-block">Finish</Link>
         </div>
     </form>
       </div>);
