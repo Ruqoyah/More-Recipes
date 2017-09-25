@@ -30,8 +30,8 @@
     margin: 10px 0px 10px 0px;
 }
 
-// .btn {
-//    padding: 10px;
+// .btn-toolbar {
+//   padding: 10px;
 // }
 
 .join {
@@ -67,6 +67,71 @@ h5 {
     margin-left: 4%;
     margin-right: 4%;
 }
+
+body {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.navbar {
+    padding-top: 4%;
+    padding-left: 4%;
+    padding-right: 4%;
+    margin-bottom: 2%;
+}
+
+// .container{
+//     margin-top: 3%;
+//     padding-top: 5%;
+//     color: #fff;
+//     font-size:12px;
+// }
+
+// .tog-button{
+//     margin-right: 5%;
+// }
+
+.upvote {
+  cursor: pointer;
+  margin-left: 0%;
+}
+
+.downvote {
+  cursor: pointer;
+  margin-left: 20%;
+}
+
+// .chat-form {
+// 	display: flex;
+// 	align-items: flex-start;
+// }
+
+// .post-form textarea {
+// 	background: #fbfbfb;
+// 	width: 100%;
+// 	height: 50%;
+// 	border: 2px solid #eee;
+// 	border-radius: 3px;
+// 	resize:none;
+// 	padding: 10px;
+// 	font-size: 18px;
+// 	color: #333;
+// }
+
+// .post-form textarea:focus {
+// 	background: #fff
+// }
+
+// .post-form textarea::-webkit-scrollbar {
+// 	width: 10px;
+
+// }
+
+// .post-form textarea::-webkit-scrollbar-thumb {
+// 	border-radius: 5px;
+// 	background: rgba(0,0,0,.1);
+
+// }
 
 .footer{
     background-color: #3F3F3F;

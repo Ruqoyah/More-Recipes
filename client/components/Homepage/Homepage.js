@@ -3,10 +3,10 @@ import { render } from 'react-dom';
 
 export default class Homepage extends Component {
 
-componentDidMount(){
-    document.body.style.backgroundColor = "#D3D3D3"
-    document.body.className="body-component-a"
-}
+// componentDidMount(){
+//     document.body.style.backgroundColor = "#f2f2f2"
+//     document.body.className="body-component-a"
+// }
 
   render() {
     return (
@@ -59,7 +59,7 @@ componentDidMount(){
             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
             <span className="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
             <span className="carousel-control-next-icon" aria-hidden="true"></span>
             <span className="sr-only">Next</span>
         </a>
