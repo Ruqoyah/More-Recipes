@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-export default class RecipePage extends Component {
+export default class FavoriteRecipe extends Component {
 
   render() {
     return (
@@ -12,18 +12,15 @@ export default class RecipePage extends Component {
           <NavLink className="navbar-brand" to="/recipe">
             <img src="images/logo.png" width="270" height="59" alt="logo" />
           </NavLink>
-
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav col-lg-6">
               <input className="form-control mr-sm-2" type="text" placeholder="Search recipe" aria-label="Search" />
             </ul>
           </div>
-
           <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33" alt="bell" /></a>
           <NavLink className="navbar-brand" to="/profilepage"><img src="images/picture.png" width="45" height="45" alt="picture" /></NavLink>
           <div className="dropdown">
@@ -37,7 +34,6 @@ export default class RecipePage extends Component {
             </div>
           </div>
         </nav>
-
         <div className="card-deck">
           <div className="card">
             <img className="card-img-top" src="images/strawberries and steak.png" alt="strawberries and steak" />
@@ -102,6 +98,7 @@ export default class RecipePage extends Component {
             </li>
           </ul>
         </nav>
+
       </div>);
   }
 }
