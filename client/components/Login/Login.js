@@ -23,10 +23,10 @@ componentDidMount(){
             <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
         </div>
         <div className="input-group">
-            <Link to="recipe" className="btn btn-outline-success btn-lg btn-block">Login</Link>
+            <Link to="/recipe" className="btn btn-outline-success btn-lg btn-block">Login</Link>
         </div>
         <div className="join">
-            <Link to="signup">New to More Recipes? Join Free!</Link>
+            <Link to="/signup">New to More Recipes? Join Free!</Link>
         </div>
     </form>
 

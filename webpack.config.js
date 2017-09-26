@@ -6,10 +6,11 @@ module.exports = {
     './client/index.js'],
   output: {
     path: path.join(__dirname, 'client/dist/'),
-    publicPath: '/client/',
+    publicPath: '/',
     filename: 'bundle.js'
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: './client/dist',
     hot: true
   },

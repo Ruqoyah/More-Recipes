@@ -40,7 +40,7 @@ export default class Signup extends Component {
             <span className="custom-file-control">Upload Picture</span>
         </label>
         <div className="input-group">
-            <Link to="login" className="btn btn-outline-danger btn-lg btn-block">Finish</Link>
+            <Link to="/login" className="btn btn-outline-danger btn-lg btn-block">Finish</Link>
         </div>
     </form>
       </div>);

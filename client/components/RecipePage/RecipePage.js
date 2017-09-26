@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default class RecipePage extends Component {
 
@@ -11,7 +13,7 @@ export default class RecipePage extends Component {
             <img src="images/logo.png" width="270" height="59" alt="logo" />
           </a>
 
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          <button className="navbar-toggler" type="ybutton" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -34,7 +36,7 @@ export default class RecipePage extends Component {
             <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
             <div className="dropdown-menu">
               <a className="dropdown-item" href="#">View profile</a>
-              <a className="dropdown-item" href="#">My Recipes</a>
+              <Link className="dropdown-item" to="/addrecipe">My Recipes</Link>
               <a className="dropdown-item" href="#">Favorite Recipes</a>
               <div className="dropdown-divider"></div>
               <a className="dropdown-item" href="#">Log out</a>

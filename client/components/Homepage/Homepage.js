@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default class Homepage extends Component {
 
@@ -22,7 +23,7 @@ export default class Homepage extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                    <NavLink className="nav-link" exact to="/" >Home <span className="sr-only">(current)</span></NavLink>
                 </li>
                 <li className="nav-item active">
                     <a className="nav-link" href="#">About Us <span className="sr-only">(current)</span></a>
@@ -39,8 +40,8 @@ export default class Homepage extends Component {
             <img src="images/logo.png" width="60%" height="30%" alt="bell" />
             <h5>More-Recipes is a platform for users to share the awesome and exciting recipe ideas they have invented or learnt</h5>
             <p className="show-off">Show off your latest recipe and get feedback.</p>
-            <Link to="signup" className="btn btn-outline-danger btn-lg"> Create a profile</Link>
-            <Link to="login" className="btn btn-outline-success btn-lg"> Login</Link>
+            <Link to="/signup" className="btn btn-outline-danger btn-lg"> Create a profile</Link>
+            <Link to="/login" className="btn btn-outline-success btn-lg"> Login</Link>
         </div>
     </div>
 
