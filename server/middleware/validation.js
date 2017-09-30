@@ -69,7 +69,7 @@ export const signupNotification = (req, res, next) => {
     })
     .then((user) => {
       if (user) {
-        return res.status(400).json({ message: 'Username already exists' });
+        return res.status(400).json({ username: 'Username already exists' });
       }
       Users
         .findOne({
@@ -79,7 +79,7 @@ export const signupNotification = (req, res, next) => {
         })
         .then((email) => {
           if (email) {
-            return res.status(400).json({ message: 'Email already exists' });
+            return res.status(400).json({ email: 'Email already exists' });
           }
           const mailOptions = {
             from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
@@ -503,7 +503,7 @@ export const validateParamUserId = (req, res, next) => {
     });
 };
 
-/** Upvote vote table 
+/** Upvote vote table
  * @param  {object} req - request
  * @param  {object} res - response
  * @param  {object} next - next

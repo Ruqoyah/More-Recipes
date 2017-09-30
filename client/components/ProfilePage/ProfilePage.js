@@ -12,22 +12,24 @@ export default class ProfilePage extends Component {
           <NavLink className="navbar-brand" to="/recipe">
             <img src="images/logo.png" width="270" height="59" alt="logo" />
           </NavLink>
-
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          <button className="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-
-         <div className="collapse navbar-collapse" id="navbarNav">
+          <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav col-lg-6">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search recipe" aria-label="Search" />
+              <input className="form-control mr-sm-2" type="text" placeholder="Search recipe"
+                aria-label="Search" />
             </ul>
           </div>
-
-          <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33" alt="bell" /></a>
-          <NavLink className="navbar-brand" to="/profilepage"><img src="images/picture.png" width="45" height="45" alt="picture" /></NavLink>
+          <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33"
+            alt="bell" /></a>
+          <NavLink className="navbar-brand" to="/profilepage"><img src="images/picture.png"
+            width="45" height="45" alt="picture" /></NavLink>
           <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
             <div className="dropdown-menu">
               <NavLink className="dropdown-item" to="/profilepage">View profile</NavLink>
               <NavLink className="dropdown-item" to="/addrecipe">My Recipes</NavLink>
@@ -40,7 +42,8 @@ export default class ProfilePage extends Component {
         <div className="container">
           <div className="row my-2">
             <div className="col-lg-4 order-lg-1 text-center">
-              <img src="//placehold.it/300" className="mx-auto img-fluid img-circle d-block" alt="avatar" />
+              <img src="//placehold.it/300" className="mx-auto img-fluid img-circle d-block"
+                alt="avatar" />
               <h6 className="mt-2">Upload a different photo</h6>
               <label className="custom-file">
                 <input type="file" id="file" className="custom-file-input" />
@@ -71,7 +74,7 @@ export default class ProfilePage extends Component {
                       </p>
                       <h6>Email</h6>
                       <p>
-                       janebishop@gmail.com
+                        janebishop@gmail.com
                       </p>
                     </div>
                   </div>
