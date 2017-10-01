@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { browserHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import  { signUpAction }  from '../../actions/auth_actions';
@@ -23,7 +22,7 @@ class Signup extends Component {
       passwordConfirmError: '',
       userExist: '',
       emailExist: '',
-      isLoading: false
+      isLoading: ''
     }
     this.onChange = this.onChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,16 +52,14 @@ class Signup extends Component {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.success('You have successfully signed up',
-          () => {
-            this.setState({ isLoading: false })
-            // window.location.href = '/recipe';
-          });
+        toastr.options.onHidden = function() { 
+            window.location.href = '/recipe'
+         }
+        toastr.success('You have successfully signed up');
       })
       .catch((error) => console.log('Hello error'))
   }
-
-
+ 
   onFocus(e) {
     const name = e.target.name;
     switch (name) {
@@ -181,7 +178,12 @@ class Signup extends Component {
       </div>);
   }
 }
-
+// function mapStateToProps(state){
+//   console.log(state)
+//   return {
+//     auth: state.auth
+//   }
+// }
 function mapDispatchToProps(dispatch){
   return {
     actions: bindActionCreators({

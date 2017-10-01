@@ -61,7 +61,7 @@ export default {
         };
         const token = jwt.sign({ currentUser }, secret);
         res.status(200).json({
-          status: 'success',
+          status: true,
           message: 'You have successfully signed in!',
           data: { token, userId: user.id }
         });

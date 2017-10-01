@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Homepage from '../components/Homepage/Homepage';
-import Signup from '../components/Signup/Signup';
-import Login from '../components/Login/Login';
-import RecipePage from '../components/RecipePage/RecipePage';
+import Homepage from '../components/Pages/Homepage';
+import Signup from '../components/Pages/Signup';
+import Login from '../components/Pages/Login';
+import RecipePage from '../components/Pages/RecipePage';
 import Footer from '../components/Common/Footer';
 import PageNotFound from '../components/PageNotFound/PageNotFound';
-import AddRecipe from '../components/AddRecipe/AddRecipe';
-import FavoriteRecipe from '../components/FavoriteRecipe/FavoriteRecipe';
-import ProfilePage from '../components/ProfilePage/ProfilePage';
-import ViewRecipe from '../components/ViewRecipe/ViewRecipe';
+import AddRecipe from '../components/Pages/AddRecipe';
+import FavoriteRecipe from '../components/Pages/FavoriteRecipe';
+import ProfilePage from '../components/Pages/ProfilePage';
+import ViewRecipe from '../components/Pages/ViewRecipe';
 
 
 export default class App extends Component {

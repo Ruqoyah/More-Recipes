@@ -400,10 +400,7 @@ export const validateLoginUser = (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        return res.status(404).json({ success: false, message: 'User not found' });
-      }
-      if (!bcrypt.compareSync(req.body.password, user.password)) {
-        return res.status(400).json({ success: false, message: 'Invalid Credentials.' });
+        return res.status(401).json({ status: false, message: 'Invalid Credentials' });
       }
       next();
     });
