@@ -12,6 +12,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    picture: {
+      type: DataTypes.STRING,
+      required: true,
+      allowNull: false
+    },
     userId: {
       type: DataTypes.INTEGER,
       references: {

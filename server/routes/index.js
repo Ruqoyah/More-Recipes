@@ -65,6 +65,13 @@ app.post('/api/v1/recipes', authentication.isLoggedIn, validateUsersId, checkRec
  * @param  {} authentication.isLoggedIn
  * @param  {} recipesController.getRecipes
  */
+app.get('/api/v1/:userId/recipes', authentication.isLoggedIn, recipesController.getUserRecipes);
+
+/** Get all recipes
+ * @param  {} '/api/v1/recipes'
+ * @param  {} authentication.isLoggedIn
+ * @param  {} recipesController.getRecipes
+ */
 app.get('/api/v1/recipes', authentication.isLoggedIn, searchRecipesController.getAllRecipes);
 
 /** Modify recipe

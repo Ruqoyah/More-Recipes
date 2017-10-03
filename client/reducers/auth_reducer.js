@@ -1,6 +1,6 @@
 import { SET_CURRENT_USER } from '../actions/types';
 
-const INITIAL_STATE = { userExist: '', error: '', message: '', user: '', content: '', authenticated: false };
+const INITIAL_STATE = { userExist: '', user: '' };
 
 function authReducer(state = INITIAL_STATE, action) {
   switch (action.type) {

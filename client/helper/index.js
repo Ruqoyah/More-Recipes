@@ -11,3 +11,12 @@ export function emailExist(email) {
     .then(res => res.data)
     .catch(error => error.response.data);
 }
+
+export function setAuthorizationToken(token) {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common.Authorization;
+  }
+}
+

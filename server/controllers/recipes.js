@@ -14,13 +14,20 @@ export default {
       recipeName: req.body.recipeName,
       ingredient: req.body.ingredient,
       details: req.body.details,
+      picture: req.body.picture,
       userId: req.body.userId
     })
       .then(addRecipe => res.status(201).json({
         status: 'success',
-        recipeName: addRecipe.recipeName,
         message: 'Recipe added successfully',
-        data: { recipeId: addRecipe.id, userId: addRecipe.userId }
+        data: {
+          recipeId: addRecipe.id,
+          userId: addRecipe.userId,
+          recipeName: addRecipe.recipeName,
+          ingredient: addRecipe.ingredient,
+          details: addRecipe.details,
+          picture: addRecipe.picture
+        }
       }))
       .catch(error => res.status(400).json(error));
   },
@@ -155,6 +162,32 @@ export default {
         });
       })
       .catch(error => res.status(400).send(error));
+  },
+
+  getUserRecipes(req, res) {
+    Recipes
+      .findAll({
+        where: {
+          userId: req.params.userId
+        },
+        include: [{
+          model: db.Reviews,
+          attributes: ['review'],
+          include: [{
+            model: db.Users,
+            attributes: ['fullName', 'updatedAt'],
+          }]
+        }],
+      })
+      .then((recipes) => {
+        if (recipes.length < 1) {
+          return res.status(404).json({
+            message: 'No Recipe found'
+          });
+        }
+        return res.status(200).json(recipes);
+      })
+      .catch(error => res.status(404).json(error));
   }
 
 };

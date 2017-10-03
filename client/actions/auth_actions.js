@@ -1,15 +1,19 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 import { SET_CURRENT_USER } from './types';
+import { setAuthorizationToken } from '../helper/index';
 
 const API_URL = 'http://localhost:8000';
 
 export function signUpAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signup`, userDetails)
     .then((res) => {
+      const token = res.data.data.token;
       localStorage.setItem('token', res.data.data.token);
+      setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
-        user: res.data.token
+        user: jwt.decode(token)
       });
     })
     .catch(error => error.response.data);
@@ -18,10 +22,12 @@ export function signUpAction(userDetails) {
 export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signin`, userDetails)
     .then((res) => {
+      const token = res.data.data.token;
       localStorage.setItem('token', res.data.data.token);
+      setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
-        user: res.data.token
+        user: jwt.decode(token)
       });
       return res.data.status;
     })
