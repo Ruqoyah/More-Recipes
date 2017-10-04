@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
-import RecipeList from '../Common/RecipeList';
+import RecipeList from '../Include/RecipeList';
 
 class AddRecipe extends Component {
   constructor(props) {
@@ -69,9 +69,15 @@ class AddRecipe extends Component {
           "hideMethod": "fadeOut"
         };
         toastr.options.onHidden = function () {
-          window.location.href = '/addrecipe'
+          // window.location.href = '/addrecipe'
         }
-        toastr.success('Recipe added successfully');       
+        toastr.success('Recipe added successfully');
+        //   this.setState({
+        //     returnRecipeName: recipe.data.recipeName,
+        //     returnIngredient: recipe.data.ingredient,
+        //     returnDetails: recipe.data.details,
+        //     returnPicture: recipe.data.picture
+        // })         
       })
   }
 
