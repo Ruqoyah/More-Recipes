@@ -38,7 +38,6 @@ export default {
     let token;
     const tokenAvailable = req.headers.authorization ||
     req.headers['x-access-token'];
-    console.log('===========>', req.headers.authorization);
     if (req.headers.authorization) {
       token = req.headers.authorization.split(' ')[1];
     } else {
