@@ -35,7 +35,14 @@ export default {
    */
 
   isLoggedIn(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['access-token'];
+    let token;
+    const tokenAvailable = req.headers.authorization ||
+    req.headers['x-access-token'];
+    if (req.headers.authorization) {
+      token = req.headers.authorization.split(' ')[1];
+    } else {
+      token = tokenAvailable;
+    }
     if (token) {
       jwt.verify(token, key, (err, decoded) => {
         if (err) {
