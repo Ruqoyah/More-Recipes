@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
-import RecipeList from '../Common/RecipeList';
+import RecipeList from '../Include/RecipeList';
 
 class AddRecipe extends Component {
   constructor(props) {

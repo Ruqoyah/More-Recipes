@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER_RECIPES } from './types';
+import { GET_USER_RECIPES, GET_RECIPES } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -13,6 +13,17 @@ export function getUserRecipeAction(userId) {
       dispatch({
         type: GET_USER_RECIPES,
         userRecipe: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function getAllRecipeAction() {
+  return dispatch => axios.get(`${API_URL}/api/v1/recipes`)
+    .then((res) => {
+      dispatch({
+        type: GET_RECIPES,
+        recipes: res.data
       });
     })
     .catch(error => error.response);
