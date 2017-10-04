@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
-import RecipeList from '../Common/RecipeList';
+import RecipeList from '../Include/RecipeList';
 
 class AddRecipe extends Component {
   constructor(props) {
@@ -17,10 +17,6 @@ class AddRecipe extends Component {
       ingredient: '',
       details: '',
       picture: 'http://localhost:8000/images/dessert%20salad.png'
-      // returnRecipeName: '',
-      // returnIngredient: '',
-      // returnDetails: '',
-      // returnPicture: ''
     }
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -36,7 +32,6 @@ class AddRecipe extends Component {
   }
 
   renderRecipe() {
-    console.log(this.props.userRecipe)
     const allUserRecipe = this.props.userRecipe;
     if (allUserRecipe.length < 1) {
       return <div style={{ backgroundColor: '#fff', float: 'right', marginLeft: '-100px', marginRight: '-50px' }}><h2>There is no Recipe in the database</h2></div>;
@@ -44,7 +39,6 @@ class AddRecipe extends Component {
     return (<div>
       {
         allUserRecipe.map((recipe) => {
-          console.log(recipe)
           return (
             <RecipeList
               picture={recipe.picture}
@@ -62,7 +56,6 @@ class AddRecipe extends Component {
   }
 
   onSubmit(e) {
-    // console.log(this.state)
     e.preventDefault();
     addRecipeAction(this.state)
       .then((recipe) => {
@@ -76,15 +69,9 @@ class AddRecipe extends Component {
           "hideMethod": "fadeOut"
         };
         toastr.options.onHidden = function () {
-          // window.location.href = '/addrecipe'
+          window.location.href = '/addrecipe'
         }
-        toastr.success('Recipe added successfully');
-        //   this.setState({
-        //     returnRecipeName: recipe.data.recipeName,
-        //     returnIngredient: recipe.data.ingredient,
-        //     returnDetails: recipe.data.details,
-        //     returnPicture: recipe.data.picture
-        // })         
+        toastr.success('Recipe added successfully');       
       })
   }
 
