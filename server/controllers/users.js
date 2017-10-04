@@ -27,11 +27,18 @@ export default {
           isAdmin: req.body.isAdmin,
           password: hash
         })
-          .then(display => res.status(201).json({
-            status: 'success',
-            message: 'You have successfully signed up',
-            username: display.username
-          }))
+          .then((user) => {
+            const currentUser = { userId: user.id,
+              username: user.username,
+              fullname: user.fullName,
+              isAdmin: user.isAdmin
+            };
+            const token = jwt.sign({ currentUser }, secret);
+            res.status(201).json({
+              message: 'You have successfully signed up',
+              data: { token, userId: user.id }
+            });
+          })
           .catch(error => res.status(400).json(error));
       });
   },
@@ -54,10 +61,42 @@ export default {
         };
         const token = jwt.sign({ currentUser }, secret);
         res.status(200).json({
-          status: 'success',
+          status: true,
           message: 'You have successfully signed in!',
           data: { token, userId: user.id }
         });
+      });
+  },
+
+  userExist(req, res) {
+    Users
+      .findOne({
+        where: {
+          username: req.body.username
+        },
+      })
+      .then((user) => {
+        if (user) {
+          res.status(200).send(true);
+        } else {
+          res.status(200).send(false);
+        }
+      });
+  },
+
+  emailExist(req, res) {
+    Users
+      .findOne({
+        where: {
+          email: req.body.email
+        },
+      })
+      .then((user) => {
+        if (user) {
+          res.status(200).send(true);
+        } else {
+          res.status(200).send(false);
+        }
       });
   }
 };

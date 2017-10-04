@@ -1,31 +1,34 @@
 import express from 'express';
-import validator from 'express-validator';
 import bodyParser from 'body-parser';
-import winston from 'winston';
 import dotenv from 'dotenv';
+import path from 'path';
+import webpack from 'webpack';
+import winston from 'winston';
+import webpackMiddleware from 'webpack-dev-middleware';
+import validator from 'express-validator';
+import webpackConfig from './webpack.config';
 import routes from './server/routes';
 
 dotenv.config();
 
-
-/** Set up the express app
- */
 const app = express();
 
-app.use(validator());
+app.use(webpackMiddleware(webpack(webpackConfig)));
 
-/** Parse incoming requests data (https://github.com/expressjs/body-parser)
- * @param  {} bodyParser.json(
- * @param  {false}} ;app.use
- */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-/** Require our routes into the application.
- * @param  {} routes
- */
+app.use(express.static('./client/public/')); // configure static files folder
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(routes);
 
-app.listen(process.env.PORT || 8000, () => { winston.info('server running'); });
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/index.html'));
+});
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  winston.info(`Connected on port: ${port}`);
+});
 export default app;
+

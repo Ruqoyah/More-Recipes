@@ -29,6 +29,22 @@ app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserI
  */
 app.post('/api/v1/users/signin', validateLoginUser, usersController.signin);
 
+/** User Exist
+ * @param  {} '/api/v1/users/signup'
+ * @param  {} checkUserInput
+ * @param  {} validateUsers
+ * @param  {} usersController.userExist
+ */
+app.post('/api/v1/users/userexist', usersController.userExist);
+
+/** Email Exist
+ * @param  {} '/api/v1/users/signup'
+ * @param  {} checkUserInput
+ * @param  {} validateUsers
+ * @param  {} usersController.emailExist
+ */
+app.post('/api/v1/users/emailexist', usersController.emailExist);
+
 /** Get all users
  * @param  {} '/api/v1/users'
  * @param  {} authentication.isLoggedIn
