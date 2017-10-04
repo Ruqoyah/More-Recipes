@@ -3,4 +3,5 @@ export const AUTH_USER = 'auth_user',
   SET_CURRENT_USER = 'set_current_user',
   EMAIL_EXIST = 'email_exist',
   ADD_RECIPE = 'add_recipe',
-  GET_USER_RECIPES = 'get_recipe';
+  GET_USER_RECIPES = 'get_user_recipes',
+  GET_RECIPES = 'get_recipes';

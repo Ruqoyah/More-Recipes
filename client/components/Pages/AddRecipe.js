@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
-import RecipeList from '../Common/RecipeList';
+import RecipeList from '../Include/RecipeList';
+
 
 class AddRecipe extends Component {
   constructor(props) {
@@ -71,7 +72,8 @@ class AddRecipe extends Component {
         toastr.options.onHidden = function () {
           window.location.href = '/addrecipe'
         }
-        toastr.success('Recipe added successfully');       
+        toastr.success('Recipe added successfully');
+        }
       })
   }
 
