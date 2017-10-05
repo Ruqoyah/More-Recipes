@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllRecipeAction } from '../../actions/recipes_action';
+import AllRecipes from '../Include/AllRecipes';
 
-export default class Header extends Component {
+// import { searchRecipesAction } from '../../actions/recipes_action';
 
+class Header extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      search: ''
+    }
+    this.updateSearch=this.updateSearch.bind(this)
+  }
+
+  updateSearch(event){
+    this.setState({ search: event.target.value.substring(0,20)});
+  }
   render() {
+    // let filteredRecipes = this.props.recipes.data.filter(
+    //   ((recipe) => {
+    //     return recipe.recipeName.indexOf(this.state.search) !== 1;
+    //   }
+    // ));
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,8 +39,9 @@ export default class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav col-lg-6">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search recipe"
-                aria-label="Search" />
+              <input onChange={this.onChange} className="form-control mr-sm-2" type="text" 
+              placeholder="Search recipe" aria-label="Search" 
+              value={this.state.search} onChange={this.updateSearch}/>
             </ul>
           </div>
           <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33"
@@ -41,3 +63,19 @@ export default class Header extends Component {
       </div>);
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    recipes: state.recipe.recipes
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      getAllRecipeAction
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
