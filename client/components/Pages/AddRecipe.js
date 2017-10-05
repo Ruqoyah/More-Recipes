@@ -35,7 +35,7 @@ class AddRecipe extends Component {
   renderRecipe() {
     const allUserRecipe = this.props.userRecipe;
     if (allUserRecipe.length < 1) {
-      return <div style={{ backgroundColor: '#fff', float: 'right', marginLeft: '-100px', marginRight: '-50px' }}><h2>There is no Recipe in the database</h2></div>;
+      return '';
     }
     return (<div>
       {
@@ -48,9 +48,7 @@ class AddRecipe extends Component {
               key={recipe.id}
             />
           )
-        }
-
-        )
+        })
       }
       </div>
     )
