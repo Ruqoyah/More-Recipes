@@ -4,28 +4,20 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllRecipeAction } from '../../actions/recipes_action';
+import { logoutAction } from '../../actions/auth_actions';
 import AllRecipes from '../Include/AllRecipes';
 
 // import { searchRecipesAction } from '../../actions/recipes_action';
 
 class Header extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      search: ''
-    }
-    this.updateSearch=this.updateSearch.bind(this)
+  logout(e) {
+    e.preventDefault();
+    this.props.actions.logoutAction();
+    this.context.router.push('/');
   }
-
-  updateSearch(event){
-    this.setState({ search: event.target.value.substring(0,20)});
-  }
+ 
   render() {
-    // let filteredRecipes = this.props.recipes.data.filter(
-    //   ((recipe) => {
-    //     return recipe.recipeName.indexOf(this.state.search) !== 1;
-    //   }
-    // ));
+    const { fullname } = this.props.user;
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,9 +31,8 @@ class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav col-lg-6">
-              <input onChange={this.onChange} className="form-control mr-sm-2" type="text" 
-              placeholder="Search recipe" aria-label="Search" 
-              value={this.state.search} onChange={this.updateSearch}/>
+              <input className="form-control mr-sm-2" type="text" 
+              placeholder="Search recipe" aria-label="Search" />
             </ul>
           </div>
           <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33"
@@ -56,7 +47,7 @@ class Header extends Component {
               <NavLink className="dropdown-item" to="/addrecipe">My Recipes</NavLink>
               <NavLink className="dropdown-item" to="/favoriterecipe">Favorite Recipes</NavLink>
               <div className="dropdown-divider"></div>
-              <NavLink className="dropdown-item" to="/">Log out</NavLink>
+              <a href= "#" onClick={this.logout.bind(this)} className="dropdown-item">Log out</a>
             </div>
           </div>
         </nav>
@@ -66,14 +57,14 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    recipes: state.recipe.recipes
+    user: state.auth.user.currentUser
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      getAllRecipeAction
+      logoutAction
     }, dispatch)
   }
 }

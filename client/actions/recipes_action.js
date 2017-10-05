@@ -30,14 +30,14 @@ export function getAllRecipeAction() {
     .catch(error => error.response);
 }
 
-// export function searchRecipesAction() {
-//   return dispatch => axios.get(`${API_URL}/api/v1/recipes?search=:keyword`)
-//     .then((res) => {
-//       console.log(res);
-//       dispatch({
-//         type: SEARCH_RECIPES,
-//         recipes: res.data
-//       });
-//     })
-//     .catch(error => error.response);
-// }
+export function searchRecipesAction(search) {
+  return dispatch => axios.get(`${API_URL}/api/v1/recipes?search=${search}`)
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: SEARCH_RECIPES,
+        recipes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
