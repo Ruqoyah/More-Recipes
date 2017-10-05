@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER_RECIPES, GET_RECIPES } from './types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -21,6 +21,7 @@ export function getUserRecipeAction(userId) {
 export function getAllRecipeAction() {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes`)
     .then((res) => {
+      console.log(res);
       dispatch({
         type: GET_RECIPES,
         recipes: res.data
@@ -28,3 +29,16 @@ export function getAllRecipeAction() {
     })
     .catch(error => error.response);
 }
+
+export function searchRecipesAction(search) {
+  return dispatch => axios.get(`${API_URL}/api/v1/recipes?search=${search}`)
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: SEARCH_RECIPES,
+        recipes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+

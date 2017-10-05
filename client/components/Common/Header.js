@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllRecipeAction } from '../../actions/recipes_action';
+import { logoutAction } from '../../actions/auth_actions';
+import AllRecipes from '../Include/AllRecipes';
 
-export default class Header extends Component {
-
+class Header extends Component {
+  logout(e) {
+    e.preventDefault();
+    this.props.actions.logoutAction();
+    this.context.router.push('/');
+  }
+ 
   render() {
+    const { fullname } = this.props.user;
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,8 +29,8 @@ export default class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav col-lg-6">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search recipe"
-                aria-label="Search" />
+              <input className="form-control mr-sm-2" type="text" 
+              placeholder="Search recipe" aria-label="Search" />
             </ul>
           </div>
           <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33"
@@ -34,10 +45,26 @@ export default class Header extends Component {
               <NavLink className="dropdown-item" to="/addrecipe">My Recipes</NavLink>
               <NavLink className="dropdown-item" to="/favoriterecipe">Favorite Recipes</NavLink>
               <div className="dropdown-divider"></div>
-              <NavLink className="dropdown-item" to="/">Log out</NavLink>
+              <a href= "#" onClick={this.logout.bind(this)} className="dropdown-item">Log out</a>
             </div>
           </div>
         </nav>
       </div>);
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user.currentUser
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      logoutAction
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

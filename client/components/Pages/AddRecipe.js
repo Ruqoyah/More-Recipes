@@ -7,6 +7,7 @@ import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_acti
 import Header from '../Common/Header';
 import RecipeList from '../Include/RecipeList';
 
+
 class AddRecipe extends Component {
   constructor(props) {
     super(props);
@@ -71,7 +72,7 @@ class AddRecipe extends Component {
         toastr.options.onHidden = function () {
           window.location.href = '/addrecipe'
         }
-        toastr.success('Recipe added successfully');       
+        toastr.success('Recipe added successfully');
       })
   }
 

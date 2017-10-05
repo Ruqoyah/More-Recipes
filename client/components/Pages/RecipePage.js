@@ -11,7 +11,6 @@ import AllRecipes from '../Include/AllRecipes';
 class RecipePage extends Component {
   
   renderRecipe() {
-    console.log(this.props.recipes)
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
       return <div style={{ backgroundColor: '#fff', marginLeft: '50px', marginRight: '-50px' }}><h2>There is no Recipe in the database</h2></div>;
