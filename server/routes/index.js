@@ -29,6 +29,22 @@ app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserI
  */
 app.post('/api/v1/users/signin', validateLoginUser, usersController.signin);
 
+/** Get user
+ * @param  {} '/api/v1/users/signin'
+ * @param  {} validateLoginUser
+ * @param  {} usersController.signin
+ */
+app.get('/api/v1/users/:userId', authentication.isLoggedIn, usersController.getUser);
+
+/** Edit profile
+ * @param  {recipeId'} '/api/v1/users/
+ * @param  {} authentication.isLoggedIn
+ * @param  {} validateRecipesId
+ * @param  {} checkRecipeInput
+ * @param  {} recipesController.modifyRecipe
+ */
+app.put('/api/v1/user/:userId', authentication.isLoggedIn, validateUsers, usersController.editProfile);
+
 /** User Exist
  * @param  {} '/api/v1/users/signup'
  * @param  {} checkUserInput

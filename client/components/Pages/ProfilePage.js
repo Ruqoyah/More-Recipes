@@ -1,10 +1,88 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { getUserProfileAction, editProfileAction } from '../../actions/auth_actions';
 import Header from '../Common/Header';
 
-export default class ProfilePage extends Component {
+class ProfilePage extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      password: '',
+      confirmPassword: '',
+      fullName : '',
+      username: '',
+      email: '',
+      isLoading: ''
+    }
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit= this.onSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    const userId = this.props.userId;
+    this.props.actions.getUserProfileAction(userId)
+  }
+  
+  componentWillReceiveProps(props) {
+    this.setState({
+      fullName : props.fullName,
+      username: props.username,
+      email: props.email,
+    });
+  }
+
+  onChange(event) {
+    const eventName = event.target.name;
+    const eventValue = event.target.value;
+    this.setState({[eventName]: eventValue});
+  }
+
+
+  onSubmit(e) {
+    e.preventDefault();
+    this.setState({ isLoading: true })
+    console.log("hiii",this.props.user)
+    const userId = this.props.userId;
+    this.props.actions.editProfileAction(userId)
+      .then((data) => {
+        toastr.options = {
+          "debug": false,
+          "positionClass": "toast-top-full-width",
+          "timeOut": "2000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.options.onHidden = function() { 
+            // window.location.href = '/profilepage'
+         }
+        toastr.success('You successfully edit your profile');
+      })
+      .catch((error) => console.log('Hello error'))
+  }
+ 
+  // componentWillUpdate(nextProps, nextState) {
+  //   if (nextState.open == true && this.state.open == false) {
+  //    this.setState({
+  //     fullName : nextProps.fullName,
+  //     username: nextProps.username,
+  //     email: nextProps.email,
+  //   });
+  //   }
+  // }
 
   render() {
+    const fullName = this.state.fullName;
+    const username = this.state.username;
+    const email = this.state.email;
+    const confirmPassword = this.state.confirmPassword;
+    const password = this.state.password;
+
     return (
       <div>
         <Header />
@@ -30,61 +108,88 @@ export default class ProfilePage extends Component {
               </ul>
               <div className="tab-content py-4">
                 <div className="tab-pane active" id="profile">
-                  <h4 className="mb-3">User Profile</h4>
                   <div className="row">
                     <div className="col-md-6">
-                      <h6>Username</h6>
+                      <h6><strong>Username</strong></h6>
                       <p>
-                        Jane
+                        {username}
                       </p>
-                      <h6>Full Name</h6>
+                      <h6><strong>Full Name</strong></h6>
                       <p>
-                        Jane Bishop
+                      {fullName}
                       </p>
-                      <h6>Email</h6>
+                      <h6><strong>Email</strong></h6>
                       <p>
-                        janebishop@gmail.com
+                      {email}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="tab-pane" id="edit">
-                  <form role="form">
+                  <form role="form" onSubmit={this.onSubmit} >
                     <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">Full Name</label>
+                      <label className="col-lg-3 col-form-label form-control-label"><strong>Full Name</strong></label>
                       <div className="col-lg-9">
-                        <input className="form-control" type="text" value="Jane Bishop" />
+                        <input
+                          className="form-control"
+                          type="text" 
+                          name="fullName"
+                          value={this.state.fullName}
+                          onChange={this.onChange} />
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">Email</label>
+                      <label className="col-lg-3 col-form-label form-control-label"><strong>Email</strong></label>
                       <div className="col-lg-9">
-                        <input className="form-control" type="email" value="janbishop@gmail.com" />
+                        <input
+                          className="form-control"
+                          type="email"
+                          name="email"
+                          value={this.state.email} 
+                          onChange={this.onChange}/>
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">Username</label>
+                      <label className="col-lg-3 col-form-label form-control-label"><strong>Username</strong></label>
                       <div className="col-lg-9">
-                        <input className="form-control" type="text" value="janeuser" />
+                        <input 
+                          className="form-control" 
+                          type="text" 
+                          name="username" 
+                          value={this.state.username}
+                          onChange={this.onChange}/>
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">Password</label>
+                      <label className="col-lg-3 col-form-label form-control-label"><strong>Password</strong></label>
                       <div className="col-lg-9">
-                        <input className="form-control" type="password" value="11111122333" />
+                        <input 
+                          className="form-control"
+                          type="password" 
+                          name="password" 
+                          value={this.state.password}
+                          onChange={this.onChange}/>
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label">Confirm password</label>
+                      <label className="col-lg-3 col-form-label form-control-label"><strong>Confirm password</strong></label>
                       <div className="col-lg-9">
-                        <input className="form-control" type="password" value="11111122333" />
+                        <input 
+                          className="form-control" 
+                          type="password" 
+                          name="confirmPassword" 
+                          value={this.state.confirmPassword} 
+                          onChange={this.onChange}/>
                       </div>
                     </div>
                     <div className="form-group row">
                       <label className="col-lg-3 col-form-label form-control-label"></label>
+                      <div className="btn-toolbar">
                       <div className="col-lg-9">
                         <input type="reset" className="btn btn-secondary" value="Cancel" />
-                        <input type="button" className="btn btn-primary" value="Save Changes" />
+                        <button className="btn btn-primary" type="submit" name="submit"
+                        disabled={this.state.isLoading}>Save Changes</button>
+                      </div>
                       </div>
                     </div>
                   </form>
@@ -97,4 +202,39 @@ export default class ProfilePage extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  const user = state.auth.userProfile;
+  return {
+    user: state.auth.user.currentUser,
+    userProfile: state.auth.userProfile,
+    userId: state.auth.user.currentUser.userId,
+    fullName: user.fullName,
+    username: user.username, 
+    email: user.email,
 
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators({
+      getUserProfileAction,
+      editProfileAction
+    }, dispatch)
+  }
+}
+
+ProfilePage.propTypes = {
+  userId: PropTypes.number,
+  fullName: PropTypes.string,
+  username: PropTypes.string,
+  email: PropTypes.string,
+}
+
+// ProfilePage.defaultProps = {
+//   userId: 0,
+//   fullName : '',
+//   username: '',
+//   email: '',
+// }
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

@@ -178,12 +178,8 @@ class Signup extends Component {
       </div>);
   }
 }
-// function mapStateToProps(state){
-//   console.log(state)
-//   return {
-//     auth: state.auth
-//   }
-// }
+
+
 function mapDispatchToProps(dispatch){
   return {
     actions: bindActionCreators({

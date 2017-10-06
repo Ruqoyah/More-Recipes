@@ -8,6 +8,9 @@
     border-radius: 10px 10px 0px 0px;
     padding: 20px;
 }
+.btn-toolbar .btn{
+  margin-right: 5px;
+}
 .header-signup {
     width: 30%;
     margin: 8% auto 0px;
@@ -35,10 +38,6 @@
 .input-group {
     margin: 10px 0px 10px 0px;
 }
-
-// .btn-toolbar {
-//   padding: 10px;
-// }
 
 .join {
     text-align: center;
@@ -90,18 +89,6 @@ body {
     padding-top: 2%;
     padding-bottom:5%;
 }
-
-
-// .container{
-//     margin-top: 3%;
-//     padding-top: 5%;
-//     color: #fff;
-//     font-size:12px;
-// }
-
-// .tog-button{
-//     margin-right: 5%;
-// }
 
 .upvote {
   cursor: pointer;

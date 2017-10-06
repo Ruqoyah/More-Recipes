@@ -38,13 +38,16 @@ export default class Homepage extends Component {
           </div>
         </nav>
         <div className="container-fluid">
+        <div className="btn-toolbar">
           <div className="jumbotron logo">
             <img src="images/logo.png" width="60%" height="30%" alt="bell" />
             <h5>More-Recipes is a platform for users to share the awesome and exciting recipe
               ideas they have invented or learnt</h5>
             <p className="show-off">Show off your latest recipe and get feedback.</p>
+           
             <Link to="/signup" className="btn btn-outline-danger btn-lg"> Create a profile</Link>
             <Link to="/login" className="btn btn-outline-success btn-lg"> Login</Link>
+            </div>
           </div>
         </div>
         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">

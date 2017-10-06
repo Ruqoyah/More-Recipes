@@ -36,7 +36,7 @@ export default {
             const token = jwt.sign({ currentUser }, secret);
             res.status(201).json({
               message: 'You have successfully signed up',
-              data: { token, userId: user.id }
+              data: { token, userId: user.id, }
             });
           })
           .catch(error => res.status(400).json(error));
@@ -98,5 +98,52 @@ export default {
           res.status(200).send(false);
         }
       });
+  },
+
+  editProfile(req, res) {
+    return Users
+      .findOne({ where: {
+        id: req.params.userId }
+      })
+      .then(user => user
+        .update({
+          username: req.body.username || user.username,
+          fullName: req.body.fullName || user.fullName,
+          email: req.body.email || user.email,
+          password: req.body.password || user.password
+        })
+        .then(() => {
+          Users.findById(req.params.userId).then(result => res.status(200).json({
+            status: 'success',
+            message: 'Profile update sucessfully!',
+            data: {
+              username: result.username,
+              fullName: result.fullName,
+              email: result.email,
+              id: result.id }
+          }));
+        }))
+      .catch(error => res.status(400).json(error));
+  },
+
+  getUser(req, res) {
+    return Users
+      .findOne({
+        where: { id: req.params.userId }
+      })
+      .then((user) => {
+        if (user.length < 1) {
+          return res.status(404).json({
+            message: 'user does not exist'
+          });
+        }
+        return res.status(200).json({
+          id: user.id,
+          username: user.username,
+          fullName: user.fullName,
+          email: user.email
+        });
+      })
+      .catch(error => res.status(404).json(error));
   }
 };
