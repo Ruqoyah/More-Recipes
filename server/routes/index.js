@@ -7,7 +7,8 @@ import searchRecipesController from '../controllers/searchRecipes';
 import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
   checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
-  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote, validateDownVote } from '../middleware/validation';
+  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote,
+  verifyEditUsername, verifyEditEmail, validateDownVote } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -28,6 +29,22 @@ app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserI
  * @param  {} usersController.signin
  */
 app.post('/api/v1/users/signin', validateLoginUser, usersController.signin);
+
+/** Get user
+ * @param  {} '/api/v1/users/signin'
+ * @param  {} validateLoginUser
+ * @param  {} usersController.signin
+ */
+app.get('/api/v1/users/:userId', authentication.isLoggedIn, usersController.getUser);
+
+/** Edit profile
+ * @param  {recipeId'} '/api/v1/users/
+ * @param  {} authentication.isLoggedIn
+ * @param  {} validateRecipesId
+ * @param  {} checkRecipeInput
+ * @param  {} recipesController.modifyRecipe
+ */
+app.put('/api/v1/user/:userId', authentication.isLoggedIn, verifyEditUsername, verifyEditEmail, usersController.editProfile);
 
 /** User Exist
  * @param  {} '/api/v1/users/signup'

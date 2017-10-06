@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER, UNAUTH_USER } from './types';
+import { SET_CURRENT_USER, UNAUTH_USER, GET_USER, EDIT_PROFILE } from './types';
 import { setAuthorizationToken } from '../helper/index';
 
 const API_URL = 'http://localhost:8000';
@@ -44,4 +44,26 @@ export function logoutAction() {
     });
     window.location.href = '/';
   };
+}
+
+export function getUserProfileAction(userId) {
+  return dispatch => axios.get(`${API_URL}/api/v1/users/${userId}`)
+    .then((res) => {
+      dispatch({
+        type: GET_USER,
+        user: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function editProfileAction(userId, userDetails) {
+  return dispatch => axios.put(`${API_URL}/api/v1/user/${userId}`, userDetails)
+    .then((res) => {
+      dispatch({
+        type: EDIT_PROFILE,
+        user: res.data
+      });
+    })
+    .catch(error => error.response);
 }
