@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';

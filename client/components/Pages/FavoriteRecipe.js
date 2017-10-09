@@ -58,12 +58,9 @@ export default class FavoriteRecipe extends Component {
                 peaches.</p>
               <p className="card-text text-right"><small className="text-muted">Recipe by Joy</small></p>
               <Link to="/viewrecipe" className="btn btn-success">Read more</Link>
-              <span className="downvote"><img src="images/downvote.png" width="30" height="30"
-                alt="downvote" /> </span>
-              <span className="upvote"><img src="images/upvote.png" width="30" height="30"
-                alt="upvote" /> </span>
-              <span className="favorite"><img src="images/favorite.png" width="30" height="30"
-                alt="favorite" /> </span>
+              <a href="" ><i className="fa fa-thumbs-up" aria-hidden="true" style={{ fontSize:'30px', color: 'orange'}}></i></a>
+              <a href="" ><i className="fa fa-thumbs-down" aria-hidden="true" style={{ fontSize:'30px', color: 'grey' }}></i></a>
+              <a href="" ><i className="fa fa-heart-o" aria-hidden="true" style={{ fontSize:'30px', color: 'red' }}></i></a>
             </div>
 
             <div className="card-footer">

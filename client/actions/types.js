@@ -8,4 +8,5 @@ export const AUTH_USER = 'auth_user',
   GET_RECIPES = 'get_recipes',
   GET_USER = 'get_user',
   EDIT_PROFILE = 'edit_profile',
+  FAVORITE_RECIPE = 'favorite_recipe',
   SEARCH_RECIPES = 'search_recipes';

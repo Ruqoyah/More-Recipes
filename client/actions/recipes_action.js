@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES } from './types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, FAVORITE_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -41,3 +41,15 @@ export function searchRecipesAction(search) {
     .catch(error => error.response);
 }
 
+
+export function favoriteAction(recipeId, detail) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`, detail)
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: FAVORITE_RECIPE,
+        recipes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
