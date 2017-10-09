@@ -1,6 +1,6 @@
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, FAVORITE_RECIPE } from '../actions/types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES } from '../actions/types';
 
-const INITIAL_STATE = { userRecipe: '', recipes: '' };
+const INITIAL_STATE = { userRecipe: '', recipes: '', favoriteRecipes: '' };
 
 function recipeReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -10,9 +10,8 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, recipes: action.recipes };
     case SEARCH_RECIPES:
       return { ...state, recipes: action.recipes.data };
-    case FAVORITE_RECIPE:
-      console.log('cam here');
-      return { ...state, recipes: action.recipes };
+    case GET_FAVORITE_RECIPES:
+      return { ...state, favoriteRecipes: action.favoriteRecipes };
     default:
       return state;
   }

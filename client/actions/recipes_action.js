@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, FAVORITE_RECIPE } from './types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -21,7 +21,6 @@ export function getUserRecipeAction(userId) {
 export function getAllRecipeAction() {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes`)
     .then((res) => {
-      // console.log(res.data);
       dispatch({
         type: GET_RECIPES,
         recipes: res.data
@@ -42,13 +41,18 @@ export function searchRecipesAction(search) {
 }
 
 
-export function favoriteAction(recipeId, detail) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`, detail)
+export function favoriteAction(recipeId, userId) {
+  return axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`, { userId })
+    .then(res => res.data.status)
+    .catch(error => error.response.data.status);
+}
+
+export function getFavoriteAction(userId) {
+  return dispatch => axios.get(`${API_URL}/api/v1/users/${userId}/recipes`)
     .then((res) => {
-      console.log(res);
       dispatch({
-        type: FAVORITE_RECIPE,
-        recipes: res.data
+        type: GET_FAVORITE_RECIPES,
+        favoriteRecipes: res.data
       });
     })
     .catch(error => error.response);

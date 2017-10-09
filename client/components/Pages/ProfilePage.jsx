@@ -17,16 +17,15 @@ class ProfilePage extends Component {
       email: '',
       isLoading: ''
     }
-
     this.onChange = this.onChange.bind(this);
-    this.onSubmit= this.onSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount(){
     const userId = this.props.userId;
     this.props.actions.getUserProfileAction(userId)
   }
-  
+
   componentWillReceiveProps(props) {
     this.setState({
       fullName : props.fullName,
@@ -44,10 +43,17 @@ class ProfilePage extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    let newState = this.state;
+    if (this.state.password === ''){
+      newState = {
+        username: this.state.username,
+        email: this.state.email,
+        fullName: this.state.fullName
+      } 
+    } 
     this.setState({ isLoading: true })
-    console.log("hiii",this.props.user)
-    const userId = this.props.userId;
-    this.props.actions.editProfileAction(userId)
+    const userId = this.props.userId
+    this.props.actions.editProfileAction(userId, newState)
       .then((data) => {
         toastr.options = {
           "debug": false,
@@ -59,22 +65,13 @@ class ProfilePage extends Component {
           "hideMethod": "fadeOut"
         };
         toastr.options.onHidden = function() { 
-            // window.location.href = '/profilepage'
+          window.location.href = '/profilepage'
          }
         toastr.success('You successfully edit your profile');
       })
       .catch((error) => console.log('Hello error'))
   }
- 
-  // componentWillUpdate(nextProps, nextState) {
-  //   if (nextState.open == true && this.state.open == false) {
-  //    this.setState({
-  //     fullName : nextProps.fullName,
-  //     username: nextProps.username,
-  //     email: nextProps.email,
-  //   });
-  //   }
-  // }
+
 
   render() {
     const fullName = this.state.fullName;
@@ -167,7 +164,6 @@ class ProfilePage extends Component {
                           className="form-control"
                           type="password" 
                           name="password" 
-                          value={this.state.password}
                           onChange={this.onChange}/>
                       </div>
                     </div>
@@ -178,7 +174,6 @@ class ProfilePage extends Component {
                           className="form-control" 
                           type="password" 
                           name="confirmPassword" 
-                          value={this.state.confirmPassword} 
                           onChange={this.onChange}/>
                       </div>
                     </div>
@@ -205,8 +200,6 @@ class ProfilePage extends Component {
 function mapStateToProps(state) {
   const user = state.auth.userProfile;
   return {
-    user: state.auth.user.currentUser,
-    userProfile: state.auth.userProfile,
     userId: state.auth.user.currentUser.userId,
     fullName: user.fullName,
     username: user.username, 
@@ -231,10 +224,11 @@ ProfilePage.propTypes = {
   email: PropTypes.string,
 }
 
-// ProfilePage.defaultProps = {
-//   userId: 0,
-//   fullName : '',
-//   username: '',
-//   email: '',
-// }
+ProfilePage.defaultProps = {
+  userId: 0,
+  fullName : '',
+  username: '',
+  email: '',
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

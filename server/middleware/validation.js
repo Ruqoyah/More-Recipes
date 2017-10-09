@@ -443,7 +443,8 @@ export const validatefavRecipe = (req, res, next) => {
     })
     .then((favorite) => {
       if (favorite) {
-        return res.status(400).json({
+        return res.status(200).json({
+          status: false,
           message: 'You already favorite recipe'
         });
       }
@@ -571,6 +572,61 @@ export const validateDownVote = (req, res, next) => {
           });
         });
       next();
+    });
+};
+
+
+export const verifyEditUsername = (req, res, next) => {
+  Users
+    .findOne({
+      where: {
+        username: req.body.username
+      }
+    })
+    .then((user) => {
+      if (user) {
+        Users.findOne({
+          where: {
+            id: req.params.userId
+          }
+        })
+          .then((edit) => {
+            if (req.body.username === edit.username) {
+              next();
+            } else if (req.body.username === user.username && user.username !== edit.username) {
+              return res.status(409).send({ message: 'Username already exist' });
+            }
+          });
+      } else {
+        next();
+      }
+    });
+};
+
+export const verifyEditEmail = (req, res, next) => {
+  Users
+    .findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+    .then((user) => {
+      if (user) {
+        Users.findOne({
+          where: {
+            id: req.params.userId
+          }
+        })
+          .then((edit) => {
+            if (req.body.email === edit.email) {
+              next();
+            } else if (req.body.email === user.email && user.email !== edit.email) {
+              return res.status(409).send({ message: 'Email already exist' });
+            }
+          });
+      } else {
+        next();
+      }
     });
 };
 

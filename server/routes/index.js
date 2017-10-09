@@ -7,7 +7,8 @@ import searchRecipesController from '../controllers/searchRecipes';
 import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
   checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
-  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote, validateDownVote } from '../middleware/validation';
+  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote,
+  verifyEditUsername, verifyEditEmail, validateDownVote, hashPassword } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -43,7 +44,7 @@ app.get('/api/v1/users/:userId', authentication.isLoggedIn, usersController.getU
  * @param  {} checkRecipeInput
  * @param  {} recipesController.modifyRecipe
  */
-app.put('/api/v1/user/:userId', authentication.isLoggedIn, validateUsers, usersController.editProfile);
+app.put('/api/v1/user/:userId', authentication.isLoggedIn, verifyEditUsername, verifyEditEmail, usersController.editProfile);
 
 /** User Exist
  * @param  {} '/api/v1/users/signup'

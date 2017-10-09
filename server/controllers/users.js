@@ -106,22 +106,18 @@ export default {
         id: req.params.userId }
       })
       .then(user => user
-        .update({
-          username: req.body.username || user.username,
-          fullName: req.body.fullName || user.fullName,
-          email: req.body.email || user.email,
-          password: req.body.password || user.password
-        })
+        .update(req.body)
         .then(() => {
-          Users.findById(req.params.userId).then(result => res.status(200).json({
-            status: 'success',
-            message: 'Profile update sucessfully!',
-            data: {
-              username: result.username,
-              fullName: result.fullName,
-              email: result.email,
-              id: result.id }
-          }));
+          Users.findById(req.params.userId)
+            .then(result => res.status(200).json({
+              status: 'success',
+              message: 'Profile updated sucessfully!',
+              data: {
+                username: result.username,
+                fullName: result.fullName,
+                email: result.email,
+                id: result.id }
+            }));
         }))
       .catch(error => res.status(400).json(error));
   },

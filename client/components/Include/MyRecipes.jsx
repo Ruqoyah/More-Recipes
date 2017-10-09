@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default class RecipeList extends Component{
+export default class MyRecipes extends Component{
     render(){
       return(
         <div className="card">
@@ -13,7 +13,7 @@ export default class RecipeList extends Component{
           <Link to="/viewrecipe" className="btn btn-success">Read more</Link> 
           <a href="" ><i className="fa fa-thumbs-up" aria-hidden="true" style={{ fontSize:'30px', color: 'orange'}}></i></a>
           <a href="" ><i className="fa fa-thumbs-down" aria-hidden="true" style={{ fontSize:'30px', color: 'grey' }}></i></a>
-          <a href="" ><i className="fa fa-heart-o" aria-hidden="true" style={{ fontSize:'30px', color: 'red' }}></i></a> <hr />
+          <a href="" onClick={this.props.handleClick}><i className="fa fa-heart-o" aria-hidden="true" style={{ fontSize:'30px', color: 'red' }}></i></a> <hr />
           <div className="btn-toolbar">
           <a href="#" className="btn btn-outline-primary">Edit</a>
           <a href="#" className="btn btn-outline-danger">Delete</a>

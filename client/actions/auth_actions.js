@@ -57,10 +57,9 @@ export function getUserProfileAction(userId) {
     .catch(error => error.response);
 }
 
-export function editProfileAction(userId) {
-  return dispatch => axios.put(`${API_URL}/api/v1/user/${userId}`)
+export function editProfileAction(userId, userDetails) {
+  return dispatch => axios.put(`${API_URL}/api/v1/user/${userId}`, userDetails)
     .then((res) => {
-      console.log('i got here', res.data);
       dispatch({
         type: EDIT_PROFILE,
         user: res.data
