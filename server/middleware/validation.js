@@ -523,6 +523,7 @@ export const validateUpVote = (req, res, next) => {
     .then((vote) => {
       if (vote) {
         return res.status(400).json({
+          status: false,
           message: 'You already upvoted'
         });
       }
@@ -533,7 +534,7 @@ export const validateUpVote = (req, res, next) => {
         })
         .then((upvote) => {
           res.status(200).json({
-            status: 'success',
+            status: true,
             message: 'Upvote added successfully!',
             data: { userId: upvote.userId, recipeId: upvote.recipeId }
           });
@@ -559,6 +560,7 @@ export const validateDownVote = (req, res, next) => {
     .then((vote) => {
       if (!vote) {
         return res.status(400).json({
+          status: false,
           message: 'You already downvoted'
         });
       }
@@ -571,7 +573,7 @@ export const validateDownVote = (req, res, next) => {
         })
         .then(() => {
           res.status(200).json({
-            status: 'success',
+            status: true,
             message: 'Downvote added successfully!',
             data: { userId: vote.userId, recipeId: vote.recipeId }
           });

@@ -56,3 +56,15 @@ export function getFavoriteAction(userId) {
     })
     .catch(error => error.response);
 }
+
+export function upvoteRecipeAction(recipeId, userId) {
+  return axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+    .then(res => res.data.status)
+    .catch(error => error.response.data.status);
+}
+
+export function downvoteRecipeAction(recipeId, userId) {
+  return axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+    .then(res => res.data.status)
+    .catch(error => error.response.data.status);
+}

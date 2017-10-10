@@ -23,6 +23,7 @@ class RecipePage extends Component {
               picture={recipe.picture}
               recipeName={recipe.recipeName}
               details={recipe.details}
+              votes={recipe.votes}
               id={recipe.id}
               key={Math.random() * 10}
             />
