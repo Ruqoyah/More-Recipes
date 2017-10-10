@@ -17,7 +17,7 @@ export default {
         category: req.body.category
       })
       .then(favorite => res.status(200).json({
-        status: 'success',
+        status: true,
         message: `You successfully choose recipe id ${req.params.recipeId} as your favorite recipes`,
         data: { userId: favorite.userId, recipeId: favorite.recipeId }
       }))
@@ -59,7 +59,7 @@ export default {
         where: { userId: req.params.userId },
         include: [{
           model: db.Recipes,
-          attributes: ['recipeName', 'ingredient', 'details', 'votes'],
+          attributes: ['recipeName', 'ingredient', 'details', 'votes', 'picture'],
           include: [{
             model: db.Users,
             attributes: ['fullName', 'updatedAt']

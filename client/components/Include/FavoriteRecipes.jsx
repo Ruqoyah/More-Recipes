@@ -1,40 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { favoriteAction } from '../../actions/recipes_action';
 
 
-class AllRecipes extends Component {
-  constructor(props){
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e){
-    e.preventDefault();
-    favoriteAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        // window.location.href = '/recipe'
-      }
-      toastr.success('Favorite Recipe added successfully');
-    } else {
-      toastr.error('You already favorite recipe')
-    }
-    })
-  }
-
+export default class FavoriteRecipes extends Component{
   render() {
     return (
       <div className="col-sm-4">      
@@ -58,13 +26,3 @@ class AllRecipes extends Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    recipes: state.recipe.recipes,
-    user: state.auth.user.currentUser
-  }
-}
-
-
-export default connect(mapStateToProps)(AllRecipes);

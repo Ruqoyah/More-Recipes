@@ -448,7 +448,8 @@ export const validatefavRecipe = (req, res, next) => {
     })
     .then((favorite) => {
       if (favorite) {
-        return res.status(400).json({
+        return res.status(200).json({
+          status: false,
           message: 'You already favorite recipe'
         });
       }

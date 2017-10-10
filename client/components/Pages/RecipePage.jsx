@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -9,7 +10,6 @@ import { getAllRecipeAction } from '../../actions/recipes_action';
 import AllRecipes from '../Include/AllRecipes';
 
 class RecipePage extends Component {
-  
   renderRecipe() {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
@@ -23,6 +23,7 @@ class RecipePage extends Component {
               picture={recipe.picture}
               recipeName={recipe.recipeName}
               details={recipe.details}
+              id={recipe.id}
               key={Math.random() * 10}
             />
           )
@@ -65,7 +66,8 @@ class RecipePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    recipes: state.recipe.recipes
+    recipes: state.recipe.recipes,
+    user: state.auth.user.currentUser
   }
 }
 

@@ -1,4 +1,3 @@
-// import bcrypt from 'bcrypt';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
@@ -7,7 +6,6 @@ import PropTypes from 'prop-types';
 import { getUserProfileAction, editProfileAction } from '../../actions/auth_actions';
 import Header from '../Common/Header';
 
-// const saltRounds = 10;
 class ProfilePage extends Component {
   constructor(props){
     super(props);
@@ -37,7 +35,6 @@ class ProfilePage extends Component {
   }
 
   onChange(event) {
-    console.log(this.state);
     const eventName = event.target.name;
     const eventValue = event.target.value;
     this.setState({[eventName]: eventValue});
@@ -54,10 +51,9 @@ class ProfilePage extends Component {
         fullName: this.state.fullName
       } 
     } 
-    // bcrypt.hash(this.state.password, saltRounds)
+
     this.setState({ isLoading: true })
     const userId = this.props.userId
-    console.log(userId)
     this.props.actions.editProfileAction(userId, newState)
       .then((data) => {
         toastr.options = {
@@ -70,6 +66,7 @@ class ProfilePage extends Component {
           "hideMethod": "fadeOut"
         };
         toastr.options.onHidden = function() { 
+          window.location.href = '/profilepage'
          }
         toastr.success('You successfully edit your profile');
       })
@@ -228,10 +225,12 @@ ProfilePage.propTypes = {
   email: PropTypes.string,
 }
 
-// ProfilePage.defaultProps = {
-//   userId: 0,
-//   fullName : '',
-//   username: '',
-//   email: '',
-// }
+
+ProfilePage.defaultProps = {
+  userId: 0,
+  fullName : '',
+  username: '',
+  email: '',
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

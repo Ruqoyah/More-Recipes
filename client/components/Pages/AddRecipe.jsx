@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
-import RecipeList from '../Include/RecipeList';
+import MyRecipes from '../Include/MyRecipes';
+
 
 
 class AddRecipe extends Component {
@@ -41,7 +42,7 @@ class AddRecipe extends Component {
       {
         allUserRecipe.map((recipe) => {
           return (
-            <RecipeList
+            <MyRecipes
               picture={recipe.picture}
               recipeName={recipe.recipeName}
               details={recipe.details}
