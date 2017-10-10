@@ -8,7 +8,7 @@ import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
   checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
   reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote,
-  verifyEditUsername, verifyEditEmail, validateDownVote, hashPassword } from '../middleware/validation';
+  verifyEditUsername, verifyEditEmail, validateDownVote } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 

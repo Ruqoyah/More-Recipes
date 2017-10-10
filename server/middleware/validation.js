@@ -1,11 +1,13 @@
 import nodemailer from 'nodemailer';
+import bcrypt from 'bcrypt';
 import winston from 'winston';
 import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
 import db from '../models/';
 import recipes from '../controllers/recipes';
 
 dotenv.load();
+
+const saltRounds = 10;
 
 const { Recipes, Users, favoriteRecipes, Votes } = db;
 
@@ -108,8 +110,11 @@ export const signupNotification = (req, res, next) => {
 
 export const favRecipeNotification = (req, res, next) => {
   favoriteRecipes
-    .findOne({ where: {
-      id: req.params.recipeId } })
+    .findOne({
+      where: {
+        id: req.params.recipeId
+      }
+    })
     .then((recipe) => {
       if (!recipe) {
         recipes.modifyRecipe(req, res);
@@ -574,7 +579,6 @@ export const validateDownVote = (req, res, next) => {
       next();
     });
 };
-
 
 export const verifyEditUsername = (req, res, next) => {
   Users

@@ -51,6 +51,7 @@ class ProfilePage extends Component {
         fullName: this.state.fullName
       } 
     } 
+
     this.setState({ isLoading: true })
     const userId = this.props.userId
     this.props.actions.editProfileAction(userId, newState)
@@ -223,6 +224,7 @@ ProfilePage.propTypes = {
   username: PropTypes.string,
   email: PropTypes.string,
 }
+
 
 ProfilePage.defaultProps = {
   userId: 0,

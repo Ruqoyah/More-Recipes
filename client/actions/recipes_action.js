@@ -40,7 +40,6 @@ export function searchRecipesAction(search) {
     .catch(error => error.response);
 }
 
-
 export function favoriteAction(recipeId, userId) {
   return axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`, { userId })
     .then(res => res.data.status)
