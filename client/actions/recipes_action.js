@@ -68,3 +68,15 @@ export function downvoteRecipeAction(recipeId, userId) {
     .then(res => res.data.status)
     .catch(error => error.response.data.status);
 }
+
+export function viewRecipeAction(recipeId) {
+  return axios.get(`${API_URL}/api/v1/recipes/${recipeId}`)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+}
+
+export function reviewRecipeAction(recipeId, details) {
+  return axios.get(`${API_URL}/api/v1/recipes/${recipeId}/reviews`, details)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+}

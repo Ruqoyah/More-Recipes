@@ -1,4 +1,4 @@
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES } from '../actions/types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, VIEW_RECIPES } from '../actions/types';
 
 const INITIAL_STATE = { userRecipe: '', recipes: '', favoriteRecipes: '' };
 

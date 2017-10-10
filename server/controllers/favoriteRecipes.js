@@ -59,7 +59,7 @@ export default {
         where: { userId: req.params.userId },
         include: [{
           model: db.Recipes,
-          attributes: ['recipeName', 'ingredient', 'details', 'votes', 'picture'],
+          attributes: ['recipeName', 'ingredient', 'details', 'votes', 'picture', 'views'],
           include: [{
             model: db.Users,
             attributes: ['fullName', 'updatedAt']
