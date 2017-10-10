@@ -179,7 +179,6 @@ class Signup extends Component {
   }
 }
 
-
 function mapDispatchToProps(dispatch){
   return {
     actions: bindActionCreators({

@@ -39,4 +39,3 @@ export function searchRecipesAction(search) {
     })
     .catch(error => error.response);
 }
-

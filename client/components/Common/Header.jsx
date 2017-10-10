@@ -26,6 +26,12 @@ class Header extends Component {
     this.props.actions.searchRecipesAction(searchText);
   }
 
+  logout(e) {
+    e.preventDefault();
+    this.props.actions.logoutAction();
+    this.context.router.push('/');
+  }
+ 
   render() {
     const { fullname } = this.props.user;
     return (
