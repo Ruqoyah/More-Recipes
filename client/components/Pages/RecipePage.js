@@ -13,7 +13,7 @@ class RecipePage extends Component {
   renderRecipe() {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
-      return <div style={{ backgroundColor: '#fff', marginLeft: '50px', marginRight: '-50px' }}><h2>There is no Recipe in the database</h2></div>;
+      return (<div style={{ backgroundColor: '#fff', textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
     }
     return (<div className="row">
       {
@@ -23,37 +23,42 @@ class RecipePage extends Component {
               picture={recipe.picture}
               recipeName={recipe.recipeName}
               details={recipe.details}
-              key={recipe.id}
+              key={Math.random() * 10}
             />
           )
-        }
-        )
+        })
       }
       </div>)
   }
 
   componentDidMount() {
-    this.props.actions.getAllRecipeAction(this.props.user)
+    this.props.actions.getAllRecipeAction(this.props.recipes)
   }
 
   render() {
+    const recipeCount = this.props.recipes.length;
     return (
       <div>
         <Header /> 
         {this.renderRecipe()}
-        <nav aria-label="Page navigation example">
-          <ul className="pagination justify-content-center">
-            <li className="page-item disabled">
-              <a className="page-link" href="#" tabIndex="-1">Previous</a>
-            </li>
-            <li className="page-item"><a className="page-link" href="#">1</a></li>
-            <li className="page-item"><a className="page-link" href="#">2</a></li>
-            <li className="page-item"><a className="page-link" href="#">3</a></li>
-            <li className="page-item">
-              <a className="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
+        {(recipeCount > 0 
+          ?
+          <nav aria-label="Page navigation example">
+            <ul className="pagination justify-content-center">
+              <li className="page-item disabled">
+                <a className="page-link" href="#" tabIndex="-1">Previous</a>
+              </li>
+              <li className="page-item"><a className="page-link" href="#">1</a></li>
+              <li className="page-item"><a className="page-link" href="#">2</a></li>
+              <li className="page-item"><a className="page-link" href="#">3</a></li>
+              <li className="page-item">
+                <a className="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+          :
+          ''
+        )}
       </div>);
   }
 }

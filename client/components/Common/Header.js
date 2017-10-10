@@ -3,11 +3,29 @@ import { render } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllRecipeAction } from '../../actions/recipes_action';
+import { searchRecipesAction } from '../../actions/recipes_action';
 import { logoutAction } from '../../actions/auth_actions';
 import AllRecipes from '../Include/AllRecipes';
 
-// import { searchRecipesAction } from '../../actions/recipes_action';
+class Header extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      searchRecipes: ''
+    }
+    this.searchHandler = this.searchHandler.bind(this)
+  }
+  logout(e) {
+    e.preventDefault();
+    this.props.actions.logoutAction();
+    this.context.router.push('/');
+  }
+  
+  searchHandler(event){
+    const searchText = event.target.value;
+    this.setState({ searchRecipes: event.target.value})
+    this.props.actions.searchRecipesAction(searchText);
+  }
 
 class Header extends Component {
   logout(e) {
@@ -31,8 +49,10 @@ class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav col-lg-6">
-              <input className="form-control mr-sm-2" type="text" 
+            { window.location.href.split('/').splice(-1).toString() === 'recipe' &&
+              <input onChange={this.searchHandler} className="form-control mr-sm-2" type="text" 
               placeholder="Search recipe" aria-label="Search" />
+            }  
             </ul>
           </div>
           <a className="navbar-brand" href="#"><img src="images/bell.png" width="32" height="33"
@@ -57,14 +77,16 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.auth.user.currentUser
+    user: state.auth.user.currentUser,
+    recipes: state.recipe.recipes
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      logoutAction
+      logoutAction,
+      searchRecipesAction
     }, dispatch)
   }
 }
