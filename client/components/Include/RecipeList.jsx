@@ -11,10 +11,12 @@ export default class RecipeList extends Component{
           <h4 className="card-title">{this.props.recipeName}</h4>
           <p className="card-text">{this.props.details}</p>
           <Link to="/viewrecipe" className="btn btn-success">Read more</Link> <hr />
+          <div className="btn-toolbar">
           <a href="#" className="btn btn-outline-primary">Edit</a>
           <a href="#" className="btn btn-outline-danger">Delete</a>
+          </div>
         </div>
-      </div>
+      </div> 
       )
     }
 }

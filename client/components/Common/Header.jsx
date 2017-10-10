@@ -18,7 +18,6 @@ class Header extends Component {
   logout(e) {
     e.preventDefault();
     this.props.actions.logoutAction();
-    this.context.router.push('/');
   }
   
   searchHandler(event){
@@ -27,7 +26,6 @@ class Header extends Component {
     this.props.actions.searchRecipesAction(searchText);
   }
 
-class Header extends Component {
   logout(e) {
     e.preventDefault();
     this.props.actions.logoutAction();
