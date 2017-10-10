@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES } from './types';
 
+
 const API_URL = 'http://localhost:8000';
 
 export function addRecipeAction(recipeDetails) {

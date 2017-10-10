@@ -1,3 +1,4 @@
+
 import { ADD_RECIPE, GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES } from '../actions/types';
 
 const INITIAL_STATE = { userRecipe: '', recipes: '' };

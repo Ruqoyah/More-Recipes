@@ -7,7 +7,6 @@ import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_acti
 import Header from '../Common/Header';
 import RecipeList from '../Include/RecipeList';
 
-
 class AddRecipe extends Component {
   constructor(props) {
     super(props);
