@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, UNAUTH_USER } from './types';
 import { setAuthorizationToken } from '../helper/index';
 
 const API_URL = 'http://localhost:8000';
@@ -32,4 +32,16 @@ export function loginAction(userDetails) {
       return res.data.status;
     })
     .catch(error => error.response.data.message);
+}
+
+export function logoutAction() {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    setAuthorizationToken(false);
+    dispatch({
+      type: UNAUTH_USER,
+      user: {}
+    });
+    window.location.href = '/';
+  };
 }
