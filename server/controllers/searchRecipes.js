@@ -83,8 +83,10 @@ export default {
             })
             .then((recipe) => {
               if (results.concat(recipe).length < 1) {
-                return res.status(404).json({
-                  message: 'No match Recipe found'
+                return res.status(200).json({
+                  message: 'No match Recipe found',
+                  data: []
+
                 });
               }
               return res.status(200).json({
