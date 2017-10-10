@@ -21,7 +21,6 @@ export function getUserRecipeAction(userId) {
 export function getAllRecipeAction() {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes`)
     .then((res) => {
-      // console.log(res.data);
       dispatch({
         type: GET_RECIPES,
         recipes: res.data
@@ -40,4 +39,3 @@ export function searchRecipesAction(search) {
     })
     .catch(error => error.response);
 }
-
