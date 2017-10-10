@@ -23,6 +23,7 @@ class FavoriteRecipe extends Component {
               recipeName={recipe.Recipe.recipeName}
               details={recipe.Recipe.details}
               id={recipe.id}
+              votes={recipe.Recipe.votes}
               key={Math.random() * 10}
             />
           )
@@ -41,7 +42,7 @@ class FavoriteRecipe extends Component {
       <div>
         <Header /> 
         {this.renderRecipe()}
-        {(recipeCount > 0 
+        {(recipeCount > 12 
           ?
           <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center">
@@ -64,6 +65,7 @@ class FavoriteRecipe extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log( state.recipe.favoriteRecipes)
   return {
     user: state.auth.user.currentUser,
     favoriteRecipes: state.recipe.favoriteRecipes

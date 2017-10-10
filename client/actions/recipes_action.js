@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES } from './types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
+  UPVOTE_RECIPE, DOWNVOTE_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -56,3 +57,49 @@ export function getFavoriteAction(userId) {
     })
     .catch(error => error.response);
 }
+
+export function upvoteRecipeAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: UPVOTE_RECIPE,
+        upvotes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function downvoteRecipeAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: DOWNVOTE_RECIPE,
+        downvotes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+// export function getUpvoteAction(recipeId) {
+//   return dispatch => axios.get(`${API_URL}/api/v1/recipe/upvote/${recipeId}`)
+//     .then((res) => {
+//       console.log(res.data, '========>');
+//       dispatch({
+//         type: GET_UPVOTE,
+//         upvotes: res.data
+//       });
+//     })
+//     .catch(error => error.response);
+// }
+
+// export function getDownvoteAction(recipeId) {
+//   return dispatch => axios.get(`${API_URL}/api/v1/recipe/downvote/${recipeId}`)
+//     .then((res) => {
+//       dispatch({
+//         type: GET_DOWNVOTE,
+//         downvotes: res.data
+//       });
+//     })
+//     .catch(error => error.response);
+// }
+
