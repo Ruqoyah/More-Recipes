@@ -9,7 +9,6 @@ import Header from '../Common/Header';
 import { getAllRecipeAction } from '../../actions/recipes_action';
 import AllRecipes from '../Include/AllRecipes';
 
-
 class RecipePage extends Component {
   renderRecipe() {
     const allRecipes = this.props.recipes;

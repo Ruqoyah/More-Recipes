@@ -400,14 +400,21 @@ export const validateLoginUser = (req, res, next) => {
   Users
     .findOne({
       where: {
-        username: req.body.username
+        username: req.body.username,
       },
     })
     .then((user) => {
       if (!user) {
         return res.status(401).json({ status: false, message: 'Invalid Credentials' });
+      } else if (user) {
+        bcrypt.compare(req.body.password, user.password, (err, response) => {
+          if (response) {
+            next();
+          } else {
+            return res.status(401).json({ status: false, message: 'Invalid Credentials' });
+          }
+        });
       }
-      next();
     });
 };
 

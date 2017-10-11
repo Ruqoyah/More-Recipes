@@ -75,7 +75,7 @@ app.get('/api/v1/users', authentication.isLoggedIn, authentication.isAdmin, auth
  * @param  {} checkRecipeInput
  * @param  {} recipesController.addRecipe
  */
-app.post('/api/v1/recipes', authentication.isLoggedIn, validateUsersId, checkRecipeInput, checkRecipeInvalidInput, recipesController.addRecipe);
+app.post('/api/v1/recipes', authentication.isLoggedIn, validateUsersId, checkRecipeInput, recipesController.addRecipe);
 
 /** Get all recipes
  * @param  {} '/api/v1/recipes'

@@ -153,7 +153,15 @@ export default {
       .findOne({
         where: {
           id: req.params.recipeId
-        }
+        },
+        include: [{
+          model: db.Reviews,
+          attributes: ['review'],
+          include: [{
+            model: db.Users,
+            attributes: ['fullName', 'updatedAt'],
+          }]
+        }],
       })
       .then((recipe) => {
         recipe.increment('views').then(() => {

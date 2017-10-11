@@ -9,4 +9,6 @@ export const AUTH_USER = 'auth_user',
   GET_USER = 'get_user',
   EDIT_PROFILE = 'edit_profile',
   GET_FAVORITE_RECIPES = 'get_favorite_recipes',
-  SEARCH_RECIPES = 'search_recipes';
+  SEARCH_RECIPES = 'search_recipes',
+  GET_REVIEW = 'get_review',
+  VIEW_RECIPE = 'view_recipe';
