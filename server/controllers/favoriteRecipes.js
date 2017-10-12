@@ -76,5 +76,35 @@ export default {
         }
       })
       .catch(error => res.status(404).json(error));
-  }
+  },
+
+  viewFavorite(req, res) {
+    return favoriteRecipes
+      .findOne({
+        where: {
+          recipeId: req.params.recipeId
+        },
+        include: [{
+          model: db.Recipes,
+          attributes: ['recipeName', 'ingredient', 'details', 'votes', 'picture', 'views'],
+          include: [{
+            model: db.Users,
+            attributes: ['fullName', 'updatedAt']
+          }]
+        }],
+      })
+      .then(((recipe) => {
+        db.Reviews
+          .findAll({
+            where: {
+              recipeId: recipe.recipeId
+            }
+          })
+          .then(data => res.json({
+            reviews: data,
+            recipe
+          }));
+      }))
+      .catch(error => res.status(404).json(error));
+  },
 };

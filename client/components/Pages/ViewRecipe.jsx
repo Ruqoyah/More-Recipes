@@ -47,7 +47,6 @@ class ViewRecipe extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state.recipe.viewRecipe)
   return {
     viewRecipe: state.recipe.viewRecipe,
     user: state.auth.user.currentUser

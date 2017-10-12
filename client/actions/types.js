@@ -10,5 +10,7 @@ export const AUTH_USER = 'auth_user',
   EDIT_PROFILE = 'edit_profile',
   GET_FAVORITE_RECIPES = 'get_favorite_recipes',
   SEARCH_RECIPES = 'search_recipes',
+  ADD_REVIEW = 'add_review',
   GET_REVIEW = 'get_review',
+  VIEW_FAVORITE = 'view_favorite',
   VIEW_RECIPE = 'view_recipe';

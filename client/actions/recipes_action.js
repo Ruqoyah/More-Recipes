@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, GET_REVIEW, VIEW_RECIPE } from './types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
+  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -81,9 +82,14 @@ export function viewRecipeAction(recipeId) {
 }
 
 export function reviewRecipeAction(recipeId, details) {
-  return axios.post(`${API_URL}/api/v1/recipes/${recipeId}/reviews`, details)
-    .then(res => console.log('res', res.data))
-    .catch(error => error.response.data);
+  return dispatch => axios.post(`${API_URL}/api/v1/recipes/${recipeId}/reviews`, details)
+    .then((res) => {
+      dispatch({
+        type: ADD_REVIEW,
+        reviews: res.data.data
+      });
+    })
+    .catch(error => error.response);
 }
 
 export function getReviewAction(recipeId) {
@@ -92,6 +98,17 @@ export function getReviewAction(recipeId) {
       dispatch({
         type: GET_REVIEW,
         reviews: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function viewFavoriteAction(recipeId) {
+  return dispatch => axios.get(`${API_URL}/api/v1/favorite/${recipeId}/recipes`)
+    .then((res) => {
+      dispatch({
+        type: VIEW_FAVORITE,
+        viewFavorite: res.data
       });
     })
     .catch(error => error.response);

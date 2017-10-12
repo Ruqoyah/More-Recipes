@@ -3,11 +3,8 @@ import bcrypt from 'bcrypt';
 import winston from 'winston';
 import dotenv from 'dotenv';
 import db from '../models/';
-import recipes from '../controllers/recipes';
 
-dotenv.load();
-
-const saltRounds = 10;
+dotenv.config();
 
 const { Recipes, Users, favoriteRecipes, Votes } = db;
 
@@ -31,7 +28,7 @@ const transporter = nodemailer.createTransport({
  * @param  {object} next - next
  */
 
-export const reviewNotification = (req, res, next) => {
+export const reviewNotification = (req) => {
   Recipes
     .findOne({ where: { id: req.params.recipeId } })
     .then((recipe) => {
@@ -39,18 +36,18 @@ export const reviewNotification = (req, res, next) => {
         .findOne({ where: { id: recipe.userId } })
         .then((user) => {
           const mailOptions = {
-            from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
+            from: '"More-Recipes" <rukayat.odukoya@andela.com>',
             to: user.email,
             subject: 'You have a new Review',
             text: 'Someone just review your recipe, click on the link below to check',
           };
 
-          transporter.sendMail(mailOptions, (error, res) => {
+          transporter.sendMail(mailOptions, (error, response) => {
             if (error) {
-              winston.info(error);
+              winston.info('Email not sent!');
+              return winston.info('error message =========>', error);
             }
-            winston.info('Email sent to: %s', res);
-            next();
+            winston.info('Email sent to: %s', response);
           });
         });
     });
@@ -62,82 +59,27 @@ export const reviewNotification = (req, res, next) => {
  * @param  {object} next - next
  */
 
-export const signupNotification = (req, res, next) => {
+export const signupNotification = (req) => {
   Users
     .findOne({
       where: {
-        username: req.body.username
+        email: req.body.email
       },
     })
     .then((user) => {
-      if (user) {
-        return res.status(400).json({ username: 'Username already exists' });
-      }
-      Users
-        .findOne({
-          where: {
-            email: req.body.email
-          },
-        })
-        .then((email) => {
-          if (email) {
-            return res.status(400).json({ email: 'Email already exists' });
-          }
-          const mailOptions = {
-            from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
-            to: `${req.body.email}`,
-            subject: 'Your More-Recipes account has been created',
-            text: `Thank you for signing up with More-Recipes, username: ${req.body.username}`,
-          };
+      const mailOptions = {
+        from: '"More-Recipes" <rukayat.odukoya@andela.com>',
+        to: user.email,
+        subject: 'Your More-Recipes account has been created',
+        text: `Thank you for signing up with More-Recipes, username: ${user.username}`,
+      };
 
-          transporter.sendMail(mailOptions, (error, res) => {
-            if (error) {
-              winston.info(error);
-            }
-            winston.info('Email sent to: %s', res);
-          });
-
-          next();
-        });
-    });
-};
-
-/** Get notification when favourite recipe is updated
- * @param  {object} req - request
- * @param  {object} res - response
- * @param  {object} next - next
- */
-
-export const favRecipeNotification = (req, res, next) => {
-  favoriteRecipes
-    .findOne({
-      where: {
-        id: req.params.recipeId
-      }
-    })
-    .then((recipe) => {
-      if (!recipe) {
-        recipes.modifyRecipe(req, res);
-      } else {
-        Users
-          .findOne({ where: { id: recipe.userId } })
-          .then((user) => {
-            const mailOptions = {
-              from: '"More-Recipes" <rukayatodukoya123@gmail.com@gmail.com>',
-              to: user.email,
-              subject: 'Edit Recipe',
-              text: 'One of your favorite recipe has been modify, click on the link below to check',
-            };
-
-            transporter.sendMail(mailOptions, (error, res) => {
-              if (error) {
-                winston.info(error);
-              }
-              winston.info('Email sent to: %s', res);
-              next();
-            });
-          });
-      }
+      transporter.sendMail(mailOptions, (error, response) => {
+        if (error) {
+          winston.info(error);
+        }
+        winston.info('Email sent to: %s', response);
+      });
     });
 };
 
@@ -235,7 +177,7 @@ export const checkValidUserInput = (req, res, next) => {
  */
 
 export const checkUserInvalidInput = (req, res, next) => {
-  if (req.body.username.match(/^[a-z]+$/g) == null) {
+  if (req.body.username.match(/^[A-Za-z0-9]+$/g) == null) {
     return res.status(409).json({ message: 'Invalid Username' });
   }
   if (req.body.password.match(/^([^ ]+)*$/g) == null) {
@@ -613,6 +555,21 @@ export const verifyEditUsername = (req, res, next) => {
       } else {
         next();
       }
+    });
+};
+
+export const validateFavRecipesId = (req, res, next) => {
+  favoriteRecipes
+    .findOne({
+      where: { recipeId: req.params.recipeId }
+    })
+    .then((recipe) => {
+      if (!recipe) {
+        return res.status(404).json({
+          message: 'No recipe Id found'
+        });
+      }
+      next();
     });
 };
 

@@ -1,6 +1,12 @@
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, GET_REVIEW, VIEW_RECIPE } from '../actions/types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
+  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW } from '../actions/types';
 
-const INITIAL_STATE = { userRecipe: '', recipes: '', favoriteRecipes: '', reviews: '', viewRecipe: '' };
+const INITIAL_STATE = { userRecipe: '',
+  recipes: '',
+  favoriteRecipes: '',
+  reviews: [],
+  viewRecipe: '',
+  viewFavorite: '' };
 
 function recipeReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -14,8 +20,12 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, favoriteRecipes: action.favoriteRecipes };
     case VIEW_RECIPE:
       return { ...state, viewRecipe: action.viewRecipe };
+    case ADD_REVIEW:
+      return { ...state, reviews: [...state.reviews, action.reviews] };
     case GET_REVIEW:
       return { ...state, reviews: action.reviews };
+    case VIEW_FAVORITE:
+      return { ...state, viewFavorite: action.viewFavorite };
     default:
       return state;
   }

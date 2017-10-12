@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction,
-          reviewRecipeAction } from '../../actions/recipes_action';
+          reviewRecipeAction, getReviewAction } from '../../actions/recipes_action';
 
 class ViewRecipes extends Component {
   constructor(props){
@@ -10,7 +10,7 @@ class ViewRecipes extends Component {
     const { userId } = this.props.user
     this.state = {
       review: '', 
-      userId
+      userId,
     }
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -29,7 +29,14 @@ class ViewRecipes extends Component {
 
   onSubmit(e){
     e.preventDefault();
-    reviewRecipeAction(this.props.id, this.state)
+    this.props.actions.reviewRecipeAction(this.props.id, this.state)
+    this.refs.reviewForm.reset();
+  }
+
+  componentDidMount() {
+    if(this.props.id){
+      this.props.actions.getReviewAction(this.props.id);
+    }
   }
 
   handleFavoriteClick(e){
@@ -103,39 +110,10 @@ class ViewRecipes extends Component {
     }
     })
   }
-
-  renderReview() {
-    const recipeReview = this.props.review;
-    if (!recipeReview) {
-      return ''
-    }
-    return (<div>
-      {
-        recipeReview.map((displayReview) => {
-          if (displayReview.User.id === this.props.user.userId) {
-            return ( <div key={displayReview.id}>
-               <div className="chat self">
-                 <div className="user-photo"> <img src="images/picture.png" /></div>
-                 <p className="chat-message">{displayReview.review}</p>
-                 </div>
-                 </div>
-            )
-          } else {
-          return ( <div key={displayReview.id}>
-          <div className="chat friend">
-            <div className="user-photo"><img src="images/picture.png" /></div>
-            <p className="chat-message">{displayReview.review}</p>
-          </div>
-        </div>
-          )
-          }
-        })
-      }
-      </div>)
-  }
   
   render() {
-    console.log('review', this.props.review)
+    let {reviews} = this.props;
+
     return (
         <div className="view-recipe">
           <div className="container">
@@ -147,15 +125,36 @@ class ViewRecipes extends Component {
             <h4>Details</h4>
             <p>{this.props.details}</p>
             <div className="chatlogs">
-            {this.renderReview()}
-            {/* {this.renderUserReview()} */}
+              <div>
+                {
+                  reviews.map((displayReview) => {
+                    if (displayReview.userId === this.props.user.userId) {
+                      return ( <div key={displayReview.id}>
+                        <div className="chat self">
+                          <div className="user-photo"> <img src="images/picture.png" /></div>
+                          <p className="chat-message">{displayReview.review}</p>
+                          </div>
+                          </div>
+                      )
+                    } else {
+                    return ( <div key={displayReview.id}>
+                    <div className="chat friend">
+                      <div className="user-photo"><img src="images/picture.png" /></div>
+                      <p className="chat-message">{displayReview.review}</p>
+                    </div>
+                  </div>
+                    )
+                    }
+                  })
+                }
+              </div>
             </div>
             <div className="add-style">
             <a href="#">View more</a>
             </div>
-            <form onSubmit={this.onSubmit}>
+            <form ref="reviewForm" onSubmit={this.onSubmit}>
             <div className="post-form">
-              <textarea name="review" 
+              <textarea ref="review" name="review" 
               onChange={this.onChange}></textarea>
             </div>
             <button name="post" className="btn btn-outline-primary active">Post Review</button>
@@ -183,11 +182,18 @@ class ViewRecipes extends Component {
 
 function mapStateToProps(state) {
   return {
-    recipes: state.recipe.recipes,
-    user: state.auth.user.currentUser
+    user: state.auth.user.currentUser,
+    reviews: state.recipe.reviews,
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      reviewRecipeAction,
+      getReviewAction
+    }, dispatch)
+  }
+}
 
-
-export default connect(mapStateToProps)(ViewRecipes);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipes);

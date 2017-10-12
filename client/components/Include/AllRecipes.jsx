@@ -87,9 +87,7 @@ class AllRecipes extends Component {
     })
   }
 
-  handleViewClick(e){
-    e.preventDefault();
-    viewRecipeAction(this.props.id)
+  handleViewClick(){
     window.location.href = `/viewrecipe?id=${this.props.id}`
   }
 
@@ -125,7 +123,6 @@ class AllRecipes extends Component {
 
 function mapStateToProps(state) {
   return {
-    recipes: state.recipe.recipes,
     user: state.auth.user.currentUser
   }
 }

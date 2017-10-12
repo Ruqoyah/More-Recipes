@@ -21,7 +21,10 @@ class FavoriteRecipe extends Component {
             <FavoriteRecipes
               picture={recipe.Recipe.picture}
               recipeName={recipe.Recipe.recipeName}
+              ingredient={recipe.Recipe.ingredient}
               details={recipe.Recipe.details}
+              votes={recipe.Recipe.votes}
+              views={recipe.Recipe.views}
               id={recipe.id}
               votes={recipe.Recipe.votes}
               key={Math.random() * 10}
@@ -65,7 +68,6 @@ class FavoriteRecipe extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log( state.recipe.favoriteRecipes)
   return {
     user: state.auth.user.currentUser,
     favoriteRecipes: state.recipe.favoriteRecipes

@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import db from '../models';
+import { signupNotification } from '../middleware/validation';
 
 dotenv.load();
 const secret = process.env.superSecret;
@@ -38,6 +39,9 @@ export default {
               message: 'You have successfully signed up',
               data: { token, userId: user.id, }
             });
+          })
+          .then(() => {
+            signupNotification(req);
           })
           .catch(error => res.status(400).json(error));
       });
