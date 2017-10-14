@@ -42,6 +42,7 @@ class ViewRecipe extends Component {
       <div>
         <Header />
         {this.renderRecipe()}
+        <Footer />
       </div>);
   }
 }

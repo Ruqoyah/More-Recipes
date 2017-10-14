@@ -1,5 +1,5 @@
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
-  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW } from '../actions/types';
+  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE } from '../actions/types';
 
 const INITIAL_STATE = { userRecipe: '',
   recipes: '',
@@ -12,6 +12,10 @@ function recipeReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_USER_RECIPES:
       return { ...state, userRecipe: action.userRecipe };
+    case UPVOTE_RECIPE:
+      return { ...state, recipes: action.recipes };
+    case DOWNVOTE_RECIPE:
+      return { ...state, recipes: action.recipes };
     case GET_RECIPES:
       return { ...state, recipes: action.recipes };
     case SEARCH_RECIPES:

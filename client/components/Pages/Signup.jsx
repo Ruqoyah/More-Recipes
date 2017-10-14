@@ -52,9 +52,9 @@ class Signup extends Component {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        // toastr.options.onHidden = function() { 
-        //     window.location.href = '/recipe'
-        //  }
+        toastr.options.onHidden = function() { 
+            window.location.href = '/recipe'
+         }
         toastr.success('You have successfully signed up');
       })
       .catch((error) => console.log('Hello error'))

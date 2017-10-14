@@ -53,9 +53,6 @@ class ViewRecipes extends Component {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
       };
-      toastr.options.onHidden = function () {
-        window.location.reload()
-      }
       toastr.success('Favorite Recipe added successfully');
     } else {
       toastr.error('You already favorite recipe')

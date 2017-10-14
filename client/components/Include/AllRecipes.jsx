@@ -29,9 +29,6 @@ class AllRecipes extends Component {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
       };
-      toastr.options.onHidden = function () {
-        window.location.reload()
-      }
       toastr.success('Favorite Recipe added successfully');
     } else {
       toastr.error('You already favorite recipe')
@@ -41,50 +38,14 @@ class AllRecipes extends Component {
 
   handleUpvoteClick(e){
     e.preventDefault();
-    upvoteRecipeAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        window.location.reload()
-      }
-      toastr.success('Upvote added successfully');
-    } else {
-      toastr.error('You already upvoted')
-    }
-    })
+    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId)
+    window.location.reload()
   }
 
   handleDownvoteClick(e){
     e.preventDefault();
-    downvoteRecipeAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        window.location.reload()
-      }
-      toastr.success('Downvote added successfully');
-    } else {
-      toastr.error('You already downvoted')
-    }
-    })
+    this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
+    window.location.reload()
   }
 
   handleViewClick(){
@@ -93,8 +54,8 @@ class AllRecipes extends Component {
 
   render() {
     return (
-      <div className="col-sm-4">      
-      <div style={{marginBottom: '15px'}} className="card">
+      <div className="col-sm-3">      
+      <div className="card">
         <img className="card-img-top" src={this.props.picture}/>
         <div className="card-body">
           <h4 className="card-title">{this.props.recipeName}</h4>
@@ -103,14 +64,14 @@ class AllRecipes extends Component {
           <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
           <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
-            style={{ fontSize:'30px', color: 'orange'}}></i></a>
+            style={{ fontSize:'25px', color: 'orange'}}></i></a>
             <span>{this.props.votes}</span>
           <a href="" onClick={this.handleDownvoteClick}>
             <i className="fa fa-thumbs-down" aria-hidden="true" 
-            style={{ fontSize:'30px', color: 'grey' }}></i></a>
+            style={{ fontSize:'25px', color: 'grey' }}></i></a>
           <a href="" onClick={this.handleFavoriteClick} >
             <i className="fa fa-heart-o" aria-hidden="true" 
-            style={{ fontSize:'30px', color: 'red' }}></i></a>
+            style={{ fontSize:'25px', color: 'red' }}></i></a>
         </div>
         <div className="card-footer">
           <small className="text-muted">Last updated 3 mins ago</small>
@@ -123,8 +84,18 @@ class AllRecipes extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.auth.user.currentUser
+    user: state.auth.user.currentUser,
+    recipes: state.recipe.recipes
   }
 }
 
-export default connect(mapStateToProps)(AllRecipes);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      upvoteRecipeAction,
+      downvoteRecipeAction
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllRecipes);

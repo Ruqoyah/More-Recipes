@@ -1,13 +1,13 @@
 export default (sequelize, DataTypes) => {
   const Votes = sequelize.define('Votes', {
     userId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     recipeId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
   });
   Votes.associate = (models) => {
     Votes.belongsTo(models.Users, {

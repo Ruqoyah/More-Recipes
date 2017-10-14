@@ -13,4 +13,6 @@ export const AUTH_USER = 'auth_user',
   ADD_REVIEW = 'add_review',
   GET_REVIEW = 'get_review',
   VIEW_FAVORITE = 'view_favorite',
+  UPVOTE_RECIPE = 'upvote_recipe',
+  DOWNVOTE_RECIPE = 'downvote_recipe',
   VIEW_RECIPE = 'view_recipe';

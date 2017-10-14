@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
-  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW } from './types';
+  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -59,15 +59,25 @@ export function getFavoriteAction(userId) {
 }
 
 export function upvoteRecipeAction(recipeId, userId) {
-  return axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
-    .then(res => res.data.status)
-    .catch(error => error.response.data.status);
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: UPVOTE_RECIPE,
+        recipes: res.data
+      });
+    })
+    .catch(error => error.response);
 }
 
 export function downvoteRecipeAction(recipeId, userId) {
-  return axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
-    .then(res => res.data.status)
-    .catch(error => error.response.data.status);
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: DOWNVOTE_RECIPE,
+        recipes: res.data
+      });
+    })
+    .catch(error => error.response);
 }
 
 export function viewRecipeAction(recipeId) {

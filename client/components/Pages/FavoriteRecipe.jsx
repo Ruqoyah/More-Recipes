@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { getFavoriteAction } from '../../actions/recipes_action';
 import FavoriteRecipes from '../Include/FavoriteRecipes';
 import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 
 class FavoriteRecipe extends Component {
 
@@ -63,6 +64,7 @@ class FavoriteRecipe extends Component {
           :
           ''
         )}
+        <Footer />
       </div>);
   }
 }
