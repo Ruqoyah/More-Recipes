@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { viewRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 import ViewRecipes from '../Include/ViewRecipes';
 
 class ViewRecipe extends Component {

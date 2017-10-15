@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
-  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE } from './types';
+  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, DOWNVOTE_RECIPE,
+  EDIT_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -60,22 +61,16 @@ export function getFavoriteAction(userId) {
 
 export function upvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
-    .then((res) => {
-      dispatch({
-        type: UPVOTE_RECIPE,
-        recipes: res.data
-      });
+    .then(() => {
+      dispatch(getAllRecipeAction());
     })
     .catch(error => error.response);
 }
 
 export function downvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
-    .then((res) => {
-      dispatch({
-        type: DOWNVOTE_RECIPE,
-        recipes: res.data
-      });
+    .then(() => {
+      dispatch(getAllRecipeAction());
     })
     .catch(error => error.response);
 }
@@ -119,6 +114,23 @@ export function viewFavoriteAction(recipeId) {
       dispatch({
         type: VIEW_FAVORITE,
         viewFavorite: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function deleteRecipeAction(recipeId, userId) {
+  return axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`, userId)
+    .then(res => res.data)
+    .catch(error => error.response);
+}
+
+export function editRecipeAction(recipeId, editRecipes) {
+  return dispatch => axios.put(`${API_URL}/api/v1/recipes/${recipeId}`, editRecipes)
+    .then((res) => {
+      dispatch({
+        type: EDIT_RECIPE,
+        user: res.data
       });
     })
     .catch(error => error.response);

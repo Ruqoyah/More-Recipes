@@ -30,7 +30,7 @@ class Header extends Component {
     const { fullname } = this.props.user;
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light">
           <NavLink className="navbar-brand" to="/recipe">
             <img src="images/logo.png" width="270" height="59" alt="logo" />
           </NavLink>
@@ -40,7 +40,7 @@ class Header extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav col-lg-6">
+            <ul className="navbar-nav col-lg-5">
             { window.location.href.split('/').splice(-1).toString() === 'recipe' &&
               <input onChange={this.searchHandler} className="form-control mr-sm-2" type="text" 
               placeholder="Search recipe" aria-label="Search" />
@@ -52,7 +52,7 @@ class Header extends Component {
           <NavLink className="navbar-brand" to="/profilepage"><img src="images/picture.png"
             width="45" height="45" alt="picture" /></NavLink>
           <div className="dropdown">
-            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+            <button className="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
             <div className="dropdown-menu">
               <NavLink className="dropdown-item" to="/profilepage">View profile</NavLink>

@@ -481,12 +481,25 @@ export const validateUpVote = (req, res, next) => {
           recipeId: req.params.recipeId,
           userId: req.body.userId
         })
-        .then((upvote) => {
-          res.status(200).json({
-            status: true,
-            message: 'Upvote added successfully!',
-            data: { userId: upvote.userId, recipeId: upvote.recipeId }
-          });
+        .then(() => {
+          Recipes.findOne({ where: {
+            id: req.params.recipeId }
+          })
+            .then((upvote) => {
+              res.status(200).json({
+                status: true,
+                message: 'Upvote added successfully!',
+                data: {
+                  userId: upvote.userId,
+                  recipeId: upvote.id,
+                  recipeName: upvote.recipeName,
+                  ingredient: upvote.ingredient,
+                  details: upvote.details,
+                  votes: upvote.votes,
+                  views: upvote.views,
+                  picture: upvote.picture }
+              });
+            });
         });
       next();
     });
@@ -521,11 +534,24 @@ export const validateDownVote = (req, res, next) => {
           }
         })
         .then(() => {
-          res.status(200).json({
-            status: true,
-            message: 'Downvote added successfully!',
-            data: { userId: vote.userId, recipeId: vote.recipeId }
-          });
+          Recipes.findOne({ where: {
+            id: req.params.recipeId }
+          })
+            .then((downvote) => {
+              res.status(200).json({
+                status: true,
+                message: 'Downvote added successfully!',
+                data: {
+                  userId: downvote.userId,
+                  recipeId: downvote.id,
+                  recipeName: downvote.recipeName,
+                  ingredient: downvote.ingredient,
+                  details: downvote.details,
+                  votes: downvote.votes,
+                  views: downvote.views,
+                  picture: downvote.picture }
+              });
+            });
         });
       next();
     });

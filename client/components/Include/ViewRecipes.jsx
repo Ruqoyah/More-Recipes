@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction,
           reviewRecipeAction, getReviewAction } from '../../actions/recipes_action';
 
+          
 class ViewRecipes extends Component {
   constructor(props){
     super(props);
@@ -62,50 +63,12 @@ class ViewRecipes extends Component {
 
   handleUpvoteClick(e){
     e.preventDefault();
-    upvoteRecipeAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        window.location.reload()
-      }
-      toastr.success('Upvote added successfully');
-    } else {
-      toastr.error('You already upvoted')
-    }
-    })
+    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
   }
 
   handleDownvoteClick(e){
     e.preventDefault();
-    downvoteRecipeAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        window.location.reload()
-      }
-      toastr.success('Downvote added successfully');
-    } else {
-      toastr.error('You already downvoted')
-    }
-    })
+    this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
   }
   
   render() {
@@ -115,7 +78,7 @@ class ViewRecipes extends Component {
         <div className="view-recipe">
           <div className="container">
             <h2>{this.props.recipeName}</h2> <hr />
-            <img src={this.props.picture} className="img-thumbnail" alt="strawberry"
+            <img src={this.props.picture} className="img-thumbnail"
               width="700" /> <hr />
             <h4>Ingredients</h4>
             <p>{this.props.ingredient}</p><hr />
@@ -188,7 +151,9 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       reviewRecipeAction,
-      getReviewAction
+      getReviewAction,
+      upvoteRecipeAction, 
+      downvoteRecipeAction
     }, dispatch)
   }
 }
