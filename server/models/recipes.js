@@ -25,7 +25,12 @@ export default (sequelize, DataTypes) => {
         as: 'userId',
       }
     },
-    votes: {
+    upvotes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0
+    },
+    downvotes: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0

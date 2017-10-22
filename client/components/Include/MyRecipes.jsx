@@ -15,10 +15,11 @@ class MyRecipes extends Component {
       details: this.props.details,
       picture: this.props.picture,
       editRecipe: false,
-      displayRecipe: true
+      displayRecipe: true,
     }
-    this.onClick = this.onClick.bind(this);
     this.editClick = this.editClick.bind(this);
+    this.backClick = this.backClick.bind(this); 
+    this.onClick = this.onClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -39,7 +40,7 @@ class MyRecipes extends Component {
     })
       .then((willDelete) => {
         if (willDelete) {
-          deleteRecipeAction(this.props.id, this.props.user.userId)
+          this.props.actions.deleteRecipeAction(this.props.id, this.props.user.userId)
             .then(() => {
               swal("Poof! Your recipe has been deleted!", {
                 icon: "success",
@@ -57,6 +58,14 @@ class MyRecipes extends Component {
       editRecipe: true
     })
   }
+
+  backClick() {
+    this.setState({
+      displayRecipe: true,
+      editRecipe: false
+    })
+  }
+
 
   onSubmit() {
     this.props.actions.editRecipeAction(this.props.id, this.state)
@@ -92,7 +101,8 @@ class MyRecipes extends Component {
           </label>
           <div className="input-group">
             <div className="btn-toolbar">
-              <button type="submit" className="btn btn-outline-danger btn-lg">Save</button>
+              <button onClick={this.backClick} className="btn btn-outline-danger">Cancel</button>
+              <button type="submit" className="btn btn-outline-success">Save</button>
             </div>
           </div>
         </form>
@@ -128,7 +138,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      editRecipeAction
+      editRecipeAction,
+      deleteRecipeAction
     }, dispatch)
   }
 }

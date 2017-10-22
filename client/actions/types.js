@@ -15,4 +15,5 @@ export const AUTH_USER = 'auth_user',
   VIEW_FAVORITE = 'view_favorite',
   DOWNVOTE_RECIPE = 'downvote_recipe',
   EDIT_RECIPE = 'edit_recipe',
+  DELETE_RECIPE = 'delete_recipe',
   VIEW_RECIPE = 'view_recipe';

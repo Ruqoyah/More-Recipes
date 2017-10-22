@@ -36,6 +36,7 @@ class AllRecipes extends Component {
     })
   }
 
+
   handleUpvoteClick(e){
     e.preventDefault();
     this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);

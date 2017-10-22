@@ -11,10 +11,11 @@ import MyRecipes from '../Include/MyRecipes';
 
 
 class AddRecipe extends Component {
+
   renderRecipe() {
     const allUserRecipe = this.props.userRecipe;
     if (allUserRecipe.length < 1) {
-      return '';
+      return (<div style={{ backgroundColor: '#fff', textAlign: 'center' }}><h3> No Recipe was found </h3></div>);
     }
     return (<div className="row">
       {
@@ -35,28 +36,9 @@ class AddRecipe extends Component {
     )
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    addRecipeAction(this.state)
-      .then((recipe) => {
-        toastr.options = {
-          "debug": false,
-          "positionClass": "toast-top-full-width",
-          "timeOut": "2000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };
-        toastr.options.onHidden = function () {
-          window.location.href = '/addrecipe'
-        }
-        toastr.success('Recipe added successfully');
-      })
-  }
-
   componentDidMount() {
     this.props.actions.getUserRecipeAction(this.props.user.userId)
+    
   }
 
   render() {
