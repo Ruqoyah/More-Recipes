@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
-  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, DOWNVOTE_RECIPE,
-  EDIT_RECIPE } from './types';
+  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, EDIT_RECIPE, DELETE_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -120,8 +119,13 @@ export function viewFavoriteAction(recipeId) {
 }
 
 export function deleteRecipeAction(recipeId, userId) {
-  return axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`, userId)
-    .then(res => res.data)
+  return dispatch => axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`, userId)
+    .then((res) => {
+      dispatch({
+        type: DELETE_RECIPE,
+        id: Number(res.data.id)
+      });
+    })
     .catch(error => error.response);
 }
 
@@ -130,7 +134,7 @@ export function editRecipeAction(recipeId, editRecipes) {
     .then((res) => {
       dispatch({
         type: EDIT_RECIPE,
-        user: res.data
+        userRecipe: res.data
       });
     })
     .catch(error => error.response);

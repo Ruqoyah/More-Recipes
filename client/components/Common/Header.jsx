@@ -30,7 +30,7 @@ class Header extends Component {
     const { fullname } = this.props.user;
     return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <NavLink className="navbar-brand" to="/recipe">
             <img src="images/logo.png" width="270" height="59" alt="logo" />
           </NavLink>
@@ -56,7 +56,7 @@ class Header extends Component {
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
             <div className="dropdown-menu">
               <NavLink className="dropdown-item" to="/profilepage">View profile</NavLink>
-              <NavLink className="dropdown-item" to="/addrecipe">My Recipes</NavLink>
+              <NavLink className="dropdown-item" to="/myrecipe">My Recipes</NavLink>
               <NavLink className="dropdown-item" to="/favoriterecipe">Favorite Recipes</NavLink>
               <div className="dropdown-divider"></div>
               <a href= "#" onClick={this.logout.bind(this)} className="dropdown-item">Log out</a>

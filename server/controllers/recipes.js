@@ -79,7 +79,8 @@ export default {
       .then(() => {
         res.status(200).json({
           status: 'success',
-          message: 'Recipe deleted successfully!'
+          message: 'Recipe deleted successfully!',
+          id: req.params.recipeId
         });
       })
       .catch(error => res.status(404).json(error));
