@@ -1,8 +1,38 @@
 import axios from 'axios';
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
-  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, EDIT_RECIPE, DELETE_RECIPE } from './types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, UPVOTE_RECIPE,
+  DOWNVOTE_RECIPE, ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, EDIT_RECIPE,
+  DELETE_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
+
+
+export function saveImage(response) {
+  return {
+    type: SAVE_RECIPE_IMAGE,
+    payload: response
+  };
+}
+
+export function saveImageToCloud(image) {
+  const request = 'https://api.cloudinary.com/v1_1/ruqoyah/upload/';
+  const cloudPreset = 'amrbhh2u';
+
+  const newFormData = new FormData();
+  newFormData.append('file', image);
+  newFormData.append('upload_preset', cloudPreset);
+  return dispatch => fetch(request, {
+    method: 'POST',
+    body: newFormData })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      dispatch(saveImage(data.secure_url));
+    })
+    .catch((error) => {
+      throw (error);
+    });
+}
 
 export function addRecipeAction(recipeDetails) {
   return axios.post(`${API_URL}/api/v1/recipes`, recipeDetails);
@@ -60,16 +90,44 @@ export function getFavoriteAction(userId) {
 
 export function upvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
-    .then(() => {
-      dispatch(getAllRecipeAction());
+    .then((res) => {
+      dispatch({
+        type: UPVOTE_RECIPE,
+        upvotes: res.data
+      });
     })
     .catch(error => error.response);
 }
 
 export function downvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
-    .then(() => {
-      dispatch(getAllRecipeAction());
+    .then((res) => {
+      dispatch({
+        type: DOWNVOTE_RECIPE,
+        downvotes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function viewUpvoteAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: VIEW_UPVOTE_RECIPE,
+        upvotes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function viewDownvoteAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: VIEW_DOWNVOTE_RECIPE,
+        downvotes: res.data
+      });
     })
     .catch(error => error.response);
 }

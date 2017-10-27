@@ -8,11 +8,18 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    upvote: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    downvote: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   });
   Votes.associate = (models) => {
     Votes.belongsTo(models.Users, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE'
+      foreignKey: 'userId'
     });
     Votes.belongsTo(models.Recipes, {
       foreignKey: 'recipeId',

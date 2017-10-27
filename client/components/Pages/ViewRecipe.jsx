@@ -18,10 +18,12 @@ class ViewRecipe extends Component {
           return ( 
             <ViewRecipes
               picture={recipe.picture}
+              userId={recipe.userId}
               recipeName={recipe.recipeName}
               ingredient={recipe.ingredient}
               details={recipe.details}
-              votes={recipe.votes}
+              upvotes={recipe.upvotes}
+              downvotes={recipe.downvotes}
               views={recipe.views}
               review={recipe.Reviews}
               id={recipe.id}
@@ -34,7 +36,7 @@ class ViewRecipe extends Component {
   }
 
   componentDidMount() {
-    const recipeId = location.search.split('=')[1];
+    const recipeId = Number(location.search.split('=')[1].replace("&page", ""))
     this.props.actions.viewRecipeAction(recipeId);
   }
 

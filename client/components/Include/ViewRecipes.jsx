@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction,
+import { favoriteAction, viewUpvoteAction, viewDownvoteAction,
           reviewRecipeAction, getReviewAction } from '../../actions/recipes_action';
 
           
@@ -28,8 +28,8 @@ class ViewRecipes extends Component {
     });
   }
 
-  onSubmit(e){
-    e.preventDefault();
+  onSubmit(event){
+    event.preventDefault();
     this.props.actions.reviewRecipeAction(this.props.id, this.state)
     this.refs.reviewForm.reset();
   }
@@ -61,19 +61,18 @@ class ViewRecipes extends Component {
     })
   }
 
-  handleUpvoteClick(e){
-    e.preventDefault();
-    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
+  handleUpvoteClick(event){
+    event.preventDefault();
+    this.props.actions.viewUpvoteAction( this.props.id, this.props.user.userId)
   }
 
-  handleDownvoteClick(e){
-    e.preventDefault();
-    this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
+  handleDownvoteClick(event){
+    event.preventDefault();
+    this.props.actions.viewDownvoteAction( this.props.id, this.props.user.userId)
   }
   
   render() {
     let {reviews} = this.props;
-
     return (
         <div className="view-recipe">
           <div className="container">
@@ -109,7 +108,11 @@ class ViewRecipes extends Component {
                 }
               </div>
             </div>
-            <div className="add-style">
+          </div>
+          {(window.location.search.split('=').splice(-1).toString() !== "myrecipe" &&
+            window.location.search.split('=').splice(-1).toString() !== "favoriterecipe") &&
+          <div
+          ><div className="add-style">
             <a href="#">View more</a>
             </div>
             <form ref="reviewForm" onSubmit={this.onSubmit}>
@@ -119,15 +122,15 @@ class ViewRecipes extends Component {
             </div>
             <button name="post" className="btn btn-outline-primary active">Post Review</button>
             </form>
-          </div>
-          <div className="input-group">
+           <div className="input-group">
             <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'orange'}}></i></a>
-            <span>{this.props.votes}</span>
+            <span>{this.props.upvotes}</span>
           <a href="" onClick={this.handleDownvoteClick}>
             <i className="fa fa-thumbs-down" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'grey' }}></i></a>
+            <span>{this.props.downvotes}</span>
           <a href="" onClick={this.handleFavoriteClick} >
             <i className="fa fa-heart-o" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'red' }}></i></a>
@@ -135,7 +138,8 @@ class ViewRecipes extends Component {
             <i className="fa fa-eye" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'grey' }}></i></a>
             <span>{this.props.views}</span>
-          </div>
+          </div></div>
+            } 
         </div>);
   }
 }
@@ -152,8 +156,8 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators({
       reviewRecipeAction,
       getReviewAction,
-      upvoteRecipeAction, 
-      downvoteRecipeAction
+      viewUpvoteAction, 
+      viewDownvoteAction
     }, dispatch)
   }
 }

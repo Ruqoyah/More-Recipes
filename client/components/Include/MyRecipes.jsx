@@ -22,6 +22,8 @@ class MyRecipes extends Component {
     this.onClick = this.onClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleViewClick = this.handleViewClick.bind(this);
+
   }
 
   onChange(event) {
@@ -29,7 +31,9 @@ class MyRecipes extends Component {
     const eventValue = event.target.value;
     this.setState({[eventName]: eventValue});
   }
-
+  handleViewClick(){
+    window.location.href = `/viewrecipe?id=${this.props.id}&page=myrecipe`
+  }
   onClick() {
     swal({
       title: "Are you sure?",
@@ -65,7 +69,6 @@ class MyRecipes extends Component {
       editRecipe: false
     })
   }
-
 
   onSubmit() {
     this.props.actions.editRecipeAction(this.props.id, this.state)
@@ -109,21 +112,18 @@ class MyRecipes extends Component {
       }
       {
         this.state.displayRecipe &&
-          <div className="card">
-            <img className="card-img-top" src={this.props.picture}/>
-            <div className="card-body">
-              <h4 className="card-title">{this.props.recipeName}</h4>
-              <p className="card-text">{this.props.details}</p>
-              <Link to="/viewrecipe" className="btn btn-success">Read more</Link>
-              <a href=""><i className="fa fa-thumbs-up" aria-hidden="true" style={{ fontSize: '30px', color: 'orange' }}></i></a>
-              <a href=""><i className="fa fa-thumbs-down" aria-hidden="true" style={{ fontSize: '30px', color: 'grey' }}></i></a>
-              <a href="" onClick={this.props.handleClick}><i className="fa fa-heart-o" aria-hidden="true" style={{ fontSize: '30px', color: 'red' }}></i></a> <hr />
-              <div className="btn-toolbar">
-                <a href="#" onClick={this.editClick} className="btn btn-outline-primary">Edit</a>
-                <a href="#" onClick={this.onClick} className="btn btn-outline-danger">Delete</a>
-              </div>
-            </div>
+        <div className="card">
+        <img className="card-img-top" src={this.props.picture}/>
+        <div className="card-body">
+          <h4 className="card-title">{this.props.recipeName}</h4>
+          <p className="card-text">{this.props.details}</p>
+          <button onClick={this.handleViewClick} className="btn btn-success">Read more</button> <hr/>
+          <div className="btn-toolbar">
+            <a href="#" onClick={this.editClick} className="btn btn-outline-primary">Edit</a>
+            <a href="#" onClick={this.onClick} className="btn btn-outline-danger">Delete</a>
           </div>
+        </div>
+      </div>
       }
     </div>)
   }

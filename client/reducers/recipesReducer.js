@@ -1,16 +1,19 @@
 import {
   GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
   VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE, DELETE_RECIPE,
-  EDIT_RECIPE
+  EDIT_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE
 } from '../actions/types';
 
 const INITIAL_STATE = {
   userRecipe: [],
   recipes: [],
-  favoriteRecipes: [],
+  favoriteRecipes: '',
   reviews: [],
-  viewRecipe: '',
-  viewFavorite: ''
+  viewRecipe: {},
+  viewFavorite: '',
+  upvotes: {},
+  downvotes: {},
+  imageDetails: ''
 };
 
 function recipeReducer(state = INITIAL_STATE, action) {
@@ -25,10 +28,6 @@ function recipeReducer(state = INITIAL_STATE, action) {
       );
       return { ...state, userRecipe: newState };
     }
-    case UPVOTE_RECIPE:
-      return { ...state, recipes: action.payload };
-    case DOWNVOTE_RECIPE:
-      return { ...state, recipes: action.recipes };
     case GET_RECIPES:
       return { ...state, recipes: action.recipes };
     case SEARCH_RECIPES:
@@ -43,6 +42,34 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, reviews: action.reviews };
     case VIEW_FAVORITE:
       return { ...state, viewFavorite: action.viewFavorite };
+    case SAVE_RECIPE_IMAGE:
+      return { ...state, imageDetails: action.payload };
+    case UPVOTE_RECIPE: {
+      const newArr = [];
+      state.recipes.map((obj) => { // eslint-disable-line
+        if (obj.id === action.upvotes.data.id) {
+          newArr.push(action.upvotes.data);
+        } else {
+          newArr.push(obj);
+        }
+      });
+      return { ...state, recipes: newArr };
+    }
+    case DOWNVOTE_RECIPE: {
+      const newArr = [];
+      state.recipes.map((obj) => { // eslint-disable-line
+        if (obj.id === action.downvotes.data.id) {
+          newArr.push(action.downvotes.data);
+        } else {
+          newArr.push(obj);
+        }
+      });
+      return { ...state, recipes: newArr };
+    }
+    case VIEW_UPVOTE_RECIPE:
+      return { ...state, viewRecipe: action.upvotes.data };
+    case VIEW_DOWNVOTE_RECIPE:
+      return { ...state, viewRecipe: action.downvotes.data };
     default:
       return state;
   }

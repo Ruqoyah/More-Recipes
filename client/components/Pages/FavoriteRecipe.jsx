@@ -24,10 +24,10 @@ class FavoriteRecipe extends Component {
               recipeName={recipe.Recipe.recipeName}
               ingredient={recipe.Recipe.ingredient}
               details={recipe.Recipe.details}
-              votes={recipe.Recipe.votes}
+              upvotes={recipe.Recipe.upvotes}
+              downvotes={recipe.Recipe.downvotes}
               views={recipe.Recipe.views}
               id={recipe.id}
-              votes={recipe.Recipe.votes}
               key={Math.random() * 10}
             />
           )

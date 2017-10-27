@@ -25,16 +25,20 @@ export default (sequelize, DataTypes) => {
   });
   Users.associate = (models) => {
     Users.hasMany(models.Recipes, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
     Users.hasMany(models.Reviews, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
     Users.hasMany(models.favoriteRecipes, {
       foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
     Users.hasMany(models.Votes, {
-      foreignKey: 'userId'
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
     });
   };
   return Users;
