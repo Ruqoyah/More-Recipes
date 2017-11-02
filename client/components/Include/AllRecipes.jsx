@@ -45,7 +45,7 @@ class AllRecipes extends Component {
     viewRecipeAction( this.props.id)
     window.location.href = '/viewrecipe'
   }
-  
+
   handleUpvoteClick(event){
     event.preventDefault();
     this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
