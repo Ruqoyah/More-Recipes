@@ -1,10 +1,13 @@
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
-  UPVOTE_RECIPE, DOWNVOTE_RECIPE } from '../actions/types';
+import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
+  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE } from '../actions/types';
 
 const INITIAL_STATE = {
   userRecipe: '',
   recipes: [],
   favoriteRecipes: '',
+  reviews: [],
+  viewRecipe: '',
+  viewFavorite: '',
   upvotes: {},
   downvotes: {}
 };
@@ -19,6 +22,14 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, recipes: action.recipes.data };
     case GET_FAVORITE_RECIPES:
       return { ...state, favoriteRecipes: action.favoriteRecipes };
+    case VIEW_RECIPE:
+      return { ...state, viewRecipe: action.viewRecipe };
+    case ADD_REVIEW:
+      return { ...state, reviews: [...state.reviews, action.reviews] };
+    case GET_REVIEW:
+      return { ...state, reviews: action.reviews };
+    case VIEW_FAVORITE:
+      return { ...state, viewFavorite: action.viewFavorite };
     case UPVOTE_RECIPE: {
       const newArr = [];
       state.recipes.map((obj) => { // eslint-disable-line

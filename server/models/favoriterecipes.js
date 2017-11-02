@@ -1,12 +1,22 @@
 export default (sequelize, DataTypes) => {
   const favoriteRecipes = sequelize.define('favoriteRecipes', {
     userId: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Users',
+        key: 'id',
+        as: 'userId',
+      }
     },
     recipeId: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Recipes',
+        key: 'id',
+        as: 'recipeId',
+      },
     },
     category: {
       type: DataTypes.STRING,

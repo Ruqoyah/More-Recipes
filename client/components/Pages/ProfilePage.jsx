@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { getUserProfileAction, editProfileAction } from '../../actions/auth_actions';
 import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 
 class ProfilePage extends Component {
   
@@ -195,6 +196,7 @@ class ProfilePage extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>);
   }
 }

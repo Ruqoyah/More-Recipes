@@ -5,7 +5,6 @@ import Homepage from '../components/Pages/Homepage';
 import Signup from '../components/Pages/Signup';
 import Login from '../components/Pages/Login';
 import RecipePage from '../components/Pages/RecipePage';
-import Footer from '../components/Common/Footer';
 import PageNotFound from '../components/PageNotFound/PageNotFound';
 import AddRecipe from '../components/Pages/AddRecipe';
 import FavoriteRecipe from '../components/Pages/FavoriteRecipe';
@@ -29,7 +28,6 @@ export default class App extends Component {
           <Route path='/viewrecipe' component={ViewRecipe} />
           <Route path='*'component={PageNotFound} />
         </Switch>
-        <Footer />
         </div>
       </Router>
     );

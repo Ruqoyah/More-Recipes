@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import Header from '../Common/Header';
 import { getAllRecipeAction } from '../../actions/recipes_action';
 import AllRecipes from '../Include/AllRecipes';
-
+import Footer from '../Common/Footer';
 
 class RecipePage extends Component {
   
@@ -66,6 +66,7 @@ class RecipePage extends Component {
           :
           ''
         )}
+        <Footer />
       </div>);
   }
 }

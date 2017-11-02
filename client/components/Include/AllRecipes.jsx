@@ -30,9 +30,6 @@ class AllRecipes extends Component {
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
       };
-      toastr.options.onHidden = function () {
-        window.location.href = '/recipe'
-      }
       toastr.success('Favorite Recipe added successfully');
     } else {
       toastr.error('You already favorite recipe')
@@ -40,15 +37,9 @@ class AllRecipes extends Component {
     })
   }
 
-  handleViewClick(e){
-    e.preventDefault();
-    viewRecipeAction( this.props.id)
-    window.location.href = '/viewrecipe'
-  }
-
   handleUpvoteClick(event){
-    event.preventDefault();
-    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
+    e.preventDefault();
+    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId)
   }
 
   handleDownvoteClick(event){
@@ -56,11 +47,14 @@ class AllRecipes extends Component {
     this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
   }
 
+  handleViewClick(){
+    window.location.href = `/viewrecipe?id=${this.props.id}`
+  }
+
   render() {
-    console.log(this.props.upvotes, 'jdj')
     return (
-      <div className="col-sm-4">      
-      <div style={{marginBottom: '15px'}} className="card">
+      <div className="col-sm-3">      
+      <div className="card">
         <img className="card-img-top" src={this.props.picture}/>
         <div className="card-body">
           <h4 className="card-title">{this.props.recipeName}</h4>
@@ -69,15 +63,15 @@ class AllRecipes extends Component {
           <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
           <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
-            style={{ fontSize:'30px', color: 'orange'}}></i></a>
+            style={{ fontSize:'25px', color: 'orange'}}></i></a>
             <span>{this.props.upvotes}</span>
           <a href="" onClick={this.handleDownvoteClick}>
             <i className="fa fa-thumbs-down" aria-hidden="true" 
-            style={{ fontSize:'30px', color: 'grey' }}></i></a>
+            style={{ fontSize:'25px', color: 'grey' }}></i></a>
             <span>{this.props.downvotes}</span>
           <a href="" onClick={this.handleFavoriteClick} >
             <i className="fa fa-heart-o" aria-hidden="true" 
-            style={{ fontSize:'30px', color: 'red' }}></i></a>
+            style={{ fontSize:'25px', color: 'red' }}></i></a>
         </div>
         <div className="card-footer">
           <small className="text-muted">Last updated 3 mins ago</small>
@@ -90,8 +84,8 @@ class AllRecipes extends Component {
 
 function mapStateToProps(state) {
   return {
-    recipes: state.recipe.recipes,
-    user: state.auth.user.currentUser
+    user: state.auth.user.currentUser,
+    recipes: state.recipe.recipes
   }
 }
 

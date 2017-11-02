@@ -1,4 +1,5 @@
 import db from '../models';
+import { reviewNotification } from '../middleware/validation';
 
 const { Reviews } = db;
 
@@ -16,11 +17,15 @@ export default {
         review: req.body.review,
         userId: req.body.userId
       })
-      .then(review => res.status(200).json({
-        status: 'success',
-        review: (review.review),
-        data: { userId: review.userId, recipeId: review.recipeId }
-      }))
+      .then((review) => {
+        res.status(200).json({
+          status: 'success',
+          data: review
+        });
+      })
+      .then(() => {
+        reviewNotification(req);
+      })
       .catch(error => res.status(400).json(error));
   },
 

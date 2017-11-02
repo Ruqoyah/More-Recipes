@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 import MyRecipes from '../Include/MyRecipes';
 
 
@@ -111,6 +112,7 @@ class AddRecipe extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>);
   }
 }

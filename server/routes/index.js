@@ -5,10 +5,10 @@ import reviewsController from '../controllers/reviews';
 import favoriteRecipesController from '../controllers/favoriteRecipes';
 import searchRecipesController from '../controllers/searchRecipes';
 import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
-  checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
+  checkUserInput, checkValidUserInput, checkUserInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
-  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, upVote,
-  verifyEditUsername, verifyEditEmail, downVote } from '../middleware/validation';
+  validatefavRecipe, verifyEditUsername, verifyEditEmail, upVote,
+  validateFavRecipesId, downVote } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -20,7 +20,7 @@ const app = express.Router();
  * @param  {} validateUsers
  * @param  {} usersController.signup
  */
-app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput, signupNotification,
+app.post('/api/v1/users/signup', checkUserInput, checkValidUserInput, checkUserInvalidInput,
   validateUsers, usersController.signup);
 
 /** Signin
@@ -75,7 +75,7 @@ app.get('/api/v1/users', authentication.isLoggedIn, authentication.isAdmin, auth
  * @param  {} checkRecipeInput
  * @param  {} recipesController.addRecipe
  */
-app.post('/api/v1/recipes', authentication.isLoggedIn, validateUsersId, checkRecipeInput, checkRecipeInvalidInput, recipesController.addRecipe);
+app.post('/api/v1/recipes', authentication.isLoggedIn, validateUsersId, checkRecipeInput, recipesController.addRecipe);
 
 /** Get all recipes
  * @param  {} '/api/v1/recipes'
@@ -98,7 +98,7 @@ app.get('/api/v1/recipes', authentication.isLoggedIn, searchRecipesController.ge
  * @param  {} checkRecipeInput
  * @param  {} recipesController.modifyRecipe
  */
-app.put('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, favRecipeNotification, recipesController.modifyRecipe);
+app.put('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, recipesController.modifyRecipe);
 
 /** View Recipe
  * @param  {recipeId'} '/api/v1/recipes/
@@ -108,6 +108,15 @@ app.put('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesI
  * @param  {} recipesController.modifyRecipe
  */
 app.get('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecipesId, recipesController.viewRecipe);
+
+/** View Recipe
+ * @param  {recipeId'} '/api/v1/recipes/
+ * @param  {} authentication.isLoggedIn
+ * @param  {} validateRecipesId
+ * @param  {} checkRecipeInput
+ * @param  {} recipesController.modifyRecipe
+ */
+app.get('/api/v1/favorite/:recipeId/recipes', authentication.isLoggedIn, validateFavRecipesId, favoriteRecipesController.viewFavorite);
 
 /** Delete recipe
  * @param  {recipeId'} '/api/v1/recipes/
@@ -124,7 +133,7 @@ app.delete('/api/v1/recipes/:recipeId', authentication.isLoggedIn, validateRecip
  * @param  {} checkReviewInput
  * @param  {} reviewsController.postReview
  */
-app.post('/api/v1/recipes/:recipeId/reviews', authentication.isLoggedIn, validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewNotification, reviewsController.postReview);
+app.post('/api/v1/recipes/:recipeId/reviews', authentication.isLoggedIn, validateRecipesId, checkReviewInput, checkReviewInvalidInput, reviewsController.postReview);
 
 /** Get reviews
  * @param  {recipeId/reviews'} '/api/v1/recipes/
