@@ -7,6 +7,7 @@ import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction,
 
 
 class AllRecipes extends Component {
+  
   constructor(props){
     super(props);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
