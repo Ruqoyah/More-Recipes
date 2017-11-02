@@ -58,28 +58,6 @@ export function getFavoriteAction(userId) {
     .catch(error => error.response);
 }
 
-export function upvoteRecipeAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
-    .then((res) => {
-      dispatch({
-        type: UPVOTE_RECIPE,
-        recipes: res.data
-      });
-    })
-    .catch(error => error.response);
-}
-
-export function downvoteRecipeAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
-    .then((res) => {
-      dispatch({
-        type: DOWNVOTE_RECIPE,
-        recipes: res.data
-      });
-    })
-    .catch(error => error.response);
-}
-
 export function viewRecipeAction(recipeId) {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}`)
     .then((res) => {
@@ -119,6 +97,28 @@ export function viewFavoriteAction(recipeId) {
       dispatch({
         type: VIEW_FAVORITE,
         viewFavorite: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function upvoteRecipeAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: UPVOTE_RECIPE,
+        upvotes: res.data
+      });
+    })
+    .catch(error => error.response);
+}
+
+export function downvoteRecipeAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+    .then((res) => {
+      dispatch({
+        type: DOWNVOTE_RECIPE,
+        downvotes: res.data
       });
     })
     .catch(error => error.response);

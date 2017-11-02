@@ -15,8 +15,8 @@ class AllRecipes extends Component {
     this.handleViewClick = this.handleViewClick.bind(this);
   }
 
-  handleFavoriteClick(e){
-    e.preventDefault();
+  handleFavoriteClick(event){
+    event.preventDefault();
     favoriteAction( this.props.id, this.props.user.userId)
     .then((status) => {
       if(status === true) {
@@ -36,16 +36,14 @@ class AllRecipes extends Component {
     })
   }
 
-  handleUpvoteClick(e){
+  handleUpvoteClick(event){
     e.preventDefault();
     this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId)
-    window.location.reload()
   }
 
-  handleDownvoteClick(e){
-    e.preventDefault();
+  handleDownvoteClick(event){
+    event.preventDefault();
     this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
-    window.location.reload()
   }
 
   handleViewClick(){
@@ -65,10 +63,11 @@ class AllRecipes extends Component {
           <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
             style={{ fontSize:'25px', color: 'orange'}}></i></a>
-            <span>{this.props.votes}</span>
+            <span>{this.props.upvotes}</span>
           <a href="" onClick={this.handleDownvoteClick}>
             <i className="fa fa-thumbs-down" aria-hidden="true" 
             style={{ fontSize:'25px', color: 'grey' }}></i></a>
+            <span>{this.props.downvotes}</span>
           <a href="" onClick={this.handleFavoriteClick} >
             <i className="fa fa-heart-o" aria-hidden="true" 
             style={{ fontSize:'25px', color: 'red' }}></i></a>

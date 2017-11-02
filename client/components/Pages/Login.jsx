@@ -7,6 +7,7 @@ import { loginAction } from '../../actions/auth_actions';
 
 
 class Login extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {

@@ -28,7 +28,12 @@ module.exports = {
           as: 'userId',
         }
       },
-      votes: {
+      upvotes: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      downvotes: {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0

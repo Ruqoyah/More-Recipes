@@ -1,10 +1,9 @@
 import nodemailer from 'nodemailer';
-import bcrypt from 'bcrypt';
 import winston from 'winston';
 import dotenv from 'dotenv';
 import db from '../models/';
 
-dotenv.config();
+dotenv.load();
 
 const { Recipes, Users, favoriteRecipes, Votes } = db;
 
@@ -455,79 +454,105 @@ export const validateParamUserId = (req, res, next) => {
     });
 };
 
-/** Upvote vote table
+/** Upvote recipe in vote table
  * @param  {object} req - request
  * @param  {object} res - response
  * @param  {object} next - next
  */
 
-export const validateUpVote = (req, res, next) => {
+export const upVote = (req, res, next) => {
   Votes
     .findOne({
       where: {
-        userId: req.body.userId,
-        recipeId: req.params.recipeId
+        $and: [
+          { recipeId: req.params.recipeId },
+          { userId: req.body.userId, }
+        ]
       }
     })
-    .then((vote) => {
-      if (vote) {
-        return res.status(400).json({
-          status: false,
-          message: 'You already upvoted'
+    .then((found) => {
+      if (found !== null && found.upvote) {
+        return Votes.destroy({
+          where: {
+            $and: [
+              { recipeId: req.params.recipeId },
+              { userId: req.body.userId, }
+            ]
+          }
+        }).then(() => {
+          req.message = 'destroyed';
+          next();
+        });
+      } else if (found !== null && !found.upvote) {
+        return found.update({
+          upvote: 1,
+          downvote: 0
+        }).then(() => {
+          req.message = 'updated';
+          next();
+        });
+      } else if (found === null) {
+        return Votes.create({
+          recipeId: req.params.recipeId,
+          userId: req.body.userId,
+          upvote: 1,
+          downvote: 0
+        }).then(() => {
+          req.message = 'created';
+          next();
         });
       }
-      Votes
-        .create({
-          recipeId: req.params.recipeId,
-          userId: req.body.userId
-        })
-        .then((upvote) => {
-          res.status(200).json({
-            status: true,
-            message: 'Upvote added successfully!',
-            data: { userId: upvote.userId, recipeId: upvote.recipeId }
-          });
-        });
-      next();
     });
 };
 
-/** Destroy user id from vote table if user downvote
+/** Downvote recipe in vote table
  * @param  {object} req - request
  * @param  {object} res - response
  * @param  {object} next - next
  */
 
-export const validateDownVote = (req, res, next) => {
+export const downVote = (req, res, next) => {
   Votes
     .findOne({
       where: {
-        userId: req.body.userId,
-        recipeId: req.params.recipeId
+        $and: [
+          { recipeId: req.params.recipeId },
+          { userId: req.body.userId, }
+        ]
       }
     })
-    .then((vote) => {
-      if (!vote) {
-        return res.status(400).json({
-          status: false,
-          message: 'You already downvoted'
+    .then((found) => {
+      if (found !== null && found.downvote) {
+        return Votes.destroy({
+          where: {
+            $and: [
+              { recipeId: req.params.recipeId },
+              { userId: req.body.userId, }
+            ]
+          }
+        }).then(() => {
+          req.message = 'destroyed';
+          next();
+        });
+      } else if (found !== null && !found.downvote) {
+        return found.update({
+          upvote: 0,
+          downvote: 1
+        }).then(() => {
+          req.message = 'updated';
+          next();
+        });
+      } else if (found === null) {
+        return Votes.create({
+          recipeId: req.params.recipeId,
+          userId: req.body.userId,
+          upvote: 0,
+          downvote: 1
+        }).then(() => {
+          req.message = 'created';
+          next();
         });
       }
-      Votes
-        .destroy({
-          where: {
-            userId: req.body.userId,
-            recipeId: req.params.recipeId
-          }
-        })
-        .then(() => {
-          res.status(200).json({
-            status: true,
-            message: 'Downvote added successfully!',
-            data: { userId: vote.userId, recipeId: vote.recipeId }
-          });
-        });
-      next();
     });
 };
 

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { viewRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
 import ViewRecipes from '../Include/ViewRecipes';
+import Footer from '../Common/Footer';
 
 class ViewRecipe extends Component {
   renderRecipe() {
