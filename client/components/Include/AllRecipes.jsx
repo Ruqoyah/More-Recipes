@@ -7,6 +7,7 @@ import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction,
 
 
 class AllRecipes extends Component {
+  
   constructor(props){
     super(props);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
@@ -15,8 +16,8 @@ class AllRecipes extends Component {
     this.handleViewClick = this.handleViewClick.bind(this);
   }
 
-  handleFavoriteClick(e){
-    e.preventDefault();
+  handleFavoriteClick(event){
+    event.preventDefault();
     favoriteAction( this.props.id, this.props.user.userId)
     .then((status) => {
       if(status === true) {
@@ -36,14 +37,13 @@ class AllRecipes extends Component {
     })
   }
 
-
-  handleUpvoteClick(e){
-    e.preventDefault();
-    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
+  handleUpvoteClick(event){
+    event.preventDefault();
+    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId)
   }
 
-  handleDownvoteClick(e){
-    e.preventDefault();
+  handleDownvoteClick(event){
+    event.preventDefault();
     this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
   }
 
@@ -54,28 +54,29 @@ class AllRecipes extends Component {
   render() {
     return (
       <div className="col-sm-3">      
-        <div className="card">
-          <img className="card-img-top" src={this.props.picture}/>
-          <div className="card-body">
-            <h4 className="card-title">{this.props.recipeName}</h4>
-            <p className="card-text">{this.props.details}</p>
-            <p className="card-text text-right"><small className="text-muted">Recipe by James</small></p>
-            <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
-            <a href="" onClick={this.handleUpvoteClick}>
-              <i className="fa fa-thumbs-up" aria-hidden="true" 
-              style={{ fontSize:'25px', color: 'orange'}}></i></a>
-              <span>{this.props.votes}</span>
-            <a href="" onClick={this.handleDownvoteClick}>
-              <i className="fa fa-thumbs-down" aria-hidden="true" 
-              style={{ fontSize:'25px', color: 'grey' }}></i></a>
-            <a href="" onClick={this.handleFavoriteClick} >
-              <i className="fa fa-heart-o" aria-hidden="true" 
-              style={{ fontSize:'25px', color: 'red' }}></i></a>
-          </div>
-          <div className="card-footer">
-            <small className="text-muted">Last updated 3 mins ago</small>
-          </div>
+      <div className="card">
+        <img className="card-img-top" src={this.props.picture}/>
+        <div className="card-body">
+          <h4 className="card-title">{this.props.recipeName}</h4>
+          <p className="card-text">{this.props.details}</p>
+          <p className="card-text text-right"><small className="text-muted">Recipe by James</small></p>
+          <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
+          <a href="" onClick={this.handleUpvoteClick}>
+            <i className="fa fa-thumbs-up" aria-hidden="true" 
+            style={{ fontSize:'25px', color: 'orange'}}></i></a>
+            <span>{this.props.upvotes}</span>
+          <a href="" onClick={this.handleDownvoteClick}>
+            <i className="fa fa-thumbs-down" aria-hidden="true" 
+            style={{ fontSize:'25px', color: 'grey' }}></i></a>
+            <span>{this.props.downvotes}</span>
+          <a href="" onClick={this.handleFavoriteClick} >
+            <i className="fa fa-heart-o" aria-hidden="true" 
+            style={{ fontSize:'25px', color: 'red' }}></i></a>
         </div>
+        <div className="card-footer">
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
       </div>
     )
   }

@@ -7,10 +7,12 @@ import {
 const INITIAL_STATE = {
   userRecipe: [],
   recipes: [],
-  favoriteRecipes: [],
+  favoriteRecipes: '',
   reviews: [],
   viewRecipe: '',
-  viewFavorite: ''
+  viewFavorite: '',
+  upvotes: {},
+  downvotes: {}
 };
 
 function recipeReducer(state = INITIAL_STATE, action) {
@@ -25,10 +27,6 @@ function recipeReducer(state = INITIAL_STATE, action) {
       );
       return { ...state, userRecipe: newState };
     }
-    case UPVOTE_RECIPE:
-      return { ...state, recipes: action.payload };
-    case DOWNVOTE_RECIPE:
-      return { ...state, recipes: action.recipes };
     case GET_RECIPES:
       return { ...state, recipes: action.recipes };
     case SEARCH_RECIPES:
@@ -43,6 +41,28 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, reviews: action.reviews };
     case VIEW_FAVORITE:
       return { ...state, viewFavorite: action.viewFavorite };
+    case UPVOTE_RECIPE: {
+      const newArr = [];
+      state.recipes.map((obj) => { // eslint-disable-line
+        if (obj.id === action.upvotes.data.id) {
+          newArr.push(action.upvotes.data);
+        } else {
+          newArr.push(obj);
+        }
+      });
+      return { ...state, recipes: newArr };
+    }
+    case DOWNVOTE_RECIPE: {
+      const newArr = [];
+      state.recipes.map((obj) => { // eslint-disable-line
+        if (obj.id === action.downvotes.data.id) {
+          newArr.push(action.downvotes.data);
+        } else {
+          newArr.push(obj);
+        }
+      });
+      return { ...state, recipes: newArr };
+    }
     default:
       return state;
   }

@@ -8,6 +8,7 @@ import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 
 class ProfilePage extends Component {
+  
   constructor(props){
     super(props);
     this.state = {

@@ -73,8 +73,9 @@ class RecipePage extends Component {
               recipeName={recipe.recipeName}
               ingredients={recipe.ingredients}
               details={recipe.details}
-              votes={recipe.votes}
               views={recipe.views}
+              upvotes={recipe.upvotes}
+              downvotes={recipe.downvotes}
               id={recipe.id}
               key={Math.random() * 10}
             />

@@ -21,7 +21,8 @@ class ViewRecipe extends Component {
               recipeName={recipe.recipeName}
               ingredient={recipe.ingredient}
               details={recipe.details}
-              votes={recipe.votes}
+              upvotes={recipe.upvotes}
+              downvotes={recipe.downvotes}
               views={recipe.views}
               review={recipe.Reviews}
               id={recipe.id}
