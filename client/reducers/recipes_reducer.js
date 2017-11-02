@@ -1,8 +1,11 @@
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
-  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE } from '../actions/types';
+import {
+  GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
+  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE, DELETE_RECIPE,
+  EDIT_RECIPE
+} from '../actions/types';
 
 const INITIAL_STATE = {
-  userRecipe: '',
+  userRecipe: [],
   recipes: [],
   favoriteRecipes: '',
   reviews: [],
@@ -16,6 +19,14 @@ function recipeReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_USER_RECIPES:
       return { ...state, userRecipe: action.userRecipe };
+    case EDIT_RECIPE:
+      return { ...state, userRecipe: action.userRecipe };
+    case DELETE_RECIPE: {
+      const newState = state.userRecipe.filter(recipe =>
+        (recipe.id !== action.id)
+      );
+      return { ...state, userRecipe: newState };
+    }
     case GET_RECIPES:
       return { ...state, recipes: action.recipes };
     case SEARCH_RECIPES:

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES,
-  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE } from './types';
+  ADD_REVIEW, VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, EDIT_RECIPE, DELETE_RECIPE } from './types';
 
 const API_URL = 'http://localhost:8000';
 
@@ -58,6 +58,22 @@ export function getFavoriteAction(userId) {
     .catch(error => error.response);
 }
 
+export function upvoteRecipeAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+    .then(() => {
+      dispatch(getAllRecipeAction());
+    })
+    .catch(error => error.response);
+}
+
+export function downvoteRecipeAction(recipeId, userId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+    .then(() => {
+      dispatch(getAllRecipeAction());
+    })
+    .catch(error => error.response);
+}
+
 export function viewRecipeAction(recipeId) {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}`)
     .then((res) => {
@@ -102,23 +118,23 @@ export function viewFavoriteAction(recipeId) {
     .catch(error => error.response);
 }
 
-export function upvoteRecipeAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+export function deleteRecipeAction(recipeId, userId) {
+  return dispatch => axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`, userId)
     .then((res) => {
       dispatch({
-        type: UPVOTE_RECIPE,
-        upvotes: res.data
+        type: DELETE_RECIPE,
+        id: Number(res.data.id)
       });
     })
     .catch(error => error.response);
 }
 
-export function downvoteRecipeAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+export function editRecipeAction(recipeId, editRecipes) {
+  return dispatch => axios.put(`${API_URL}/api/v1/recipes/${recipeId}`, editRecipes)
     .then((res) => {
       dispatch({
-        type: DOWNVOTE_RECIPE,
-        downvotes: res.data
+        type: EDIT_RECIPE,
+        userRecipe: res.data
       });
     })
     .catch(error => error.response);

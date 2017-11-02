@@ -12,8 +12,6 @@ class ProfilePage extends Component {
   constructor(props){
     super(props);
     this.state = {
-      password: '',
-      confirmPassword: '',
       fullName : '',
       username: '',
       email: '',
@@ -53,7 +51,6 @@ class ProfilePage extends Component {
         fullName: this.state.fullName
       } 
     } 
-
     this.setState({ isLoading: true })
     const userId = this.props.userId
     this.props.actions.editProfileAction(userId, newState)
@@ -161,33 +158,11 @@ class ProfilePage extends Component {
                       </div>
                     </div>
                     <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label"><strong>Password</strong></label>
-                      <div className="col-lg-9">
-                        <input 
-                          className="form-control"
-                          type="password" 
-                          name="password" 
-                          onChange={this.onChange}/>
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <label className="col-lg-3 col-form-label form-control-label"><strong>Confirm password</strong></label>
-                      <div className="col-lg-9">
-                        <input 
-                          className="form-control" 
-                          type="password" 
-                          name="confirmPassword" 
-                          onChange={this.onChange}/>
-                      </div>
-                    </div>
-                    <div className="form-group row">
                       <label className="col-lg-3 col-form-label form-control-label"></label>
                       <div className="btn-toolbar">
-                      <div className="col-lg-9">
-                        <input type="reset" className="btn btn-secondary" value="Cancel" />
+                        <input type="reset" className="btn btn-secondary" value="Cancel"/>
                         <button className="btn btn-primary" type="submit" name="submit"
                         disabled={this.state.isLoading}>Save Changes</button>
-                      </div>
                       </div>
                     </div>
                   </form>

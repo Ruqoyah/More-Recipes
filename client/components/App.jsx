@@ -22,7 +22,7 @@ export default class App extends Component {
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/login' component={Login} />
           <Route path='/recipe' component={RecipePage} />
-          <Route path='/addrecipe' component={AddRecipe} />
+          <Route path='/myrecipe' component={AddRecipe} />
           <Route path='/favoriterecipe' component={FavoriteRecipe} />
           <Route path='/profilepage' component={ProfilePage} />
           <Route path='/viewrecipe' component={ViewRecipe} />

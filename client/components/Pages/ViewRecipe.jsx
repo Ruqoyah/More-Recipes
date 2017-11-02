@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { viewRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
-import ViewRecipes from '../Include/ViewRecipes';
 import Footer from '../Common/Footer';
+import ViewRecipes from '../Include/ViewRecipes';
 
 class ViewRecipe extends Component {
   renderRecipe() {
@@ -21,7 +21,8 @@ class ViewRecipe extends Component {
               recipeName={recipe.recipeName}
               ingredient={recipe.ingredient}
               details={recipe.details}
-              votes={recipe.votes}
+              upvotes={recipe.upvotes}
+              downvotes={recipe.downvotes}
               views={recipe.views}
               review={recipe.Reviews}
               id={recipe.id}

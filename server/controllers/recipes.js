@@ -69,37 +69,29 @@ export default {
    */
 
   modifyRecipe(req, res) {
-    Recipes.findById(req.params.recipeId)
-      .then((currentRecipe) => {
-        const userId = req.body.userId;
-        if (+currentRecipe.userId !== +userId) {
-          return res.status(403).json({
-            status: 'fail',
-            message: 'You cannot modify this recipe'
-          });
-        }
-        return Recipes
-          .findOne({ where: {
-            id: req.params.recipeId }
-          })
-          .then(recipe => recipe
-            .update({
-              recipeName: req.body.recipeName || recipe.recipeName,
-              ingredient: req.body.ingredient || recipe.ingredient,
-              details: req.body.details || recipe.details
-            })
-            .then(() => {
-              Recipes.findById(req.params.recipeId).then(result => res.status(200).json({
-                status: 'success',
-                message: 'Recipe modified successfully!',
-                data: {
-                  recipeName: result.recipeName,
-                  ingredient: result.ingredient,
-                  details: result.details,
-                  userId: result.userId }
-              }));
-            }));
+    return Recipes
+      .findOne({ where: {
+        id: req.params.recipeId }
       })
+      .then(recipe => recipe
+        .update({
+          recipeName: req.body.recipeName || recipe.recipeName,
+          ingredient: req.body.ingredient || recipe.ingredient,
+          details: req.body.details || recipe.details,
+          picture: req.body.picture || recipe.picture
+        })
+        .then(() => {
+          Recipes.findById(req.params.recipeId).then(result => res.status(200).json({
+            status: 'success',
+            message: 'Recipe modified successfully!',
+            data: {
+              recipeName: result.recipeName,
+              ingredient: result.ingredient,
+              details: result.details,
+              picture: result.picture,
+              userId: result.userId }
+          }));
+        }))
       .catch(error => res.status(400).json(error));
   },
 
@@ -109,27 +101,18 @@ export default {
    */
 
   deleteRecipe(req, res) {
-    Recipes.findById(req.params.recipeId)
-      .then((currentRecipe) => {
-        const userId = req.body.userId;
-        if (+currentRecipe.userId !== +userId) {
-          return res.status(403).json({
-            status: 'fail',
-            message: 'You cannot delete this recipe'
-          });
+    return Recipes
+      .destroy({
+        where: {
+          id: req.params.recipeId
         }
-        return Recipes
-          .destroy({
-            where: {
-              id: req.params.recipeId
-            }
-          })
-          .then(() => {
-            res.status(200).json({
-              status: 'success',
-              message: 'Recipe deleted successfully!'
-            });
-          });
+      })
+      .then(() => {
+        res.status(200).json({
+          status: 'success',
+          message: 'Recipe deleted successfully!',
+          id: req.params.recipeId
+        });
       })
       .catch(error => res.status(404).json(error));
   },

@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import bcrypt from 'bcrypt';
 import winston from 'winston';
 import dotenv from 'dotenv';
 import db from '../models/';

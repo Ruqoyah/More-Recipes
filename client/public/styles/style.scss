@@ -46,16 +46,16 @@
     text-align: center;
 }
 
-.navbar {
-    padding-top: 2%;
-    padding-right: 4%;
-    padding-left: 4%;
-}
+// .navbar {
+//     padding-top: 2%;
+//     padding-right: 4%;
+//     padding-left: 4%;
+// }
 
 .jumbotron {
     text-align: center;
-    margin-left: 3%;
-    margin-right: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 h5 {
@@ -72,20 +72,21 @@ h5 {
 }
 
 #carouselExampleControls{
-    margin-left: 4%;
-    margin-right: 4%;
+    margin-left: 6%;
+    margin-right: 6%;
 }
 
-body {
-    padding-left: 2%;
-    padding-right: 2%;
-}
+// body {
+//     padding-left: 2%;
+//     padding-right: 2%;
+// }
 
 .navbar {
     padding-top: 4%;
-    padding-left: 4%;
-    padding-right: 4%;
+    padding-left: 5%;
+    padding-right: 5%;
     margin-bottom: 2%;
+    background-color: #FFA500
 }
 
 .container{
@@ -190,6 +191,15 @@ body {
   margin-left: 10%;
 }
 
+.row {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 .col-sm-3{
   padding: 10px;
+}
+
+.card{
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 15px 0 rgba(0, 0, 0, 0.14);  
 }
