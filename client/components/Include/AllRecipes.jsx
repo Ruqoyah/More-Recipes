@@ -7,6 +7,7 @@ import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction,
 
 
 class AllRecipes extends Component {
+  
   constructor(props){
     super(props);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
@@ -15,8 +16,8 @@ class AllRecipes extends Component {
     this.handleViewClick = this.handleViewClick.bind(this);
   }
 
-  handleFavoriteClick(e){
-    e.preventDefault();
+  handleFavoriteClick(event){
+    event.preventDefault();
     favoriteAction( this.props.id, this.props.user.userId)
     .then((status) => {
       if(status === true) {
@@ -39,61 +40,24 @@ class AllRecipes extends Component {
     })
   }
 
-  handleUpvoteClick(e){
-    e.preventDefault();
-    upvoteRecipeAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        window.location.href = '/recipe'
-      }
-      toastr.success('Upvote added successfully');
-    } else {
-      toastr.error('You already upvoted')
-    }
-    })
-  }
-
-  handleDownvoteClick(e){
-    e.preventDefault();
-    downvoteRecipeAction( this.props.id, this.props.user.userId)
-    .then((status) => {
-      if(status === true) {
-      toastr.options = {
-        "debug": false,
-        "positionClass": "toast-top-full-width",
-        "timeOut": "2000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      };
-      toastr.options.onHidden = function () {
-        window.location.href = '/recipe'
-      }
-      toastr.success('Downvote added successfully');
-    } else {
-      toastr.error('You already downvoted')
-    }
-    })
-  }
-
   handleViewClick(e){
     e.preventDefault();
     viewRecipeAction( this.props.id)
     window.location.href = '/viewrecipe'
   }
+  
+  handleUpvoteClick(event){
+    event.preventDefault();
+    this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
+  }
+
+  handleDownvoteClick(event){
+    event.preventDefault();
+    this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
+  }
 
   render() {
+    console.log(this.props.upvotes, 'jdj')
     return (
       <div className="col-sm-4">      
       <div style={{marginBottom: '15px'}} className="card">
@@ -106,10 +70,11 @@ class AllRecipes extends Component {
           <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'orange'}}></i></a>
-            <span>{this.props.votes}</span>
+            <span>{this.props.upvotes}</span>
           <a href="" onClick={this.handleDownvoteClick}>
             <i className="fa fa-thumbs-down" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'grey' }}></i></a>
+            <span>{this.props.downvotes}</span>
           <a href="" onClick={this.handleFavoriteClick} >
             <i className="fa fa-heart-o" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'red' }}></i></a>
@@ -130,4 +95,13 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(AllRecipes);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      upvoteRecipeAction,
+      downvoteRecipeAction
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllRecipes);

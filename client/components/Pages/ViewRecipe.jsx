@@ -10,8 +10,6 @@ class ViewRecipe extends Component {
     super(props);
   }
 
-
-
   componentDidMount() {
     this.props.actions.getAllRecipeAction(this.props.recipes)
   }

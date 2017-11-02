@@ -7,6 +7,7 @@ import { emailExist } from '../../helper/index';
 import { userExist } from '../../helper/index';
 
 class Signup extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {

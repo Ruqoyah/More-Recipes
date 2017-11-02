@@ -7,8 +7,8 @@ import searchRecipesController from '../controllers/searchRecipes';
 import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
   checkUserInput, checkValidUserInput, checkUserInvalidInput, checkRecipeInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
-  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, validateUpVote,
-  verifyEditUsername, verifyEditEmail, validateDownVote } from '../middleware/validation';
+  reviewNotification, signupNotification, favRecipeNotification, validatefavRecipe, upVote,
+  verifyEditUsername, verifyEditEmail, downVote } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -167,10 +167,10 @@ app.get('/api/v1/users/:userId/recipes', authentication.isLoggedIn, validatePara
  * @param  {} authentication.isLoggedIn
  * @param  {} validateRecipesId
  * @param  {} checkUserId
- * @param  {} validateUpVote
+ * @param  {} upvote
  * @param  {} recipesController.upvoteRecipe
  */
-app.post('/api/v1/users/upvote/:recipeId', authentication.isLoggedIn, validateRecipesId, checkUserId, validateUpVote, recipesController.upvoteRecipe);
+app.post('/api/v1/users/upvote/:recipeId', authentication.isLoggedIn, validateRecipesId, checkUserId, upVote, recipesController.upVoteRecipe);
 
 /** Downvote recipe
  * @param  {recipeId'} '/api/v1/users/downvote/
@@ -180,7 +180,7 @@ app.post('/api/v1/users/upvote/:recipeId', authentication.isLoggedIn, validateRe
  * @param  {} validateDownVote
  * @param  {} recipesController.downvoteRecipe
  */
-app.post('/api/v1/users/downvote/:recipeId', authentication.isLoggedIn, validateRecipesId, checkUserId, validateDownVote, recipesController.downvoteRecipe);
+app.post('/api/v1/users/downvote/:recipeId', authentication.isLoggedIn, validateRecipesId, checkUserId, downVote, recipesController.downVoteRecipe);
 
 
 export default app;
