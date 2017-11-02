@@ -58,6 +58,18 @@ export function getFavoriteAction(userId) {
     .catch(error => error.response);
 }
 
+export function viewRecipeAction(recipeId) {
+  return axios.get(`${API_URL}/api/v1/recipes/${recipeId}`)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+}
+
+export function reviewRecipeAction(recipeId, details) {
+  return axios.get(`${API_URL}/api/v1/recipes/${recipeId}/reviews`, details)
+    .then(res => res.data)
+    .catch(error => error.response.data);
+}
+
 export function upvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
     .then((res) => {
@@ -79,27 +91,3 @@ export function downvoteRecipeAction(recipeId, userId) {
     })
     .catch(error => error.response);
 }
-
-// export function getUpvoteAction(recipeId) {
-//   return dispatch => axios.get(`${API_URL}/api/v1/recipe/upvote/${recipeId}`)
-//     .then((res) => {
-//       console.log(res.data, '========>');
-//       dispatch({
-//         type: GET_UPVOTE,
-//         upvotes: res.data
-//       });
-//     })
-//     .catch(error => error.response);
-// }
-
-// export function getDownvoteAction(recipeId) {
-//   return dispatch => axios.get(`${API_URL}/api/v1/recipe/downvote/${recipeId}`)
-//     .then((res) => {
-//       dispatch({
-//         type: GET_DOWNVOTE,
-//         downvotes: res.data
-//       });
-//     })
-//     .catch(error => error.response);
-// }
-

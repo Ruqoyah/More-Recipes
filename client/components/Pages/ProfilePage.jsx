@@ -7,6 +7,7 @@ import { getUserProfileAction, editProfileAction } from '../../actions/auth_acti
 import Header from '../Common/Header';
 
 class ProfilePage extends Component {
+  
   constructor(props){
     super(props);
     this.state = {

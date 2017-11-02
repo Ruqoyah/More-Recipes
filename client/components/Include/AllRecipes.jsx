@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction } from '../../actions/recipes_action';
+import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction, 
+          viewRecipeAction } from '../../actions/recipes_action';
 
 
 class AllRecipes extends Component {
+  
   constructor(props){
     super(props);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
     this.handleUpvoteClick = this.handleUpvoteClick.bind(this);
     this.handleDownvoteClick = this.handleDownvoteClick.bind(this);
+    this.handleViewClick = this.handleViewClick.bind(this);
   }
 
   handleFavoriteClick(event){
@@ -37,6 +40,12 @@ class AllRecipes extends Component {
     })
   }
 
+  handleViewClick(e){
+    e.preventDefault();
+    viewRecipeAction( this.props.id)
+    window.location.href = '/viewrecipe'
+  }
+
   handleUpvoteClick(event){
     event.preventDefault();
     this.props.actions.upvoteRecipeAction( this.props.id, this.props.user.userId);
@@ -57,7 +66,7 @@ class AllRecipes extends Component {
           <h4 className="card-title">{this.props.recipeName}</h4>
           <p className="card-text">{this.props.details}</p>
           <p className="card-text text-right"><small className="text-muted">Recipe by James</small></p>
-          <Link to="/viewrecipe" className="btn btn-success">Read more</Link>
+          <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
           <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
             style={{ fontSize:'30px', color: 'orange'}}></i></a>

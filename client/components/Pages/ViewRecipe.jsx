@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllRecipeAction } from '../../actions/recipes_action';
 import Header from '../Common/Header';
 
-export default class ViewRecipe extends Component {
+class ViewRecipe extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.actions.getAllRecipeAction(this.props.recipes)
+  }
 
   render() {
+    // const viewRecipes = this.props.recipes
+    // console.log('view', viewRecipes)
     return (
       <div>
         <Header />
         <div className="view-recipe">
           <div className="container">
             <h2>Strawberry</h2> <hr />
-            <img src="images/strawberries and steak.png" className="img-thumbnail" alt="strawberry"
+            <img src={this.props.picture} className="img-thumbnail" alt="strawberry"
               width="700" /> <hr />
             <h4>Ingredients</h4>
-            <p>Flour, water, pepper and onion</p><hr />
+            <p>{this.props.ingredients}</p><hr />
             <h4>Details</h4>
-            <p>A fun salad that kids, and just about everyone else, will love. Fruit cocktail,
-              grapes, mandarin oranges, whipped topping and mini marshmallows, are stirred together
-              and chilled. Serves eight
+            <p>{this.props.details}
             </p>
             <div className="chatlogs">
               <div className="chat friend">
@@ -47,14 +57,38 @@ export default class ViewRecipe extends Component {
           </div>
           <div className="input-group">
             <a href="#" className="btn btn-outline-primary active">Post Review</a>
-            <span className="downvote"><img src="images/downvote.png" width="30" height="30"
-              alt="downvote" /> </span>
-            <span className="upvote"><img src="images/upvote.png" width="30" height="30"
-              alt="upvote" /> </span>
-            <span className="favorite"><img src="images/favorite.png" width="30" height="30"
-              alt="favorite" /> </span>
+            <a href="" onClick={this.props.handleUpvoteClick}>
+            <i className="fa fa-thumbs-up" aria-hidden="true" 
+            style={{ fontSize:'30px', color: 'orange'}}></i></a>
+            <span>{this.props.votes}</span>
+          <a href="" onClick={this.props.handleDownvoteClick}>
+            <i className="fa fa-thumbs-down" aria-hidden="true" 
+            style={{ fontSize:'30px', color: 'grey' }}></i></a>
+          <a href="" onClick={this.props.handleFavoriteClick} >
+            <i className="fa fa-heart-o" aria-hidden="true" 
+            style={{ fontSize:'30px', color: 'red' }}></i></a>
+            <a href="" >
+            <i className="fa fa-eye" aria-hidden="true" 
+            style={{ fontSize:'30px', color: 'grey' }}></i></a>
           </div>
         </div>
       </div>);
   }
 }
+
+function mapStateToProps(state) {
+  console.log('it is here now', state)
+  return {
+    recipes: state.recipe.recipes,
+    user: state.auth.user.currentUser
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      getAllRecipeAction
+    }, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipe)

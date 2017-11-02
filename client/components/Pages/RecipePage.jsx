@@ -9,7 +9,9 @@ import Header from '../Common/Header';
 import { getAllRecipeAction } from '../../actions/recipes_action';
 import AllRecipes from '../Include/AllRecipes';
 
+
 class RecipePage extends Component {
+  
   renderRecipe() {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
@@ -22,7 +24,9 @@ class RecipePage extends Component {
             <AllRecipes
               picture={recipe.picture}
               recipeName={recipe.recipeName}
+              ingredients={recipe.ingredients}
               details={recipe.details}
+              views={recipe.views}
               upvotes={recipe.upvotes}
               downvotes={recipe.downvotes}
               id={recipe.id}
@@ -44,7 +48,7 @@ class RecipePage extends Component {
       <div>
         <Header /> 
         {this.renderRecipe()}
-        {(recipeCount > 0 
+        {(recipeCount > 12
           ?
           <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center">
