@@ -5,11 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 export default class Homepage extends Component {
 
-  // componentDidMount(){
-  //     document.body.style.backgroundColor = "#f2f2f2"
-  //     document.body.className="body-component-a"
-  // }
-
   render() {
     return (
       <div>
@@ -44,11 +39,6 @@ export default class Homepage extends Component {
             <h5>More-Recipes is a platform for users to share the awesome and exciting recipe
               ideas they have invented or learnt</h5>
             <p className="show-off">Show off your latest recipe and get feedback.</p>
-            <img src="images/logo.png" width="60%" height="30%" alt="bell" />
-            <h5>More-Recipes is a platform for users to share the awesome and exciting recipe
-              ideas they have invented or learnt</h5>
-            <p className="show-off">Show off your latest recipe and get feedback.</p>
-
             <Link to="/signup" className="btn btn-outline-danger btn-lg"> Create a profile</Link>
             <Link to="/login" className="btn btn-outline-success btn-lg"> Login</Link>
             </div>
