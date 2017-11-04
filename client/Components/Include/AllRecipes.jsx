@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction, 
-          viewRecipeAction } from '../../actions/recipes_action';
+          viewRecipeAction } from '../../Actions/RecipesActions';
 
 
 class AllRecipes extends Component {

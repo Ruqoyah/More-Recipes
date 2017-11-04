@@ -14,6 +14,10 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    picture: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false

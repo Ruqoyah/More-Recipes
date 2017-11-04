@@ -1,16 +1,15 @@
 import {
   GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
-  VIEW_RECIPE, VIEW_FAVORITE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE, DELETE_RECIPE,
+  VIEW_RECIPE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE, DELETE_RECIPE,
   EDIT_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE
-} from '../actions/types';
+} from '../Actions/Types';
 
 const INITIAL_STATE = {
   userRecipe: [],
   recipes: [],
-  favoriteRecipes: '',
+  favoriteRecipes: [],
   reviews: [],
   viewRecipe: {},
-  viewFavorite: '',
   upvotes: {},
   downvotes: {},
   imageDetails: ''
@@ -19,9 +18,9 @@ const INITIAL_STATE = {
 function recipeReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_USER_RECIPES:
-      return { ...state, userRecipe: action.userRecipe };
+      return { ...state, userRecipe: action.payload };
     case EDIT_RECIPE:
-      return { ...state, userRecipe: action.userRecipe };
+      return { ...state, userRecipe: action.payload };
     case DELETE_RECIPE: {
       const newState = state.userRecipe.filter(recipe =>
         (recipe.id !== action.id)
@@ -29,26 +28,24 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, userRecipe: newState };
     }
     case GET_RECIPES:
-      return { ...state, recipes: action.recipes };
+      return { ...state, recipes: action.payload };
     case SEARCH_RECIPES:
-      return { ...state, recipes: action.recipes.data };
+      return { ...state, recipes: action.payload.data };
     case GET_FAVORITE_RECIPES:
-      return { ...state, favoriteRecipes: action.favoriteRecipes };
+      return { ...state, favoriteRecipes: action.payload };
     case VIEW_RECIPE:
-      return { ...state, viewRecipe: action.viewRecipe };
+      return { ...state, viewRecipe: action.payload };
     case ADD_REVIEW:
-      return { ...state, reviews: [...state.reviews, action.reviews] };
+      return { ...state, reviews: [...state.payload, action.payload] };
     case GET_REVIEW:
-      return { ...state, reviews: action.reviews };
-    case VIEW_FAVORITE:
-      return { ...state, viewFavorite: action.viewFavorite };
+      return { ...state, reviews: action.payload };
     case SAVE_RECIPE_IMAGE:
       return { ...state, imageDetails: action.payload };
     case UPVOTE_RECIPE: {
       const newArr = [];
       state.recipes.map((obj) => { // eslint-disable-line
-        if (obj.id === action.upvotes.data.id) {
-          newArr.push(action.upvotes.data);
+        if (obj.id === action.payload.data.id) {
+          newArr.push(action.payload.data);
         } else {
           newArr.push(obj);
         }
@@ -58,8 +55,8 @@ function recipeReducer(state = INITIAL_STATE, action) {
     case DOWNVOTE_RECIPE: {
       const newArr = [];
       state.recipes.map((obj) => { // eslint-disable-line
-        if (obj.id === action.downvotes.data.id) {
-          newArr.push(action.downvotes.data);
+        if (obj.id === action.payload.data.id) {
+          newArr.push(action.payload.data);
         } else {
           newArr.push(obj);
         }
@@ -67,9 +64,9 @@ function recipeReducer(state = INITIAL_STATE, action) {
       return { ...state, recipes: newArr };
     }
     case VIEW_UPVOTE_RECIPE:
-      return { ...state, viewRecipe: action.upvotes.data };
+      return { ...state, viewRecipe: action.payload.data };
     case VIEW_DOWNVOTE_RECIPE:
-      return { ...state, viewRecipe: action.downvotes.data };
+      return { ...state, viewRecipe: action.payload.data };
     default:
       return state;
   }

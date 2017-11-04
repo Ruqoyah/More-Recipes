@@ -8,10 +8,9 @@ class FavoriteRecipes extends Component{
     super(props);
     this.handleViewClick = this.handleViewClick.bind(this);
   }
-  
 
   handleViewClick(){
-    window.location.href = `/viewrecipe?id=${this.props.id}&page=favoriterecipe`
+    window.location.href = `/viewrecipe?id=${this.props.recipeId}&page=favoriterecipe`
   }
 
   render() {

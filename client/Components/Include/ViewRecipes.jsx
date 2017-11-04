@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { favoriteAction, viewUpvoteAction, viewDownvoteAction,
-          reviewRecipeAction, getReviewAction } from '../../actions/recipes_action';
+          reviewRecipeAction, getReviewAction } from '../../Actions/RecipesActions';
 
           
 class ViewRecipes extends Component {

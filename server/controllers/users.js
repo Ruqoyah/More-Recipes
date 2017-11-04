@@ -120,6 +120,7 @@ export default {
                 username: result.username,
                 fullName: result.fullName,
                 email: result.email,
+                picture: result.picture,
                 id: result.id }
             }));
         }))
@@ -141,7 +142,8 @@ export default {
           id: user.id,
           username: user.username,
           fullName: user.fullName,
-          email: user.email
+          email: user.email,
+          picture: user.picture
         });
       })
       .catch(error => res.status(404).json(error));

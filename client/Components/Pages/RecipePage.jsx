@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../Common/Header';
-import { addRecipeAction, getAllRecipeAction, saveImageToCloud } from '../../actions/recipes_action';
+import { addRecipeAction, getAllRecipeAction, saveImageToCloud } from '../../Actions/RecipesActions';
 import AllRecipes from '../Include/AllRecipes';
 import Footer from '../Common/Footer';
 
@@ -90,10 +90,11 @@ class RecipePage extends Component {
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
               };
+              toastr.options.onHidden = function() { 
+                window.location.href = '/recipe'
+              }
               toastr.success('Recipe added successfully');
             })
-         } else {
-           console.log('no image has been saved');
          }
       })
       .catch((error) => {
@@ -155,7 +156,7 @@ class RecipePage extends Component {
                   <textarea name="ingredient" onChange={this.onChange} required></textarea>
                   <h4>Cooking direction</h4>
                   <textarea name="details" onChange={this.onChange} required></textarea>
-                </div>
+                </div> <hr/>
                 <label className="custom-file">
                   <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
                     onChange={this.uploadImage} />

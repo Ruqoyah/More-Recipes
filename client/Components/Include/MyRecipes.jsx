@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
-import { deleteRecipeAction, editRecipeAction } from '../../actions/recipes_action';
+import { deleteRecipeAction, editRecipeAction } from '../../Actions/RecipesActions';
 import { Link } from 'react-router-dom';
 
 

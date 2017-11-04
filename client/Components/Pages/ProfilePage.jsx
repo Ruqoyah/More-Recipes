@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { getUserProfileAction, editProfileAction } from '../../actions/auth_actions';
+import { getUserProfileAction, editProfileAction, saveProfileImage } from '../../Actions/AuthActions';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 
@@ -15,23 +15,37 @@ class ProfilePage extends Component {
       fullName : '',
       username: '',
       email: '',
-      isLoading: ''
+      picture: '',
+      isLoading: '',
+      imageHeight: 0,
+      imageWidth: 0,
+      image: '',
+      imageError: '',
+      imageErrorStatus: false
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.uploadImage = this.uploadImage.bind(this)
   }
 
-  componentDidMount(){
-    const userId = this.props.userId;
-    this.props.actions.getUserProfileAction(userId)
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      fullName : props.fullName,
-      username: props.username,
-      email: props.email,
-    });
+  uploadImage(event) {
+    event.preventDefault();
+    let name = event.target.files[0];
+    let file_reader = new FileReader();
+    if(name) {
+      file_reader.onload = () => {
+        const newImage = new Image();
+        newImage.src = file_reader.result;
+        newImage.onload = () => {
+          this.setState({
+            imageHeight: newImage.height, 
+            imageWidth: newImage.width,
+            image: name
+          });
+        }
+      }
+    }
+    file_reader.readAsDataURL(name);
   }
 
   onChange(event) {
@@ -41,35 +55,50 @@ class ProfilePage extends Component {
   }
 
 
-  onSubmit(e) {
-    e.preventDefault();
-    let newState = this.state;
-    if (this.state.password === ''){
-      newState = {
-        username: this.state.username,
-        email: this.state.email,
-        fullName: this.state.fullName
-      } 
-    } 
-    this.setState({ isLoading: true })
-    const userId = this.props.userId
-    this.props.actions.editProfileAction(userId, newState)
-      .then((data) => {
-        toastr.options = {
-          "debug": false,
-          "positionClass": "toast-top-full-width",
-          "timeOut": "2000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };
-        toastr.options.onHidden = function() { 
-          window.location.href = '/profilepage'
-         }
-        toastr.success('You successfully edit your profile');
+  onSubmit(event) {
+    event.preventDefault();
+    if(this.state.imageHeight < 200 || this.state.imageWidth < 200) {
+      this.setState({imageErrorStatus: true, imageError: 'Image is too small'});
+    } else {
+      this.props.actions.saveProfileImage(this.state.image)
+      .then(() => {
+        this.setState({isLoading: true, picture: this.props.imageUrl})
+        const userId = this.props.userId
+        this.props.actions.editProfileAction(userId, this.state)
+        .then((data) => {
+          toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-full-width",
+            "timeOut": "2000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          };
+          toastr.options.onHidden = function() { 
+            window.location.href = '/profilepage'
+            }
+          toastr.success('You successfully edit your profile');
+        })
       })
-      .catch((error) => console.log('Hello error'))
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  }
+
+  componentDidMount(){
+    const userId = this.props.userId;
+    this.props.actions.getUserProfileAction(userId)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      fullName : nextProps.fullName,
+      username: nextProps.username,
+      email: nextProps.email,
+      picture: nextProps.imageDetails
+    });
   }
 
 
@@ -77,8 +106,7 @@ class ProfilePage extends Component {
     const fullName = this.state.fullName;
     const username = this.state.username;
     const email = this.state.email;
-    const confirmPassword = this.state.confirmPassword;
-    const password = this.state.password;
+    const picture = this.props.picture;
 
     return (
       <div>
@@ -86,12 +114,11 @@ class ProfilePage extends Component {
         <div className="container">
           <div className="row my-2">
             <div className="col-lg-4 order-lg-1 text-center">
-              <img src="//placehold.it/300" className="mx-auto img-fluid img-circle d-block"
-                alt="avatar" />
-              <h6 className="mt-2">Upload a different photo</h6>
-              <label className="custom-file">
-                <input type="file" id="file" className="custom-file-input" />
-                <span className="custom-file-control">Choose file</span>
+              <img src={picture} className="mx-auto img-fluid img-circle d-block"
+                alt="picture" /><hr/>
+             <label className="custom-file">
+                  <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
+                    onChange={this.uploadImage} />
               </label>
             </div>
             <div className="col-lg-8 order-lg-2">
@@ -160,7 +187,6 @@ class ProfilePage extends Component {
                     <div className="form-group row">
                       <label className="col-lg-3 col-form-label form-control-label"></label>
                       <div className="btn-toolbar">
-                        <input type="reset" className="btn btn-secondary" value="Cancel"/>
                         <button className="btn btn-primary" type="submit" name="submit"
                         disabled={this.state.isLoading}>Save Changes</button>
                       </div>
@@ -180,10 +206,11 @@ function mapStateToProps(state) {
   const user = state.auth.userProfile;
   return {
     userId: state.auth.user.currentUser.userId,
+    imageUrl: state.auth.imageDetails,
     fullName: user.fullName,
     username: user.username, 
     email: user.email,
-
+    picture: user.picture
   }
 }
 
@@ -191,7 +218,8 @@ function mapDispatchToProps(dispatch){
   return {
     actions: bindActionCreators({
       getUserProfileAction,
-      editProfileAction
+      editProfileAction,
+      saveProfileImage
     }, dispatch)
   }
 }
@@ -201,6 +229,7 @@ ProfilePage.propTypes = {
   fullName: PropTypes.string,
   username: PropTypes.string,
   email: PropTypes.string,
+  picture: PropTypes.string,
 }
 
 

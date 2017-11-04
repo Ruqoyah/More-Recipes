@@ -1,43 +1,47 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { viewRecipeAction } from '../../actions/recipes_action';
+import { addRecipeAction, getUserRecipeAction } from '../../Actions/RecipesActions';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
-import ViewRecipes from '../Include/ViewRecipes';
+import MyRecipes from '../Include/MyRecipes';
 
-class ViewRecipe extends Component {
+
+
+class AddRecipe extends Component {
+
   renderRecipe() {
-    const recipeData = [];
-    let viewRecipe = this.props.viewRecipe;
-    recipeData.push(viewRecipe);
-    return (<div>
+    const allUserRecipe = this.props.userRecipe;
+    if (allUserRecipe.length < 1) {
+      return (<div style={{ backgroundColor: '#fff', textAlign: 'center' }}><h3> No Recipe was found </h3></div>);
+    }
+    return (<div className="row">
       {
-        recipeData.map((recipe) => {
-          return ( 
-            <ViewRecipes
+        allUserRecipe.map((recipe) => {
+          return (
+            <MyRecipes
               picture={recipe.picture}
-              userId={recipe.userId}
               recipeName={recipe.recipeName}
               ingredient={recipe.ingredient}
-              details={recipe.details}
               upvotes={recipe.upvotes}
               downvotes={recipe.downvotes}
               views={recipe.views}
-              review={recipe.Reviews}
+              details={recipe.details}
               id={recipe.id}
-              key={Math.random() * 10}
+              key={recipe.id}
             />
           )
         })
       }
-      </div>) 
+      </div>
+    )
   }
 
   componentDidMount() {
-    const recipeId = Number(location.search.split('=')[1].replace("&page", ""))
-    this.props.actions.viewRecipeAction(recipeId);
+    this.props.actions.getUserRecipeAction(this.props.user.userId)
+    
   }
 
   render() {
@@ -52,17 +56,17 @@ class ViewRecipe extends Component {
 
 function mapStateToProps(state) {
   return {
-    viewRecipe: state.recipe.viewRecipe,
-    user: state.auth.user.currentUser
+    user: state.auth.user.currentUser,
+    userRecipe: state.recipe.userRecipe
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      viewRecipeAction
+      getUserRecipeAction
     }, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipe)
+export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);

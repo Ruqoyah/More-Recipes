@@ -228,21 +228,7 @@ export default {
         return res.status(200).json(recipes);
       })
       .catch(error => res.status(404).json(error));
-  },
-
-  // getRecipeUpVoteCount(req, res) {
-  //   return db.Votes
-  //     .findAndCountAll({
-  //       where: {
-  //         upvote: 1, recipeId: req.params.recipeId
-  //       },
-  //     })
-  //     .then((result) => {
-  //       const upvote = { id: Number(req.params.recipeId), upvote: result.count };
-  //       res.status(200).json(upvote);
-  //     });
-  // },
-
+  }
 
 };
 
