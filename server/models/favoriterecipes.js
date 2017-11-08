@@ -17,10 +17,6 @@ export default (sequelize, DataTypes) => {
         key: 'id',
         as: 'recipeId',
       },
-    },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: true
     }
   });
   favoriteRecipes.associate = (models) => {

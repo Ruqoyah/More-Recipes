@@ -8,7 +8,7 @@ import { validateRecipesId, validateUsersId, checkRecipeInput, checkUserId,
   checkUserInput, checkValidUserInput, checkUserInvalidInput,
   checkReviewInvalidInput, validateParamUserId, validateUsers, validateLoginUser, checkReviewInput,
   validatefavRecipe, verifyEditUsername, verifyEditEmail, upVote,
-  validateFavRecipesId, downVote } from '../middleware/validation';
+  downVote, checkRecipeInvalidInput } from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -110,6 +110,7 @@ app.post(
   authentication.isLoggedIn,
   validateUsersId,
   checkRecipeInput,
+  checkRecipeInvalidInput,
   recipesController.addRecipe);
 
 /** Get all recipes
@@ -159,20 +160,6 @@ app.get(
   authentication.isLoggedIn,
   validateRecipesId,
   recipesController.viewRecipe
-);
-
-/** View Recipe
- * @param  {recipeId'} '/api/v1/recipes/
- * @param  {} authentication.isLoggedIn
- * @param  {} validateRecipesId
- * @param  {} checkRecipeInput
- * @param  {} recipesController.modifyRecipe
- */
-app.get(
-  '/api/v1/favorite/:recipeId/recipes',
-  authentication.isLoggedIn,
-  validateFavRecipesId,
-  favoriteRecipesController.viewFavorite
 );
 
 /** Delete recipe
@@ -233,21 +220,6 @@ app.post(
   validateUsersId,
   validatefavRecipe,
   favoriteRecipesController.favoriteRecipe
-);
-
-/**
- * @param  {recipeId/recipes'} '/api/v1/users/
- * @param  {} authentication.isLoggedIn
- * @param  {} validateRecipesId
- * @param  {} validateUsersId
- * @param  {} favoriteRecipesController.recipeCategory
- */
-app.put(
-  '/api/v1/users/:recipeId/recipes',
-  authentication.isLoggedIn,
-  validateRecipesId,
-  validateUsersId,
-  favoriteRecipesController.recipeCategory
 );
 
 /** Get favorite recipes

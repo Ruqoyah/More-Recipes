@@ -3,9 +3,9 @@ import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
-
 let recipeId;
 let userId;
+let token;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -39,6 +39,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
+        token = res.body.data.token;
         userId = res.body.data.userId;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
@@ -51,6 +52,7 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`
       })
       .expect(403)
@@ -62,6 +64,25 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
+  it('should not add recipe without providing a token', (done) => {
+    supertest(app)
+      .post('/api/v1/recipes')
+      .send({
+        recipeName: 'Pizza',
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        token: `${token}`,
+        userId: `${userId}`
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.errors);
+        done();
+      });
+  });
   it('should be able to add recipe providing a token', (done) => {
     supertest(app)
       .post('/api/v1/recipes')
@@ -70,7 +91,8 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -86,7 +108,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get('/api/v1/recipes?search=pizza')
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -104,7 +126,8 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -115,15 +138,16 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to add recipe if no user if provided', (done) => {
+  it('should not be able to add recipe if no user id found', (done) => {
     supertest(app)
       .post('/api/v1/recipes')
       .send({
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: 8,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -141,9 +165,11 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXlIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: 'dsjghkdDWHSJkjdskldsxkldsjkldsxdslk'
       })
+      .expect(401)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -158,8 +184,9 @@ describe('More-Recipe API: ', () => {
       .send({
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -177,8 +204,9 @@ describe('More-Recipe API: ', () => {
         recipeName: '  Rice',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(409)
       .end((err, res) => {
@@ -196,8 +224,9 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Rice',
         ingredient: '  pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(409)
       .end((err, res) => {
@@ -215,8 +244,9 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Rice',
         ingredient: 'pepper, flour, onions',
         details: '   grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(409)
       .end((err, res) => {
@@ -233,8 +263,9 @@ describe('More-Recipe API: ', () => {
       .send({
         recipeName: 'Pizza',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -251,8 +282,9 @@ describe('More-Recipe API: ', () => {
       .send({
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -271,7 +303,7 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -289,8 +321,9 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Meat Pie',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -306,7 +339,7 @@ describe('More-Recipe API: ', () => {
       .delete('/api/v1/recipes/5')
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -321,7 +354,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get('/api/v1/recipes')
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -336,7 +369,22 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get(`/api/v1/recipes/${recipeId}`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res);
+        done();
+      });
+  });
+  it('should get recipes if the user have recipes', (done) => {
+    supertest(app)
+      .get(`/api/v1/${userId}/recipes`)
+      .send({
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -352,7 +400,7 @@ describe('More-Recipe API: ', () => {
       .delete(`/api/v1/recipes/${recipeId}`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -367,7 +415,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get('/api/v1/recipes')
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -375,6 +423,21 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         expect(res);
+        done();
+      });
+  });
+  it('should not get recipes if the user does not have recipes', (done) => {
+    supertest(app)
+      .get(`/api/v1/${userId}/recipes`)
+      .send({
+        token: `${token}`
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('No Recipe found');
         done();
       });
   });

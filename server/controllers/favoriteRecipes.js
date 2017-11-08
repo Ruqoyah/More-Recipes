@@ -13,38 +13,13 @@ export default {
     return favoriteRecipes
       .create({
         recipeId: req.params.recipeId,
-        userId: req.body.userId,
-        category: req.body.category
+        userId: req.body.userId
       })
       .then(favorite => res.status(200).json({
         status: true,
         message: `You successfully choose recipe id ${req.params.recipeId} as your favorite recipes`,
         data: { userId: favorite.userId, recipeId: favorite.recipeId }
       }))
-      .catch(error => res.status(400).json(error));
-  },
-
-  recipeCategory(req, res) {
-    return favoriteRecipes
-      .findOne({ where:
-        { userId: req.body.userId, recipeId: req.params.recipeId }
-      })
-      .then((recipe) => {
-        if (req.body.category === 'undefined') {
-          return res.status(200).send({
-            status: 'success',
-            message: `Recipe added to ${recipe.category} category`
-          });
-        }
-        recipe
-          .update({ category: req.body.category || recipe.category })
-          .then(() => {
-            res.status(200).send({
-              status: 'success',
-              message: `Recipe added to ${recipe.category} category`
-            });
-          });
-      })
       .catch(error => res.status(400).json(error));
   },
 
@@ -75,36 +50,6 @@ export default {
           res.status(200).json(favoriteRecipe);
         }
       })
-      .catch(error => res.status(404).json(error));
-  },
-
-  viewFavorite(req, res) {
-    return favoriteRecipes
-      .findOne({
-        where: {
-          recipeId: req.params.recipeId
-        },
-        include: [{
-          model: db.Recipes,
-          attributes: ['recipeName', 'ingredient', 'details', 'votes', 'picture', 'views'],
-          include: [{
-            model: db.Users,
-            attributes: ['fullName', 'updatedAt']
-          }]
-        }],
-      })
-      .then(((recipe) => {
-        db.Reviews
-          .findAll({
-            where: {
-              recipeId: recipe.recipeId
-            }
-          })
-          .then(data => res.json({
-            reviews: data,
-            recipe
-          }));
-      }))
-      .catch(error => res.status(404).json(error));
-  },
+      .catch(error => res.status(400).json(error));
+  }
 };

@@ -115,7 +115,7 @@ export default {
           id: req.params.recipeId
         });
       })
-      .catch(error => res.status(404).json(error));
+      .catch(error => res.status(400).json(error));
   },
 
   /** Upvote a recipe
@@ -141,7 +141,7 @@ export default {
         } else if (req.message === 'updated') {
           afterVote('vote updated successfully', req, res);
         } else if (req.message === 'destroyed') {
-          afterVote('vote remove successfully', req, res);
+          afterVote('vote removed successfully', req, res);
         }
       });
   },
@@ -227,7 +227,7 @@ export default {
         }
         return res.status(200).json(recipes);
       })
-      .catch(error => res.status(404).json(error));
+      .catch(error => res.status(400).json(error));
   }
 
 };

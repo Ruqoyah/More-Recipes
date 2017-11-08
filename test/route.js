@@ -2,7 +2,6 @@ import expect from 'expect';
 import supertest from 'supertest';
 import app from '../app';
 
-
 describe('Protected routes (middleware)', () => {
   it('should return \'No token provided.\' (POST /api/v1/recipes)', (done) => {
     supertest(app)

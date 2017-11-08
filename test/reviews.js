@@ -3,9 +3,9 @@ import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
-
 let recipeId;
 let userId;
+let token;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -39,6 +39,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
+        token = res.body.data.token;
         userId = res.body.data.userId;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
@@ -51,8 +52,9 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -68,7 +70,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -85,7 +87,7 @@ describe('More-Recipe API: ', () => {
       .send({
         review: 'Nice! It\'s a good recipe',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -102,7 +104,7 @@ describe('More-Recipe API: ', () => {
       .send({
         review: 'Nice! It\'s a good recipe',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -113,13 +115,13 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to post reviews invalid input', (done) => {
+  it('should not be able to post reviews if input is invalid', (done) => {
     supertest(app)
       .post(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         review: '      Nice! It\'s a good recipe',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(409)
       .end((err, res) => {
@@ -135,7 +137,7 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -151,7 +153,7 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
         review: 'Nice! It\'s a good recipe',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -166,7 +168,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get(`/api/v1/recipes/${recipeId}/reviews`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
