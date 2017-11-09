@@ -26,7 +26,8 @@ class RecipePage extends Component {
       imageWidth: 0,
       image: '',
       imageError: '',
-      imageErrorStatus: false
+      imageErrorStatus: false,
+      loading: false
     }
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -72,13 +73,23 @@ class RecipePage extends Component {
   onSubmit(event) {
     event.preventDefault();
     if(this.state.imageHeight < 200 || this.state.imageWidth < 200) {
-      this.setState({imageErrorStatus: true, imageError: 'Image is too small'});
+      this.setState({
+        imageErrorStatus: true,
+        loading: false,
+        imageError: 'Image is too small'
+      });
     } else {
+      this.setState({
+        loading: true
+      });
       this.props.actions.saveImageToCloud(this.state.image)
       .then(() => {
         if(this.state.image !== '') {
           // If the state image is not empty, save recipe to database
-          this.setState({picture: this.props.imageUrl});
+          this.setState({
+            loading: false,
+            picture: this.props.imageUrl
+          });
           addRecipeAction(this.state)
             .then((recipe) => {
               toastr.options = {
@@ -161,7 +172,13 @@ class RecipePage extends Component {
                   <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
                     onChange={this.uploadImage} />
                 </label>
-
+                {
+                  this.state.loading
+                ?
+                  <i className="fa fa-circle-o-notch fa-spin" style={{ fontSize: '36px', color: '#FFA500'}}></i>
+                :
+                  null
+                }
                 <div className="row">
                   {
                     this.state.imageErrorStatus 

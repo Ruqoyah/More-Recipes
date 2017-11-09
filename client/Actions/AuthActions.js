@@ -89,7 +89,6 @@ export function saveProfileImage(image) {
 export function editProfileAction(userId, userDetails) {
   return dispatch => axios.put(`${API_URL}/api/v1/user/${userId}`, userDetails)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: EDIT_PROFILE,
         user: res.data

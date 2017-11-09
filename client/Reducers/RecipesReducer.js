@@ -36,7 +36,7 @@ function recipeReducer(state = INITIAL_STATE, action) {
     case VIEW_RECIPE:
       return { ...state, viewRecipe: action.payload };
     case ADD_REVIEW:
-      return { ...state, reviews: [...state.payload, action.payload] };
+      return { ...state, reviews: [...state.reviews, action.payload] };
     case GET_REVIEW:
       return { ...state, reviews: action.payload };
     case SAVE_RECIPE_IMAGE:
