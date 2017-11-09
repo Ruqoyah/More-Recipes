@@ -3,8 +3,8 @@ import { render } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchRecipesAction } from '../../actions/recipes_action';
-import { logoutAction } from '../../actions/auth_actions';
+import { searchRecipesAction } from '../../Actions/RecipesActions';
+import { logoutAction } from '../../Actions/AuthActions';
 import AllRecipes from '../Include/AllRecipes';
 
 class Header extends Component {
@@ -15,6 +15,7 @@ class Header extends Component {
     }
     this.searchHandler = this.searchHandler.bind(this)
   }
+  
   logout(e) {
     e.preventDefault();
     this.props.actions.logoutAction();
@@ -27,7 +28,6 @@ class Header extends Component {
   }
 
   render() {
-    const { fullname } = this.props.user;
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -67,13 +67,6 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.auth.user.currentUser,
-    recipes: state.recipe.recipes
-  }
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -83,4 +76,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(Header);

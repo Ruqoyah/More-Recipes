@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addRecipeAction, getUserRecipeAction } from '../../actions/recipes_action';
+import { addRecipeAction, getUserRecipeAction } from '../../Actions/RecipesActions';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 import MyRecipes from '../Include/MyRecipes';
@@ -25,6 +25,9 @@ class AddRecipe extends Component {
               picture={recipe.picture}
               recipeName={recipe.recipeName}
               ingredient={recipe.ingredient}
+              upvotes={recipe.upvotes}
+              downvotes={recipe.downvotes}
+              views={recipe.views}
               details={recipe.details}
               id={recipe.id}
               key={recipe.id}

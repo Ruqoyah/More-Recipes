@@ -18,7 +18,8 @@ const getRecipeVoteCount = (req) => { // eslint-disable-line
         }).then((downvoteCount) => { // eslint-disable-line
           return Recipes.findById(req.params.recipeId)
             .then((recipe) => { // eslint-disable-line
-              return recipe.update({ upvotes: upvoteCount.count, downvotes: downvoteCount.count }, { fields: ['upvotes', 'downvotes'] });
+              return recipe.update({ upvotes: upvoteCount.count, downvotes: downvoteCount.count },
+                { fields: ['upvotes', 'downvotes'] });
             });
         });
     });
@@ -114,7 +115,7 @@ export default {
           id: req.params.recipeId
         });
       })
-      .catch(error => res.status(404).json(error));
+      .catch(error => res.status(400).json(error));
   },
 
   /** Upvote a recipe
@@ -140,7 +141,7 @@ export default {
         } else if (req.message === 'updated') {
           afterVote('vote updated successfully', req, res);
         } else if (req.message === 'destroyed') {
-          afterVote('vote remove successfully', req, res);
+          afterVote('vote removed successfully', req, res);
         }
       });
   },
@@ -226,22 +227,8 @@ export default {
         }
         return res.status(200).json(recipes);
       })
-      .catch(error => res.status(404).json(error));
-  },
-
-  // getRecipeUpVoteCount(req, res) {
-  //   return db.Votes
-  //     .findAndCountAll({
-  //       where: {
-  //         upvote: 1, recipeId: req.params.recipeId
-  //       },
-  //     })
-  //     .then((result) => {
-  //       const upvote = { id: Number(req.params.recipeId), upvote: result.count };
-  //       res.status(200).json(upvote);
-  //     });
-  // },
-
+      .catch(error => res.status(400).json(error));
+  }
 
 };
 

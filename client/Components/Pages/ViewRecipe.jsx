@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { viewRecipeAction } from '../../actions/recipes_action';
+import { viewRecipeAction } from '../../Actions/RecipesActions';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 import ViewRecipes from '../Include/ViewRecipes';
@@ -18,6 +18,7 @@ class ViewRecipe extends Component {
           return ( 
             <ViewRecipes
               picture={recipe.picture}
+              userId={recipe.userId}
               recipeName={recipe.recipeName}
               ingredient={recipe.ingredient}
               details={recipe.details}
@@ -35,7 +36,7 @@ class ViewRecipe extends Component {
   }
 
   componentDidMount() {
-    const recipeId = location.search.split('=')[1];
+    const recipeId = Number(location.search.split('=')[1].replace("&page", ""))
     this.props.actions.viewRecipeAction(recipeId);
   }
 

@@ -3,9 +3,10 @@ import supertest from 'supertest';
 import app from '../app';
 import models from '../server/models';
 
-
 let recipeId;
 let userId;
+let token;
+process.env.NODE_ENV = 'test';
 
 const doBeforeAll = () => {
   before((done) => {
@@ -39,26 +40,9 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
+        token = res.body.data.token;
         userId = res.body.data.userId;
         expect(res.body.message).toBe('You have successfully signed in!');
-        done();
-      });
-  });
-  it('should not add recipe without providing a token', (done) => {
-    supertest(app)
-      .post('/api/v1/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        userId: `${userId}`
-      })
-      .expect(403)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No token provided.');
         done();
       });
   });
@@ -69,8 +53,9 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -86,7 +71,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get(`/api/v1/users/${userId}/recipes`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -102,7 +87,7 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
@@ -113,29 +98,28 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should be able to add favorite recipes to a category', (done) => {
+  it('should be able to add favorite recipes', (done) => {
     supertest(app)
-      .put(`/api/v1/users/${recipeId}/recipes`)
+      .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
         userId: `${userId}`,
-        category: 'junks',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Recipe added to junks category');
+        expect(res.body.message).toBe('You already favorite recipe');
         done();
       });
   });
-  it('should not be able to add favorite recipes', (done) => {
+  it('should not be able to add favorite recipes if no recipeid provided', (done) => {
     supertest(app)
       .post('/api/v1/users/8/recipes')
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -146,11 +130,11 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to add favorite recipes', (done) => {
+  it('should not be able to add favorite recipes if no userid provided', (done) => {
     supertest(app)
       .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -161,12 +145,12 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to add favorite recipes', (done) => {
+  it('should not be able to add favorite recipes with an invalid userid', (done) => {
     supertest(app)
       .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
         userId: 8,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -181,7 +165,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get(`/api/v1/users/${userId}/recipes`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {

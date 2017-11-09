@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import  { signUpAction }  from '../../actions/auth_actions';
-import { emailExist } from '../../helper/index';
-import { userExist } from '../../helper/index';
+import  { signUpAction }  from '../../Actions/AuthActions';
+import { emailExist } from '../../Helper/index';
+import { userExist } from '../../Helper/index';
 
 class Signup extends Component {
   

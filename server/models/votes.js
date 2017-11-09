@@ -19,8 +19,7 @@ export default (sequelize, DataTypes) => {
   });
   Votes.associate = (models) => {
     Votes.belongsTo(models.Users, {
-      foreignKey: 'userId',
-      onDelete: 'CASCADE'
+      foreignKey: 'userId'
     });
     Votes.belongsTo(models.Recipes, {
       foreignKey: 'recipeId',

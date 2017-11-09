@@ -197,13 +197,13 @@ export const checkUserInvalidInput = (req, res, next) => {
  */
 
 export const checkRecipeInvalidInput = (req, res, next) => {
-  if (req.body.recipeName.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+  if (req.body.recipeName.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
     return res.status(409).json({ message: 'Invalid Recipe Name' });
   }
-  if (req.body.ingredient.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+  if (req.body.ingredient.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
     return res.status(409).json({ message: 'Invalid Ingredient' });
   }
-  if (req.body.details.match(/^[^ ]+( [^ ]+)*$/g) == null) {
+  if (req.body.details.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
     return res.status(409).json({ message: 'Invalid Details' });
   }
   next();
@@ -234,32 +234,6 @@ export const checkReviewInput = (req, res, next) => {
   }
   if (!req.body.userId) {
     return res.status(400).json({ message: 'You need to enter your user Id' });
-  }
-  next();
-};
-
-/** Check if recipe id input in body exist or empty
- * @param  {object} req - request
- * @param  {object} res - response
- * @param  {object} next - next
- */
-
-export const checkRecipeId = (req, res, next) => {
-  Recipes
-    .findOne({
-      where: {
-        id: req.body.recipeId
-      }
-    })
-    .then((recipe) => {
-      if (!recipe) {
-        return res.status(404).json({
-          message: 'recipe Id does not exist'
-        });
-      }
-    });
-  if (!req.body.recipeId) {
-    return res.status(400).json({ message: 'Recipe Id can\'t be empty' });
   }
   next();
 };
@@ -581,21 +555,6 @@ export const verifyEditUsername = (req, res, next) => {
       } else {
         next();
       }
-    });
-};
-
-export const validateFavRecipesId = (req, res, next) => {
-  favoriteRecipes
-    .findOne({
-      where: { recipeId: req.params.recipeId }
-    })
-    .then((recipe) => {
-      if (!recipe) {
-        return res.status(404).json({
-          message: 'No recipe Id found'
-        });
-      }
-      next();
     });
 };
 

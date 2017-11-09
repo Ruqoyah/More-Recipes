@@ -1,15 +1,16 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER, UNAUTH_USER, GET_USER, EDIT_PROFILE } from './types';
-import { setAuthorizationToken } from '../helper/index';
+import { SET_CURRENT_USER, SAVE_PROFILE_IMAGE, UNAUTH_USER, GET_USER, EDIT_PROFILE } from './Types';
+import { setAuthorizationToken } from '../Helper/index';
 
 const API_URL = 'http://localhost:8000';
+
 
 export function signUpAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signup`, userDetails)
     .then((res) => {
       const token = res.data.data.token;
-      localStorage.setItem('token', res.data.data.token);
+      localStorage.setItem('token', res.data.data.token); // eslint-disable-line
       setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
@@ -23,7 +24,7 @@ export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signin`, userDetails)
     .then((res) => {
       const token = res.data.data.token;
-      localStorage.setItem('token', res.data.data.token);
+      localStorage.setItem('token', res.data.data.token); // eslint-disable-line
       setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
@@ -36,13 +37,13 @@ export function loginAction(userDetails) {
 
 export function logoutAction() {
   return (dispatch) => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('token'); // eslint-disable-line
     setAuthorizationToken(false);
     dispatch({
       type: UNAUTH_USER,
       user: {}
     });
-    window.location.href = '/';
+    window.location.href = '/'; // eslint-disable-line
   };
 }
 
@@ -55,6 +56,34 @@ export function getUserProfileAction(userId) {
       });
     })
     .catch(error => error.response);
+}
+
+export function saveImage(response) {
+  return {
+    type: SAVE_PROFILE_IMAGE,
+    payload: response
+  };
+}
+
+export function saveProfileImage(image) {
+  const request = 'https://api.cloudinary.com/v1_1/ruqoyah/upload/';
+  const cloudPreset = 'amrbhh2u';
+
+  const newFormData = new FormData(); // eslint-disable-line
+  newFormData.append('file', image);
+  newFormData.append('upload_preset', cloudPreset);
+  return dispatch => fetch(request, { // eslint-disable-line
+    method: 'POST',
+    body: newFormData })
+    .then((res) => { // eslint-disable-line
+      return res.json();
+    })
+    .then((data) => {
+      dispatch(saveImage(data.secure_url));
+    })
+    .catch((error) => {
+      throw (error);
+    });
 }
 
 export function editProfileAction(userId, userDetails) {
