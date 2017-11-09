@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getFavoriteAction } from '../../actions/recipes_action';
+import { getFavoriteAction } from '../../Actions/RecipesActions';
 import FavoriteRecipes from '../Include/FavoriteRecipes';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
@@ -27,7 +27,7 @@ class FavoriteRecipe extends Component {
               upvotes={recipe.Recipe.upvotes}
               downvotes={recipe.Recipe.downvotes}
               views={recipe.Recipe.views}
-              id={recipe.id}
+              recipeId={recipe.recipeId}
               key={Math.random() * 10}
             />
           )

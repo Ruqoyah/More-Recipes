@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../Common/Header';
-import { addRecipeAction, getAllRecipeAction } from '../../actions/recipes_action';
+import { addRecipeAction, getAllRecipeAction, saveImageToCloud } from '../../Actions/RecipesActions';
 import AllRecipes from '../Include/AllRecipes';
 import Footer from '../Common/Footer';
 
@@ -19,13 +19,19 @@ class RecipePage extends Component {
       userId,
       ingredient: '',
       details: '',
-      picture: 'http://localhost:8000/images/dessert%20salad.png',
+      picture: '',
       addRecipe: false,
-      displayRecipe: true
+      displayRecipe: true,
+      imageHeight: 0,
+      imageWidth: 0,
+      image: '',
+      imageError: '',
+      imageErrorStatus: false
     }
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.addRecipe = this.addRecipe.bind(this)
+    this.uploadImage = this.uploadImage.bind(this)
   }
 
   onChange(event) {
@@ -36,6 +42,26 @@ class RecipePage extends Component {
     })
   }
 
+  uploadImage(event) {
+    event.preventDefault();
+    let name = event.target.files[0];
+    let file_reader = new FileReader();
+    if(name) {
+      file_reader.onload = () => {
+        const newImage = new Image();
+        newImage.src = file_reader.result;
+        newImage.onload = () => {
+          this.setState({
+            imageHeight: newImage.height, 
+            imageWidth: newImage.width,
+            image: name
+          });
+        }
+      }
+    }
+    file_reader.readAsDataURL(name);
+  }
+
   addRecipe() {
     this.setState({
       displayRecipe: false,
@@ -43,20 +69,38 @@ class RecipePage extends Component {
     })
   }
 
-  onSubmit() {
-    addRecipeAction(this.state)
-      .then((recipe) => {
-        toastr.options = {
-          "debug": false,
-          "positionClass": "toast-top-full-width",
-          "timeOut": "2000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };
-        toastr.success('Recipe added successfully');
+  onSubmit(event) {
+    event.preventDefault();
+    if(this.state.imageHeight < 200 || this.state.imageWidth < 200) {
+      this.setState({imageErrorStatus: true, imageError: 'Image is too small'});
+    } else {
+      this.props.actions.saveImageToCloud(this.state.image)
+      .then(() => {
+        if(this.state.image !== '') {
+          // If the state image is not empty, save recipe to database
+          this.setState({picture: this.props.imageUrl});
+          addRecipeAction(this.state)
+            .then((recipe) => {
+              toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-full-width",
+                "timeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              };
+              toastr.options.onHidden = function() { 
+                window.location.href = '/recipe'
+              }
+              toastr.success('Recipe added successfully');
+            })
+         }
       })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   }
 
   renderRecipe() {
@@ -89,6 +133,13 @@ class RecipePage extends Component {
     this.props.actions.getAllRecipeAction(this.props.recipes)
   }
 
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.imageDetails) {
+      this.setState({ picture: nextProps.imageDetails });
+    }
+  }
+
   render() {
     const recipeCount = this.props.recipes.length;
     return (
@@ -105,12 +156,21 @@ class RecipePage extends Component {
                   <textarea name="ingredient" onChange={this.onChange} required></textarea>
                   <h4>Cooking direction</h4>
                   <textarea name="details" onChange={this.onChange} required></textarea>
-                </div>
+                </div> <hr/>
                 <label className="custom-file">
-                  <input name="picture" type="file" id="file2" className="custom-file-input"
-                    onChange={this.onChange} />
-                  <span className="custom-file-control">Upload Picture</span>
+                  <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
+                    onChange={this.uploadImage} />
                 </label>
+
+                <div className="row">
+                  {
+                    this.state.imageErrorStatus 
+                  ?
+                    this.state.imageError
+                  :
+                  null
+                  }
+                </div>
                 <div className="input-group">
                   <button type="submit" className="btn btn-outline-danger">Add new Recipe</button>
                 </div>
@@ -153,13 +213,15 @@ class RecipePage extends Component {
 function mapStateToProps(state) {
   return {
     recipes: state.recipe.recipes,
-    user: state.auth.user.currentUser
+    user: state.auth.user.currentUser,
+    imageUrl: state.recipe.imageDetails
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
+      saveImageToCloud,
       getAllRecipeAction
     }, dispatch)
   }

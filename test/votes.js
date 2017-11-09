@@ -6,6 +6,7 @@ import models from '../server/models';
 
 let recipeId;
 let userId;
+let token;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -45,6 +46,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
+        token = res.body.data.token;
         userId = res.body.data.userId;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
@@ -57,8 +59,9 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -75,14 +78,14 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Upvote added successfully!');
+        expect(res.body.message).toBe('upvote successful');
         done();
       });
   });
@@ -91,14 +94,14 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
-      .expect(400)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('You already upvoted');
+        expect(res.body.message).toBe('vote removed successfully');
         done();
       });
   });
@@ -107,14 +110,14 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/users/downvote/${recipeId}`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Downvote added successfully!');
+        expect(res.body.message).toBe('downvote successful');
         done();
       });
   });
@@ -123,14 +126,46 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/users/downvote/${recipeId}`)
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
-      .expect(400)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('You already downvoted');
+        expect(res.body.message).toBe('vote removed successfully');
+        done();
+      });
+  });
+  it('should be able to upvote recipe', (done) => {
+    supertest(app)
+      .post(`/api/v1/users/upvote/${recipeId}`)
+      .send({
+        userId: `${userId}`,
+        token: `${token}`
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('upvote successful');
+        done();
+      });
+  });
+  it('should be able to downvote recipe', (done) => {
+    supertest(app)
+      .post(`/api/v1/users/downvote/${recipeId}`)
+      .send({
+        userId: `${userId}`,
+        token: `${token}`
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('vote updated successfully');
         done();
       });
   });
@@ -139,7 +174,7 @@ describe('More-Recipe API: ', () => {
       .post('/api/v1/users/upvote/6')
       .send({
         userId: `${userId}`,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -154,7 +189,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -170,7 +205,7 @@ describe('More-Recipe API: ', () => {
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
         userId: 10,
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(404)
       .end((err, res) => {
@@ -185,7 +220,7 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .get('/api/v1/recipes?sort=upvotes&order=descending')
       .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiaWJyYWhpbSIsImZ1bGxuYW1lIjoidG9wZSBqb3kifSwiaWF0IjoxNTA0NTEzMTE2fQ.FzccsjyPbE9ExFKuhZx4ljZUZKGQjtm3CIZY6sqZ5bY'
+        token: `${token}`
       })
       .expect(200)
       .end((err, res) => {

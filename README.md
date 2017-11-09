@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=ft-implement-feedback-150996460)](https://travis-ci.org/Ruqoyah/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=ft-implement-feedback-150996460)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=ft-implement-feedback-150996460)
+[![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=develop)](https://travis-ci.org/Ruqoyah/More-Recipes) 
+[![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=develop)
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 

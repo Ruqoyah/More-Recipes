@@ -1,11 +1,11 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
 import { render } from 'react-dom';
-import App from './components/App';
+import App from './Components/App';
 import { Provider } from 'react-redux';
-import configureStore from '../client/store/index';
-import { SET_CURRENT_USER } from '../client/actions/types';
-import { setAuthorizationToken } from '../client/helper/index';
+import configureStore from '../client/Store/index';
+import { SET_CURRENT_USER } from '../client/Actions/Types';
+import { setAuthorizationToken } from '../client/Helper/index';
 import './public/styles/style.scss';
 
 const store = configureStore();

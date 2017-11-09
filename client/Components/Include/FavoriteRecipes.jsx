@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class FavoriteRecipes extends Component{
+  constructor(props){
+    super(props);
+    this.handleViewClick = this.handleViewClick.bind(this);
+  }
 
   handleViewClick(){
-    window.location.href = `/viewrecipe?id=${this.props.id}`
+    window.location.href = `/viewrecipe?id=${this.props.recipeId}&page=favoriterecipe`
   }
 
   render() {
@@ -19,14 +23,6 @@ class FavoriteRecipes extends Component{
           <p className="card-text">{this.props.details}</p>
           <p className="card-text text-right"><small className="text-muted">Recipe by James</small></p>
           <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
-          <a href="" onClick={this.handleUpvoteClick}>
-            <i className="fa fa-thumbs-up" aria-hidden="true" 
-            style={{ fontSize:'25px', color: 'orange'}}></i></a>
-            <span>{this.props.upvotes}</span>
-          <a href="" onClick={this.handleDownvoteClick}>
-            <i className="fa fa-thumbs-down" aria-hidden="true" 
-            style={{ fontSize:'25px', color: 'grey' }}></i></a>
-            <span>{this.props.downvotes}</span>
         </div>
         <div className="card-footer">
           <small className="text-muted">Last updated 3 mins ago</small>
