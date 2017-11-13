@@ -12,6 +12,7 @@ import routes from './server/routes';
 dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 8000;
 
 app.use(webpackMiddleware(webpack(webpackConfig)));
 
@@ -26,7 +27,7 @@ app.use(routes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/index.html'));
 });
-const port = process.env.PORT || 8000;
+
 app.listen(port, () => {
   winston.info(`Connected on port: ${port}`);
 });

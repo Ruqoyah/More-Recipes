@@ -1,7 +1,7 @@
 import {
   GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
   VIEW_RECIPE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE, DELETE_RECIPE,
-  EDIT_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE
+  EDIT_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE, ADD_RECIPE
 } from '../Actions/Types';
 
 const INITIAL_STATE = {
@@ -19,8 +19,17 @@ function recipeReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_USER_RECIPES:
       return { ...state, userRecipe: action.payload };
-    case EDIT_RECIPE:
-      return { ...state, userRecipe: action.payload };
+    case EDIT_RECIPE: {
+      const newArr = [];
+      state.userRecipe.map((obj) => { // eslint-disable-line
+        if (obj.id === action.payload.id) {
+          newArr.push(action.payload);
+        } else {
+          newArr.push(obj);
+        }
+      });
+      return { ...state, userRecipe: newArr };
+    }
     case DELETE_RECIPE: {
       const newState = state.userRecipe.filter(recipe =>
         (recipe.id !== action.id)
@@ -29,6 +38,8 @@ function recipeReducer(state = INITIAL_STATE, action) {
     }
     case GET_RECIPES:
       return { ...state, recipes: action.payload };
+    case ADD_RECIPE:
+      return { ...state, recipes: [...state.recipes, action.payload.data] };
     case SEARCH_RECIPES:
       return { ...state, recipes: action.payload.data };
     case GET_FAVORITE_RECIPES:

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { render } from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../Common/Header';
 import { addRecipeAction, getAllRecipeAction, saveImageToCloud } from '../../Actions/RecipesActions';
 import AllRecipes from '../Include/AllRecipes';
-import Footer from '../Common/Footer';
+import Footer from '../Common/Footer'; 
 
 class RecipePage extends Component {
   constructor(props) {
@@ -24,15 +24,19 @@ class RecipePage extends Component {
       displayRecipe: true,
       imageHeight: 0,
       imageWidth: 0,
+      creator: this.props.user.username,
       image: '',
       imageError: '',
       imageErrorStatus: false,
-      loading: false
+      loading: false,
+      redirectUser: false
     }
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.addRecipe = this.addRecipe.bind(this)
     this.uploadImage = this.uploadImage.bind(this)
+    this.backClick = this.backClick.bind(this)
+    this.onFocus = this.onFocus.bind(this)
   }
 
   onChange(event) {
@@ -70,13 +74,40 @@ class RecipePage extends Component {
     })
   }
 
+  backClick() {
+    this.setState({
+      displayRecipe: true,
+      addRecipe: false
+    })
+  }
+
+  onFocus(event) {
+    this.setState({
+      imageErrorStatus: false,
+      imageError: ''
+    });
+  }
+
   onSubmit(event) {
     event.preventDefault();
-    if(this.state.imageHeight < 200 || this.state.imageWidth < 200) {
+    if(this.state.recipeName.trim() === '' 
+    || this.state.details.trim() === '' 
+    || this.state.ingredient.trim() === '') {
+      toastr.options = {
+        "debug": false,
+        "timeOut": "2000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      };
+      toastr.error('All field are required')
+    }
+    else if(this.state.imageHeight < 200 || this.state.imageWidth < 200) {
       this.setState({
         imageErrorStatus: true,
         loading: false,
-        imageError: 'Image is too small'
+        imageError: 'Image is too small or no Image provided'
       });
     } else {
       this.setState({
@@ -90,34 +121,34 @@ class RecipePage extends Component {
             loading: false,
             picture: this.props.imageUrl
           });
-          addRecipeAction(this.state)
-            .then((recipe) => {
+          this.props.actions.addRecipeAction(this.state)
+          .then(() => {
               toastr.options = {
                 "debug": false,
-                "positionClass": "toast-top-full-width",
                 "timeOut": "2000",
                 "showEasing": "swing",
                 "hideEasing": "linear",
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
               };
-              toastr.options.onHidden = function() { 
-                window.location.href = '/recipe'
-              }
               toastr.success('Recipe added successfully');
             })
+            setTimeout(() => {
+              this.setState({ 
+                displayRecipe: true,
+                addRecipe: false
+              });
+            }, 3000)
          }
       })
-      .catch((error) => {
-        console.log(error);
-      })
+      .catch((error) => error)
     }
   }
 
   renderRecipe() {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
-      return (<div style={{ backgroundColor: '#fff', textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
+      return (<div style={{ textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
     }
     return (<div className="row">
       {
@@ -131,6 +162,8 @@ class RecipePage extends Component {
               views={recipe.views}
               upvotes={recipe.upvotes}
               downvotes={recipe.downvotes}
+              username={recipe.creator}
+              updatedAt={recipe.updatedAt}
               id={recipe.id}
               key={Math.random() * 10}
             />
@@ -141,16 +174,14 @@ class RecipePage extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.getAllRecipeAction(this.props.recipes)
+    this.props.actions.getAllRecipeAction();
   }
-
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.imageDetails) {
       this.setState({ picture: nextProps.imageDetails });
     }
   }
-
   render() {
     const recipeCount = this.props.recipes.length;
     return (
@@ -158,7 +189,7 @@ class RecipePage extends Component {
         <Header /> 
         {
           this.state.addRecipe &&
-          <div className="container-fluid" style={{ width: 500}}>
+          <div className="container-fluid" style={{ width: 350}}>
               <form name="add_recipe" onSubmit={this.onSubmit}>
                 <div className="post-form">
                   <h4 >Food Name</h4>
@@ -170,7 +201,7 @@ class RecipePage extends Component {
                 </div> <hr/>
                 <label className="custom-file">
                   <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
-                    onChange={this.uploadImage} />
+                     onFocus={this.onFocus} onChange={this.uploadImage} />
                 </label>
                 {
                   this.state.loading
@@ -179,7 +210,7 @@ class RecipePage extends Component {
                 :
                   null
                 }
-                <div className="row">
+                <div className="row invalid-feedback" style={{ paddingBottom: '5px'}}>
                   {
                     this.state.imageErrorStatus 
                   ?
@@ -189,7 +220,10 @@ class RecipePage extends Component {
                   }
                 </div>
                 <div className="input-group">
-                  <button type="submit" className="btn btn-outline-danger">Add new Recipe</button>
+                <div className="btn-toolbar">
+                  <button onClick={this.backClick} className="btn btn-outline-danger">Cancel</button>
+                  <button type="submit" className="btn btn-outline-success">Add new Recipe</button>
+                </div>
                 </div>
               </form>
             </div>
@@ -239,6 +273,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       saveImageToCloud,
+      addRecipeAction,
       getAllRecipeAction
     }, dispatch)
   }

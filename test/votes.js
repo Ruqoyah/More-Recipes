@@ -61,14 +61,15 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(201)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        recipeId = res.body.data.recipeId;
+        recipeId = res.body.data.id;
         expect(res.body.message).toBe('Recipe added successfully');
         done();
       });

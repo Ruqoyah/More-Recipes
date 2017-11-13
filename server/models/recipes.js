@@ -5,14 +5,19 @@ export default (sequelize, DataTypes) => {
       allowNull: false
     },
     ingredient: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     details: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     picture: {
+      type: DataTypes.STRING,
+      required: true,
+      allowNull: false
+    },
+    creator: {
       type: DataTypes.STRING,
       required: true,
       allowNull: false

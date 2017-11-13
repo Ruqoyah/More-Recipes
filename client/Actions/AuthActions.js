@@ -1,9 +1,9 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER, SAVE_PROFILE_IMAGE, UNAUTH_USER, GET_USER, EDIT_PROFILE } from './Types';
+import { SET_CURRENT_USER, SAVE_PROFILE_IMAGE, GET_USER, EDIT_PROFILE } from './Types';
 import { setAuthorizationToken } from '../Helper/index';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://more-recipes-app.herokuapp.com';
 
 
 export function signUpAction(userDetails) {
@@ -33,18 +33,6 @@ export function loginAction(userDetails) {
       return res.data.status;
     })
     .catch(error => error.response.data.message);
-}
-
-export function logoutAction() {
-  return (dispatch) => {
-    localStorage.removeItem('token'); // eslint-disable-line
-    setAuthorizationToken(false);
-    dispatch({
-      type: UNAUTH_USER,
-      user: {}
-    });
-    window.location.href = '/'; // eslint-disable-line
-  };
 }
 
 export function getUserProfileAction(userId) {

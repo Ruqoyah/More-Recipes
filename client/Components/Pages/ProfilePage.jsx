@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getUserProfileAction, editProfileAction, saveProfileImage } from '../../Actions/AuthActions';
 import Header from '../Common/Header';
@@ -74,26 +73,14 @@ class ProfilePage extends Component {
         })
         toastr.options = {
           "debug": false,
-          "positionClass": "toast-top-full-width",
           "timeOut": "2000",
           "showEasing": "swing",
           "hideEasing": "linear",
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.options.onHidden = function () {
-        }
         toastr.success('You successfully edit your profile');
       })
-        .catch(error => {
-          this.setState({
-            loading: false,
-            imageErrorStatus: true,
-            error: 'error',
-            redirect: false
-          })
-          console.log(error);
-        })
     } else if (this.state.image) {
       this.setState({ userDetails: { ...this.state.userDetails, picture: this.props.imageUrl } });
 
@@ -120,25 +107,16 @@ class ProfilePage extends Component {
                 });
                 toastr.options = {
                   "debug": false,
-                  "positionClass": "toast-top-full-width",
                   "timeOut": "2000",
                   "showEasing": "swing",
                   "hideEasing": "linear",
                   "showMethod": "fadeIn",
                   "hideMethod": "fadeOut"
                 };
-                toastr.options.onHidden = function () {
-
-                }
                 toastr.success('You successfully edit your profile');
               })
-              .catch(error => {
-                console.log(error);
-              });
           })
-          .catch(error => {
-            console.log(error);
-          })
+          .catch((error) => error)
       }
     }
   }
@@ -254,7 +232,7 @@ class ProfilePage extends Component {
                         <div className="form-group row">
                           <label className="col-lg-3 col-form-label form-control-label"></label>
                           <div className="btn-toolbar">
-                            <button className="btn btn-primary" type="submit" name="submit"
+                            <button className="btn btn-outline-danger" type="submit" name="submit"
                             style={{ marginLeft: '18px'}}
                             disabled={this.state.isLoading}>Save Changes</button>
                           </div>

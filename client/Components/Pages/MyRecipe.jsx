@@ -15,7 +15,7 @@ class AddRecipe extends Component {
   renderRecipe() {
     const allUserRecipe = this.props.userRecipe;
     if (allUserRecipe.length < 1) {
-      return (<div style={{ backgroundColor: '#fff', textAlign: 'center' }}><h3> No Recipe was found </h3></div>);
+      return (<div style={{ textAlign: 'center' }}><h3> No Recipe was found </h3></div>);
     }
     return (<div className="row">
       {

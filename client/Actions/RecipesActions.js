@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, UPVOTE_RECIPE,
   DOWNVOTE_RECIPE, ADD_REVIEW, VIEW_RECIPE, GET_REVIEW, EDIT_RECIPE,
-  DELETE_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE } from './Types';
+  DELETE_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE,
+  ADD_RECIPE } from './Types';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://more-recipes-app.herokuapp.com';
 
 
 export function saveImage(response) {
@@ -27,7 +28,7 @@ export function saveImageToCloud(image) {
       return res.json();
     })
     .then((data) => {
-      dispatch(saveImage(data.secure_url));
+      dispatch(saveImage(data.public_id));
     })
     .catch((error) => {
       throw (error);
@@ -35,7 +36,14 @@ export function saveImageToCloud(image) {
 }
 
 export function addRecipeAction(recipeDetails) {
-  return axios.post(`${API_URL}/api/v1/recipes`, recipeDetails);
+  return dispatch => axios.post(`${API_URL}/api/v1/recipes`, recipeDetails)
+    .then((res) => {
+      dispatch({
+        type: ADD_RECIPE,
+        payload: res.data
+      });
+    })
+    .catch(error => error.response);
 }
 
 export function getUserRecipeAction(userId) {
@@ -181,7 +189,7 @@ export function editRecipeAction(recipeId, editRecipes) {
     .then((res) => {
       dispatch({
         type: EDIT_RECIPE,
-        payload: res.data
+        payload: res.data.data
       });
     })
     .catch(error => error.response);

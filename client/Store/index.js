@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducers from '../reducers/index';
+import rootReducers from '../Reducers/index';
 
 /* eslint-disable no-underscore-dangle */
 export default function configureStore(initialState = {}) {
