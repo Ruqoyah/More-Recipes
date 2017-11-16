@@ -46,21 +46,24 @@ module.exports = {
         include: path.join(__dirname, '/client'),
         exclude: /node_modules/,
       },
-      { test: /(\.s?css)$/,
+      {
+        test: /(\.s?css)$/,
         loader: ExtractTextPlugin.extract('css-loader?sourceMap')
       },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader'
-
       },
-      { test: /\.woff2(\?\S*)?$/,
+      {
+        test: /\.woff2(\?\S*)?$/,
         loader: 'url-loader?limit=100000'
       },
-      { test: /\.woff(\?\S*)?$/,
+      {
+        test: /\.woff(\?\S*)?$/,
         loader: 'url-loader?limit=100000'
       },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=100000&mimetype=application/octet-stream'
       },
       {
@@ -90,8 +93,8 @@ module.exports = {
         test: /materialize-css\/bin\//,
         loader: 'imports-loader?jQuery=jquery,$=jquery,hammerjs'
       },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       },
     ]

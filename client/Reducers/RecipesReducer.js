@@ -8,11 +8,11 @@ const INITIAL_STATE = {
   userRecipe: [],
   recipes: [],
   favoriteRecipes: [],
-  reviews: [],
   viewRecipe: {},
+  reviews: [],
   upvotes: {},
   downvotes: {},
-  imageDetails: ''
+  imageDetails: {}
 };
 
 function recipeReducer(state = INITIAL_STATE, action) {

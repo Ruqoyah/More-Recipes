@@ -38,14 +38,12 @@ button, select {
 
 .btn {
   font-family: 'Gabriela', serif;
+  cursor: pointer;
 }
+
 a:hover {
   color: #ec0303;
   text-decoration: underline;
-}
-
-a {
-  font-family: 'Gabriela', serif;
 }
 
 h6 {
@@ -78,6 +76,7 @@ a {
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+  font-family: 'Gabriela', serif;
 }
 
 body {
@@ -201,6 +200,14 @@ h5 {
   padding: 10%;
 }
 
+.dropdown-item {
+  cursor: pointer;
+}
+
+.icon {
+  cursor: pointer;
+}
+
 .container-fluid{
     margin-top: 2%;
 }
@@ -313,6 +320,22 @@ h5 {
   height: 100%;
   border-top-left-radius: calc(.25rem - 1px);
   border-top-right-radius: calc(.25rem - 1px);
+}
+
+.form-control-file, .form-control-range {
+  display: block;
+  width: 310px;
+}
+
+.btn-outline-success {
+  color: #28a745;
+  background-color: transparent;
+  background-image: none;
+  border-color: #28a745;
+}
+
+.review {
+  float: right;
 }
 
 @media(min-width: 300px) and (max-width: 750px) {

@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 
 module.exports = {
+  devtool: 'inline-sourcemap',
   entry: [
     './client/index.js'],
   output: {
@@ -38,19 +39,24 @@ module.exports = {
         include: path.join(__dirname, '/client'),
         exclude: /node_modules/,
       },
-      { test: /(\.s?css)$/,
+      {
+        test: /(\.s?css)$/,
         loader: ['style-loader', 'css-loader', 'sass-loader']
       },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader'
       },
-      { test: /\.woff2(\?\S*)?$/,
+      {
+        test: /\.woff2(\?\S*)?$/,
         loader: 'url-loader?limit=100000'
       },
-      { test: /\.woff(\?\S*)?$/,
+      {
+        test: /\.woff(\?\S*)?$/,
         loader: 'url-loader?limit=100000'
       },
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=100000&mimetype=application/octet-stream'
       },
       {
@@ -80,7 +86,8 @@ module.exports = {
         test: /bootstrap-css\/bin\//,
         loader: 'imports-loader?jQuery=jquery,$=jquery,tether'
       },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       },
     ]

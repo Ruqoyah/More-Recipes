@@ -67,21 +67,6 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to get reviews for recipe', (done) => {
-    supertest(app)
-      .get(`/api/v1/recipes/${recipeId}/reviews`)
-      .send({
-        token: `${token}`
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No review found');
-        done();
-      });
-  });
   it('should be able to post reviews for recipe', (done) => {
     supertest(app)
       .post(`/api/v1/recipes/${recipeId}/reviews`)

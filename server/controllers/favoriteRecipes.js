@@ -53,6 +53,6 @@ export default {
           res.status(200).json(favoriteRecipe);
         }
       })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   }
 };

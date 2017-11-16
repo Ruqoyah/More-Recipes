@@ -18,8 +18,9 @@ const getRecipeVoteCount = (req) => { // eslint-disable-line
         }).then((downvoteCount) => { // eslint-disable-line
           return Recipes.findById(req.params.recipeId)
             .then((recipe) => { // eslint-disable-line
-              return recipe.update({ upvotes: upvoteCount.count, downvotes: downvoteCount.count },
-                { fields: ['upvotes', 'downvotes'] });
+              return recipe.update({ upvotes: upvoteCount.count,
+                downvotes: downvoteCount.count },
+              { fields: ['upvotes', 'downvotes'] });
             });
         });
     });
@@ -77,7 +78,7 @@ export default {
         })
         .then(() => {
           Recipes.findById(req.params.recipeId).then(result => res.status(200).json({
-            status: 'success',
+            status: true,
             message: 'Recipe modified successfully!',
             data: {
               id: Number(req.params.recipeId),
@@ -87,7 +88,7 @@ export default {
               picture: result.picture }
           }));
         }))
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   },
 
   /** Delete recipe
@@ -104,12 +105,12 @@ export default {
       })
       .then(() => {
         res.status(200).json({
-          status: 'success',
+          status: true,
           message: 'Recipe deleted successfully!',
           id: req.params.recipeId
         });
       })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   },
 
   /** Upvote a recipe
@@ -182,7 +183,7 @@ export default {
         },
         include: [{
           model: db.Reviews,
-          attributes: ['review'],
+          attributes: ['review', 'recipeId'],
           include: [{
             model: db.Users,
             attributes: ['fullName', 'updatedAt'],
@@ -195,7 +196,7 @@ export default {
             .then(() => res.status(200).send(recipe));
         });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   },
 
   getUserRecipes(req, res) {
@@ -221,7 +222,7 @@ export default {
         }
         return res.status(200).json(recipes);
       })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   }
 
 };

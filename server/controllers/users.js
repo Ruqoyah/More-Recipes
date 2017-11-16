@@ -36,6 +36,7 @@ export default {
             };
             const token = jwt.sign({ currentUser }, secret);
             res.status(201).json({
+              status: true,
               message: 'You have successfully signed up',
               data: { token, userId: user.id, }
             });
@@ -43,7 +44,7 @@ export default {
           .then(() => {
             signupNotification(req);
           })
-          .catch(error => res.status(400).json(error));
+          .catch(error => res.status(500).json(error));
       });
   },
 
@@ -114,7 +115,7 @@ export default {
         .then(() => {
           Users.findById(req.params.userId)
             .then(result => res.status(200).json({
-              status: 'success',
+              status: true,
               message: 'Profile updated sucessfully!',
               data: {
                 username: result.username,
@@ -124,7 +125,7 @@ export default {
                 id: result.id }
             }));
         }))
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   },
 
   getUser(req, res) {
@@ -146,6 +147,6 @@ export default {
           picture: user.picture
         });
       })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   }
 };

@@ -2,7 +2,7 @@ import path from 'path';
 import compression from 'compression';
 import express from 'express';
 
-import app from '../app'; // express server
+import app from '../app.js'; // express server
 
 /* eslint-disable no-console */
 
