@@ -6,11 +6,24 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../Common/Header';
-import { addRecipeAction, getAllRecipeAction, saveImageToCloud } from '../../Actions/RecipesActions';
+import { addRecipeAction, 
+          getAllRecipeAction, 
+          saveImageToCloud } from '../../Actions/RecipesActions';
 import AllRecipes from '../Include/AllRecipes';
 import Footer from '../Common/Footer'; 
+import { check } from '../../Helper/index';
 
+/**
+ * @class RecipePage
+ * @classdesc Recipes page component
+ */
 class RecipePage extends Component {
+
+  /**
+   * constructor - contains the constructor
+   * @param  {object} props the properties of the class component
+   * @return {void} no return or void
+   */
   constructor(props) {
     super(props);
     const { userId } = this.props.user;
@@ -39,6 +52,11 @@ class RecipePage extends Component {
     this.onFocus = this.onFocus.bind(this)
   }
 
+  /**
+   * @description - handles the onchange event
+   * @param  {object} event the event for the content field
+   * @return {void}
+   */
   onChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -47,6 +65,11 @@ class RecipePage extends Component {
     })
   }
 
+  /**
+   * @description - handles the upload image event
+   * @param  {object} event the event for the content field
+   * @return {void} no return or void
+   */
   uploadImage(event) {
     event.preventDefault();
     let name = event.target.files[0];
@@ -67,6 +90,10 @@ class RecipePage extends Component {
     file_reader.readAsDataURL(name);
   }
 
+  /**
+   * @description - view add recipe form
+   * @return {void} no return or void
+   */
   addRecipe() {
     this.setState({
       displayRecipe: false,
@@ -74,6 +101,10 @@ class RecipePage extends Component {
     })
   }
 
+  /**
+   * @description - view all recipe page 
+   * @return {void} no return or void
+   */
   backClick() {
     this.setState({
       displayRecipe: true,
@@ -81,6 +112,11 @@ class RecipePage extends Component {
     })
   }
 
+  /**
+   * @description - handles the onFocus event
+   * @param  {object} event the event for the content field
+   * @return {void} no return or void
+   */
   onFocus(event) {
     this.setState({
       imageErrorStatus: false,
@@ -88,11 +124,16 @@ class RecipePage extends Component {
     });
   }
 
+  /**
+   * @description - handles the add recipes and upload image
+   * @param  {object} event the event for the content field
+   */
   onSubmit(event) {
     event.preventDefault();
-    if(this.state.recipeName.trim() === '' 
-    || this.state.details.trim() === '' 
-    || this.state.ingredient.trim() === '') {
+    const recipeName = this.state.recipeName
+    const details = this.state.details
+    const ingredient = this.state.ingredient
+    if(check(recipeName, details, ingredient)) {
       toastr.options = {
         "debug": false,
         "timeOut": "2000",
@@ -103,11 +144,19 @@ class RecipePage extends Component {
       };
       toastr.error('All field are required')
     }
-    else if(this.state.imageHeight < 200 || this.state.imageWidth < 200) {
+    else if(!this.state.image) {
       this.setState({
         imageErrorStatus: true,
         loading: false,
-        imageError: 'Image is too small or no Image provided'
+        imageError: 'No Image provided'
+      });
+    }
+    else if(this.state.imageHeight < 200 
+      || this.state.imageWidth < 200) {
+      this.setState({
+        imageErrorStatus: true,
+        loading: false,
+        imageError: 'Image is too small'
       });
     } else {
       this.setState({
@@ -136,7 +185,8 @@ class RecipePage extends Component {
             setTimeout(() => {
               this.setState({ 
                 displayRecipe: true,
-                addRecipe: false
+                addRecipe: false,
+                image: '',
               });
             }, 3000)
          }
@@ -145,10 +195,18 @@ class RecipePage extends Component {
     }
   }
 
+  /**
+   * @description render - renders recipe details
+   * @return {object} returns an object
+   */
   renderRecipe() {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
-      return (<div style={{ textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
+      return (
+        <div style={{ textAlign: 'center' }}>
+          <h3> No Recipe was found </h3>
+        </div>
+      )
     }
     return (<div className="row">
       {
@@ -173,44 +231,85 @@ class RecipePage extends Component {
       </div>)
   }
 
+  /**
+   * @description - gets all recipes 
+   * @return {void} no return or void
+   */
   componentDidMount() {
     this.props.actions.getAllRecipeAction();
   }
 
+  /**
+   * @description - receive image details and set it to state picture
+   * @return {void} no return or void
+   */
   componentWillReceiveProps(nextProps) {
     if(nextProps.imageDetails) {
       this.setState({ picture: nextProps.imageDetails });
     }
   }
+
+  /**
+   * @description render - renders the class component
+   * @return {object} returns an object
+   */
   render() {
-    const recipeCount = this.props.recipes.length;
     return (
       <div>
         <Header /> 
         {
           this.state.addRecipe &&
-          <div className="container-fluid" style={{ width: 350}}>
-              <form name="add_recipe" onSubmit={this.onSubmit}>
-                <div className="post-form">
+          <div 
+            className="container-fluid" 
+            style={{ width: 350}}>
+              <form 
+                name="add_recipe" 
+                onSubmit={this.onSubmit}>
+                <div 
+                  className="post-form">
                   <h4 >Food Name</h4>
-                  <input name="recipeName" onChange={this.onChange} className="form-control is-valid" required /> <br />
+                  <input 
+                    name="recipeName" 
+                    onChange={this.onChange} 
+                    className="form-control is-valid" 
+                    required /> <br />
                   <h4>Ingredients</h4>
-                  <textarea name="ingredient" onChange={this.onChange} required></textarea>
+                  <textarea 
+                    name="ingredient" 
+                    onChange={this.onChange} 
+                    required>
+                  </textarea>
                   <h4>Cooking direction</h4>
-                  <textarea name="details" onChange={this.onChange} required></textarea>
+                  <textarea 
+                    name="details" 
+                    onChange={this.onChange} 
+                    required>
+                  </textarea>
                 </div> <hr/>
-                <label className="custom-file">
-                  <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
-                     onFocus={this.onFocus} onChange={this.uploadImage} />
+                <label 
+                  className="custom-file">
+                  <input 
+                    type="file" 
+                    className="form-control-file" 
+                    id="exampleInputFile" 
+                    aria-describedby="fileHelp"
+                    onFocus={this.onFocus} 
+                    onChange={this.uploadImage} 
+                    accept=".jpg, .jpeg, .png"/>
                 </label>
                 {
                   this.state.loading
                 ?
-                  <i className="fa fa-circle-o-notch fa-spin" style={{ fontSize: '36px', color: '#FFA500'}}></i>
+                  <i 
+                    className="fa fa-circle-o-notch fa-spin" 
+                    style={{ fontSize: '36px', color: '#FFA500'}}>
+                  </i>
                 :
                   null
                 }
-                <div className="row invalid-feedback" style={{ paddingBottom: '5px'}}>
+                <div 
+                  className="row invalid-feedback" 
+                  style={{ paddingBottom: '5px'}}>
                   {
                     this.state.imageErrorStatus 
                   ?
@@ -219,10 +318,18 @@ class RecipePage extends Component {
                   null
                   }
                 </div>
-                <div className="input-group">
-                <div className="btn-toolbar">
-                  <button onClick={this.backClick} className="btn btn-outline-danger">Cancel</button>
-                  <button type="submit" className="btn btn-outline-success">Add new Recipe</button>
+                <div 
+                  className="input-group">
+                <div 
+                  className="btn-toolbar">
+                  <button 
+                    onClick={this.backClick} 
+                    className="btn btn-outline-danger">Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    className="btn btn-outline-success">Add new Recipe
+                  </button>
                 </div>
                 </div>
               </form>
@@ -231,36 +338,30 @@ class RecipePage extends Component {
         {
           this.state.displayRecipe &&
         <div>
-        <div style={{ textAlign: 'center', alignItems: 'center', margin: 20 }}>
-        <button className="btn btn-outline-danger btn-lg" onClick={this.addRecipe}>Add new Recipe
-        <i className="fa fa-plus" aria-hidden="true"></i></button>
+        <div 
+          style={{ textAlign: 'center', alignItems: 'center', margin: 20 }}>
+        <button 
+          className="btn btn-outline-danger btn-lg" 
+          onClick={this.addRecipe}>Add new Recipe
+          <i 
+            className="fa fa-plus" 
+            aria-hidden="true">
+          </i>
+        </button>
         </div>
         {this.renderRecipe()}
         </div>
         }
-        {(recipeCount > 12
-          ?
-          <nav aria-label="Page navigation example">
-            <ul className="pagination justify-content-center">
-              <li className="page-item disabled">
-                <a className="page-link" href="#" tabIndex="-1">Previous</a>
-              </li>
-              <li className="page-item"><a className="page-link" href="#">1</a></li>
-              <li className="page-item"><a className="page-link" href="#">2</a></li>
-              <li className="page-item"><a className="page-link" href="#">3</a></li>
-              <li className="page-item">
-                <a className="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
-          :
-          ''
-        )}
         <Footer />
       </div>);
   }
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ * @param  {object} state the store state
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
   return {
     recipes: state.recipe.recipes,
@@ -269,6 +370,11 @@ function mapStateToProps(state) {
   }
 }
 
+/**
+ * mapDispatchToProps - maps dispatch to props value
+ * @param  {Function} dispatch dispatchs function
+ * @return {Object} returns an Object
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

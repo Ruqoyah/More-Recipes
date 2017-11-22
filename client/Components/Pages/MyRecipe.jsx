@@ -8,14 +8,24 @@ import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 import MyRecipes from '../Include/MyRecipes';
 
+/**
+ * @class MyRecipe
+ * @classdesc get user recipes and allow user to edit or delete recipes
+ */
+class MyRecipe extends Component {
 
-
-class AddRecipe extends Component {
-
+  /**
+   * @description render - renders user recipes
+   * @return {object} returns an object
+   */
   renderRecipe() {
     const allUserRecipe = this.props.userRecipe;
     if (allUserRecipe.length < 1) {
-      return (<div style={{ textAlign: 'center' }}><h3> No Recipe was found </h3></div>);
+      return (
+        <div style={{ textAlign: 'center' }}>
+          <h3> No Recipe was found </h3>
+        </div>
+      );
     }
     return (<div className="row">
       {
@@ -39,11 +49,18 @@ class AddRecipe extends Component {
     )
   }
 
+  /**
+   * @description - gets user recipes 
+   * @return {void} no return or void
+   */
   componentDidMount() {
     this.props.actions.getUserRecipeAction(this.props.user.userId)
-    
   }
 
+  /**
+   * @description render - renders the class component
+   * @return {object} returns an object
+   */
   render() {
     return (
       <div>
@@ -54,6 +71,11 @@ class AddRecipe extends Component {
   }
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ * @param  {object} state the store state
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
@@ -61,6 +83,11 @@ function mapStateToProps(state) {
   }
 }
 
+/**
+ * mapDispatchToProps - maps dispatch to props value
+ * @param  {Function} dispatch dispatchs function
+ * @return {Object} returns an Object
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
@@ -69,4 +96,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);
+export default connect(mapStateToProps, mapDispatchToProps)(MyRecipe);

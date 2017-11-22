@@ -5,7 +5,11 @@ import { setAuthorizationToken } from '../Helper/index';
 
 const API_URL = 'https://more-recipes-app.herokuapp.com';
 
-
+/**
+ * @description Request to the API to register a user
+ * @param  {object} userDetails the user deatils to be saved
+ * @return {object} dispatch object
+ */
 export function signUpAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signup`, userDetails)
     .then((res) => {
@@ -20,6 +24,11 @@ export function signUpAction(userDetails) {
     .catch(error => error.response.data);
 }
 
+/**
+ * @description Request to the API to login user
+ * @param  {object} userDetails the user deatils to be saved
+ * @return {object} dispatch object
+ */
 export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signin`, userDetails)
     .then((res) => {
@@ -35,6 +44,10 @@ export function loginAction(userDetails) {
     .catch(error => error.response.data.message);
 }
 
+/**
+ * @description Request to the API to get user details
+ * @return {object} dispatch object
+ */
 export function getUserProfileAction(userId) {
   return dispatch => axios.get(`${API_URL}/api/v1/users/${userId}`)
     .then((res) => {
@@ -46,6 +59,9 @@ export function getUserProfileAction(userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Save image
+ */
 export function saveImage(response) {
   return {
     type: SAVE_PROFILE_IMAGE,
@@ -53,6 +69,10 @@ export function saveImage(response) {
   };
 }
 
+/**
+ * @description Request to save image to cloudinary
+ * @return {string} dispatch object
+ */
 export function saveProfileImage(image) {
   const request = 'https://api.cloudinary.com/v1_1/ruqoyah/upload/';
   const cloudPreset = 'amrbhh2u';
@@ -67,20 +87,28 @@ export function saveProfileImage(image) {
       return res.json();
     })
     .then((data) => {
-      dispatch(saveImage(data.secure_url));
+      dispatch(saveImage(data.public_id));
     })
     .catch((error) => {
       throw (error);
     });
 }
 
+ /**
+ * @description Request to the API to edit user profile
+ * @param  {object} userDetails the user deatils to be saved
+ * @return {object} dispatch object
+ */
 export function editProfileAction(userId, userDetails) {
   return dispatch => axios.put(`${API_URL}/api/v1/user/${userId}`, userDetails)
     .then((res) => {
+      return res.data.message;
       dispatch({
         type: EDIT_PROFILE,
         user: res.data
       });
     })
-    .catch(error => error.response);
+    .catch(error => {
+      return Promise.reject(error.response.data.message);
+    });
 }

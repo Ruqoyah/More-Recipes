@@ -19,14 +19,14 @@ export default {
       })
       .then((review) => {
         res.status(200).json({
-          status: 'success',
+          status: true,
           data: review
         });
       })
       .then(() => {
         reviewNotification(req);
       })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   },
 
   /** Get reviews
@@ -40,14 +40,8 @@ export default {
         where: { recipeId: req.params.recipeId }
       })
       .then((reviews) => {
-        if (reviews.length < 1) {
-          res.status(404).json({
-            message: 'No review found'
-          });
-        } else {
-          res.status(200).json(reviews);
-        }
+        res.status(200).json(reviews);
       })
-      .catch(error => res.status(400).json(error));
+      .catch(error => res.status(500).json(error));
   }
 };

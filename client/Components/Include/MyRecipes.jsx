@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
-import { Image, Transformation } from 'cloudinary-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import swal from 'sweetalert';
-import { deleteRecipeAction, editRecipeAction, saveImageToCloud } from '../../Actions/RecipesActions';
+import { deleteRecipeAction, 
+          editRecipeAction, 
+          saveImageToCloud } from '../../Actions/RecipesActions';
 import { Link, Redirect } from 'react-router-dom';
+import { check } from '../../Helper/index';
 
-
+/**
+ * @class MyRecipes
+ * @classdesc get user recipes and allow user to edit or delete recipes
+ */
 class MyRecipes extends Component {
+
+  /**
+   * constructor - contains the constructor
+   * @param  {object} props the properties of the class component
+   * @return {void} no return or void
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -34,12 +45,22 @@ class MyRecipes extends Component {
     this.handleViewClick = this.handleViewClick.bind(this);
   }
 
+  /**
+   * @description - handles the onchange event
+   * @param  {object} event the event for the content field
+   * @return {void}
+   */
   onChange(event) {
     const eventName = event.target.name;
     const eventValue = event.target.value;
     this.setState({[eventName]: eventValue});
   }
 
+  /**
+   * @description - handles the view click event
+   * @param  {object} event the event for the content field
+   * @return {void} no return or void
+   */
   handleViewClick(event){
     event.preventDefault();
     this.setState({ redirectOnClick: true });
@@ -66,6 +87,10 @@ class MyRecipes extends Component {
       });
   }
 
+  /**
+   * @description - view edit recipe form
+   * @return {void} no return or void
+   */
   editClick() {
     this.setState({
       displayRecipe: false,
@@ -73,6 +98,10 @@ class MyRecipes extends Component {
     })
   }
 
+  /**
+   * @description - view my recipe page 
+   * @return {void} no return or void
+   */
   backClick() {
     this.setState({
       displayRecipe: true,
@@ -80,6 +109,11 @@ class MyRecipes extends Component {
     })
   }
 
+  /**
+   * @description - handles the upload image event
+   * @param  {object} event the event for the content field
+   * @return {void} no return or void
+   */
   uploadImage(event) {
     event.preventDefault();
     let name = event.target.files[0];
@@ -100,11 +134,16 @@ class MyRecipes extends Component {
     file_reader.readAsDataURL(name);
   }
 
+  /**
+   * @description - handles the edit recipes and image
+   * @param  {object} event the event for the content field
+   */
   onSubmit(event) {
     event.preventDefault();
-    if(this.state.recipeName.trim() === '' 
-    || this.state.details.trim() === '' 
-    || this.state.ingredient.trim() === '') {
+    const recipeName = this.state.recipeName
+    const details = this.state.details
+    const ingredient = this.state.ingredient
+    if(check(recipeName, details, ingredient)) {
       toastr.options = {
         "debug": false,
         "timeOut": "2000",
@@ -186,6 +225,10 @@ class MyRecipes extends Component {
   }
 }
 
+  /**
+   * @description render - renders the class component
+   * @return {object} returns an object
+   */
   render() {
     return (
       this.state.redirectOnClick 
@@ -195,40 +238,63 @@ class MyRecipes extends Component {
       <div className="col-sm-3">
       {
         this.state.editRecipe &&
-        <form name="add_recipe" onSubmit={this.onSubmit}>
-          <div className="post-form">
+        <form name="add_recipe" 
+          onSubmit={this.onSubmit}>
+          <div 
+            className="post-form">
             <h4>Food Name</h4>
-            <input name="recipeName" className="form-control is-valid"
+            <input 
+              name="recipeName" 
+              className="form-control is-valid"
               defaultValue={this.state.recipeName}
               onChange={this.onChange}
               required /> <br />
             <h4>Ingredients</h4>
-            <textarea name="ingredient"
+            <textarea 
+              name="ingredient"
               defaultValue={this.state.ingredient}
               onChange={this.onChange}
               required></textarea>
             <h4>Cooking direction</h4>
-            <textarea name="details"
+            <textarea 
+              name="details"
               defaultValue={this.state.details}
               onChange={this.onChange}
               required></textarea>
           </div>
-          <label className="custom-file">
-            <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
+          <label 
+            className="custom-file">
+            <input 
+              type="file" 
+              className="form-control-file" 
+              id="exampleInputFile" 
+              aria-describedby="fileHelp"
               defaultValue={this.state.picture}
-              onChange={this.uploadImage} />
+              onChange={this.uploadImage}
+              accept=".jpg, .jpeg, .png" />
           </label>
           {
             this.state.loading
             ?
-            <i className="fa fa-circle-o-notch fa-spin" style={{ fontSize: '36px', color: '#FFA500' }}></i>
+            <i 
+              className="fa fa-circle-o-notch fa-spin" 
+              style={{ fontSize: '36px', color: '#FFA500' }}>
+            </i>
             :
             null
           }
-          <div className="input-group">
-            <div className="btn-toolbar">
-              <button onClick={this.backClick} className="btn btn-outline-danger">Cancel</button>
-              <button type="submit" className="btn btn-outline-success">Save</button>
+          <div 
+            className="input-group">
+            <div 
+              className="btn-toolbar">
+              <button 
+                onClick={this.backClick} 
+                className="btn btn-outline-danger">Cancel
+              </button>
+              <button 
+                type="submit" 
+                className="btn btn-outline-success">Save
+              </button>
             </div>
           </div>
         </form>
@@ -237,17 +303,34 @@ class MyRecipes extends Component {
         this.state.displayRecipe &&
         <div className="card">
         <div>
-        <Image cloudName="ruqoyah" className="card-img-top" publicId={this.props.picture}>
-        <Transformation width="302" height="200" crop="fill" />
-        </Image>
+          <img
+            src={`http://res.cloudinary.com/ruqoyah/image/upload/c_fill,h_200,w_302/${this.props.picture}`}
+          />
         </div>
-        <div className="card-body">
-          <h4 className="card-title ellipses">{this.props.recipeName}</h4>
-          <p className="card-text ellipses">{this.props.details}</p>
-          <button onClick={this.handleViewClick} className="btn btn-success">Read more</button> <hr/>
-          <div className="btn-toolbar">
-            <a href="#" onClick={this.editClick} className="btn btn-outline-primary">Edit</a>
-            <a href="#" onClick={this.onClick} className="btn btn-outline-danger">Delete</a>
+        <div 
+          className="card-body">
+          <h4 
+            className="card-title ellipses">
+            {this.props.recipeName}
+          </h4>
+          <p 
+            className="card-text ellipses">
+            {this.props.details}
+          </p>
+          <button 
+            onClick={this.handleViewClick} 
+            className="btn btn-success">Read more
+          </button> <hr/>
+          <div 
+            className="btn-toolbar">
+            <button 
+              onClick={this.editClick} 
+              className="btn btn-outline-primary">Edit
+            </button>
+            <button 
+              onClick={this.onClick} 
+              className="btn btn-outline-danger">Delete
+            </button>
           </div>
         </div>
       </div>
@@ -256,6 +339,11 @@ class MyRecipes extends Component {
   }
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ * @param  {object} state the store state
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
@@ -263,6 +351,11 @@ function mapStateToProps(state) {
   }
 }
 
+/**
+ * mapDispatchToProps - maps dispatch to props value
+ * @param  {Function} dispatch dispatchs function
+ * @return {Object} returns an Object
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

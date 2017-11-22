@@ -3,12 +3,23 @@ import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { getUserProfileAction, editProfileAction, saveProfileImage } from '../../Actions/AuthActions';
+import { getUserProfileAction, 
+          editProfileAction, 
+          saveProfileImage } from '../../Actions/AuthActions';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 
+/**
+ * @class ProfilePage
+ * @classdesc get user Profile and allow user to edit profile
+ */
 class ProfilePage extends Component {
 
+  /**
+   * constructor - contains the constructor
+   * @param  {object} props the properties of the class component
+   * @return {void} no return or void
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +36,11 @@ class ProfilePage extends Component {
     this.uploadImage = this.uploadImage.bind(this)
   }
 
+  /**
+   * @description - handles the upload image event
+   * @param  {object} event the event for the content field
+   * @return {void} no return or void
+   */
   uploadImage(event) {
     event.preventDefault();
     let name = event.target.files[0];
@@ -45,6 +61,11 @@ class ProfilePage extends Component {
     file_reader.readAsDataURL(name);
   }
 
+  /**
+   * @description - handles the onchange event
+   * @param  {object} event the event for the content field
+   * @return {void}
+   */
   onChange(event) {
     const eventName = event.target.name;
     const eventValue = event.target.value;
@@ -53,20 +74,28 @@ class ProfilePage extends Component {
     this.setState({ userDetails: temp });
   }
 
-
+  /**
+   * @description - handles the edit profile and upload image
+   * @param  {object} event the event for the content field
+   */
   onSubmit(event) {
     event.preventDefault();
-
-    //************************************************************************//
-    //*THIS SECTION HANDLES THE EDITING OF PROFILE WITHOUT SELECTING AN IMAGE*//
-    //***********************************************************************//
-    this.setState({
-      imageErrorStatus: false,
-      loading: true
-    })
-    // Edit profile if there is no image selected
+    const fullName = this.state.userDetails.fullName
+    const username = this.state.userDetails.username
+    if(fullName.trim() === '' || username.trim() === '' ) {
+      toastr.options = {
+        "debug": false,
+        "timeOut": "2000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      };
+      return toastr.error('All field are required')
+    }
     if (!this.state.image) {
-      this.props.actions.editProfileAction(this.props.userId, this.state.userDetails).then(() => {
+      this.props.actions.editProfileAction(this.props.userId, this.state.userDetails)
+      .then((message) => {
         this.setState({
           loading: false,
           imageErrorStatus: false
@@ -79,18 +108,30 @@ class ProfilePage extends Component {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.success('You successfully edit your profile');
+        toastr.success(message);
+      })
+      .catch(message => {
+        toastr.options = {
+          "debug": false,
+          "timeOut": "2000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.error(message);
       })
     } else if (this.state.image) {
-      this.setState({ userDetails: { ...this.state.userDetails, picture: this.props.imageUrl } });
-
-      //Check File size
+      this.setState({ 
+        userDetails: { 
+          ...this.state.userDetails, 
+          picture: this.props.imageUrl 
+        } });
       if (this.state.imageHeight < 200 || this.state.imageWidth < 200) {
         this.setState({
           loading: false,
           imageError: 'Image is too small.',
-          imageErrorStatus: true,
-          disableBtn: false
+          imageErrorStatus: true
         });
       } else {
         this.setState({
@@ -98,9 +139,14 @@ class ProfilePage extends Component {
         })
         this.props.actions.saveProfileImage(this.state.image)
           .then(() => {
-            this.setState({ loading: false, userDetails: { ...this.state.userDetails, picture: this.props.imageUrl } });
+            this.setState({ 
+              loading: false, 
+              userDetails: { 
+                ...this.state.userDetails, 
+                picture: this.props.imageUrl 
+              } });
             this.props.actions.editProfileAction(this.props.userId, this.state.userDetails)
-              .then(() => {
+              .then((message) => {
                 this.setState({
                   loading: false,
                   imageErrorStatus: false
@@ -113,30 +159,57 @@ class ProfilePage extends Component {
                   "showMethod": "fadeIn",
                   "hideMethod": "fadeOut"
                 };
-                toastr.success('You successfully edit your profile');
+                toastr.success(message);
               })
+              .catch(message => {
+                toastr.options = {
+                  "debug": false,
+                  "timeOut": "2000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                };
+                toastr.error(message);
+              })
+              this.setState({ 
+                image: ''
+              });
           })
-          .catch((error) => error)
       }
     }
   }
 
-  componentWillMount() {
+  /**
+   * @description - gets user profile 
+   * @return {void} no return or void
+   */
+  componentDidMount() {
     this.props.actions.getUserProfileAction(this.props.userId)
   }
 
+  /**
+   * @description - receive user details and set it to state userDetails
+   * @return {void} no return or void
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.id) {
-      this.setState({ userDetails: nextProps.user });
+      this.setState({ 
+        userDetails: nextProps.user 
+      });
     }
   }
 
 
+  /**
+   * @description render - renders the class component
+   * @return {object} returns an object
+   */
   render() {
-    const fullName = this.state.fullName;
-    const username = this.state.username;
-    const email = this.state.email;
-    const picture = this.props.picture;
+    const fullName = this.state.userDetails.fullName;
+    const username = this.state.userDetails.username;
+    const email = this.state.userDetails.email;
+    const picture = this.state.userDetails.picture;
 
     return (
       <div>
@@ -149,33 +222,65 @@ class ProfilePage extends Component {
               :
               <div className="row my-2">
                 <div className="col-lg-4 order-lg-1 text-center">
-                  <img src={this.state.userDetails.picture} className="mx-auto img-fluid img-circle d-block"
-                    alt="picture" /><hr />
-                  <label className="custom-file">
-                    <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"
-                      onChange={this.uploadImage} />
+                <div>
+                { this.state.userDetails.picture === null ? 
+                <img src='/images/picture.png' 
+                  style={{ width:'300px', height: '300px' }}/> 
+                :
+                <img 
+                  src={`http://res.cloudinary.com/ruqoyah/image/upload/c_fill,h_300,w_300/${this.state.userDetails.picture}`}/>
+                } 
+                </div><hr />
+                  <label 
+                    className="custom-file">
+                    <input 
+                      type="file" 
+                      className="form-control-file" 
+                      id="exampleInputFile" 
+                      aria-describedby="fileHelp"
+                      onChange={this.uploadImage} 
+                      accept=".jpg, .jpeg, .png" />
                   </label>
                   {
                     this.state.loading
                     ?
-                    <i className="fa fa-circle-o-notch fa-spin" style={{ fontSize: '36px', color: '#FFA500' }}></i>
+                    <i 
+                      className="fa fa-circle-o-notch fa-spin" 
+                      style={{ fontSize: '36px', color: '#FFA500' }}></i>
                     :
                     null
                   }
                 </div>
-                <div className="col-lg-8 order-lg-2">
-                  <ul className="nav nav-tabs">
-                    <li className="nav-item">
-                      <a href="" data-target="#profile" data-toggle="tab" className="nav-link active">Profile</a>
+                <div 
+                  className="col-lg-8 order-lg-2">
+                  <ul 
+                    className="nav nav-tabs">
+                    <li 
+                      className="nav-item">
+                      <a 
+                        data-target="#profile" 
+                        data-toggle="tab" 
+                        className="nav-link active icon">Profile
+                      </a>
                     </li>
-                    <li className="nav-item">
-                      <a href="" data-target="#edit" data-toggle="tab" className="nav-link">Edit</a>
+                    <li 
+                      className="nav-item">
+                      <a 
+                        data-target="#edit" 
+                        data-toggle="tab" 
+                        className="nav-link icon">Edit
+                      </a>
                     </li>
                   </ul>
-                  <div className="tab-content py-4">
-                    <div className="tab-pane active" id="profile">
-                      <div className="row">
-                        <div className="col-md-6">
+                  <div 
+                    className="tab-content py-4">
+                    <div 
+                      className="tab-pane active" 
+                      id="profile">
+                      <div 
+                        className="row">
+                        <div 
+                          className="col-md-6">
                           <h6><strong>Username</strong></h6>
                           <p>
                             {this.state.userDetails.username}
@@ -191,11 +296,21 @@ class ProfilePage extends Component {
                         </div>
                       </div>
                     </div>
-                    <div className="tab-pane" id="edit">
-                      {<form role="form" onSubmit={this.onSubmit} >
-                        <div className="form-group row">
-                          <label className="col-lg-3 col-form-label form-control-label"><strong>Full Name</strong></label>
-                          <div className="col-lg-9">
+                    <div 
+                      className="tab-pane" 
+                      id="edit">
+                      {
+                      <form 
+                        role="form" 
+                        onSubmit={this.onSubmit} >
+                        <div 
+                          className="form-group row">
+                          <label 
+                            className="col-lg-3 col-form-label form-control-label">
+                          <strong>Full Name</strong>
+                          </label>
+                          <div 
+                            className="col-lg-9">
                             <input
                               className="form-control"
                               type="text"
@@ -205,9 +320,14 @@ class ProfilePage extends Component {
                               required />
                           </div>
                         </div>
-                        <div className="form-group row">
-                          <label className="col-lg-3 col-form-label form-control-label"><strong>Email</strong></label>
-                          <div className="col-lg-9">
+                        <div 
+                          className="form-group row">
+                          <label 
+                            className="col-lg-3 col-form-label form-control-label">
+                          <strong>Email</strong>
+                          </label>
+                          <div 
+                            className="col-lg-9">
                             <input
                               className="form-control"
                               type="email"
@@ -217,9 +337,14 @@ class ProfilePage extends Component {
                               required />
                           </div>
                         </div>
-                        <div className="form-group row">
-                          <label className="col-lg-3 col-form-label form-control-label"><strong>Username</strong></label>
-                          <div className="col-lg-9">
+                        <div 
+                          className="form-group row">
+                          <label 
+                            className="col-lg-3 col-form-label form-control-label">
+                          <strong>Username</strong>
+                          </label>
+                          <div 
+                            className="col-lg-9">
                             <input
                               className="form-control"
                               type="text"
@@ -229,15 +354,23 @@ class ProfilePage extends Component {
                               required />
                           </div>
                         </div>
-                        <div className="form-group row">
-                          <label className="col-lg-3 col-form-label form-control-label"></label>
-                          <div className="btn-toolbar">
-                            <button className="btn btn-outline-danger" type="submit" name="submit"
-                            style={{ marginLeft: '18px'}}
-                            disabled={this.state.isLoading}>Save Changes</button>
+                        <div 
+                          className="form-group row">
+                          <label 
+                            className="col-lg-3 col-form-label form-control-label">
+                          </label>
+                          <div 
+                            className="btn-toolbar">
+                            <button 
+                              className="btn btn-outline-danger" 
+                              type="submit" 
+                              name="submit"
+                              style={{ marginLeft: '18px'}}>Save Changes
+                            </button>
                           </div>
                         </div>
-                      </form>}
+                      </form>
+                    }
                     </div>
                   </div>
                 </div>
@@ -249,8 +382,19 @@ class ProfilePage extends Component {
   }
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ * @param  {object} state the store state
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
-  const tempUserDetails = { fullName: '', id: '', picture: '', username: '', email: '' }
+  const tempUserDetails = { 
+    fullName: '', 
+    id: '', 
+    picture: '',
+    username: '', 
+    email: '' 
+  }
   return {
     usersTempDetails: tempUserDetails,
     imageUrl: state.auth.imageDetails,
@@ -259,6 +403,11 @@ function mapStateToProps(state) {
   }
 }
 
+/**
+ * mapDispatchToProps - maps dispatch to props value
+ * @param  {Function} dispatch dispatchs function
+ * @return {Object} returns an Object
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({

@@ -113,7 +113,7 @@ export default {
           }
           return res.status(200).json(recipes);
         })
-        .catch(error => res.status(400).json(error));
+        .catch(error => res.status(500).json(error));
     }
   }
 };

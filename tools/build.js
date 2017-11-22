@@ -1,9 +1,12 @@
+// More info on Webpack's Node API here: https://webpack.github.io/docs/node.js-api.html
+// Allowing console calls below since this is a build file.
+/* eslint-disable no-console */
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.prod';
 
 process.NODE_ENV = 'production';
 
-console.log('Generatng minified bundle files via Webpack, This will take a moment');
+console.log('Generating minified bundle files via Webpack, This will take a moment');
 
 webpack(webpackConfig).run((error, stats) => {
   if (error) {

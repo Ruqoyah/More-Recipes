@@ -6,7 +6,9 @@ import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, UP
 
 const API_URL = 'https://more-recipes-app.herokuapp.com';
 
-
+/**
+ * @description Save image
+ */
 export function saveImage(response) {
   return {
     type: SAVE_RECIPE_IMAGE,
@@ -14,6 +16,10 @@ export function saveImage(response) {
   };
 }
 
+/**
+ * @description Request to save image to cloudinary
+ * @return {string} dispatch object
+ */
 export function saveImageToCloud(image) {
   const request = 'https://api.cloudinary.com/v1_1/ruqoyah/upload/';
   const cloudPreset = 'amrbhh2u';
@@ -35,6 +41,11 @@ export function saveImageToCloud(image) {
     });
 }
 
+/**
+ * @description Request to the API to add recipe
+ * @param  {object} recipeDetails the recipe details to be saved
+ * @return {object} dispatch object
+ */
 export function addRecipeAction(recipeDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/recipes`, recipeDetails)
     .then((res) => {
@@ -46,6 +57,11 @@ export function addRecipeAction(recipeDetails) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to get user recipes
+ * @param  {Number} userId the user id passed in the param
+ * @return {object} dispatch array
+ */
 export function getUserRecipeAction(userId) {
   return dispatch => axios.get(`${API_URL}/api/v1/${userId}/recipes`)
     .then((res) => {
@@ -57,6 +73,10 @@ export function getUserRecipeAction(userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to get all recipes
+ * @return {object} dispatch array
+ */
 export function getAllRecipeAction() {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes`)
     .then((res) => {
@@ -68,6 +88,11 @@ export function getAllRecipeAction() {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to search for recipes
+ * @param  {string} search the value that need to be shown
+ * @return {object} dispatch object
+ */
 export function searchRecipesAction(search) {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes?search=${search}`)
     .then((res) => {
@@ -79,12 +104,22 @@ export function searchRecipesAction(search) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to favorite recipe
+ * @param  {Number} recipeId the recipe id to be pass in the param
+ * @return {object} dispatch object
+ */
 export function favoriteAction(recipeId, userId) {
   return axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`, { userId })
     .then(res => res.data.status)
     .catch(error => error.response.data.status);
 }
 
+/**
+ * @description Request to the API to get favorite recipe
+ * @param  {Number} userId the user id to be pass in the param
+ * @return {object} dispatch object
+ */
 export function getFavoriteAction(userId) {
   return dispatch => axios.get(`${API_URL}/api/v1/users/${userId}/recipes`)
     .then((res) => {
@@ -96,6 +131,11 @@ export function getFavoriteAction(userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to upvote recipes
+ * @param  {Number} recipeId the recipe id to be pass in the param
+ * @return {object} dispatch object
+ */
 export function upvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
     .then((res) => {
@@ -107,6 +147,11 @@ export function upvoteRecipeAction(recipeId, userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to downvote recipes
+ * @param  {Number} recipeId the recipe id to be pass to the param
+ * @return {object} dispatch object
+ */
 export function downvoteRecipeAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
     .then((res) => {
@@ -118,6 +163,11 @@ export function downvoteRecipeAction(recipeId, userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to upvote view recipe
+ * @param  {Number} recipeId the recipe id to be pass to the param
+ * @return {object} dispatch object
+ */
 export function viewUpvoteAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
     .then((res) => {
@@ -129,6 +179,12 @@ export function viewUpvoteAction(recipeId, userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to downvote view recipe
+ * @param  {Number} recipeId the recipe id to be pass to the param
+ * @param  {Number} userId the user id to be saved in databsae
+ * @return {object} dispatch object
+ */
 export function viewDownvoteAction(recipeId, userId) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
     .then((res) => {
@@ -140,6 +196,11 @@ export function viewDownvoteAction(recipeId, userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to view recipe
+ * @param  {Number} recipeId the recipe id to be pass to the param
+ * @return {object} dispatch object
+ */
 export function viewRecipeAction(recipeId) {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}`)
     .then((res) => {
@@ -151,6 +212,12 @@ export function viewRecipeAction(recipeId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to review recipe
+ * @param  {Number} recipeId the recipe id to be pass to the param
+ * @param  {string} details the review to be save in database
+ * @return {object} dispatch object
+ */
 export function reviewRecipeAction(recipeId, details) {
   return dispatch => axios.post(`${API_URL}/api/v1/recipes/${recipeId}/reviews`, details)
     .then((res) => {
@@ -162,6 +229,11 @@ export function reviewRecipeAction(recipeId, details) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to get recipe reviews
+ * @param  {Number} recipeId the recipe id to be pass in the param
+ * @return {object} dispatch object
+ */
 export function getReviewAction(recipeId) {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}/reviews`)
     .then((res) => {
@@ -173,6 +245,12 @@ export function getReviewAction(recipeId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to delete recipes
+ * @param  {Number} recipeId the recipe id to be pass in the param
+ * @param  {Number} userId the user id to be save in database
+ * @return {object} dispatch object
+ */
 export function deleteRecipeAction(recipeId, userId) {
   return dispatch => axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`, userId)
     .then((res) => {
@@ -184,6 +262,12 @@ export function deleteRecipeAction(recipeId, userId) {
     .catch(error => error.response);
 }
 
+/**
+ * @description Request to the API to edit recipes
+ * @param  {Number} recipeId the recipe id to be pass in the param
+ * @param  {object} editRecipes the details to be save in database
+ * @return {object} dispatch object
+ */
 export function editRecipeAction(recipeId, editRecipes) {
   return dispatch => axios.put(`${API_URL}/api/v1/recipes/${recipeId}`, editRecipes)
     .then((res) => {

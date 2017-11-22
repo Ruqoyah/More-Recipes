@@ -8,12 +8,24 @@ import FavoriteRecipes from '../Include/FavoriteRecipes';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
 
+/**
+ * @class FavoriteRecipe
+ * @classdesc favorite recipe component
+ */
 class FavoriteRecipe extends Component {
 
+  /**
+   * @description render - renders favorite recipe details
+   * @return {object} returns an object
+   */
   renderRecipe() {
     const allRecipes = this.props.favoriteRecipes;
     if (allRecipes.length < 1) {
-      return (<div style={{ textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
+      return (
+        <div style={{ textAlign: 'center' }}>
+          <h3> No Recipe was found </h3>
+        </div>
+      )
     }
     return (<div className="row">
       {
@@ -38,39 +50,33 @@ class FavoriteRecipe extends Component {
       </div>)
   }
 
+  /**
+   * @description - gets favorite recipes 
+   * @return {void} no return or void
+   */
   componentDidMount() {
     this.props.actions.getFavoriteAction(this.props.user.userId)
   }
 
+  /**
+   * @description render - renders the class component
+   * @return {object} returns an object
+   */
   render() {
-    const recipeCount = this.props.favoriteRecipes.length;
     return (
       <div>
         <Header /> 
         {this.renderRecipe()}
-        {(recipeCount > 12 
-          ?
-          <nav aria-label="Page navigation example">
-            <ul className="pagination justify-content-center">
-              <li className="page-item disabled">
-                <a className="page-link" href="#" tabIndex="-1">Previous</a>
-              </li>
-              <li className="page-item"><a className="page-link" href="#">1</a></li>
-              <li className="page-item"><a className="page-link" href="#">2</a></li>
-              <li className="page-item"><a className="page-link" href="#">3</a></li>
-              <li className="page-item">
-                <a className="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
-          :
-          ''
-        )}
         <Footer />
       </div>);
   }
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ * @param  {object} state the store state
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
@@ -78,6 +84,11 @@ function mapStateToProps(state) {
   }
 }
 
+/**
+ * mapDispatchToProps - maps dispatch to props value
+ * @param  {Function} dispatch dispatchs function
+ * @return {Object} returns an Object
+ */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
