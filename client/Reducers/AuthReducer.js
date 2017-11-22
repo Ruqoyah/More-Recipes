@@ -3,12 +3,7 @@ import { SET_CURRENT_USER, GET_USER, EDIT_PROFILE, SAVE_PROFILE_IMAGE } from '..
 const INITIAL_STATE = {
   userExist: '',
   user: '',
-  userProfile: {
-    fullName: '',
-    username: '',
-    email: '',
-    picture: ''
-  },
+  userProfile: {},
   imageDetails: ''
 };
 

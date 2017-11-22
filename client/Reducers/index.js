@@ -5,7 +5,6 @@ import RecipeReducer from './RecipesReducer';
 const rootReducer = combineReducers({
   auth: AuthReducer,
   recipe: RecipeReducer
-
 });
 
 export default rootReducer;

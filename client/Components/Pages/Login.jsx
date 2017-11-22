@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { loginAction } from '../../Actions/AuthActions';
-
 
 class Login extends Component {
   
@@ -14,7 +14,8 @@ class Login extends Component {
       username: '',
       password: '',
       loginError: '',
-      isLoading: ''
+      isLoading: '',
+      redirectUser: false
     }
     this.onChange = this.onChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,8 +30,8 @@ class Login extends Component {
     });
   }
 
-  onFocus(e) {
-    const name = e.target.name;
+  onFocus(event) {
+    const name = event.target.name;
     switch (name) {
       case 'username':
         this.setState({ loginError: '' })
@@ -40,24 +41,23 @@ class Login extends Component {
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.actions.loginAction(this.state)
       .then((data) => {
         if(data === true) {
         toastr.options = {
           "debug": false,
-          "positionClass": "toast-top-full-width",
           "timeOut": "2000",
           "showEasing": "swing",
           "hideEasing": "linear",
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.options.onHidden = function() { 
-          window.location.href = '/recipe';
-         }
         toastr.success('You have successfully signed in');
+        setTimeout(() => {
+          this.setState({ redirectUser:true });
+         }, 3000)
       } else {
           this.setState({
             loginError: data
@@ -71,8 +71,16 @@ class Login extends Component {
     document.body.className = "body-component-b"
   }
 
+  componentWillUnmount() {
+    document.body.style.backgroundImage = "url('')"
+  }
+
   render() {
     return (
+      this.state.redirectUser 
+      ?
+        <Redirect to='user/recipe'/>
+      :
       <div>
         <div className="header-login">
           <h4> Login</h4>

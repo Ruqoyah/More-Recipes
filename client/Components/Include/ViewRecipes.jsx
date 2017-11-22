@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Image, Transformation } from 'cloudinary-react';
 import { bindActionCreators } from 'redux';
 import { favoriteAction, viewUpvoteAction, viewDownvoteAction,
           reviewRecipeAction, getReviewAction } from '../../Actions/RecipesActions';
@@ -40,14 +41,13 @@ class ViewRecipes extends Component {
     }
   }
 
-  handleFavoriteClick(e){
-    e.preventDefault();
+  handleFavoriteClick(event){
+    event.preventDefault();
     favoriteAction( this.props.id, this.props.user.userId)
     .then((status) => {
       if(status === true) {
       toastr.options = {
         "debug": false,
-        "positionClass": "toast-top-full-width",
         "timeOut": "2000",
         "showEasing": "swing",
         "hideEasing": "linear",
@@ -77,8 +77,9 @@ class ViewRecipes extends Component {
         <div className="view-recipe">
           <div className="container">
             <h2>{this.props.recipeName}</h2> <hr />
-            <img src={this.props.picture} className="img-thumbnail"
-              width="700" /> <hr />
+            <Image cloudName="ruqoyah" className="img-thumbnail" publicId={this.props.picture}>
+            <Transformation width="800" crop="fill" />
+            </Image> <hr />
             <h4>Ingredients</h4>
             <p>{this.props.ingredient}</p><hr />
             <h4>Details</h4>
@@ -111,8 +112,8 @@ class ViewRecipes extends Component {
           </div>
           {(window.location.search.split('=').splice(-1).toString() !== "myrecipe" &&
             window.location.search.split('=').splice(-1).toString() !== "favoriterecipe") &&
-          <div
-          ><div className="add-style">
+          <div>
+          <div className="add-style">
             <a href="#">View more</a>
             </div>
             <form ref="reviewForm" onSubmit={this.onSubmit}>
@@ -147,7 +148,7 @@ class ViewRecipes extends Component {
 function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
-    reviews: state.recipe.reviews,
+    reviews: state.recipe.reviews
   }
 }
 

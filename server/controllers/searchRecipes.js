@@ -101,9 +101,9 @@ export default {
             attributes: ['review'],
             include: [{
               model: db.Users,
-              attributes: ['fullName', 'updatedAt'],
+              attributes: ['fullName', 'updatedAt']
             }]
-          }],
+          }]
         })
         .then((recipes) => {
           if (recipes.length < 1) {

@@ -9,12 +9,9 @@ dotenv.load();
 const { Recipes, Users, favoriteRecipes, Votes } = db;
 
 const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  service: 'gmail',
   auth: {
-    user: process.env.USER,
+    user: process.env.EMAIL,
     pass: process.env.PASS
   },
   tls: {
@@ -36,7 +33,7 @@ export const reviewNotification = (req) => {
         .findOne({ where: { id: recipe.userId } })
         .then((user) => {
           const mailOptions = {
-            from: '"More-Recipes" <rukayat.odukoya@andela.com>',
+            from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
             to: user.email,
             subject: 'You have a new Review',
             text: 'Someone just review your recipe, click on the link below to check',
@@ -45,13 +42,14 @@ export const reviewNotification = (req) => {
           transporter.sendMail(mailOptions, (error, response) => {
             if (error) {
               winston.info('Email not sent!');
-              return winston.info('error message =========>', error);
+              return winston.info(error);
             }
             winston.info('Email sent to: %s', response);
           });
         });
     });
 };
+
 
 /** Get a signup notification
  * @param  {object} req - request
@@ -68,7 +66,7 @@ export const signupNotification = (req) => {
     })
     .then((user) => {
       const mailOptions = {
-        from: '"More-Recipes" <rukayat.odukoya@andela.com>',
+        from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
         to: user.email,
         subject: 'Your More-Recipes account has been created',
         text: `Thank you for signing up with More-Recipes, username: ${user.username}`,
@@ -198,13 +196,13 @@ export const checkUserInvalidInput = (req, res, next) => {
 
 export const checkRecipeInvalidInput = (req, res, next) => {
   if (req.body.recipeName.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
-    return res.status(409).json({ message: 'Invalid Recipe Name' });
+    return res.status(409).json({ status: false, message: 'Invalid Recipe Name' });
   }
   if (req.body.ingredient.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
-    return res.status(409).json({ message: 'Invalid Ingredient' });
+    return res.status(409).json({ status: false, message: 'Invalid Ingredient' });
   }
   if (req.body.details.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
-    return res.status(409).json({ message: 'Invalid Details' });
+    return res.status(409).json({ status: false, message: 'Invalid Details' });
   }
   next();
 };

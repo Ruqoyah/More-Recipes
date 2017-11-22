@@ -53,7 +53,8 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`
+        userId: `${userId}`,
+        creator: 'temitayo'
       })
       .expect(403)
       .end((err, res) => {
@@ -72,7 +73,8 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         token: `${token}`,
-        userId: `${userId}`
+        userId: `${userId}`,
+        creator: 'temitayo'
       })
       .expect(400)
       .end((err, res) => {
@@ -92,14 +94,15 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         userId: `${userId}`,
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(201)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        recipeId = res.body.data.recipeId;
+        recipeId = res.body.data.id;
         expect(res.body.message).toBe('Recipe added successfully');
         done();
       });
@@ -119,7 +122,7 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to add recipe if no user if provided', (done) => {
+  it('should not be able to add recipe if no user id provided', (done) => {
     supertest(app)
       .post('/api/v1/recipes')
       .send({
@@ -127,7 +130,8 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(400)
       .end((err, res) => {
@@ -147,7 +151,8 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: 8,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(404)
       .end((err, res) => {
@@ -167,6 +172,7 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
+        creator: 'temitayo',
         token: 'dsjghkdDWHSJkjdskldsxkldsjkldsxdslk'
       })
       .expect(401)
@@ -186,7 +192,8 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(400)
       .end((err, res) => {
@@ -206,7 +213,8 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(409)
       .end((err, res) => {
@@ -226,7 +234,8 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(409)
       .end((err, res) => {
@@ -246,7 +255,8 @@ describe('More-Recipe API: ', () => {
         details: '   grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(409)
       .end((err, res) => {
@@ -265,7 +275,8 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(400)
       .end((err, res) => {
@@ -284,7 +295,8 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
         userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
+        creator: 'temitayo'
       })
       .expect(400)
       .end((err, res) => {
@@ -302,8 +314,7 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Meat Pie',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
-        userId: `${userId}`,
-        token: `${token}`
+        token: `${token}`,
       })
       .expect(200)
       .end((err, res) => {

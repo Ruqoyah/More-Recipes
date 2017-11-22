@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import moment from 'moment';
+import { Image, Transformation } from 'cloudinary-react';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { favoriteAction, upvoteRecipeAction, downvoteRecipeAction, 
@@ -14,6 +16,10 @@ class AllRecipes extends Component {
     this.handleUpvoteClick = this.handleUpvoteClick.bind(this);
     this.handleDownvoteClick = this.handleDownvoteClick.bind(this);
     this.handleViewClick = this.handleViewClick.bind(this);
+
+    this.state = {
+      redirectOnClick: false
+    }
   }
 
   handleFavoriteClick(event){
@@ -23,7 +29,6 @@ class AllRecipes extends Component {
       if(status === true) {
       toastr.options = {
         "debug": false,
-        "positionClass": "toast-top-full-width",
         "timeOut": "2000",
         "showEasing": "swing",
         "hideEasing": "linear",
@@ -47,19 +52,28 @@ class AllRecipes extends Component {
     this.props.actions.downvoteRecipeAction( this.props.id, this.props.user.userId)
   }
 
-  handleViewClick(){
-    window.location.href = `/viewrecipe?id=${this.props.id}`
+  handleViewClick(event){
+    event.preventDefault();
+    this.setState({ redirectOnClick: true });
   }
 
   render() {
     return (
+      this.state.redirectOnClick 
+      ? 
+        <Redirect to = {`/user/viewrecipe?id=${this.props.id}`}/>
+      : 
       <div className="col-sm-3">      
       <div className="card">
-        <img className="card-img-top" src={this.props.picture}/>
+      <div>
+        <Image cloudName="ruqoyah" className="card-img-top" publicId={this.props.picture}>
+        <Transformation width="302" height="200" crop="fill" />
+        </Image>
+      </div>
         <div className="card-body">
-          <h4 className="card-title">{this.props.recipeName}</h4>
-          <p className="card-text">{this.props.details}</p>
-          <p className="card-text text-right"><small className="text-muted">Recipe by James</small></p>
+          <h4 className="card-title ellipses">{this.props.recipeName}</h4>
+          <p className="card-text ellipses">{this.props.details}</p>
+          <p className="card-text text-right"><small className="text-muted recipe-by">Recipe by {this.props.username}</small></p>
           <button onClick={this.handleViewClick} className="btn btn-success">Read more</button>
           <a href="" onClick={this.handleUpvoteClick}>
             <i className="fa fa-thumbs-up" aria-hidden="true" 
@@ -74,7 +88,7 @@ class AllRecipes extends Component {
             style={{ fontSize:'25px', color: 'red' }}></i></a>
         </div>
         <div className="card-footer">
-          <small className="text-muted">Last updated 3 mins ago</small>
+          <small className="text-muted">Updated: {moment(this.props.updatedAt).format('LLLL')}</small>
         </div>
       </div>
       </div>

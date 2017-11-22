@@ -13,7 +13,7 @@ class FavoriteRecipe extends Component {
   renderRecipe() {
     const allRecipes = this.props.favoriteRecipes;
     if (allRecipes.length < 1) {
-      return (<div style={{ backgroundColor: '#fff', textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
+      return (<div style={{ textAlign: 'center' }}><h3> No Recipe was found </h3></div>)
     }
     return (<div className="row">
       {
@@ -27,7 +27,9 @@ class FavoriteRecipe extends Component {
               upvotes={recipe.Recipe.upvotes}
               downvotes={recipe.Recipe.downvotes}
               views={recipe.Recipe.views}
+              username={recipe.Recipe.creator}
               recipeId={recipe.recipeId}
+              updatedAt={recipe.Recipe.updatedAt}
               key={Math.random() * 10}
             />
           )

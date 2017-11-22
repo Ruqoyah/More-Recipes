@@ -11,13 +11,18 @@ module.exports = {
         type: Sequelize.STRING
       },
       ingredient: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       details: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       picture: {
         type: Sequelize.STRING
+      },
+      creator: {
+        type: Sequelize.STRING,
+        required: true,
+        allowNull: false
       },
       userId: {
         type: Sequelize.INTEGER,

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import  { signUpAction }  from '../../Actions/AuthActions';
 import { emailExist } from '../../Helper/index';
 import { userExist } from '../../Helper/index';
@@ -23,7 +25,8 @@ class Signup extends Component {
       passwordConfirmError: '',
       userExist: '',
       emailExist: '',
-      isLoading: ''
+      isLoading: '',
+      redirectUser: false
     }
     this.onChange = this.onChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,30 +42,29 @@ class Signup extends Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.setState({ isLoading: true })
     this.props.actions.signUpAction(this.state)
       .then((data) => {
         toastr.options = {
           "debug": false,
-          "positionClass": "toast-top-full-width",
           "timeOut": "2000",
           "showEasing": "swing",
           "hideEasing": "linear",
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.options.onHidden = function() { 
-            window.location.href = '/recipe'
-         }
-        toastr.success('You have successfully signed up');
+         toastr.success('You have successfully signed up');
+         setTimeout(() => {
+          this.setState({ redirectUser:true });
+         }, 3000)
       })
-      .catch((error) => console.log('Hello error'))
+      .catch((error) => error)
   }
  
-  onFocus(e) {
-    const name = e.target.name;
+  onFocus(event) {
+    const name = event.target.name;
     switch (name) {
       case 'username':
         this.setState({ usernameError: '', userExist: '' })
@@ -78,9 +80,9 @@ class Signup extends Component {
     }
   }
 
-  onBlur(e) {
-    const name = e.target.name,
-      value = e.target.value;
+  onBlur(event) {
+    const name = event.target.name,
+      value = event.target.value;
     const pass = document.getElementById('validationServer04').value
     switch (name) {
       case 'username':
@@ -125,11 +127,18 @@ class Signup extends Component {
 
   componentDidMount() {
     document.body.style.backgroundImage = "url(/images/designed.png)"
-    document.body.className = "body-component-a"
+  }
+
+  componentWillUnmount() {
+    document.body.style.backgroundImage = "url('')"
   }
 
   render() {
     return (
+      this.state.redirectUser 
+      ?
+        <Redirect to='user/recipe'/>
+      :
       <div>
         <div className="header-signup">
           <h4>Signup</h4>
@@ -175,8 +184,12 @@ class Signup extends Component {
             <button className="btn btn-outline-danger btn-lg btn-block" type="submit" name="submit"
               disabled={this.state.isLoading}>Finish</button>
           </div>
+          <div className="join">
+            <Link to="/login">Already have an account? Sign in!</Link>
+          </div>
         </form>
-      </div>);
+      </div>
+    );
   }
 }
 

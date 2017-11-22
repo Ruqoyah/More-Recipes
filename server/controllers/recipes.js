@@ -47,19 +47,13 @@ export default {
       ingredient: req.body.ingredient,
       details: req.body.details,
       picture: req.body.picture,
+      creator: req.body.creator,
       userId: req.body.userId
     })
-      .then(addRecipe => res.status(201).json({
-        status: 'success',
+      .then(addedRecipe => res.status(201).json({
+        status: true,
         message: 'Recipe added successfully',
-        data: {
-          recipeId: addRecipe.id,
-          userId: addRecipe.userId,
-          recipeName: addRecipe.recipeName,
-          ingredient: addRecipe.ingredient,
-          details: addRecipe.details,
-          picture: addRecipe.picture
-        }
+        data: addedRecipe
       }))
       .catch(error => res.status(400).json(error));
   },
@@ -86,11 +80,11 @@ export default {
             status: 'success',
             message: 'Recipe modified successfully!',
             data: {
+              id: Number(req.params.recipeId),
               recipeName: result.recipeName,
               ingredient: result.ingredient,
               details: result.details,
-              picture: result.picture,
-              userId: result.userId }
+              picture: result.picture }
           }));
         }))
       .catch(error => res.status(400).json(error));
