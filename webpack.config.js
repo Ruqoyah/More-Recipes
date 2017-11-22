@@ -11,14 +11,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
-    historyApiFallback: true,
-    contentBase: './client/dist',
-    hot: true
+    contentBase: './client/dist'
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -81,10 +78,6 @@ module.exports = {
         }],
         exclude: /node_modules/,
         include: __dirname,
-      },
-      {
-        test: /bootstrap-css\/bin\//,
-        loader: 'imports-loader?jQuery=jquery,$=jquery,tether'
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,

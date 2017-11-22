@@ -1,6 +1,6 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production')
@@ -9,17 +9,17 @@ const GLOBALS = {
 module.exports = {
   entry: './client/index.js',
   output: {
-    path: path.join(__dirname, '/dist/'),
-    publicPath: '/client/',
+    path: path.join(__dirname, './client/dist/'),
+    publicPath: './client',
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: './dist'
+    contentBase: './client/dist'
   },
   target: 'web',
   plugins: [
+    new cleanWebpackPlugin(['client/dist']),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin(GLOBALS),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         test: /(\.s?css)$/,
-        loader: ExtractTextPlugin.extract('css-loader?sourceMap')
+        loader: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -88,10 +88,6 @@ module.exports = {
         }],
         exclude: /node_modules/,
         include: __dirname,
-      },
-      {
-        test: /materialize-css\/bin\//,
-        loader: 'imports-loader?jQuery=jquery,$=jquery,hammerjs'
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,

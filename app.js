@@ -6,7 +6,7 @@ import webpack from 'webpack';
 import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
-import webpackConfig from './webpack.config';
+import webpackConfig from './webpack.config.prod';
 import routes from './server/routes';
 
 dotenv.config();
@@ -14,11 +14,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(webpackMiddleware(webpack(webpackConfig)));
+if (process.env.NODE_ENV === 'development') {
+ app.use(webpackMiddleware(webpack(webpackConfig)));
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static('./client/')); // configure static files folder
 app.use(express.static('./client/public/')); // configure static files folder
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
