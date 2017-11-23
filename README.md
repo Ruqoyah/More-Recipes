@@ -59,8 +59,6 @@ POST /api/v1/users/downvote/:recipeId  |   Downvote recipes
 
 
 ## Limitations
-- Group creator cannot remove users from groups
-- Users cannot update their profile
 - Users cannot deactivate their accounts
 
 
