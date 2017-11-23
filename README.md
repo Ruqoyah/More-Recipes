@@ -58,7 +58,7 @@ POST /api/v1/users/downvote/:recipeId  |   Downvote recipes
 *  Run the test with `npm test`
 
 
-## Limitations
+## Limitation
 - Users cannot deactivate their accounts
 
 
