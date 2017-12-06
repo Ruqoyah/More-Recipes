@@ -19,11 +19,6 @@ module.exports = {
       picture: {
         type: Sequelize.STRING
       },
-      creator: {
-        type: Sequelize.STRING,
-        required: true,
-        allowNull: false
-      },
       userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',

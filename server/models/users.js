@@ -21,10 +21,6 @@ export default (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    isAdmin: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
     }
   });
   Users.associate = (models) => {

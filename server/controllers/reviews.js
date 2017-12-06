@@ -1,47 +1,89 @@
-import db from '../models';
-import { reviewNotification } from '../middleware/validation';
+import model from '../models';
+import { reviewNotification } from '../helper/index';
 
-const { Reviews } = db;
+const { Reviews } = model;
 
 export default {
 
   /** Post review
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 
   postReview(req, res) {
+    const { userId } = req.decoded.currentUser;
     return Reviews
       .create({
         recipeId: req.params.recipeId,
         review: req.body.review,
-        userId: req.body.userId
+        userId
       })
-      .then((review) => {
-        res.status(200).json({
-          status: true,
-          data: review
-        });
+      .then((createReview) => {
+        createReview.reload({
+          include: [{
+            model: model.Users,
+            attributes: ['picture', 'username']
+          }]
+        })
+          .then((review) => {
+            res.status(200).json({
+              status: true,
+              data: review
+            });
+          });
       })
       .then(() => {
         reviewNotification(req);
       })
-      .catch(error => res.status(500).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** Get reviews
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    */
 
   getReviews(req, res) {
-    return Reviews
-      .findAll({
-        where: { recipeId: req.params.recipeId }
+    const pageNumber = Number(req.query.page);
+    const limit = 12;
+    let offset;
+    let page;
+    if (pageNumber === 0) {
+      offset = 0;
+    } else {
+      page = pageNumber;
+      offset = limit * (page - 1);
+    }
+    Reviews
+      .findAndCountAll({
+        where: {
+          recipeId: req.params.recipeId
+        },
+        order: [['createdAt', 'DESC']],
+        include: [{
+          model: model.Users,
+          attributes: ['picture', 'username']
+        }],
+        limit,
+        offset,
       })
       .then((reviews) => {
-        res.status(200).json(reviews);
+        const pages = Math.ceil(reviews.count / limit);
+        return res.status(200).json({
+          status: true,
+          reviews,
+          pages
+        });
       })
-      .catch(error => res.status(500).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   }
 };

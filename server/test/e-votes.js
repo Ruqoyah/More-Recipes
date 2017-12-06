@@ -1,11 +1,10 @@
 import expect from 'expect';
 import supertest from 'supertest';
-import app from '../app';
-import models from '../server/models';
+import app from '../../app';
+import models from '../models';
 
 
 let recipeId;
-let userId;
 let token;
 
 const doBeforeAll = () => {
@@ -47,7 +46,6 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         token = res.body.data.token;
-        userId = res.body.data.userId;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
       });
@@ -60,9 +58,7 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -78,7 +74,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -94,7 +89,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -110,7 +104,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/downvote/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -126,7 +119,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/downvote/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -142,7 +134,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/upvote/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -158,7 +149,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .post(`/api/v1/users/downvote/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -170,11 +160,25 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to upvote recipes if provided an invalid recipe id', (done) => {
+  it('should be able to upvote recipe', (done) => {
+    supertest(app)
+      .post(`/api/v1/users/upvote/${recipeId}`)
+      .send({
+        token: `${token}`
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('vote updated successfully');
+        done();
+      });
+  });
+  it('should not upvote recipe if provided recipe id does not exist', (done) => {
     supertest(app)
       .post('/api/v1/users/upvote/6')
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(404)
@@ -183,37 +187,6 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         expect(res.body.message).toBe('No recipe Id found');
-        done();
-      });
-  });
-  it('should not upvote recipes if no user id', (done) => {
-    supertest(app)
-      .post(`/api/v1/users/upvote/${recipeId}`)
-      .send({
-        token: `${token}`
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('User Id can\'t be empty');
-        done();
-      });
-  });
-  it('should not upvote recipes if user id does not exist', (done) => {
-    supertest(app)
-      .post(`/api/v1/users/upvote/${recipeId}`)
-      .send({
-        userId: 10,
-        token: `${token}`
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('User Id does not exist');
         done();
       });
   });
@@ -228,7 +201,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body);
         done();
       });
   });

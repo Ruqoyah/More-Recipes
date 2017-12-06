@@ -7,14 +7,17 @@ const API_URL = 'https://more-recipes-app.herokuapp.com';
 
 /**
  * @description Request to the API to register a user
+ *
  * @param  {object} userDetails the user deatils to be saved
+ *
  * @return {object} dispatch object
+ *
  */
 export function signUpAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signup`, userDetails)
     .then((res) => {
       const token = res.data.data.token;
-      localStorage.setItem('token', res.data.data.token); // eslint-disable-line
+      localStorage.setItem('token', res.data.data.token);
       setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
@@ -26,14 +29,17 @@ export function signUpAction(userDetails) {
 
 /**
  * @description Request to the API to login user
+ *
  * @param  {object} userDetails the user deatils to be saved
+ *
  * @return {object} dispatch object
+ *
  */
 export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/api/v1/users/signin`, userDetails)
     .then((res) => {
       const token = res.data.data.token;
-      localStorage.setItem('token', res.data.data.token); // eslint-disable-line
+      localStorage.setItem('token', res.data.data.token);
       setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
@@ -46,21 +52,27 @@ export function loginAction(userDetails) {
 
 /**
  * @description Request to the API to get user details
+ *
  * @return {object} dispatch object
+ *
  */
-export function getUserProfileAction(userId) {
-  return dispatch => axios.get(`${API_URL}/api/v1/users/${userId}`)
+export function getUserProfileAction() {
+  return dispatch => axios.get(`${API_URL}/api/v1/user`)
     .then((res) => {
       dispatch({
         type: GET_USER,
         user: res.data
       });
     })
-    .catch(error => error.response);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**
  * @description Save image
+ *
+ * @param  {object} response the response
+ *
+ * @return {object} dispatch object
  */
 export function saveImage(response) {
   return {
@@ -71,21 +83,23 @@ export function saveImage(response) {
 
 /**
  * @description Request to save image to cloudinary
- * @return {string} dispatch object
+ *
+ * @param  {object} image the image to be saved
+ *
+ * @return {object} dispatch object
+ *
  */
 export function saveProfileImage(image) {
-  const request = 'https://api.cloudinary.com/v1_1/ruqoyah/upload/';
-  const cloudPreset = 'amrbhh2u';
+  const request = process.env.REQUEST;
+  const cloudPreset = process.env.CLOUD_PRESET;
 
-  const newFormData = new FormData(); // eslint-disable-line
+  const newFormData = new FormData();
   newFormData.append('file', image);
   newFormData.append('upload_preset', cloudPreset);
-  return dispatch => fetch(request, { // eslint-disable-line
+  return dispatch => fetch(request, {
     method: 'POST',
     body: newFormData })
-    .then((res) => { // eslint-disable-line
-      return res.json();
-    })
+    .then((res) => res.json())
     .then((data) => {
       dispatch(saveImage(data.public_id));
     })
@@ -94,21 +108,21 @@ export function saveProfileImage(image) {
     });
 }
 
- /**
+/**
  * @description Request to the API to edit user profile
+ *
  * @param  {object} userDetails the user deatils to be saved
+ *
  * @return {object} dispatch object
  */
-export function editProfileAction(userId, userDetails) {
-  return dispatch => axios.put(`${API_URL}/api/v1/user/${userId}`, userDetails)
+export function editProfileAction(userDetails) {
+  return dispatch => axios.put(`${API_URL}/api/v1/user`, userDetails)
     .then((res) => {
-      return res.data.message;
       dispatch({
         type: EDIT_PROFILE,
-        user: res.data
+        user: res.data.data
       });
+      return res.data.message;
     })
-    .catch(error => {
-      return Promise.reject(error.response.data.message);
-    });
+    .catch(error => Promise.reject(error.response.data.message));
 }

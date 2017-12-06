@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Header from '../Common/Header';
+import Footer from '../Common/Footer';
 
-export default class PageNotFound extends Component {
+const PageNotFound = () => (
+  <div>
+    <Header />
+    <div className="not-found">
+      <div> <img src="images/alert.png" /> </div> <br/>
+      <h1>404 - Page Not Found</h1>
+    </div>
+    <Footer />
+  </div>
+);
 
-  /**
-   *@description render - renders the class component
-   * @return {object} returns an object
-   */
-  render() {
-    return (
-      <div className="not-found">
-        <h1>404 - Page Not Found</h1>
-      </div>
-    )
-  }
-}
+export default PageNotFound;

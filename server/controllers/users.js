@@ -1,21 +1,24 @@
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import db from '../models';
-import { signupNotification } from '../middleware/validation';
+import model from '../models';
+import { signupNotification } from '../helper/index';
 
 dotenv.load();
-const secret = process.env.superSecret;
+const secret = process.env.SUPER_SECRET;
 
-const { Users } = db;
+const { Users } = model;
 
 const saltRounds = 10;
 
 export default {
 
   /** Signup user
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    */
 
   signup(req, res) {
@@ -25,32 +28,38 @@ export default {
           fullName: req.body.fullName,
           username: req.body.username,
           email: req.body.email,
-          isAdmin: req.body.isAdmin,
           password: hash
         })
           .then((user) => {
-            const currentUser = { userId: user.id,
-              username: user.username,
-              fullname: user.fullName,
-              isAdmin: user.isAdmin
+            const currentUser = {
+              userId: user.id,
+              username: user.username
             };
-            const token = jwt.sign({ currentUser }, secret);
+            const token = jwt.sign({
+              exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+              currentUser
+            }, secret);
             res.status(201).json({
               status: true,
               message: 'You have successfully signed up',
-              data: { token, userId: user.id, }
+              data: { token }
             });
           })
           .then(() => {
             signupNotification(req);
           })
-          .catch(error => res.status(500).json(error));
+          .catch(() => res.status(500).json({
+            error: 'Internal sever Error'
+          }));
       });
   },
 
   /** Signin user
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    */
 
   signin(req, res) {
@@ -59,61 +68,74 @@ export default {
         where: { username: req.body.username }
       })
       .then((user) => {
-        const currentUser = { userId: user.id,
+        const currentUser = {
+          userId: user.id,
           username: user.username,
-          fullname: user.fullName,
           isAdmin: user.isAdmin
         };
-        const token = jwt.sign({ currentUser }, secret);
+        const token = jwt.sign({
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+          currentUser },
+        secret);
         res.status(200).json({
           status: true,
           message: 'You have successfully signed in!',
-          data: { token, userId: user.id }
+          data: { token }
         });
       });
   },
 
-  userExist(req, res) {
+  /** Email or username exist
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   */
+
+  exist(req, res) {
     Users
       .findOne({
         where: {
-          username: req.body.username
-        },
+          $or: [
+            {
+              username: req.body.username
+            },
+            {
+              email: req.body.email
+            }
+          ]
+        }
       })
       .then((user) => {
         if (user) {
-          res.status(200).send(true);
+          res.status(200).json({ status: true });
         } else {
-          res.status(200).send(false);
+          res.status(200).json({ status: false });
         }
       });
   },
 
-  emailExist(req, res) {
-    Users
-      .findOne({
-        where: {
-          email: req.body.email
-        },
-      })
-      .then((user) => {
-        if (user) {
-          res.status(200).send(true);
-        } else {
-          res.status(200).send(false);
-        }
-      });
-  },
+  /** Edit Profile
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   */
 
   editProfile(req, res) {
+    const { userId } = req.decoded.currentUser;
     return Users
-      .findOne({ where: {
-        id: req.params.userId }
+      .findOne({
+        where: {
+          id: userId
+        }
       })
       .then(user => user
         .update(req.body)
         .then(() => {
-          Users.findById(req.params.userId)
+          Users.findById(userId)
             .then(result => res.status(200).json({
               status: true,
               message: 'Profile updated sucessfully!',
@@ -122,16 +144,28 @@ export default {
                 fullName: result.fullName,
                 email: result.email,
                 picture: result.picture,
-                id: result.id }
+                id: result.id
+              }
             }));
         }))
-      .catch(error => res.status(500).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
+  /** Get User
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @return {object} returns an object
+   *
+   */
   getUser(req, res) {
+    const { userId } = req.decoded.currentUser;
     return Users
       .findOne({
-        where: { id: req.params.userId }
+        where: { id: userId }
       })
       .then((user) => {
         if (!user) {
@@ -140,6 +174,7 @@ export default {
           });
         }
         return res.status(200).json({
+          status: true,
           id: user.id,
           username: user.username,
           fullName: user.fullName,
@@ -147,6 +182,8 @@ export default {
           picture: user.picture
         });
       })
-      .catch(error => res.status(500).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error' }
+      ));
   }
 };

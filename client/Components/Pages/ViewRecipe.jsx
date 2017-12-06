@@ -1,89 +1,107 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { viewRecipeAction, viewUpvoteAction,
-        viewDownvoteAction, } from '../../Actions/RecipesActions';
+  viewDownvoteAction, } from '../../Actions/RecipesActions';
 import Header from '../Common/Header';
 import Footer from '../Common/Footer';
-import ViewRecipes from '../Include/ViewRecipes';
+import ViewRecipeInclude from '../Include/ViewRecipeInclude';
 
 /** @class ViewRecipe
+ *
  * @classdesc view recipe component
+ *
  */
 class ViewRecipe extends Component {
   /**
-   * constructor - contains the constructor
+   * @description constructor - contains the constructor
+   *
    * @param  {object} props the properties of the class component
+   *
    * @return {void} no return or void
+   *
    */
-  constructor(props){
+  constructor(props) {
     super(props);
-    
+
     this.handleUpvoteClick = this.handleUpvoteClick.bind(this);
     this.handleDownvoteClick = this.handleDownvoteClick.bind(this);
   }
 
   /**
+   * @description - gets view recipe details
+   *
+   * @return {void} no return or void
+   *
+   */
+  componentDidMount() {
+    const recipeId = (location.search.split('=')[1].replace(/['&page%27']/g, ""));
+    this.props.actions.viewRecipeAction(recipeId);
+  }
+
+  /**
+   * @description - handles the upvote click event
+   *
+   * @param  {object} event the event for the content field
+   *
+   * @return {void} no return or void
+   *
+   */
+  handleUpvoteClick(event) {
+    event.preventDefault();
+    this.props.actions.viewUpvoteAction(this.props.viewRecipe.id);
+  }
+
+  /**
+   * @description - handles the downvote click event
+   *
+   * @param  {object} event the event for the content field
+   *
+   * @return {void} no return or void
+   *
+   */
+  handleDownvoteClick(event) {
+    event.preventDefault();
+    this.props.actions.viewDownvoteAction(this.props.viewRecipe.id);
+  }
+
+  /**
    * @description render - renders view recipe details
+   *
    * @return {object} returns an object
+   *
    */
   renderRecipe() {
     let {
       picture, userId, recipeName, ingredient, details, upvotes, downvotes,
       views, Reviews, id } = this.props.viewRecipe;
-    
+
     return (<div>
-        <ViewRecipes
-          picture={picture}
-          userId={userId}
-          recipeName={recipeName}
-          ingredient={ingredient}
-          details={details}
-          upvotes={upvotes}
-          downvotes={downvotes}
-          views={views}
-          review={Reviews}
-          handleUpvoteClick={this.handleUpvoteClick}
-          handleDownvoteClick={this.handleDownvoteClick}
-          id={id}
-          key={Math.random() * 10}
-        />
-      </div>) 
-      }
-  
-  /**
-   * @description - handles the upvote click event
-   * @param  {object} event the event for the content field
-   * @return {void} no return or void
-   */
-  handleUpvoteClick(event){
-    event.preventDefault();
-    this.props.actions.viewUpvoteAction(this.props.viewRecipe.id, this.props.user.userId)
-  }
-  
-  /**
-   * @description - handles the downvote click event
-   * @param  {object} event the event for the content field
-   * @return {void} no return or void
-   */
-  handleDownvoteClick(event){
-    event.preventDefault();
-    this.props.actions.viewDownvoteAction(this.props.viewRecipe.id, this.props.user.userId)
+      <ViewRecipeInclude
+        picture={picture}
+        userId={userId}
+        recipeName={recipeName}
+        ingredient={ingredient}
+        details={details}
+        upvotes={upvotes}
+        downvotes={downvotes}
+        views={views}
+        review={Reviews}
+        handleUpvoteClick={this.handleUpvoteClick}
+        handleDownvoteClick={this.handleDownvoteClick}
+        id={id}
+        key={Math.random() * 10}
+      />
+    </div>);
   }
 
-  /**
-   * @description - gets view recipe details
-   * @return {void} no return or void
-   */
-  componentDidMount() {
-    const recipeId = Number(location.search.split('=')[1].replace("&page", ""))
-    this.props.actions.viewRecipeAction(recipeId);
-  }
 
   /**
-   *@description render - renders the class component
+   * @description render - renders the class component
+   *
    * @return {object} returns an object
+   *
    */
   render() {
     return (
@@ -97,29 +115,40 @@ class ViewRecipe extends Component {
 
 /**
  * @description mapStateToProps - maps state value to props
+ *
  * @param  {object} state the store state
+ *
  * @return {Object} returns state object
+ *
  */
 function mapStateToProps(state) {
   return {
     viewRecipe: state.recipe.viewRecipe,
     user: state.auth.user.currentUser
-  }
+  };
 }
 
 /**
- * mapDispatchToProps - maps dispatch to props value
+ * @description mapDispatchToProps - maps dispatch to props value
+ *
  * @param  {Function} dispatch dispatchs function
+ *
  * @return {Object} returns an Object
+ *
  */
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       viewRecipeAction,
-      viewUpvoteAction, 
+      viewUpvoteAction,
       viewDownvoteAction
     }, dispatch)
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipe)
+ViewRecipe.propTypes = {
+  actions: PropTypes.object,
+  viewRecipe: PropTypes.object
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipe);
