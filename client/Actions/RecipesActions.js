@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, UPVOTE_RECIPE,
   DOWNVOTE_RECIPE, ADD_REVIEW, VIEW_RECIPE, GET_REVIEW, EDIT_RECIPE,
-  DELETE_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE,
-  ADD_RECIPE } from './Types';
+  DELETE_RECIPE, SAVE_RECIPE_IMAGE, VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE, LOAD_MORE_REVIEWS } from './Types';
 
 const API_URL = 'https://more-recipes-app.herokuapp.com';
 
 /**
  * @description Save image
+ *
+ * @param  {object} response the response
+ *
+ * @return {object} dispatch object
  */
 export function saveImage(response) {
   return {
@@ -18,21 +21,23 @@ export function saveImage(response) {
 
 /**
  * @description Request to save image to cloudinary
- * @return {string} dispatch object
+ *
+ * @param  {object} image the image to be saved
+ *
+ * @return {object} dispatch object
+ *
  */
 export function saveImageToCloud(image) {
-  const request = 'https://api.cloudinary.com/v1_1/ruqoyah/upload/';
-  const cloudPreset = 'amrbhh2u';
+  const request = process.env.REQUEST;
+  const cloudPreset = process.env.CLOUD_PRESET;
 
-  const newFormData = new FormData(); // eslint-disable-line
+  const newFormData = new FormData();
   newFormData.append('file', image);
   newFormData.append('upload_preset', cloudPreset);
-  return dispatch => fetch(request, { // eslint-disable-line
+  return dispatch => fetch(request, {
     method: 'POST',
     body: newFormData })
-    .then((res) => { // eslint-disable-line
-      return res.json();
-    })
+    .then((res) => res.json())
     .then((data) => {
       dispatch(saveImage(data.public_id));
     })
@@ -43,55 +48,62 @@ export function saveImageToCloud(image) {
 
 /**
  * @description Request to the API to add recipe
+ *
  * @param  {object} recipeDetails the recipe details to be saved
+ *
  * @return {object} dispatch object
  */
 export function addRecipeAction(recipeDetails) {
-  return dispatch => axios.post(`${API_URL}/api/v1/recipes`, recipeDetails)
-    .then((res) => {
-      dispatch({
-        type: ADD_RECIPE,
-        payload: res.data
-      });
+  return axios.post(`${API_URL}/api/v1/recipes`, recipeDetails)
+    .then((res) => { // eslint-disable-line
+      return res.data.message;
     })
-    .catch(error => error.response);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**
  * @description Request to the API to get user recipes
- * @param  {Number} userId the user id passed in the param
- * @return {object} dispatch array
+ *
+ * @param  {Number} page the user id passed in the param
+ *
+ * @return {object} dispatch object
  */
-export function getUserRecipeAction(userId) {
-  return dispatch => axios.get(`${API_URL}/api/v1/${userId}/recipes`)
+export function getUserRecipeAction(page) {
+  return dispatch => axios.get(`${API_URL}/api/v1/user/recipes?page=${page}`)
     .then((res) => {
       dispatch({
         type: GET_USER_RECIPES,
         payload: res.data
       });
     })
-    .catch(error => error.response);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**
  * @description Request to the API to get all recipes
- * @return {object} dispatch array
+ *
+ * @param  {Number} page the user id passed in the param
+ *
+ * @return {object} dispatch object
  */
-export function getAllRecipeAction() {
-  return dispatch => axios.get(`${API_URL}/api/v1/recipes`)
+export function getAllRecipeAction(page) {
+  return dispatch => axios.get(`${API_URL}/api/v1/recipes?page=${page}`)
     .then((res) => {
       dispatch({
         type: GET_RECIPES,
         payload: res.data
       });
     })
-    .catch(error => error.response);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**
  * @description Request to the API to search for recipes
+ *
  * @param  {string} search the value that need to be shown
+ *
  * @return {object} dispatch object
+ *
  */
 export function searchRecipesAction(search) {
   return dispatch => axios.get(`${API_URL}/api/v1/recipes?search=${search}`)
@@ -109,19 +121,21 @@ export function searchRecipesAction(search) {
  * @param  {Number} recipeId the recipe id to be pass in the param
  * @return {object} dispatch object
  */
-export function favoriteAction(recipeId, userId) {
-  return axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`, { userId })
+export function favoriteAction(recipeId) {
+  return axios.post(`${API_URL}/api/v1/users/${recipeId}/recipes`)
     .then(res => res.data.status)
     .catch(error => error.response.data.status);
 }
 
 /**
  * @description Request to the API to get favorite recipe
- * @param  {Number} userId the user id to be pass in the param
+ *
+ * @param  {Number} page the user id to be pass in the param
+ *
  * @return {object} dispatch object
  */
-export function getFavoriteAction(userId) {
-  return dispatch => axios.get(`${API_URL}/api/v1/users/${userId}/recipes`)
+export function getFavoriteAction(page) {
+  return dispatch => axios.get(`${API_URL}/api/v1/users/recipes?page=${page}`)
     .then((res) => {
       dispatch({
         type: GET_FAVORITE_RECIPES,
@@ -133,11 +147,13 @@ export function getFavoriteAction(userId) {
 
 /**
  * @description Request to the API to upvote recipes
+ *
  * @param  {Number} recipeId the recipe id to be pass in the param
+ *
  * @return {object} dispatch object
  */
-export function upvoteRecipeAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+export function upvoteRecipeAction(recipeId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`)
     .then((res) => {
       dispatch({
         type: UPVOTE_RECIPE,
@@ -149,11 +165,13 @@ export function upvoteRecipeAction(recipeId, userId) {
 
 /**
  * @description Request to the API to downvote recipes
+ *
  * @param  {Number} recipeId the recipe id to be pass to the param
+ *
  * @return {object} dispatch object
  */
-export function downvoteRecipeAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+export function downvoteRecipeAction(recipeId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`)
     .then((res) => {
       dispatch({
         type: DOWNVOTE_RECIPE,
@@ -165,11 +183,13 @@ export function downvoteRecipeAction(recipeId, userId) {
 
 /**
  * @description Request to the API to upvote view recipe
+ *
  * @param  {Number} recipeId the recipe id to be pass to the param
+ *
  * @return {object} dispatch object
  */
-export function viewUpvoteAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`, { userId })
+export function viewUpvoteAction(recipeId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/upvote/${recipeId}`)
     .then((res) => {
       dispatch({
         type: VIEW_UPVOTE_RECIPE,
@@ -181,12 +201,15 @@ export function viewUpvoteAction(recipeId, userId) {
 
 /**
  * @description Request to the API to downvote view recipe
+ *
  * @param  {Number} recipeId the recipe id to be pass to the param
- * @param  {Number} userId the user id to be saved in databsae
+ *
+ * @param  {Number} userId the user id to be saved in database
+ *
  * @return {object} dispatch object
  */
-export function viewDownvoteAction(recipeId, userId) {
-  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`, { userId })
+export function viewDownvoteAction(recipeId) {
+  return dispatch => axios.post(`${API_URL}/api/v1/users/downvote/${recipeId}`)
     .then((res) => {
       dispatch({
         type: VIEW_DOWNVOTE_RECIPE,
@@ -198,11 +221,14 @@ export function viewDownvoteAction(recipeId, userId) {
 
 /**
  * @description Request to the API to view recipe
+ *
  * @param  {Number} recipeId the recipe id to be pass to the param
+ *
  * @return {object} dispatch object
+ *
  */
 export function viewRecipeAction(recipeId) {
-  return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}`)
+  return dispatch => axios.get(`${API_URL}/api/v1/recipes/${Number(recipeId)}`)
     .then((res) => {
       dispatch({
         type: VIEW_RECIPE,
@@ -214,9 +240,13 @@ export function viewRecipeAction(recipeId) {
 
 /**
  * @description Request to the API to review recipe
+ *
  * @param  {Number} recipeId the recipe id to be pass to the param
+ *
  * @param  {string} details the review to be save in database
+ *
  * @return {object} dispatch object
+ *
  */
 export function reviewRecipeAction(recipeId, details) {
   return dispatch => axios.post(`${API_URL}/api/v1/recipes/${recipeId}/reviews`, details)
@@ -231,32 +261,45 @@ export function reviewRecipeAction(recipeId, details) {
 
 /**
  * @description Request to the API to get recipe reviews
+ *
  * @param  {Number} recipeId the recipe id to be pass in the param
+ *
+ * @param  {Number} page the recipe id to be pass in the param
+ *
  * @return {object} dispatch object
+ *
  */
-export function getReviewAction(recipeId) {
-  return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}/reviews`)
+export function getReviewAction(recipeId, page) {
+  return dispatch => axios.get(`${API_URL}/api/v1/recipes/${recipeId}/reviews?page=${page}`)
     .then((res) => {
-      dispatch({
-        type: GET_REVIEW,
-        payload: res.data
-      });
+      if (page === 1) {
+        dispatch({
+          type: GET_REVIEW,
+          payload: res.data
+        });
+      } else {
+        dispatch({
+          type: LOAD_MORE_REVIEWS,
+          payload: res.data
+        });
+      }
     })
     .catch(error => error.response);
 }
 
 /**
  * @description Request to the API to delete recipes
+ *
  * @param  {Number} recipeId the recipe id to be pass in the param
- * @param  {Number} userId the user id to be save in database
+ *
  * @return {object} dispatch object
  */
-export function deleteRecipeAction(recipeId, userId) {
-  return dispatch => axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`, userId)
+export function deleteRecipeAction(recipeId) {
+  return dispatch => axios.delete(`${API_URL}/api/v1/recipes/${recipeId}`)
     .then((res) => {
       dispatch({
         type: DELETE_RECIPE,
-        id: Number(res.data.id)
+        id: Number(res.data.data.id)
       });
     })
     .catch(error => error.response);
@@ -264,8 +307,11 @@ export function deleteRecipeAction(recipeId, userId) {
 
 /**
  * @description Request to the API to edit recipes
+ *
  * @param  {Number} recipeId the recipe id to be pass in the param
+ *
  * @param  {object} editRecipes the details to be save in database
+ *
  * @return {object} dispatch object
  */
 export function editRecipeAction(recipeId, editRecipes) {
@@ -275,6 +321,7 @@ export function editRecipeAction(recipeId, editRecipes) {
         type: EDIT_RECIPE,
         payload: res.data.data
       });
+      return res.data.message;
     })
-    .catch(error => error.response);
+    .catch(error => Promise.reject(error.response.data.message));
 }

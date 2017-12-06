@@ -1,10 +1,9 @@
 import expect from 'expect';
 import supertest from 'supertest';
-import app from '../app';
-import models from '../server/models';
+import app from '../../app';
+import models from '../models';
 
 let token;
-let userId;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -27,21 +26,6 @@ const doBeforeEach = () => {
 describe('More-Recipe API: ', () => {
   doBeforeAll();
   doBeforeEach();
-  it('should not get users if it does not exist', (done) => {
-    supertest(app)
-      .get('/api/v1/users')
-      .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoicnVrYXlhdCIsImZ1bGxuYW1lIjoicnVrYXlhdCBvZHVrb3lhIiwiaXNBZG1pbiI6MX0sImlhdCI6MTUwNTY4Nzg0NH0.cG16W4YvYAWdLUjOYpXVp7lZFDn647mRSUSxJUzzFeE'
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No User found');
-        done();
-      });
-  });
   it('should create a new User', (done) => {
     supertest(app)
       .post('/api/v1/users/signup')
@@ -78,7 +62,7 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('check user input', (done) => {
+  it('should check username input', (done) => {
     supertest(app)
       .post('/api/v1/users/signup')
       .send({
@@ -87,7 +71,7 @@ describe('More-Recipe API: ', () => {
         email: 'temitayo@example.com',
         password: 'mypassword'
       })
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -96,7 +80,7 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('check user input', (done) => {
+  it('should check password input', (done) => {
     supertest(app)
       .post('/api/v1/users/signup')
       .send({
@@ -105,7 +89,7 @@ describe('More-Recipe API: ', () => {
         email: 'temitayo@example.com',
         password: 'mypassword 12',
       })
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -114,7 +98,7 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('check user input', (done) => {
+  it('should check full name input', (done) => {
     supertest(app)
       .post('/api/v1/users/signup')
       .send({
@@ -123,12 +107,12 @@ describe('More-Recipe API: ', () => {
         email: 'temitayo@example.com',
         password: 'mypassword',
       })
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Invalid Input');
+        expect(res.body.message).toBe('Invalid full name');
         done();
       });
   });
@@ -281,7 +265,7 @@ describe('More-Recipe API: ', () => {
         email: 'joyce@example.com',
         password: 'mypassword'
       })
-      .expect(400)
+      .expect(409)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -300,7 +284,7 @@ describe('More-Recipe API: ', () => {
         password: 'mypassword',
         cpassword: 'mypassword'
       })
-      .expect(400)
+      .expect(409)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -369,30 +353,44 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        userId = res.body.data.userId;
         token = res.body.data.token;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
       });
   });
-  it('User should not be able to get all users', (done) => {
+  it('should not sign in user if no username provided', (done) => {
     supertest(app)
-      .get('/api/v1/users')
+      .post('/api/v1/users/signin')
       .send({
-        token: `${token}`
+        password: 'mypassword'
       })
-      .expect(403)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body.message).toBe('Please provide your username');
+        done();
+      });
+  });
+  it('should not sign in user if no password provided', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signin')
+      .send({
+        username: 'temitayo'
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Please provide your password');
         done();
       });
   });
   it('Should not sign up user if username already exist', (done) => {
     supertest(app)
-      .post('/api/v1/users/userexist')
+      .post('/api/v1/users/exist')
       .send({
         username: 'temitayo'
       })
@@ -401,13 +399,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body).toBe(true);
+        expect(res.body.status).toBe(true);
         done();
       });
   });
   it('Should sign up user if username does not exist', (done) => {
     supertest(app)
-      .post('/api/v1/users/userexist')
+      .post('/api/v1/users/exist')
       .send({
         username: 'gbenga'
       })
@@ -416,13 +414,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body).toBe(false);
+        expect(res.body.status).toBe(false);
         done();
       });
   });
   it('Should not sign up user if email already exist', (done) => {
     supertest(app)
-      .post('/api/v1/users/emailexist')
+      .post('/api/v1/users/exist')
       .send({
         email: 'temitayo@example.com'
       })
@@ -431,13 +429,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body).toBe(true);
+        expect(res.body.status).toBe(true);
         done();
       });
   });
   it('Should sign up user if email does not exist', (done) => {
     supertest(app)
-      .post('/api/v1/users/emailexist')
+      .post('/api/v1/users/exist')
       .send({
         email: 'temi@example.com'
       })
@@ -446,13 +444,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body).toBe(false);
+        expect(res.body.status).toBe(false);
         done();
       });
   });
   it('should be able to edit profile', (done) => {
     supertest(app)
-      .put(`/api/v1/user/${userId}`)
+      .put('/api/v1/user')
       .send({
         username: 'temitayo',
         token: `${token}`
@@ -466,11 +464,13 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to edit profile', (done) => {
+  it('should not be able to edit profile if username exist', (done) => {
     supertest(app)
-      .put(`/api/v1/user/${userId}`)
+      .put('/api/v1/user')
       .send({
         username: 'ruqoyah',
+        email: 'bukky@example.com',
+        fullName: 'bukky john',
         token: `${token}`
       })
       .expect(409)
@@ -482,11 +482,13 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to edit profile', (done) => {
+  it('should not be able to edit profile if email already exist', (done) => {
     supertest(app)
-      .put(`/api/v1/user/${userId}`)
+      .put('/api/v1/user')
       .send({
+        username: 'bukky',
         email: 'ruqoyah@example.com',
+        fullName: 'bukky john',
         token: `${token}`
       })
       .expect(409)
@@ -498,41 +500,11 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should get a particular user details', (done) => {
+  it('should get user details', (done) => {
     supertest(app)
-      .get(`/api/v1/users/${userId}`)
+      .get('/api/v1/user')
       .send({
         token: `${token}`
-      })
-      .expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body);
-        done();
-      });
-  });
-  it('should not get user details if it does not exist', (done) => {
-    supertest(app)
-      .get('/api/v1/users/8')
-      .send({
-        token: `${token}`
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('user does not exist');
-        done();
-      });
-  });
-  it('should be able to get all users', (done) => {
-    supertest(app)
-      .get('/api/v1/users')
-      .send({
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjMsInVzZXJuYW1lIjoicnVrYXlhdCIsImZ1bGxuYW1lIjoicnVrYXlhdCBvZHVrb3lhIiwiaXNBZG1pbiI6MX0sImlhdCI6MTUwNTY4Nzg0NH0.cG16W4YvYAWdLUjOYpXVp7lZFDn647mRSUSxJUzzFeE'
       })
       .expect(200)
       .end((err, res) => {

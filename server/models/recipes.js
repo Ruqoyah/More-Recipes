@@ -17,11 +17,6 @@ export default (sequelize, DataTypes) => {
       required: true,
       allowNull: false
     },
-    creator: {
-      type: DataTypes.STRING,
-      required: true,
-      allowNull: false
-    },
     userId: {
       type: DataTypes.INTEGER,
       references: {

@@ -26,13 +26,18 @@ module.exports = {
       debug: false
     }),
     new webpack.optimize.UglifyJsPlugin(),
+    new webpack.EnvironmentPlugin([
+      'CLOUD_PRESET',
+      'REQUEST',
+      'CLOUD_NAME',
+      'SUPER_SECRET'
+    ]),
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
+      "$": 'jquery',
+      "jQuery": 'jquery',
       'window.jQuery': 'jquery'
     })
   ],
-  devtool: 'cheap-source-map',
   module: {
     rules: [
       {
