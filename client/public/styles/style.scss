@@ -1,44 +1,59 @@
+$primary-font: 'Gabriela', serif;
+$secondary-font: 'Ubuntu', sans-serif;
+$primary-color: #ff9402;
+$default-padding: 5%;
+$default-margin: 5%;
+$border-color: #858e96;
+$input-color: #fff;
+$button-success: #28a745;
+
 .header-login {
     width: 432px;
     margin: 15% auto 0px;
-    color: #fff;
-    background: #00A859;
+    color: $input-color;
+    background: $button-success;
     text-align: center;
     border-bottom: none;
     border-radius: 10px 10px 0px 0px;
     padding: 20px;
 }
 
+.fa-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .btn-toolbar .btn {
   margin-right: 5px;
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 .form-control.is-valid {
-  border-color: #858e96;
-  font-family: 'Gabriela', serif;
+  border-color: $border-color;
+  font-family: $primary-font;
 }
 
 .form-control {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 .form-control-label {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 .form-control-file {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 button, select {
   text-transform: none;
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 .btn {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 a:hover {
@@ -47,13 +62,13 @@ a:hover {
 }
 
 h6 {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 .header-signup {
   width: 432px;
   margin: 8% auto 0px;
-  color: #fff;
+  color: $input-color;
   background: #D54239;
   text-align: center;
   border-bottom: none;
@@ -64,23 +79,23 @@ h6 {
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  background-color: #ffffff;
+  background-color: $input-color;
   border-radius: .3rem;
   text-align: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: $default-margin;
+  margin-right: $default-margin;
 }
 
 a {
-  color: #ff9402;
+  color: $primary-color;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 h1 {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: $secondary-font;
 }
 
 body {
@@ -88,7 +103,7 @@ body {
 }
 
 p {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 .dropdown-item {
@@ -108,18 +123,12 @@ p {
   width: 432px;
   margin: auto;
   padding: 20px;
-  background: #fff;
-  border-radius: 0px 0px 10px 10px;
-}
-
-.view-recipe {
-  width: 70%;
-  margin: auto;
+  background: $input-color;
   border-radius: 0px 0px 10px 10px;
 }
 
 .input-group {
-  margin: 10px 0px 10px 0px;
+  top: 0;
 }
 
 .join {
@@ -127,30 +136,30 @@ p {
 }
 
 a.navbar-brand {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 a.nav-link {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 }
 
 h4 {
   font-size: 20px;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: $secondary-font;
 }
 
 h2 {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 } 
 
 h3 {
-  font-family: 'Gabriela', serif;
+  font-family: $primary-font;
 } 
 
 h5 {
   margin-top: 2%;
   margin-bottom: 2%;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: $secondary-font;
   font-size: 28px;
   margin-left: 20%;
   margin-right: 20%;
@@ -183,25 +192,21 @@ h5 {
 
 .navbar {
     padding-top: 4%;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: $default-padding;
+    padding-right: $default-padding;
     margin-bottom: 2%;
-    background-color: #ff9402
-}
-
-.bg-light {
-  background-color: #f1f0f0!important;
+    background-color: $primary-color;
 }
 
 .container{
   padding-top: 2%;
-  padding-bottom:5%;
+  padding-bottom: $default-padding;
 }
 
 .not-found {
-  text-align:center;
+  text-align: center;
   margin-top: 10%;
-  padding-top: 5%;
+  padding-top: $default-padding;
   padding-bottom: 10%;
 }
 
@@ -211,10 +216,17 @@ h5 {
 
 .icon {
   cursor: pointer;
+  margin-top: 10px;
 }
 
-.container-fluid{
-    margin-top: 2%;
+.view-recipe {
+  padding-top: 2%;
+  padding-left: $default-padding;
+  padding-right: $default-padding;
+}
+
+.homepage-jumb {
+  padding-top: 2%;
 }
 
 .post-form textarea {
@@ -226,8 +238,8 @@ h5 {
 	resize:none;
 	padding: 10px;
 	font-size: 1em;
-  border-color: #858e96;
-  font-family: 'Gabriela', serif;
+  border-color: $border-color;
+  font-family: $primary-font;
 }
 
 .post-form textarea::-webkit-scrollbar {
@@ -240,17 +252,17 @@ h5 {
 
 }
 
-.footer{
+.footer {
     background-color: #868585;
-    margin-top: 5%;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    margin-top: $default-padding;
+    padding-top: $default-padding;
+    padding-bottom: $default-padding;
     text-align: center;
-    color: #fff;
+    color: $input-color;
     font-size:15px;
 }
 
-.chat{
+.chat {
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
@@ -270,13 +282,21 @@ h5 {
 	width: 100%;
 }
 
+.invalid-feedback {
+  display: block;
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #dc3545;
+}
+
 .chat .chat-message {
-	width: 60%;
+	width: 80%;
 	padding: 15px;
-	margin: 5px 10px 0;
 	border-radius: 10px;
-	color: #fff;
-	font-size: 100%;
+  color: $input-color;
+  margin-right: 10px;
+  font-size: 100%;
+  word-wrap: break-word
 }
 
 .friend .chat-message {
@@ -300,9 +320,9 @@ h5 {
   margin-left: 10%;
 }
 
-.row {
-  padding-left: 5%;
-  padding-right: 5%;
+.recipes {
+  padding-left: $default-padding;
+  padding-right: $default-padding;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -332,10 +352,11 @@ h5 {
 }
 
 .btn-outline-success {
-  color: #28a745;
+  color: $button-success;
   background-color: transparent;
   background-image: none;
-  border-color: #28a745;
+  border-color: $button-success;
+  margin-bottom: 10px;
 }
 
 .review {
@@ -353,7 +374,7 @@ div.modal div.modal-backdrop {
   margin-left: -1px;
   line-height: 1.25;
   color: #3f3f3f;
-  background-color: #fff;
+  background-color: $input-color;
   border: 1px solid #ddd;
   cursor: pointer;
 }
@@ -372,7 +393,7 @@ div.modal div.modal-backdrop {
     margin-left: -1px;
     line-height: 1.25;
     color: #3f3f3f;
-    background-color: #fff;
+    background-color: $input-color;
     border: 1px solid #ddd;
     cursor: pointer;
 }
@@ -395,15 +416,15 @@ div.modal div.modal-backdrop {
 }
 
 .dropdown-item.active, .dropdown-item:active {
-  color: #fff;
+  color: $input-color;
   text-decoration: none;
-  background-color: #ff9304;
+  background-color: $primary-color;
 }
 
 .add-form {
   margin-top: 100px;
   margin-bottom: 100px;
-  background-color: #fff;
+  background-color: $input-color;
   padding: 50px;
   box-shadow: 0px 15px 15px #bebebe;
   width: 450px;
@@ -414,23 +435,23 @@ div.modal div.modal-backdrop {
 }
 
 .btn-outline-primary {
-  color: #858e96;
+  color: $border-color;
   background-color: transparent;
   background-image: none;
-  border-color: #858e96;
+  border-color: $border-color;
 }
 
 .btn-outline-primary:hover {
-  color: #fff;
-  background-color: #858e96;
-  border-color: #858e96;
+  color: $input-color;
+  background-color: $border-color;
+  border-color: $border-color;
 }
 
 @media(min-width: 300px) and (max-width: 750px) {
 
   h5 {
     margin-top: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: $secondary-font;
     font-size: 14px;
     margin-left: 15%;
     margin-right: 15%;
@@ -446,7 +467,7 @@ div.modal div.modal-backdrop {
   .add-form {
     margin-top: 100px;
     margin-bottom: 100px;
-    background-color: #fff;
+    background-color: $input-color;
     padding: 30px;
     box-shadow: 0px 15px 15px #bebebe;
     width: 300px;
@@ -458,14 +479,14 @@ div.modal div.modal-backdrop {
     padding-top: 5%;
     padding-bottom: 2%;
     text-align: center;
-    color: #fff;
+    color: $input-color;
     font-size: 9px;
   }
 
   .jumbotron {
     padding: 2rem 1rem;
     margin-bottom: 2rem;
-    background-color: #ffffff;
+    background-color: $input-color;
     border-radius: .3rem;
     text-align: center;
     margin-top: 5%;
@@ -481,7 +502,7 @@ div.modal div.modal-backdrop {
   .jumbotron {
     padding: 2rem 1rem;
     margin-bottom: 5%;
-    background-color: #ffffff;
+    background-color: $input-color;
     border-radius: .3rem;
     text-align: center;
     margin-top: 5%;
@@ -495,7 +516,7 @@ div.modal div.modal-backdrop {
     padding-top: 8%;
     padding-bottom: 8%;
     text-align: center;
-    color: #fff;
+    color: $input-color;
   }
 
 }

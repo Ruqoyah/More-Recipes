@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=feature%2F152323735%2Fimplement-upload-picture)](https://travis-ci.org/Ruqoyah/More-Recipes)
-[![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=feature%2F152323735%2Fimplement-upload-picture)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=feature%2F152323735%2Fimplement-upload-picture)
-[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5961a844495c237819a4/maintainability)](https://codeclimate.com/github/Ruqoyah/More-Recipes/maintainability)
 
 # More-Recipes
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a food recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
@@ -13,14 +13,14 @@ The API documentation can be viewed at <a href="http://more-recipes.getforge.io/
 
 
 ## Technologies Used
-* [NodeJS:](https://nodejs.org/en/) is an open-source, cross-platform JavaScript run-time environment for executing JavaScript code on the server-side.
-* [Javascript ES6:](https://en.wikipedia.org/wiki/ECMAScript) ES6 is the sixth major release of the javascript language specification. It enables features like constants, arrow functions, template literals, spread opeartor, etc.
-* [React:](https://facebook.github.io/react/tutorial/tutorial.html) Facebook open source, efficient, javascript library for building front-end projects.
-* [PostgreSQL:](https://www.postgresql.org/) PostgreSQL is a powerful, open source object-relational database system (ORDBMS) that offers modern database features such as complex queries, foreign keys, etc.
-* [Sequelize:](http://docs.sequelizejs.com/) Sequelize is a promise-based ORM for Node.js that supports different dialects such PostgreSQL, MySQL, and SQLite.
-* [Babel:](https://babeljs.io/)  Babel transpiles es6 codes to es5.
-* [Webpack:](https://webpack.github.io/docs/what-is-webpack.html) Webpack is used to bundle modules and does tasks automation.
-* [Axios:](https://www.npmjs.com/package/axios) Axios is an http client library used in consuming API.
+* NodeJS
+* Express
+* React
+* PostgreSQL
+* Sequelize
+* Babel
+* Webpack
+* Axios
 
 
 ## Installation
@@ -35,8 +35,8 @@ The API documentation can be viewed at <a href="http://more-recipes.getforge.io/
 
 
 ## Tests
-*  The tests have been written using Mocha framework and Chai assertion library
-*  Run the test with `npm test`
+*  Run the server test with `npm run server:test`
+*  Run the client test with `npm run client:test`
 
 
 ## Limitations

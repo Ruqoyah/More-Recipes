@@ -1,7 +1,7 @@
-import model from '../models';
-import { reviewNotification } from '../helper/index';
+import models from '../models';
+import { reviewNotification } from '../helper';
 
-const { Reviews } = model;
+const { Reviews } = models;
 
 export default {
 
@@ -23,7 +23,7 @@ export default {
       .then((createReview) => {
         createReview.reload({
           include: [{
-            model: model.Users,
+            model: models.Users,
             attributes: ['picture', 'username']
           }]
         })
@@ -52,7 +52,7 @@ export default {
 
   getReviews(req, res) {
     const pageNumber = Number(req.query.page);
-    const limit = 12;
+    const limit = 5;
     let offset;
     let page;
     if (pageNumber === 0) {
@@ -68,7 +68,7 @@ export default {
         },
         order: [['createdAt', 'DESC']],
         include: [{
-          model: model.Users,
+          model: models.Users,
           attributes: ['picture', 'username']
         }],
         limit,

@@ -1,6 +1,6 @@
-import model from '../models';
+import models from '../models';
 
-const { favoriteRecipes } = model;
+const { favoriteRecipes } = models;
 
 export default {
 
@@ -21,7 +21,7 @@ export default {
       })
       .then(favorite => res.status(200).json({
         status: true,
-        message: `You successfully choose recipe id ${req.params.recipeId} as your favorite recipes`,
+        message: 'You successfully favorited this recipe',
         data: { recipeId: favorite.recipeId }
       }))
       .catch(() => res.status(500).json({
@@ -52,15 +52,16 @@ export default {
     }
     favoriteRecipes
       .findAndCountAll({
+        order: [['id', 'DESC']],
         where: { userId },
         include: [{
-          model: model.Recipes,
+          model: models.Recipes,
           attributes: ['recipeName',
             'ingredient', 'details',
             'upvotes', 'downvotes',
-            'picture', 'views', 'createdAt'],
+            'picture', 'views', 'userId', 'createdAt'],
           include: [{
-            model: model.Users,
+            model: models.Users,
             attributes: ['username']
           }]
         }],

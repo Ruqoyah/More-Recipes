@@ -89,7 +89,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe(`You successfully choose recipe id ${recipeId} as your favorite recipes`);
+        expect(res.body.message).toBe('You successfully favorited this recipe');
         done();
       });
   });
@@ -99,12 +99,12 @@ describe('More-Recipe API: ', () => {
       .send({
         token: `${token}`
       })
-      .expect(200)
+      .expect(409)
       .end((err, res) => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('You already favorite recipe');
+        expect(res.body.message).toBe('You already favorited this recipe');
         done();
       });
   });

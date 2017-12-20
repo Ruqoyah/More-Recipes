@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import model from '../models/';
-import { capitalize } from '../helper/index';
+import models from '../models';
+import { capitalize } from '../helper';
 
 dotenv.load();
 
-const { Recipes, Users, favoriteRecipes, Votes } = model;
+const { Recipes, Users, favoriteRecipes, Votes } = models;
 
 /** Check if recipe field is empty
  *
@@ -449,9 +449,9 @@ export const validatefavRecipe = (req, res, next) => {
     })
     .then((favorite) => {
       if (favorite) {
-        return res.status(200).json({
+        return res.status(409).json({
           status: false,
-          message: 'You already favorite recipe'
+          message: 'You already favorited this recipe'
         });
       }
       next();
