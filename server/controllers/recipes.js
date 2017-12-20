@@ -1,7 +1,7 @@
-import model from '../models';
-import { afterVote, validateQuery, capitalize } from '../helper/index';
+import models from '../models';
+import { afterVote, validateQuery, capitalize } from '../helper';
 
-const { Recipes } = model;
+const { Recipes } = models;
 
 export default {
 
@@ -68,13 +68,7 @@ export default {
                 .then(result => res.status(200).json({ // eslint-disable-line
                   status: true,
                   message: 'Recipe modified successfully!',
-                  data: {
-                    id: Number(req.params.recipeId),
-                    recipeName: result.recipeName,
-                    ingredient: result.ingredient,
-                    details: result.details,
-                    picture: result.picture
-                  }
+                  data: result
                 }));
             }));
       })
@@ -240,6 +234,7 @@ export default {
     }
     Recipes
       .findAndCountAll({
+        order: [['id', 'DESC']],
         where: {
           userId
         },
@@ -284,7 +279,7 @@ export default {
     Recipes
       .findAll({
         include: [{
-          model: model.Users,
+          model: models.Users,
           attributes: ['username']
         }],
         where: {
@@ -306,7 +301,7 @@ export default {
         results = foundRecipes.slice(0);
       })
       .then(() => {
-        model.Users
+        models.Users
           .findAll({
             attributes: ['fullName'],
             where: {
@@ -395,8 +390,9 @@ export default {
     }
     Recipes
       .findAndCountAll({
+        order: [['id', 'DESC']],
         include: [{
-          model: model.Users,
+          model: models.Users,
           attributes: ['username']
         }],
         limit,

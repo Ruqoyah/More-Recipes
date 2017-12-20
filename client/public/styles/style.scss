@@ -9,6 +9,11 @@
     padding: 20px;
 }
 
+.fa-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .btn-toolbar .btn {
   margin-right: 5px;
   font-family: 'Gabriela', serif;
@@ -112,14 +117,8 @@ p {
   border-radius: 0px 0px 10px 10px;
 }
 
-.view-recipe {
-  width: 70%;
-  margin: auto;
-  border-radius: 0px 0px 10px 10px;
-}
-
 .input-group {
-  margin: 10px 0px 10px 0px;
+  top: 0;
 }
 
 .join {
@@ -211,10 +210,17 @@ h5 {
 
 .icon {
   cursor: pointer;
+  margin-top: 10px;
 }
 
-.container-fluid{
-    margin-top: 2%;
+.view-recipe {
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.homepage-jumb {
+  padding-top: 2%;
 }
 
 .post-form textarea {
@@ -270,13 +276,21 @@ h5 {
 	width: 100%;
 }
 
+.invalid-feedback {
+  display: block;
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #dc3545;
+}
+
 .chat .chat-message {
-	width: 60%;
+	width: 80%;
 	padding: 15px;
-	margin: 5px 10px 0;
 	border-radius: 10px;
-	color: #fff;
-	font-size: 100%;
+  color: #fff;
+  margin-right: 10px;
+  font-size: 100%;
+  word-wrap: break-word
 }
 
 .friend .chat-message {
@@ -300,7 +314,7 @@ h5 {
   margin-left: 10%;
 }
 
-.row {
+.recipes {
   padding-left: 5%;
   padding-right: 5%;
   display: -ms-flexbox;

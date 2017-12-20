@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-import model from '../models';
-import { signupNotification } from '../helper/index';
+import jsonwebtoken from 'jsonwebtoken';
+import models from '../models';
+import { signupNotification } from '../helper';
 
 dotenv.load();
 const secret = process.env.SUPER_SECRET;
 
-const { Users } = model;
+const { Users } = models;
 
 const saltRounds = 10;
 
@@ -32,10 +32,9 @@ export default {
         })
           .then((user) => {
             const currentUser = {
-              userId: user.id,
-              username: user.username
+              userId: user.id
             };
-            const token = jwt.sign({
+            const token = jsonwebtoken.sign({
               exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
               currentUser
             }, secret);
@@ -69,11 +68,9 @@ export default {
       })
       .then((user) => {
         const currentUser = {
-          userId: user.id,
-          username: user.username,
-          isAdmin: user.isAdmin
+          userId: user.id
         };
-        const token = jwt.sign({
+        const token = jsonwebtoken.sign({
           exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
           currentUser },
         secret);

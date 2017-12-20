@@ -1,8 +1,8 @@
 import express from 'express';
-import usersController from '../controllers/users';
-import recipesController from '../controllers/recipes';
-import reviewsController from '../controllers/reviews';
-import favoriteRecipesController from '../controllers/favoriteRecipes';
+import users from '../controllers/users';
+import recipes from '../controllers/recipes';
+import reviews from '../controllers/reviews';
+import favoriteRecipes from '../controllers/favoriteRecipes';
 import { validateRecipesId, checkRecipeInput,
   checkUserInput, checkValidUserInput, checkUserInvalidInput,
   checkReviewInvalidInput, validateUsers, validateLoginUser, checkReviewInput,
@@ -25,14 +25,14 @@ const app = express.Router();
  *
  * @param  {} validateUsers
  *
- * @param  {} usersController.signup
+ * @param  {} users.signup
  */
 app.post(
   '/api/v1/users/signup',
   checkUserInput,
   checkValidUserInput,
   checkUserInvalidInput,
-  validateUsers, usersController.signup
+  validateUsers, users.signup
 );
 
 /** Signin
@@ -41,25 +41,25 @@ app.post(
  *
  * @param  {} validateLoginUser
  *
- * @param  {} usersController.signin
+ * @param  {} users.signin
  */
 app.post(
   '/api/v1/users/signin',
   validateLoginUser,
-  usersController.signin
+  users.signin
 );
 
 /** Get user
  *
  * @param  {} '/api/v1/user'
  *
- * @param  {} usersController.getUser
+ * @param  {} users.getUser
  *
  */
 app.get(
   '/api/v1/user',
   authentication.authenticate,
-  usersController.getUser
+  users.getUser
 );
 
 /** Edit profile
@@ -74,7 +74,7 @@ app.get(
  *
  * @param  {} editProfilePassword
  *
- * @param  {} recipesController.editProfile
+ * @param  {} recipes.editProfile
  */
 app.put(
   '/api/v1/user',
@@ -83,19 +83,19 @@ app.put(
   editProfilePassword,
   verifyEditUsername,
   verifyEditEmail,
-  usersController.editProfile
+  users.editProfile
 );
 
 /** User Exist
  *
  * @param  {} '/api/v1/users/exist'
  *
- * @param  {} usersController.userExist
+ * @param  {} users.userExist
  *
  */
 app.post(
   '/api/v1/users/exist',
-  usersController.exist
+  users.exist
 );
 
 /** Add recipe
@@ -109,7 +109,7 @@ app.post(
  *
  * @param  {} validateUserId
  *
- * @param  {} recipesController.addRecipe
+ * @param  {} recipes.addRecipe
  *
  */
 app.post(
@@ -119,7 +119,7 @@ app.post(
   checkRecipeInvalidInput,
   validateUserId,
   recipeExist,
-  recipesController.addRecipe
+  recipes.addRecipe
 );
 
 /** Get User recipes
@@ -128,13 +128,13 @@ app.post(
  *
  * @param  {} authentication.authenticate
  *
- * @param  {} recipesController.getUserRecipes
+ * @param  {} recipes.getUserRecipes
  *
  */
 app.get(
   '/api/v1/user/recipes',
   authentication.authenticate,
-  recipesController.getUserRecipes
+  recipes.getUserRecipes
 );
 
 /** Get all recipes
@@ -143,19 +143,19 @@ app.get(
  *
  * @param  {} authentication.authenticate
  *
- * @param  {} recipesController.searchRecipes
+ * @param  {} recipes.searchRecipes
  *
- * @param  {} recipesController.sortRecipes
+ * @param  {} recipes.sortRecipes
  *
- * @param  {} recipesController.getAllRecipes
+ * @param  {} recipes.getAllRecipes
  *
  */
 app.get(
   '/api/v1/recipes',
   authentication.authenticate,
-  recipesController.searchRecipes,
-  recipesController.sortRecipes,
-  recipesController.getAllRecipes
+  recipes.searchRecipes,
+  recipes.sortRecipes,
+  recipes.getAllRecipes
 );
 
 /** Modify recipe
@@ -168,7 +168,7 @@ app.get(
  *
  * @param  {} validateRecipesId
  *
- * @param  {} recipesController.modifyRecipe
+ * @param  {} recipes.modifyRecipe
  */
 app.put(
   '/api/v1/recipes/:recipeId',
@@ -176,7 +176,7 @@ app.put(
   checkParamInvalidInput,
   validateRecipesId,
   checkRecipeInvalidInput,
-  recipesController.modifyRecipe
+  recipes.modifyRecipe
 );
 
 /** View Recipe
@@ -188,7 +188,7 @@ app.put(
  *
  * @param  {} validateRecipesId
  *
- * @param  {} recipesController.viewRecipe
+ * @param  {} recipes.viewRecipe
  *
  */
 app.get(
@@ -196,7 +196,7 @@ app.get(
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,
-  recipesController.viewRecipe
+  recipes.viewRecipe
 );
 
 /** Delete recipe
@@ -209,7 +209,7 @@ app.get(
  *
  * @param  {} validateRecipesId
  *
- * @param  {} recipesController.deleteRecipe
+ * @param  {} recipes.deleteRecipe
  *
  */
 app.delete(
@@ -217,7 +217,7 @@ app.delete(
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,
-  recipesController.deleteRecipe
+  recipes.deleteRecipe
 );
 
 /** Post review
@@ -236,7 +236,7 @@ app.delete(
  *
  * @param  {} checkReviewInvalidInput
  *
- * @param  {} reviewsController.postReview
+ * @param  {} reviews.postReview
  *
  */
 app.post(
@@ -247,7 +247,7 @@ app.post(
   checkReviewInput,
   validateUserId,
   checkReviewInvalidInput,
-  reviewsController.postReview
+  reviews.postReview
 );
 
 /** Get reviews
@@ -259,7 +259,7 @@ app.post(
  *
  * @param  {} validateRecipesId
  *
- * @param  {} reviewsController.getReviews
+ * @param  {} reviews.getReviews
  *
  */
 app.get(
@@ -267,7 +267,7 @@ app.get(
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,
-  reviewsController.getReviews
+  reviews.getReviews
 );
 
 /** Add favorite recipe
@@ -284,7 +284,7 @@ app.get(
  *
  * @param  {} validatefavRecipe
  *
- * @param  {} favoriteRecipesController.favoriteRecipe
+ * @param  {} favoriteRecipes.favoriteRecipe
  *
  */
 app.post(
@@ -294,7 +294,7 @@ app.post(
   validateRecipesId,
   validateUserId,
   validatefavRecipe,
-  favoriteRecipesController.favoriteRecipe
+  favoriteRecipes.favoriteRecipe
 );
 
 /** Get favorite recipes
@@ -303,13 +303,13 @@ app.post(
  *
  * @param  {} authentication.authenticate
  *
- * @param  {} favoriteRecipesController.getfavoriteRecipe
+ * @param  {} favoriteRecipes.getfavoriteRecipe
  *
  */
 app.get(
   '/api/v1/users/recipes',
   authentication.authenticate,
-  favoriteRecipesController.getfavoriteRecipe
+  favoriteRecipes.getfavoriteRecipe
 );
 
 /** Upvote recipe
@@ -326,7 +326,7 @@ app.get(
  *
  * @param  {} validateUserId
  *
- * @param  {} recipesController.upvoteRecipe
+ * @param  {} recipes.upvoteRecipe
  *
  */
 app.post(
@@ -336,7 +336,7 @@ app.post(
   validateRecipesId,
   upVote,
   validateUserId,
-  recipesController.upVoteRecipe
+  recipes.upVoteRecipe
 );
 
 /** Downvote recipe
@@ -352,7 +352,7 @@ app.post(
  *
  * @param  {} validateUserId
  *
- * @param  {} recipesController.downvoteRecipe
+ * @param  {} recipes.downvoteRecipe
  *
  */
 app.post(
@@ -362,7 +362,7 @@ app.post(
   validateRecipesId,
   downVote,
   validateUserId,
-  recipesController.downVoteRecipe
+  recipes.downVoteRecipe
 );
 
 
