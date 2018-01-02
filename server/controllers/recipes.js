@@ -1,121 +1,135 @@
-import db from '../models';
+import model from '../models';
+import { afterVote, validateQuery, capitalize } from '../helper/index';
 
-const { Recipes } = db;
-
-const getRecipeVoteCount = (req) => { // eslint-disable-line
-  return db.Votes
-    .findAndCountAll({
-      where: {
-        upvote: 1, recipeId: req.params.recipeId,
-      },
-    })
-    .then((upvoteCount) => { // eslint-disable-line
-      return db.Votes
-        .findAndCountAll({
-          where: {
-            downvote: 1, recipeId: req.params.recipeId,
-          },
-        }).then((downvoteCount) => { // eslint-disable-line
-          return Recipes.findById(req.params.recipeId)
-            .then((recipe) => { // eslint-disable-line
-              return recipe.update({ upvotes: upvoteCount.count,
-                downvotes: downvoteCount.count },
-              { fields: ['upvotes', 'downvotes'] });
-            });
-        });
-    });
-};
-const afterVote = (msg, req, res, vote) => {
-  getRecipeVoteCount(req, vote).then(() => {
-    Recipes.findById(req.params.recipeId).then(result => res.status(200).json({
-      message: msg,
-      data: result
-    }));
-  });
-};
-
+const { Recipes } = model;
 
 export default {
 
-/** Add recipe
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
+  /** Add recipe
+   *
+    * @param  {object} req - request
+    *
+    * @param  {object} res - response
+    *
+    */
 
   addRecipe(req, res) {
+    const { userId } = req.decoded.currentUser;
     return Recipes.create({
-      recipeName: req.body.recipeName,
+      recipeName: capitalize(req.body.recipeName),
       ingredient: req.body.ingredient,
       details: req.body.details,
       picture: req.body.picture,
-      creator: req.body.creator,
-      userId: req.body.userId
+      userId
     })
       .then(addedRecipe => res.status(201).json({
         status: true,
         message: 'Recipe added successfully',
         data: addedRecipe
       }))
-      .catch(error => res.status(400).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** Modify recipe
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    */
 
   modifyRecipe(req, res) {
-    return Recipes
-      .findOne({ where: {
-        id: req.params.recipeId }
+    Recipes
+      .findById(req.params.recipeId)
+      .then((currentRecipe) => {
+        const { userId } = req.decoded.currentUser;
+        if (currentRecipe.userId !== userId) {
+          return res.status(403).json({
+            message: 'sorry! you can only edit your own recipe'
+          });
+        }
+        return Recipes
+          .findOne({
+            where: {
+              id: req.params.recipeId
+            }
+          })
+          .then(recipe => recipe
+            .update({
+              recipeName: req.body.recipeName || recipe.recipeName,
+              ingredient: req.body.ingredient || recipe.ingredient,
+              details: req.body.details || recipe.details,
+              picture: req.body.picture || recipe.picture
+            })
+            .then(() => {
+              Recipes.findById(req.params.recipeId)
+                .then(result => res.status(200).json({ // eslint-disable-line
+                  status: true,
+                  message: 'Recipe modified successfully!',
+                  data: {
+                    id: Number(req.params.recipeId),
+                    recipeName: result.recipeName,
+                    ingredient: result.ingredient,
+                    details: result.details,
+                    picture: result.picture
+                  }
+                }));
+            }));
       })
-      .then(recipe => recipe
-        .update({
-          recipeName: req.body.recipeName || recipe.recipeName,
-          ingredient: req.body.ingredient || recipe.ingredient,
-          details: req.body.details || recipe.details,
-          picture: req.body.picture || recipe.picture
-        })
-        .then(() => {
-          Recipes.findById(req.params.recipeId).then(result => res.status(200).json({
-            status: true,
-            message: 'Recipe modified successfully!',
-            data: {
-              id: Number(req.params.recipeId),
-              recipeName: result.recipeName,
-              ingredient: result.ingredient,
-              details: result.details,
-              picture: result.picture }
-          }));
-        }))
-      .catch(error => res.status(500).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** Delete recipe
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
+   * @return {object} returns an object
+   *
    */
-
   deleteRecipe(req, res) {
-    return Recipes
-      .destroy({
-        where: {
-          id: req.params.recipeId
+    Recipes
+      .findById(req.params.recipeId)
+      .then((currentRecipe) => {
+        const { userId } = req.decoded.currentUser;
+        if (currentRecipe.userId !== userId) {
+          return res.status(403).json({
+            message: 'sorry! you can only delete your own recipe'
+          });
         }
+        return Recipes
+          .destroy({
+            where: {
+              id: req.params.recipeId,
+              userId: req.decoded.currentUser.userId
+            }
+          })
+          .then((recipe) => {
+            res.status(200).json({
+              status: true,
+              message: 'Recipe deleted successfully!',
+              data: {
+                id: Number(req.params.recipeId)
+              }
+            });
+          });
       })
-      .then(() => {
-        res.status(200).json({
-          status: true,
-          message: 'Recipe deleted successfully!',
-          id: req.params.recipeId
-        });
-      })
-      .catch(error => res.status(500).json(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** Upvote a recipe
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    */
 
   upVoteRecipe(req, res) {
@@ -127,7 +141,7 @@ export default {
       })
       .then((vote) => {
         if (vote.length < 1) {
-          return res.status(404).send({
+          return res.status(404).json({
             message: 'no recipe found to be upvoted'
           });
         }
@@ -138,13 +152,19 @@ export default {
         } else if (req.message === 'destroyed') {
           afterVote('vote removed successfully', req, res);
         }
-      });
+      })
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
 
   /** Downvote a recipe
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    */
 
   downVoteRecipe(req, res) {
@@ -156,7 +176,7 @@ export default {
       })
       .then((vote) => {
         if (vote.length < 1) {
-          return res.status(404).send({
+          return res.status(404).json({
             message: 'no recipe found to be downvoted'
           });
         }
@@ -167,7 +187,10 @@ export default {
         } else if (req.message === 'destroyed') {
           afterVote('vote removed successfully', req, res);
         }
-      });
+      })
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** View recipe
@@ -180,50 +203,225 @@ export default {
       .findOne({
         where: {
           id: req.params.recipeId
-        },
-        include: [{
-          model: db.Reviews,
-          attributes: ['review', 'recipeId'],
-          include: [{
-            model: db.Users,
-            attributes: ['fullName', 'updatedAt'],
-          }]
-        }],
+        }
       })
       .then((recipe) => {
         recipe.increment('views').then(() => {
           recipe.reload()
-            .then(() => res.status(200).send(recipe));
+            .then(() => res.status(200).json(recipe));
         });
       })
-      .catch(error => res.status(500).send(error));
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
+  /** Get user recipes
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @return {object} returns an object
+   *
+   */
   getUserRecipes(req, res) {
+    const { userId } = req.decoded.currentUser;
+    const pageNumber = Number(req.query.page);
+    const limit = 12;
+    let offset;
+    let page;
+    const message = 'Sorry no recipe found for this page';
+    if (pageNumber === 0) {
+      offset = 0;
+    } else {
+      page = pageNumber;
+      offset = limit * (page - 1);
+    }
     Recipes
-      .findAll({
+      .findAndCountAll({
         where: {
-          userId: req.params.userId
+          userId
         },
-        include: [{
-          model: db.Reviews,
-          attributes: ['review'],
-          include: [{
-            model: db.Users,
-            attributes: ['fullName', 'updatedAt'],
-          }]
-        }],
+        limit,
+        offset,
       })
       .then((recipes) => {
-        if (recipes.length < 1) {
+        const pages = Math.ceil(recipes.count / limit);
+        if (!recipes.count) {
           return res.status(404).json({
-            message: 'No Recipe found'
+            message: 'No recipe found'
+          });
+        } else if (pageNumber > pages) {
+          return res.status(404).json({
+            message: message
           });
         }
-        return res.status(200).json(recipes);
+        return res.status(200).json({
+          status: true,
+          recipes,
+          pages
+        });
       })
-      .catch(error => res.status(500).json(error));
-  }
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
+  },
 
+  /** Search Recipes
+   * Get recipes with the most upvote
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @param  {object} next - next
+   */
+
+  searchRecipes(req, res, next) {
+    if (!req.query.search) { return next(); }
+    let results;
+    Recipes
+      .findAll({
+        include: [{
+          model: model.Users,
+          attributes: ['username']
+        }],
+        where: {
+          $or: [
+            {
+              recipeName: {
+                $iLike: `%${req.query.search}%`
+              }
+            },
+            {
+              ingredient: {
+                $iLike: `%${req.query.search}%`
+              }
+            }
+          ]
+        }
+      })
+      .then((foundRecipes) => {
+        results = foundRecipes.slice(0);
+      })
+      .then(() => {
+        model.Users
+          .findAll({
+            attributes: ['fullName'],
+            where: {
+              $or: [
+                {
+                  fullName: {
+                    $iLike: `%${req.query.search}%`
+                  }
+                },
+                {
+                  username: {
+                    $iLike: `%${req.query.search}%`
+                  }
+                },
+              ]
+            }
+          })
+          .then((recipe) => {
+            if (results.concat(recipe).length < 1) {
+              return res.status(404).json({
+                message: 'No match Recipe found',
+                data: []
+              });
+            }
+            return res.status(200).json({
+              status: true,
+              data: results.concat(recipe)
+            });
+          })
+          .catch(() => res.status(500).json({
+            error: 'Internal sever Error'
+          }));
+      });
+  },
+
+  /** Get recipes with the most upvote
+   * @param  {object} req - request
+   * @param  {object} res - response
+   * @param  {object} next - next
+   */
+
+  sortRecipes(req, res, next) {
+    if (!req.query.sort) { return next(); }
+    const validSort = ['upvotes', 'downvotes'];
+    if (validateQuery(req.query.sort, validSort)) {
+      return Recipes
+        .findAll({
+          order: [[req.query.sort, 'DESC']],
+          limit: 5
+        })
+        .then((recipes) => {
+          res.status(200).json({
+            status: true,
+            recipes
+          });
+        })
+        .catch(() => res.status(500).json({
+          error: 'Internal sever Error'
+        }));
+    }
+    return res.status(403).json({
+      status: false,
+      message: 'Invalid Request'
+    });
+  },
+
+  /** Get all recipes
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @return {object} returns an object
+   */
+  getAllRecipes(req, res) {
+    const pageNumber = Number(req.query.page);
+    const limit = 12;
+    let offset;
+    let page;
+    const message = 'Sorry no recipe found for this page';
+    if (pageNumber === 0) {
+      offset = 0;
+    } else {
+      page = pageNumber;
+      offset = limit * (page - 1);
+    }
+    Recipes
+      .findAndCountAll({
+        include: [{
+          model: model.Users,
+          attributes: ['username']
+        }],
+        limit,
+        offset,
+      })
+      .then((recipes) => {
+        const pages = Math.ceil(recipes.count / limit);
+        if (!recipes.count) {
+          return res.status(404).json({
+            message: 'No recipe found'
+          });
+        } else if (pageNumber > pages) {
+          return res.status(404).json({
+            message: message
+          });
+        }
+        return res.status(200).json({
+          status: true,
+          recipes,
+          pages
+        });
+      })
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
+  },
 };
 

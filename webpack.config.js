@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+import dotenv from 'dotenv-webpack';
 
 module.exports = {
   devtool: 'inline-sourcemap',
@@ -16,11 +17,15 @@ module.exports = {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new dotenv({
+      path: './.env',
+      safe: false
+    }),
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
+      "$": 'jquery',
+      "jQuery": 'jquery',
       'window.jQuery': 'jquery',
-      Tether: 'tether'
+      "Tether": 'tether'
     })
   ],
   module: {

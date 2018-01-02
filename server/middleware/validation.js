@@ -1,132 +1,97 @@
-import nodemailer from 'nodemailer';
 import bcrypt from 'bcrypt';
-import winston from 'winston';
 import dotenv from 'dotenv';
-import db from '../models/';
+import model from '../models/';
+import { capitalize } from '../helper/index';
 
 dotenv.load();
 
-const { Recipes, Users, favoriteRecipes, Votes } = db;
+const { Recipes, Users, favoriteRecipes, Votes } = model;
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
-
-/** Get notification each time recipe get review
+/** Check if recipe field is empty
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
- */
-
-export const reviewNotification = (req) => {
-  Recipes
-    .findOne({ where: { id: req.params.recipeId } })
-    .then((recipe) => {
-      Users
-        .findOne({ where: { id: recipe.userId } })
-        .then((user) => {
-          const mailOptions = {
-            from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
-            to: user.email,
-            subject: 'You have a new Review',
-            text: 'Someone just review your recipe, click on the link below to check',
-          };
-
-          transporter.sendMail(mailOptions, (error, response) => {
-            if (error) {
-              winston.info('Email not sent!');
-              return winston.info(error);
-            }
-            winston.info('Email sent to: %s', response);
-          });
-        });
-    });
-};
-
-
-/** Get a signup notification
- * @param  {object} req - request
- * @param  {object} res - response
- * @param  {object} next - next
- */
-
-export const signupNotification = (req) => {
-  Users
-    .findOne({
-      where: {
-        email: req.body.email
-      },
-    })
-    .then((user) => {
-      const mailOptions = {
-        from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
-        to: user.email,
-        subject: 'Your More-Recipes account has been created',
-        text: `Thank you for signing up with More-Recipes, username: ${user.username}`,
-      };
-
-      transporter.sendMail(mailOptions, (error, response) => {
-        if (error) {
-          winston.info(error);
-        }
-        winston.info('Email sent to: %s', response);
-      });
-    });
-};
-
-/** Check if user recipe input is empty
- * @param  {object} req - request
- * @param  {object} res - response
- * @param  {object} next - next
+ *
  */
 
 export const checkRecipeInput = (req, res, next) => {
   if (!req.body.recipeName) {
-    return res.status(400).json({ message: 'Enter recipe name' });
+    return res.status(400).json({
+      status: false,
+      message: 'Enter recipe name'
+    });
   }
   if (!req.body.ingredient) {
-    return res.status(400).json({ message: 'Input ingredient' });
+    return res.status(400).json({
+      status: false,
+      message: 'Input ingredient'
+    });
   }
   if (!req.body.details) {
-    return res.status(400).json({ message: 'Input details' });
+    return res.status(400).json({
+      status: false,
+      message: 'Input details'
+    });
+  }
+  if (!req.body.picture) {
+    return res.status(400).json({
+      status: false,
+      message: 'You need to upload a picture'
+    });
   }
   next();
 };
 
-/** Check if user signup input is empty
+/** Check if signup field is empty
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const checkUserInput = (req, res, next) => {
   if (!req.body.username) {
-    return res.status(400).json({ message: 'Username is required' });
+    return res.status(400).json({
+      status: false,
+      message: 'Username is required'
+    });
   }
   if (!req.body.fullName) {
-    return res.status(400).json({ message: 'fullName is required' });
+    return res.status(400).json({
+      status: false,
+      message: 'fullName is required'
+    });
   }
   if (!req.body.email) {
-    return res.status(400).json({ message: 'Email is required' });
+    return res.status(400).json({
+      status: false,
+      message: 'Email is required'
+    });
   }
   if (!req.body.password) {
-    return res.status(400).json({ message: 'Password is required' });
+    return res.status(400).json({
+      status: false,
+      message: 'Password is required'
+    });
   }
   next();
 };
 
 
 /** Check if user signup with a valid username, email and password
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const checkValidUserInput = (req, res, next) => {
@@ -168,104 +133,189 @@ export const checkValidUserInput = (req, res, next) => {
   next();
 };
 
-/** Check invalid input for users
+/** Check if user signup with a valid username, email and password
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const checkEditProfileInput = (req, res, next) => {
+  req.checkBody(
+    {
+      username: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: 'Please provide a username with atleast 5 characters.'
+        }
+      }
+    }
+  );
+  const message = req.validationErrors();
+  if (message) {
+    return res.status(409)
+      .json({
+        status: false,
+        message: message[0].msg
+      });
+  }
+  next();
+};
+
+/** Check invalid input for signup field
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
  * @param  {object} next - next
  */
 
 export const checkUserInvalidInput = (req, res, next) => {
-  if (req.body.username.match(/^[A-Za-z0-9]+$/g) == null) {
-    return res.status(409).json({ message: 'Invalid Username' });
+  const numberCheck = /((\d)+)/gi;
+  const checkSpace = /(\s){1}/;
+  const countMutipleSpace = /(\s){2}/;
+
+  if (numberCheck.test(req.body.username) ||
+    checkSpace.test(req.body.username) ||
+    /(\s)+/.test(req.body.username[0])) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid Username'
+    });
   }
-  if (req.body.password.match(/^([^ ]+)*$/g) == null) {
-    return res.status(409).json({ message: 'Invalid Password' });
+  if (checkSpace.test(req.body.password) ||
+    /(\s)+/.test(req.body.password[0])) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid Password'
+    });
   }
-  if (req.body.fullName.match(/^\w+( +\w+)*$/g) == null) {
-    return res.status(409).json({ message: 'Invalid Input' });
+  if (numberCheck.test(req.body.fullName) ||
+    countMutipleSpace.test(req.body.fullName) ||
+    /(\s)+/.test(req.body.fullName[0])) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid full name'
+    });
+  }
+  next();
+};
+
+/** Check invalid input in the param
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const checkParamInvalidInput = (req, res, next) => {
+  if (req.params.recipeId.match(/^[0-9]/) == null) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid recipe id'
+    });
   }
   next();
 };
 
 
-/** Check invalid input for recipe
+/** Check invalid input for recipe field
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const checkRecipeInvalidInput = (req, res, next) => {
-  if (req.body.recipeName.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
-    return res.status(409).json({ status: false, message: 'Invalid Recipe Name' });
+  const numberCheck = /((\d)+)/gi;
+  const countMutipleSpace = /(\s){2}/;
+
+  if (numberCheck.test(req.body.recipeName) ||
+    countMutipleSpace.test(req.body.recipeName) ||
+    /(\s)+/.test(req.body.recipeName[0])) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid Recipe Name'
+    });
   }
-  if (req.body.ingredient.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
-    return res.status(409).json({ status: false, message: 'Invalid Ingredient' });
+
+  if (countMutipleSpace.test(req.body.ingredient) ||
+  /(\s)+/.test(req.body.ingredient[0])) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid Ingredient'
+    });
   }
-  if (req.body.details.match(/^[A-Za-z0-9][^ ]+( [^]+)*$/g) == null) {
-    return res.status(409).json({ status: false, message: 'Invalid Details' });
+
+  if (countMutipleSpace.test(req.body.details) ||
+  /(\s)+/.test(req.body.details[0])) {
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid Details'
+    });
   }
   next();
 };
 
-/** Check invalid input for review recipe
+/** Check invalid input for review field
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const checkReviewInvalidInput = (req, res, next) => {
   if (req.body.review.match(/^[^ ]+( [^ ]+)*$/g) == null) {
-    return res.status(409).json({ message: 'Invalid input' });
+    return res.status(400).json({
+      status: false,
+      message: 'Invalid input'
+    });
   }
   next();
 };
 
-/** Check if review and user id is empty
+/** Check if review field is empty
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const checkReviewInput = (req, res, next) => {
   if (!req.body.review) {
-    return res.status(400).json({ message: 'Review can\'t be empty' });
-  }
-  if (!req.body.userId) {
-    return res.status(400).json({ message: 'You need to enter your user Id' });
+    return res.status(400).json({
+      status: false,
+      message: 'Review can\'t be empty'
+    });
   }
   next();
 };
 
-/** Check if user id input in body exist or empty
+/** Check if username and email already exist
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
- */
-
-export const checkUserId = (req, res, next) => {
-  if (!req.body.userId) {
-    return res.status(400).json({ message: 'User Id can\'t be empty' });
-  }
-  Users
-    .findOne({
-      where: {
-        id: req.body.userId
-      }
-    })
-    .then((user) => {
-      if (!user) {
-        return res.status(404).json({
-          message: 'User Id does not exist'
-        });
-      }
-      next();
-    });
-};
-
-/** Check if username and email already exist and password does not match
- * @param  {object} req - request
- * @param  {object} res - response
- * @param  {object} next - next
+ *
  */
 
 export const validateUsers = (req, res, next) => {
@@ -277,7 +327,10 @@ export const validateUsers = (req, res, next) => {
     })
     .then((user) => {
       if (user) {
-        return res.status(400).json({ message: 'Username already exists' });
+        return res.status(409).json({
+          status: false,
+          message: 'Username already exists'
+        });
       }
       Users
         .findOne({
@@ -287,27 +340,37 @@ export const validateUsers = (req, res, next) => {
         })
         .then((email) => {
           if (email) {
-            return res.status(400).json({ message: 'Email already exists' });
+            return res.status(409).json({
+              status: false,
+              message: 'Email already exists'
+            });
           }
           next();
         });
     });
 };
 
-/** Check if user exist and if input an incorrect password
+/** Check if user doesn't provide username and password
+ * or if user input an incorrect password
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const validateLoginUser = (req, res, next) => {
   if (!req.body.username) {
     return res.status(400).json({
+      status: false,
       message: 'Please provide your username'
     });
   }
   if (!req.body.password) {
     return res.status(400).json({
+      status: false,
       message: 'Please provide your password'
     });
   }
@@ -319,23 +382,33 @@ export const validateLoginUser = (req, res, next) => {
     })
     .then((user) => {
       if (!user) {
-        return res.status(401).json({ status: false, message: 'Invalid Credentials' });
+        return res.status(401).json({
+          status: false,
+          message: 'Invalid Credentials'
+        });
       } else if (user) {
         bcrypt.compare(req.body.password, user.password, (err, response) => {
           if (response) {
             next();
           } else {
-            return res.status(401).json({ status: false, message: 'Invalid Credentials' });
+            return res.status(401).json({
+              status: false,
+              message: 'Invalid Credentials'
+            });
           }
         });
       }
     });
 };
 
-/** Check if recipe id input in param exist
+/** Check if recipe id in param exist
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const validateRecipesId = (req, res, next) => {
@@ -346,6 +419,7 @@ export const validateRecipesId = (req, res, next) => {
     .then((recipe) => {
       if (!recipe) {
         return res.status(404).json({
+          status: false,
           message: 'No recipe Id found'
         });
       }
@@ -353,17 +427,23 @@ export const validateRecipesId = (req, res, next) => {
     });
 };
 
-/** check if favorite recipe already exist
+
+/** check if user already favorite recipe
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const validatefavRecipe = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
   favoriteRecipes
     .findOne({
       where: {
-        userId: req.body.userId,
+        userId,
         recipeId: req.params.recipeId
       }
     })
@@ -378,48 +458,28 @@ export const validatefavRecipe = (req, res, next) => {
     });
 };
 
-/** Check if user id input in param exist
+/** validate user id
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
-export const validateUsersId = (req, res, next) => {
-  if (!req.body.userId) {
-    return res.status(400).json({ message: 'User Id can\'t be empty' });
-  }
+export const validateUserId = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
   Users
     .findOne({
       where: {
-        id: req.body.userId
+        id: userId
       }
     })
     .then((user) => {
       if (!user) {
         return res.status(404).json({
-          message: 'No user Id found'
-        });
-      }
-      next();
-    });
-};
-
-/** validate user id param
- * @param  {object} req - request
- * @param  {object} res - response
- * @param  {object} next - next
- */
-
-export const validateParamUserId = (req, res, next) => {
-  Users
-    .findOne({
-      where: {
-        id: req.params.userId
-      }
-    })
-    .then((user) => {
-      if (!user) {
-        return res.status(404).json({
+          status: false,
           message: 'No user Id found'
         });
       }
@@ -428,18 +488,23 @@ export const validateParamUserId = (req, res, next) => {
 };
 
 /** Upvote recipe in vote table
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const upVote = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
   Votes
     .findOne({
       where: {
         $and: [
           { recipeId: req.params.recipeId },
-          { userId: req.body.userId, }
+          { userId, }
         ]
       }
     })
@@ -449,7 +514,7 @@ export const upVote = (req, res, next) => {
           where: {
             $and: [
               { recipeId: req.params.recipeId },
-              { userId: req.body.userId, }
+              { userId, }
             ]
           }
         }).then(() => {
@@ -467,7 +532,7 @@ export const upVote = (req, res, next) => {
       } else if (found === null) {
         return Votes.create({
           recipeId: req.params.recipeId,
-          userId: req.body.userId,
+          userId,
           upvote: 1,
           downvote: 0
         }).then(() => {
@@ -479,18 +544,23 @@ export const upVote = (req, res, next) => {
 };
 
 /** Downvote recipe in vote table
+ *
  * @param  {object} req - request
+ *
  * @param  {object} res - response
+ *
  * @param  {object} next - next
+ *
  */
 
 export const downVote = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
   Votes
     .findOne({
       where: {
         $and: [
           { recipeId: req.params.recipeId },
-          { userId: req.body.userId, }
+          { userId, }
         ]
       }
     })
@@ -500,7 +570,7 @@ export const downVote = (req, res, next) => {
           where: {
             $and: [
               { recipeId: req.params.recipeId },
-              { userId: req.body.userId, }
+              { userId, }
             ]
           }
         }).then(() => {
@@ -518,7 +588,7 @@ export const downVote = (req, res, next) => {
       } else if (found === null) {
         return Votes.create({
           recipeId: req.params.recipeId,
-          userId: req.body.userId,
+          userId,
           upvote: 0,
           downvote: 1
         }).then(() => {
@@ -529,7 +599,18 @@ export const downVote = (req, res, next) => {
     });
 };
 
+/** Verify user input for edit profile field
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
 export const verifyEditUsername = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
   Users
     .findOne({
       where: {
@@ -540,14 +621,18 @@ export const verifyEditUsername = (req, res, next) => {
       if (user) {
         Users.findOne({
           where: {
-            id: req.params.userId
+            id: userId
           }
         })
           .then((edit) => {
             if (req.body.username === edit.username) {
               next();
-            } else if (req.body.username === user.username && user.username !== edit.username) {
-              return res.status(409).send({ message: 'Username already exist' });
+            } else if (req.body.username === user.username &&
+              user.username !== edit.username) {
+              return res.status(409).json({
+                status: false,
+                message: 'Username already exist'
+              });
             }
           });
       } else {
@@ -556,7 +641,18 @@ export const verifyEditUsername = (req, res, next) => {
     });
 };
 
+/** Verify user input for edit profile field
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
 export const verifyEditEmail = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
   Users
     .findOne({
       where: {
@@ -567,14 +663,18 @@ export const verifyEditEmail = (req, res, next) => {
       if (user) {
         Users.findOne({
           where: {
-            id: req.params.userId
+            id: userId
           }
         })
           .then((edit) => {
             if (req.body.email === edit.email) {
               next();
-            } else if (req.body.email === user.email && user.email !== edit.email) {
-              return res.status(409).send({ message: 'Email already exist' });
+            } else if (req.body.email === user.email &&
+              user.email !== edit.email) {
+              return res.status(409).json({
+                status: false,
+                message: 'Email already exist'
+              });
             }
           });
       } else {
@@ -583,3 +683,50 @@ export const verifyEditEmail = (req, res, next) => {
     });
 };
 
+/** user shouldn't be able to edit password while editing profile
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const editProfilePassword = (req, res, next) => {
+  if (req.body.password) {
+    return res.status(400).json({
+      status: false,
+      message: 'You cannot edit password here'
+    });
+  }
+  next();
+};
+
+/** Check if user already post recipe
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const recipeExist = (req, res, next) => {
+  const { userId } = req.decoded.currentUser;
+  return Recipes
+    .findOne({
+      where: {
+        userId,
+        recipeName: capitalize(req.body.recipeName)
+      }
+    })
+    .then((recipe) => {
+      if (!recipe) return next();
+      return res.status(409).json({
+        status: false,
+        message: 'You have already created recipe'
+      });
+    });
+};

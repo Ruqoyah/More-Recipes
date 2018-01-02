@@ -1,15 +1,14 @@
 import expect from 'expect';
 import supertest from 'supertest';
-import app from '../app';
-import models from '../server/models';
+import app from '../../app';
+import models from '../models';
 
 let recipeId;
-let userId;
 let token;
 
 const doBeforeAll = () => {
   before((done) => {
-    models.Reviews.destroy({
+    models.favoriteRecipes.destroy({
       cascade: true,
       truncate: true,
       restartIdentity: true
@@ -40,7 +39,6 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         token = res.body.data.token;
-        userId = res.body.data.userId;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
       });
@@ -53,9 +51,7 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -67,12 +63,25 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should be able to post reviews for recipe', (done) => {
+  it('should not be able to get favorite recipes that does not exist', (done) => {
     supertest(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
+      .get('/api/v1/users/recipes?page=1')
       .send({
-        review: 'Nice! It\'s a good recipe',
-        userId: `${userId}`,
+        token: `${token}`
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('No favorite recipe found');
+        done();
+      });
+  });
+  it('should be able to add favorite recipes', (done) => {
+    supertest(app)
+      .post(`/api/v1/users/${recipeId}/recipes`)
+      .send({
         token: `${token}`
       })
       .expect(200)
@@ -80,16 +89,29 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body.message).toBe(`You successfully choose recipe id ${recipeId} as your favorite recipes`);
         done();
       });
   });
-  it('should check review input', (done) => {
+  it('should be able to add favorite recipes', (done) => {
     supertest(app)
-      .post('/api/v1/recipes/5/reviews')
+      .post(`/api/v1/users/${recipeId}/recipes`)
       .send({
-        review: 'Nice! It\'s a good recipe',
-        userId: `${userId}`,
+        token: `${token}`
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('You already favorite recipe');
+        done();
+      });
+  });
+  it('should not be able to add favorite recipes if no recipe id', (done) => {
+    supertest(app)
+      .post('/api/v1/users/8/recipes')
+      .send({
         token: `${token}`
       })
       .expect(404)
@@ -101,58 +123,9 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to post reviews if input is invalid', (done) => {
+  it('should be able to get favorite recipes', (done) => {
     supertest(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
-      .send({
-        review: '      Nice! It\'s a good recipe',
-        userId: `${userId}`,
-        token: `${token}`
-      })
-      .expect(409)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Invalid input');
-        done();
-      });
-  });
-  it('should not be able to post reviews for recipe if no review inputed', (done) => {
-    supertest(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
-      .send({
-        userId: `${userId}`,
-        token: `${token}`
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Review can\'t be empty');
-        done();
-      });
-  });
-  it('should not be able to post reviews for recipe if no user id', (done) => {
-    supertest(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
-      .send({
-        review: 'Nice! It\'s a good recipe',
-        token: `${token}`
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('You need to enter your user Id');
-        done();
-      });
-  });
-  it('should be able to get reviews for recipe', (done) => {
-    supertest(app)
-      .get(`/api/v1/recipes/${recipeId}/reviews`)
+      .get('/api/v1/users/recipes?page=1')
       .send({
         token: `${token}`
       })
@@ -161,7 +134,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body);
         done();
       });
   });

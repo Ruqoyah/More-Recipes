@@ -1,11 +1,11 @@
 import expect from 'expect';
 import supertest from 'supertest';
-import app from '../app';
-import models from '../server/models';
+import app from '../../app';
+import models from '../models';
 
 let recipeId;
-let userId;
 let token;
+let otherToken;
 
 const doBeforeAll = () => {
   before((done) => {
@@ -40,7 +40,23 @@ describe('More-Recipe API: ', () => {
           return done(err);
         }
         token = res.body.data.token;
-        userId = res.body.data.userId;
+        expect(res.body.message).toBe('You have successfully signed in!');
+        done();
+      });
+  });
+  it('should sign user in', (done) => {
+    supertest(app)
+      .post('/api/v1/users/signin')
+      .send({
+        username: 'ruqoyah',
+        password: 'mypassword'
+      })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        otherToken = res.body.data.token;
         expect(res.body.message).toBe('You have successfully signed in!');
         done();
       });
@@ -52,9 +68,7 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
-        picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        creator: 'temitayo'
+        picture: 'http://localhost:8000/images/dessert%20salad.png'
       })
       .expect(403)
       .end((err, res) => {
@@ -65,26 +79,6 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not add recipe without providing a token', (done) => {
-    supertest(app)
-      .post('/api/v1/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        token: `${token}`,
-        userId: `${userId}`,
-        creator: 'temitayo'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.errors);
-        done();
-      });
-  });
   it('should be able to add recipe providing a token', (done) => {
     supertest(app)
       .post('/api/v1/recipes')
@@ -92,10 +86,8 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
-        userId: `${userId}`,
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
       .expect(201)
       .end((err, res) => {
@@ -104,6 +96,25 @@ describe('More-Recipe API: ', () => {
         }
         recipeId = res.body.data.id;
         expect(res.body.message).toBe('Recipe added successfully');
+        done();
+      });
+  });
+  it('should not add the same recipe name twice', (done) => {
+    supertest(app)
+      .post('/api/v1/recipes')
+      .send({
+        recipeName: 'Pizza',
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        picture: 'http://localhost:8000/images/dessert%20salad.png',
+        token: `${token}`
+      })
+      .expect(409)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('You have already created recipe');
         done();
       });
   });
@@ -118,48 +129,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
-        done();
-      });
-  });
-  it('should not be able to add recipe if no user id provided', (done) => {
-    supertest(app)
-      .post('/api/v1/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        picture: 'http://localhost:8000/images/dessert%20salad.png',
-        token: `${token}`,
-        creator: 'temitayo'
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('User Id can\'t be empty');
-        done();
-      });
-  });
-  it('should not be able to add recipe if no user id found', (done) => {
-    supertest(app)
-      .post('/api/v1/recipes')
-      .send({
-        recipeName: 'Pizza',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: 8,
-        token: `${token}`,
-        creator: 'temitayo'
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No user Id found');
+        expect(res.body);
         done();
       });
   });
@@ -171,8 +141,6 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        creator: 'temitayo',
         token: 'dsjghkdDWHSJkjdskldsxkldsjkldsxdslk'
       })
       .expect(401)
@@ -191,9 +159,7 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -212,11 +178,9 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -233,11 +197,9 @@ describe('More-Recipe API: ', () => {
         ingredient: '  pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -254,11 +216,9 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: '   grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -274,9 +234,7 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -294,9 +252,7 @@ describe('More-Recipe API: ', () => {
         recipeName: 'Pizza',
         ingredient: 'pepper, flour, onions',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
-        token: `${token}`,
-        creator: 'temitayo'
+        token: `${token}`
       })
       .expect(400)
       .end((err, res) => {
@@ -325,6 +281,24 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
+  it('should not be able to modify recipe', (done) => {
+    supertest(app)
+      .put(`/api/v1/recipes/${recipeId}`)
+      .send({
+        recipeName: 'Pie',
+        ingredient: 'pepper, flour, onions',
+        details: 'grind pepper and onion then bake',
+        token: `${otherToken}`,
+      })
+      .expect(403)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('sorry! you can only edit your own recipe');
+        done();
+      });
+  });
   it('should not be able to modify recipe if recipe id does not exist', (done) => {
     supertest(app)
       .put('/api/v1/recipes/5')
@@ -333,7 +307,6 @@ describe('More-Recipe API: ', () => {
         ingredient: 'pepper, flour, onions',
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png',
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(404)
@@ -345,11 +318,10 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to delete recipe with invalid recipe id provided', (done) => {
+  it('should not be able to get recipes if no match result', (done) => {
     supertest(app)
-      .delete('/api/v1/recipes/5')
+      .get('/api/v1/recipes?search=book')
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(404)
@@ -357,13 +329,43 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('No recipe Id found');
+        expect(res.body.message).toBe('No match Recipe found');
+        done();
+      });
+  });
+  it('should not be able to get recipes if sorting with invalid name', (done) => {
+    supertest(app)
+      .get('/api/v1/recipes?sort=job&order=descending')
+      .send({
+        token: `${token}`
+      })
+      .expect(403)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Invalid Request');
+        done();
+      });
+  });
+  it('should not delete recipe if passed in invalid recipe id', (done) => {
+    supertest(app)
+      .delete('/api/v1/recipes/"5"')
+      .send({
+        token: `${token}`
+      })
+      .expect(400)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Invalid recipe id');
         done();
       });
   });
   it('should be able to get all recipes', (done) => {
     supertest(app)
-      .get('/api/v1/recipes')
+      .get('/api/v1/recipes?page=1')
       .send({
         token: `${token}`
       })
@@ -372,7 +374,22 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body);
+        done();
+      });
+  });
+  it('should not show recipes on the next page', (done) => {
+    supertest(app)
+      .get('/api/v1/recipes?page=2')
+      .send({
+        token: `${token}`
+      })
+      .expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('Sorry no recipe found for this page');
         done();
       });
   });
@@ -387,13 +404,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body);
         done();
       });
   });
-  it('should get recipes if the user have recipes', (done) => {
+  it('should get user recipes', (done) => {
     supertest(app)
-      .get(`/api/v1/${userId}/recipes`)
+      .get('/api/v1/user/recipes?page=1')
       .send({
         token: `${token}`
       })
@@ -402,7 +419,22 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body);
+        done();
+      });
+  });
+  it('should not be able to delete recipe', (done) => {
+    supertest(app)
+      .delete(`/api/v1/recipes/${recipeId}`)
+      .send({
+        token: `${otherToken}`
+      })
+      .expect(403)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.message).toBe('sorry! you can only delete your own recipe');
         done();
       });
   });
@@ -410,7 +442,6 @@ describe('More-Recipe API: ', () => {
     supertest(app)
       .delete(`/api/v1/recipes/${recipeId}`)
       .send({
-        userId: `${userId}`,
         token: `${token}`
       })
       .expect(200)
@@ -422,9 +453,9 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to get recipes if not exist', (done) => {
+  it('should not be able to get recipes if no recipe', (done) => {
     supertest(app)
-      .get('/api/v1/recipes')
+      .get('/api/v1/recipes?page=1')
       .send({
         token: `${token}`
       })
@@ -433,13 +464,13 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res);
+        expect(res.body.message).toBe('No recipe found');
         done();
       });
   });
   it('should not get recipes if the user does not have recipes', (done) => {
     supertest(app)
-      .get(`/api/v1/${userId}/recipes`)
+      .get('/api/v1/user/recipes?page=1')
       .send({
         token: `${token}`
       })
@@ -448,7 +479,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('No Recipe found');
+        expect(res.body.message).toBe('No recipe found');
         done();
       });
   });

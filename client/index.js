@@ -1,8 +1,8 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
 import { render } from 'react-dom';
-import App from './Components/App';
 import { Provider } from 'react-redux';
+import App from './Components/App';
 import configureStore from '../client/Store/index';
 import { SET_CURRENT_USER } from '../client/Actions/Types';
 import { setAuthorizationToken } from '../client/Helper/index';

@@ -1,6 +1,6 @@
 import expect from 'expect';
 import supertest from 'supertest';
-import app from '../app';
+import app from '../../app';
 
 describe('Protected routes (middleware)', () => {
   it('should return \'No token provided.\' (POST /api/v1/recipes)', (done) => {
@@ -57,9 +57,9 @@ describe('Protected routes (middleware)', () => {
         done();
       });
   });
-  it('should return \'No token provided.\' (GET /api/v1/users/:userId/recipes)', (done) => {
+  it('should return \'No token provided.\' (GET /api/v1/users/recipes)', (done) => {
     supertest(app)
-      .get('/api/v1/users/:userId/recipes')
+      .get('/api/v1/users/recipes')
       .end((err, res) => {
         expect(res.status).toBe(403);
         expect(res.body.message).toBe('No token provided.');
