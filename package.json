@@ -11,7 +11,8 @@
     "lint": "eslint ./",
     "build": "webpack --progress --config ./webpack.config.prod.js",
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
-    "client:test": "jest --coverage"
+    "client:test": "jest --coverage", 
+    "e2e": "nightwatch ./e2e/*.test.js"
   },
   "engines": {
     "node": "8.1.x",
