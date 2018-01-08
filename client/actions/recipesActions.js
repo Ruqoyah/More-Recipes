@@ -86,7 +86,7 @@ export function getUserRecipeAction(page) {
         payload: res.data
       });
     })
-    .catch(error => Promise.reject(error.response.data.message));
+    .catch(error => error.response);
 }
 
 /**
@@ -104,7 +104,7 @@ export function getAllRecipeAction(page) {
         payload: res.data
       });
     })
-    .catch(error => Promise.reject(error.response.data.message));
+    .catch(error => error.response);
 }
 
 /**
