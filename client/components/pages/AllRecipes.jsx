@@ -98,8 +98,8 @@ class AllRecipes extends Component {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
       return (
-        <div style={{ marginTop: '80px', textAlign: 'center' }}>
-          <h3>No recipe found </h3>
+        <div className="not-found">
+          <h1>No recipe found </h1>
         </div>
       );
     }
