@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
+import jsonwebtoken from 'jsonwebtoken';
 
 dotenv.load();
 
@@ -25,7 +25,7 @@ export default {
       token = tokenAvailable;
     }
     if (token) {
-      jwt.verify(token, key, (err, decoded) => {
+      jsonwebtoken.verify(token, key, (err, decoded) => {
         if (err) {
           res.status(401).json({
             status: false,

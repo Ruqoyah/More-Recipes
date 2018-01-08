@@ -9,9 +9,10 @@ directories:
  - node_modules
 script:
   - npm install
-  - npm run test
+  - npm run server:test
 after_success:
   - npm run coveralls
+  - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < coverage/lcov.info
 env:
   - NODE_ENV=test
 

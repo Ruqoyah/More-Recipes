@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const cleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production')
@@ -21,6 +22,9 @@ module.exports = {
     new cleanWebpackPlugin(['client/dist']),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin(GLOBALS),
+    new ExtractTextPlugin('./style.css', {
+      allChunks: true
+    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
@@ -53,7 +57,7 @@ module.exports = {
       },
       {
         test: /(\.s?css)$/,
-        loader: ['style-loader', 'css-loader', 'sass-loader']
+        loader: ExtractTextPlugin.extract('css-loader!sass-loader')
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,

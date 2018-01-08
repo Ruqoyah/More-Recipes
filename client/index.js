@@ -2,23 +2,23 @@ import React from 'react';
 import jwt from 'jsonwebtoken';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './Components/App';
-import configureStore from '../client/Store/index';
-import { SET_CURRENT_USER } from '../client/Actions/Types';
-import { setAuthorizationToken } from '../client/Helper/index';
+import App from './components/App';
+import store from '../client/store';
+import { SET_CURRENT_USER } from '../client/actions/types';
+import { setAuthorizationToken } from '../client/helper';
 import './public/styles/style.scss';
 
-const store = configureStore();
+const configureStore = store();
 
 if (localStorage.token) {
   setAuthorizationToken(localStorage.token);
-  store.dispatch({
+  configureStore.dispatch({
     type: SET_CURRENT_USER,
     user: jwt.decode(localStorage.token)
   });
 }
 
-render(<Provider store={store}>
+render(<Provider store={configureStore}>
   <App />
 </Provider>, document.getElementById('app'));
 

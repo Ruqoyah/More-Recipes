@@ -1,8 +1,12 @@
 import winston from 'winston';
 import nodemailer from 'nodemailer';
-import model from '../models/';
+import models from '../models';
+import {
+  reviewNotifierTemplate,
+  newUserEmailTemplate
+} from './emailTemplate';
 
-const { Recipes, Users, Votes } = model;
+const { Recipes, Users, Votes } = models;
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -35,8 +39,7 @@ export const reviewNotification = (req) => {
             from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
             to: user.email,
             subject: 'You have a new Review',
-            html: `<img style='width: 250px' src='http://res.cloudinary.com/ruqoyah/image/upload/v1513611853/logo_nqwsny.png'><hr />
-            <p style='font-size: 16px'>Someone just review your recipe</p>`
+            html: reviewNotifierTemplate.emailTemp(user.username)
           };
 
           transporter.sendMail(mailOptions, (error, response) => {
@@ -72,11 +75,7 @@ export const signupNotification = (req) => {
         from: '"More-Recipes" <rukayatodukoya123@gmail.com>',
         to: user.email,
         subject: 'Your More-Recipes account has been created',
-        html: `<img style='width: 250px' src='http://res.cloudinary.com/ruqoyah/image/upload/v1513611853/logo_nqwsny.png'><hr />
-        <p style='font-size: 16px'>Your account has been created – now 
-        you can share recipe and also benefit from other people's recipe.</p>
-        <a href="https://more-recipes-app.herokuapp.com/user/recipe"><button style="font-size: 14px; 
-        background-color: #ff9304; padding: 10px; color: #fff;">Get Started</button></ a>`,
+        html: newUserEmailTemplate,
       };
 
       transporter.sendMail(mailOptions, (error, response) => {
@@ -129,7 +128,7 @@ export const afterVote = (msg, req, res, vote) => {
       .then((createVote) => {
         createVote.reload({
           include: [{
-            model: model.Users,
+            model: models.Users,
             attributes: ['username']
           }]
         })

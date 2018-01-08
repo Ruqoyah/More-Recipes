@@ -1,7 +1,7 @@
-import model from '../models';
-import { afterVote, validateQuery, capitalize } from '../helper/index';
+import models from '../models';
+import { afterVote, validateQuery, capitalize } from '../helper';
 
-const { Recipes } = model;
+const { Recipes } = models;
 
 export default {
 
@@ -68,13 +68,7 @@ export default {
                 .then(result => res.status(200).json({ // eslint-disable-line
                   status: true,
                   message: 'Recipe modified successfully!',
-                  data: {
-                    id: Number(req.params.recipeId),
-                    recipeName: result.recipeName,
-                    ingredient: result.ingredient,
-                    details: result.details,
-                    picture: result.picture
-                  }
+                  data: result
                 }));
             }));
       })
@@ -240,6 +234,7 @@ export default {
     }
     Recipes
       .findAndCountAll({
+        order: [['id', 'DESC']],
         where: {
           userId
         },
@@ -284,7 +279,7 @@ export default {
     Recipes
       .findAll({
         include: [{
-          model: model.Users,
+          model: models.Users,
           attributes: ['username']
         }],
         where: {
@@ -304,42 +299,19 @@ export default {
       })
       .then((foundRecipes) => {
         results = foundRecipes.slice(0);
+        if (results.length < 1) {
+          return res.status(404).json({
+            message: 'No match Recipe found'
+          });
+        }
+        return res.status(200).json({
+          status: true,
+          data: results
+        });
       })
-      .then(() => {
-        model.Users
-          .findAll({
-            attributes: ['fullName'],
-            where: {
-              $or: [
-                {
-                  fullName: {
-                    $iLike: `%${req.query.search}%`
-                  }
-                },
-                {
-                  username: {
-                    $iLike: `%${req.query.search}%`
-                  }
-                },
-              ]
-            }
-          })
-          .then((recipe) => {
-            if (results.concat(recipe).length < 1) {
-              return res.status(404).json({
-                message: 'No match Recipe found',
-                data: []
-              });
-            }
-            return res.status(200).json({
-              status: true,
-              data: results.concat(recipe)
-            });
-          })
-          .catch(() => res.status(500).json({
-            error: 'Internal sever Error'
-          }));
-      });
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** Get recipes with the most upvote
@@ -395,8 +367,9 @@ export default {
     }
     Recipes
       .findAndCountAll({
+        order: [['id', 'DESC']],
         include: [{
-          model: model.Users,
+          model: models.Users,
           attributes: ['username']
         }],
         limit,

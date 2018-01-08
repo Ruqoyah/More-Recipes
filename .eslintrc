@@ -15,7 +15,8 @@
     "Image": true,
     "location": true,
     "window": true,
-    "document": true
+    "document": true,
+    "jest": true
   },
   "settings":{
     "import/resolver":{
