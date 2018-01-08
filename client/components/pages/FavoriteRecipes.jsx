@@ -26,6 +26,9 @@ class FavoriteRecipes extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      loader: false
+    };
     this.renderPagination = this.renderPagination.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
   }
@@ -36,7 +39,15 @@ class FavoriteRecipes extends Component {
    *
    */
   componentDidMount() {
-    this.props.actions.getFavoriteAction(1);
+    this.setState({
+      loader: true
+    });
+    this.props.actions.getFavoriteAction(1)
+      .then(() => {
+        this.setState({
+          loader: false
+        });
+      });
   }
 
   /**
@@ -93,8 +104,8 @@ class FavoriteRecipes extends Component {
     const allRecipes = this.props.favoriteRecipes;
     if (allRecipes.length < 1) {
       return (
-        <div style={{ marginTop: '80px', textAlign: 'center' }}>
-          <Loader size={'70px'} />
+        <div className="not-found">
+          <h1>No favorite recipe found</h1>
         </div>
       );
     }
@@ -131,8 +142,15 @@ class FavoriteRecipes extends Component {
     return (
       <div>
         <Header />
-        {this.renderRecipe()}
-        {this.renderPagination(0)}
+        { this.state.loader ?
+          <div style={{ marginTop: '200px', textAlign: 'center' }}>
+            <Loader size={'70px'} />
+          </div> :
+          <div>
+            {this.renderRecipe()}
+            {this.renderPagination(0)}
+          </div>
+        }
         <Footer />
       </div>);
   }

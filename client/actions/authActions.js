@@ -28,7 +28,7 @@ export function signUpAction(userDetails) {
         user: jsonwebtoken.decode(token)
       });
     })
-    .catch(error => error.response.data);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**

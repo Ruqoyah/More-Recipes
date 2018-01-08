@@ -186,7 +186,9 @@ export class AddRecipe extends Component {
         <Redirect to ="/recipes"/> :
         <div >
           <Header />
-          <div className="container-fluid add-form">
+          <div
+            id="add-form"
+            className="container-fluid add-form">
             <form
               name="add_recipe"
               onSubmit={this.handleSubmit}>
@@ -243,7 +245,11 @@ export class AddRecipe extends Component {
                   className="btn btn-secondary"
                   data-dismiss="modal" id="reset"
                   onClick={this.onClick}>Cancel</button>
-                <button type="submit" className="btn btn-outline-danger">Add Recipe</button>
+                <button type="submit"
+                  id="add-it"
+                  className="btn btn-outline-danger">
+                  Add Recipe
+                </button>
               </div>
             </form>
           </div>

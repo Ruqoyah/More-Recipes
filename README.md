@@ -37,6 +37,7 @@ The API documentation can be viewed at <a href="http://more-recipes.getforge.io/
 ## Tests
 *  Run the server test with `npm run server:test`
 *  Run the client test with `npm run client:test`
+*  Run end to end test with `npm run e2e:test`
 
 
 ## Limitations

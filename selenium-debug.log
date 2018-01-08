@@ -1,64 +1,1489 @@
-19:22:31.624 INFO - Selenium build info: version: '3.8.0', revision: '924c4067df'
-19:22:31.624 INFO - Launching a standalone Selenium Server
-2018-01-05 19:22:31.693:INFO::main: Logging initialized @265ms to org.seleniumhq.jetty9.util.log.StdErrLog
-19:22:31.722 INFO - Using `new FirefoxOptions()` is preferred to `DesiredCapabilities.firefox()`
-19:22:31.734 INFO - Using `new ChromeOptions()` is preferred to `DesiredCapabilities.chrome()`
-19:22:31.735 INFO - Using `new EdgeOptions()` is preferred to `DesiredCapabilities.edge()`
-19:22:31.736 INFO - Driver class not found: com.opera.core.systems.OperaDriver
-19:22:31.736 INFO - Using `new OperaOptions()` is preferred to `DesiredCapabilities.operaBlink()`
-19:22:31.736 INFO - Using `new SafariOptions()` is preferred to `DesiredCapabilities.safari()`
-19:22:31.737 INFO - Driver class not found: org.openqa.selenium.phantomjs.PhantomJSDriver
-19:22:31.761 INFO - Driver provider class org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+15:23:53.463 INFO - Selenium build info: version: '3.8.0', revision: '924c4067df'
+15:23:53.464 INFO - Launching a standalone Selenium Server
+2018-01-09 15:23:53.531:INFO::main: Logging initialized @262ms to org.seleniumhq.jetty9.util.log.StdErrLog
+15:23:53.560 INFO - Using `new FirefoxOptions()` is preferred to `DesiredCapabilities.firefox()`
+15:23:53.570 INFO - Using `new ChromeOptions()` is preferred to `DesiredCapabilities.chrome()`
+15:23:53.572 INFO - Using `new EdgeOptions()` is preferred to `DesiredCapabilities.edge()`
+15:23:53.572 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+15:23:53.572 INFO - Using `new OperaOptions()` is preferred to `DesiredCapabilities.operaBlink()`
+15:23:53.573 INFO - Using `new SafariOptions()` is preferred to `DesiredCapabilities.safari()`
+15:23:53.573 INFO - Driver class not found: org.openqa.selenium.phantomjs.PhantomJSDriver
+15:23:53.598 INFO - Driver provider class org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
  registration capabilities Capabilities {browserName: internet explorer, ensureCleanSession: true, platform: WINDOWS, version: } does not match the current platform MAC
-19:22:31.762 INFO - Driver provider class org.openqa.selenium.edge.EdgeDriver registration is skipped:
+15:23:53.598 INFO - Driver provider class org.openqa.selenium.edge.EdgeDriver registration is skipped:
  registration capabilities Capabilities {browserName: MicrosoftEdge, platform: WINDOWS, version: } does not match the current platform MAC
-19:22:31.788 INFO - Using `new ChromeOptions()` is preferred to `DesiredCapabilities.chrome()`
-19:22:31.789 INFO - Using `new EdgeOptions()` is preferred to `DesiredCapabilities.edge()`
-19:22:31.789 INFO - Using `new FirefoxOptions()` is preferred to `DesiredCapabilities.firefox()`
-19:22:31.790 INFO - Using `new OperaOptions()` is preferred to `DesiredCapabilities.operaBlink()`
-19:22:31.790 INFO - Using `new SafariOptions()` is preferred to `DesiredCapabilities.safari()`
-19:22:31.798 INFO - Using the passthrough mode handler
-2018-01-05 19:22:31.823:INFO:osjs.Server:main: jetty-9.4.7.v20170914
-2018-01-05 19:22:31.845:WARN:osjs.SecurityHandler:main: ServletContext@o.s.j.s.ServletContextHandler@2db7a79b{/,null,STARTING} has uncovered http methods for path: /
-2018-01-05 19:22:31.851:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@2db7a79b{/,null,AVAILABLE}
-2018-01-05 19:22:31.875:INFO:osjs.AbstractConnector:main: Started ServerConnector@67b467e9{HTTP/1.1,[http/1.1]}{0.0.0.0:2234}
-2018-01-05 19:22:31.875:INFO:osjs.Server:main: Started @447ms
-19:22:31.875 INFO - Selenium Server is up and running
-2018-01-05 19:22:32.039:INFO:osjshC.ROOT:qtp1709537756-13: org.openqa.selenium.remote.server.WebDriverServlet-6895a785: Initialising WebDriverServlet
-19:22:32.079 INFO - Found handler: org.openqa.selenium.remote.server.commandhandler.BeginSession@af46ab0
-19:22:32.083 INFO - /session: Executing POST on /session (handler: BeginSession)
-19:22:32.162 INFO - Capabilities are: Capabilities {acceptSslCerts: true, browserName: chrome, javascriptEnabled: true, name: Homepage Test}
-19:22:32.164 INFO - Capabilities {acceptSslCerts: true, browserName: chrome, javascriptEnabled: true, name: Homepage Test} matched class org.openqa.selenium.remote.server.ServicedSession$Factory (provider: org.openqa.selenium.chrome.ChromeDriverService)
-Starting ChromeDriver 2.34.522932 (4140ab217e1ca1bec0c4b4d1b148f3361eb3a03e) on port 17723
+15:23:53.629 INFO - Using `new ChromeOptions()` is preferred to `DesiredCapabilities.chrome()`
+15:23:53.629 INFO - Using `new EdgeOptions()` is preferred to `DesiredCapabilities.edge()`
+15:23:53.629 INFO - Using `new FirefoxOptions()` is preferred to `DesiredCapabilities.firefox()`
+15:23:53.630 INFO - Using `new OperaOptions()` is preferred to `DesiredCapabilities.operaBlink()`
+15:23:53.630 INFO - Using `new SafariOptions()` is preferred to `DesiredCapabilities.safari()`
+15:23:53.639 INFO - Using the passthrough mode handler
+2018-01-09 15:23:53.664:INFO:osjs.Server:main: jetty-9.4.7.v20170914
+2018-01-09 15:23:53.681:WARN:osjs.SecurityHandler:main: ServletContext@o.s.j.s.ServletContextHandler@2db7a79b{/,null,STARTING} has uncovered http methods for path: /
+2018-01-09 15:23:53.685:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@2db7a79b{/,null,AVAILABLE}
+2018-01-09 15:23:53.707:INFO:osjs.AbstractConnector:main: Started ServerConnector@67b467e9{HTTP/1.1,[http/1.1]}{0.0.0.0:2234}
+2018-01-09 15:23:53.708:INFO:osjs.Server:main: Started @439ms
+15:23:53.708 INFO - Selenium Server is up and running
+2018-01-09 15:23:53.851:INFO:osjshC.ROOT:qtp1709537756-14: org.openqa.selenium.remote.server.WebDriverServlet-6895a785: Initialising WebDriverServlet
+15:23:53.885 INFO - Found handler: org.openqa.selenium.remote.server.commandhandler.BeginSession@6bc02d7a
+15:23:53.888 INFO - /session: Executing POST on /session (handler: BeginSession)
+15:23:53.932 INFO - Capabilities are: Capabilities {acceptSslCerts: true, browserName: chrome, javascriptEnabled: true, name: E2e Tests / Homepage Test}
+15:23:53.933 INFO - Capabilities {acceptSslCerts: true, browserName: chrome, javascriptEnabled: true, name: E2e Tests / Homepage Test} matched class org.openqa.selenium.remote.server.ServicedSession$Factory (provider: org.openqa.selenium.chrome.ChromeDriverService)
+Starting ChromeDriver 2.34.522932 (4140ab217e1ca1bec0c4b4d1b148f3361eb3a03e) on port 28482
 Only local connections are allowed.
-19:22:33.083 INFO - Detected dialect: OSS
-19:22:33.449 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:33.449 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing POST on /session/c670d44d5c7b943c05eb137a2f283785/url (handler: ServicedSession)
-19:22:33.451 INFO - To upstream: {"url":"http://localhost:8000"}
-19:22:35.094 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":null}
-19:22:35.100 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.100 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing POST on /session/c670d44d5c7b943c05eb137a2f283785/elements (handler: ServicedSession)
-19:22:35.101 INFO - To upstream: {"using":"css selector","value":"body"}
-19:22:35.115 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":[{"ELEMENT":"0.8357672220878538-1"}]}
-19:22:35.119 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.119 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing GET on /session/c670d44d5c7b943c05eb137a2f283785/element/0.8357672220878538-1/displayed (handler: ServicedSession)
-19:22:35.130 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":true}
-19:22:35.135 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.135 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing POST on /session/c670d44d5c7b943c05eb137a2f283785/element (handler: ServicedSession)
-19:22:35.136 INFO - To upstream: {"using":"css selector","value":"h5"}
-19:22:35.145 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":{"ELEMENT":"0.8357672220878538-2"}}
-19:22:35.147 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.148 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing GET on /session/c670d44d5c7b943c05eb137a2f283785/element/0.8357672220878538-2/displayed (handler: ServicedSession)
-19:22:35.157 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":true}
-19:22:35.162 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.162 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing POST on /session/c670d44d5c7b943c05eb137a2f283785/element (handler: ServicedSession)
-19:22:35.163 INFO - To upstream: {"using":"css selector","value":"h5"}
-19:22:35.168 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":{"ELEMENT":"0.8357672220878538-2"}}
-19:22:35.171 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.171 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing GET on /session/c670d44d5c7b943c05eb137a2f283785/element/0.8357672220878538-2/text (handler: ServicedSession)
-19:22:35.183 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":"More-Recipes is a platform for users to share the awesome and exciting recipe ideas they have invented or learnt"}
-19:22:35.187 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.187 INFO - Handler thread for session c670d44d5c7b943c05eb137a2f283785 (chrome): Executing DELETE on /session/c670d44d5c7b943c05eb137a2f283785 (handler: ServicedSession)
-19:22:35.240 INFO - To downstream: {"sessionId":"c670d44d5c7b943c05eb137a2f283785","status":0,"value":null}
-19:22:35.242 INFO - Removing session org.openqa.selenium.remote.server.ServicedSession@3c030a3b
-19:22:35.249 INFO - To downstream: {"sessionId":"","status":0,"value":null}
+15:23:54.803 INFO - Detected dialect: OSS
+15:23:55.110 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:23:55.110 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/url (handler: ServicedSession)
+15:23:55.113 INFO - To upstream: {"url":"http://localhost:8000"}
+15:24:16.823 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":null}
+15:24:16.830 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.830 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/elements (handler: ServicedSession)
+15:24:16.832 INFO - To upstream: {"using":"css selector","value":"body"}
+15:24:16.849 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":[{"ELEMENT":"0.565813686720283-1"}]}
+15:24:16.852 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.852 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-1/displayed (handler: ServicedSession)
+15:24:16.861 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":true}
+15:24:16.867 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.868 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:16.869 INFO - To upstream: {"using":"css selector","value":"h5"}
+15:24:16.878 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-2"}}
+15:24:16.880 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.881 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-2/displayed (handler: ServicedSession)
+15:24:16.891 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":true}
+15:24:16.896 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.896 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:16.897 INFO - To upstream: {"using":"css selector","value":"h5"}
+15:24:16.903 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-2"}}
+15:24:16.905 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.906 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-2/text (handler: ServicedSession)
+15:24:16.917 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":"More-Recipes is a platform for users to share the awesome and exciting recipe ideas they have invented or learnt"}
+15:24:16.921 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.921 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:16.922 INFO - To upstream: {"using":"css selector","value":"a.btn.btn-outline-danger.btn-lg"}
+15:24:16.931 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-3"}}
+15:24:16.934 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.934 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-3/displayed (handler: ServicedSession)
+15:24:16.943 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":true}
+15:24:16.946 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.946 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:16.947 INFO - To upstream: {"using":"css selector","value":"a.btn.btn-outline-success.btn-lg"}
+15:24:16.956 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-4"}}
+15:24:16.959 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.959 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-4/displayed (handler: ServicedSession)
+15:24:16.968 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":true}
+15:24:16.973 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.974 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:16.975 INFO - To upstream: {"using":"css selector","value":"a.btn.btn-outline-danger.btn-lg"}
+15:24:16.980 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-3"}}
+15:24:16.982 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.982 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-3/text (handler: ServicedSession)
+15:24:16.993 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":"Create a profile"}
+15:24:16.995 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:16.996 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:16.997 INFO - To upstream: {"using":"css selector","value":"a.btn.btn-outline-success.btn-lg"}
+15:24:17.001 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-4"}}
+15:24:17.003 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.004 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-4/text (handler: ServicedSession)
+15:24:17.015 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":"Login"}
+15:24:17.017 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.018 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element (handler: ServicedSession)
+15:24:17.018 INFO - To upstream: {"using":"css selector","value":"div.footer"}
+15:24:17.027 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":{"ELEMENT":"0.565813686720283-5"}}
+15:24:17.030 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.030 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-5/displayed (handler: ServicedSession)
+15:24:17.039 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":true}
+15:24:17.042 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.043 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/elements (handler: ServicedSession)
+15:24:17.044 INFO - To upstream: {"using":"css selector","value":"img"}
+15:24:17.053 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":[{"ELEMENT":"0.565813686720283-6"},{"ELEMENT":"0.565813686720283-7"},{"ELEMENT":"0.565813686720283-8"},{"ELEMENT":"0.565813686720283-9"}]}
+15:24:17.055 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.056 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-6/attribute/src (handler: ServicedSession)
+15:24:17.060 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":"http://localhost:8000/images/logo.png"}
+15:24:17.063 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.064 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing POST on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/elements (handler: ServicedSession)
+15:24:17.065 INFO - To upstream: {"using":"css selector","value":"img.d-block.w-100"}
+15:24:17.074 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":[{"ELEMENT":"0.565813686720283-7"},{"ELEMENT":"0.565813686720283-8"},{"ELEMENT":"0.565813686720283-9"}]}
+15:24:17.076 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.076 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing GET on /session/caf26ec8fcfcf9eb6f08ae5b291d1964/element/0.565813686720283-7/attribute/src (handler: ServicedSession)
+15:24:17.083 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":"http://localhost:8000/images/slide1.png"}
+15:24:17.087 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.088 INFO - Handler thread for session caf26ec8fcfcf9eb6f08ae5b291d1964 (chrome): Executing DELETE on /session/caf26ec8fcfcf9eb6f08ae5b291d1964 (handler: ServicedSession)
+15:24:17.140 INFO - To downstream: {"sessionId":"caf26ec8fcfcf9eb6f08ae5b291d1964","status":0,"value":null}
+15:24:17.144 INFO - Removing session org.openqa.selenium.remote.server.ServicedSession@3c030a3b
+15:24:17.153 INFO - To downstream: {"sessionId":"","status":0,"value":null}
+15:24:17.158 INFO - Found handler: org.openqa.selenium.remote.server.commandhandler.BeginSession@4a69a4d9
+15:24:17.158 INFO - /session: Executing POST on /session (handler: BeginSession)
+15:24:17.160 INFO - Capabilities are: Capabilities {acceptSslCerts: true, browserName: chrome, javascriptEnabled: true, name: E2e Tests / User Features Test}
+15:24:17.160 INFO - Capabilities {acceptSslCerts: true, browserName: chrome, javascriptEnabled: true, name: E2e Tests / User Features Test} matched class org.openqa.selenium.remote.server.ServicedSession$Factory (provider: org.openqa.selenium.chrome.ChromeDriverService)
+Starting ChromeDriver 2.34.522932 (4140ab217e1ca1bec0c4b4d1b148f3361eb3a03e) on port 3317
+Only local connections are allowed.
+15:24:17.689 INFO - Detected dialect: OSS
+15:24:17.749 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:17.750 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:17.751 INFO - To upstream: {"url":"http://localhost:8000"}
+15:24:25.963 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:25.969 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:25.969 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:25.971 INFO - To upstream: {"using":"css selector","value":"body"}
+15:24:25.993 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.9233796713318676-1"}]}
+15:24:25.995 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:25.995 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-1/displayed (handler: ServicedSession)
+15:24:26.008 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:26.010 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.010 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.011 INFO - To upstream: {"using":"css selector","value":"a.btn.btn-outline-danger.btn-lg"}
+15:24:26.021 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-2"}}
+15:24:26.023 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.024 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-2/click (handler: ServicedSession)
+15:24:26.025 INFO - To upstream: 
+15:24:26.074 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.076 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.077 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.078 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:24:26.094 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-3"}}
+15:24:26.096 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.096 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-3/value (handler: ServicedSession)
+15:24:26.098 INFO - To upstream: {"value":["r","u","q","o","y","a","h"]}
+15:24:26.190 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.192 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.192 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.193 INFO - To upstream: {"using":"css selector","value":"input[name=fullName]"}
+15:24:26.202 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-4"}}
+15:24:26.205 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.205 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-4/value (handler: ServicedSession)
+15:24:26.206 INFO - To upstream: {"value":["R","u","k","a","y","a","t"," ","O","d","u","k","o","y","a"]}
+15:24:26.295 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.299 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.299 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.300 INFO - To upstream: {"using":"css selector","value":"input[name=email]"}
+15:24:26.309 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-5"}}
+15:24:26.310 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.311 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-5/value (handler: ServicedSession)
+15:24:26.311 INFO - To upstream: {"value":["r","u","k","a","y","a","t","@","g","m","a","i","l",".","c","o","m"]}
+15:24:26.418 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.420 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.420 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.421 INFO - To upstream: {"using":"css selector","value":"input[name=password]"}
+15:24:26.430 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-6"}}
+15:24:26.433 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.433 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-6/value (handler: ServicedSession)
+15:24:26.434 INFO - To upstream: {"value":["o","r","i","y","o","m","i","1","2","3"]}
+15:24:26.497 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.500 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.500 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.500 INFO - To upstream: {"using":"css selector","value":"input[name=cpassword]"}
+15:24:26.510 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-7"}}
+15:24:26.512 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.512 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-7/value (handler: ServicedSession)
+15:24:26.513 INFO - To upstream: {"value":["o","r","i","y","o","m","i","1","2","3"]}
+15:24:26.578 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.581 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.581 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:26.582 INFO - To upstream: {"using":"css selector","value":"button.btn.btn-outline-danger.btn-lg.btn-block"}
+15:24:26.591 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-8"}}
+15:24:26.594 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.594 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-8/click (handler: ServicedSession)
+15:24:26.594 INFO - To upstream: 
+15:24:26.642 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:26.645 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:26.645 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:26.649 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:26.659 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:27.167 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:27.168 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:27.169 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:27.175 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:27.683 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:27.684 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:27.685 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:27.692 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:28.197 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:28.198 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:28.199 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:28.206 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:28.710 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:28.710 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:28.712 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:28.718 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:29.225 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.225 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:29.226 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:29.234 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:29.741 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.741 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:29.742 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:29.818 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.9233796713318676-9"}]}
+15:24:29.821 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.822 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-9/displayed (handler: ServicedSession)
+15:24:29.833 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:29.836 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.836 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:29.837 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:24:29.853 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-9"}}
+15:24:29.856 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.856 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-9/click (handler: ServicedSession)
+15:24:29.856 INFO - To upstream: 
+15:24:29.895 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:29.900 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.900 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:29.901 INFO - To upstream: {"using":"css selector","value":"#logout"}
+15:24:29.912 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.9233796713318676-10"}}
+15:24:29.917 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:29.917 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.9233796713318676-10/click (handler: ServicedSession)
+15:24:29.918 INFO - To upstream: 
+15:24:30.475 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.479 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.479 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:30.480 INFO - To upstream: {"url":"http://localhost:8000/signup"}
+15:24:30.578 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.580 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.581 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:30.582 INFO - To upstream: {"using":"css selector","value":"#signup-form"}
+15:24:30.594 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.015831420275158603-1"}]}
+15:24:30.598 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.598 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-1/displayed (handler: ServicedSession)
+15:24:30.609 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:30.612 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.612 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:30.613 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:24:30.619 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-2"}}
+15:24:30.620 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.620 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-2/value (handler: ServicedSession)
+15:24:30.621 INFO - To upstream: {"value":[" "]}
+15:24:30.651 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.653 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.653 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:30.654 INFO - To upstream: {"using":"css selector","value":"input[name=fullName]"}
+15:24:30.658 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-3"}}
+15:24:30.661 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.661 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-3/value (handler: ServicedSession)
+15:24:30.662 INFO - To upstream: {"value":[" "]}
+15:24:30.694 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.701 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.701 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:30.702 INFO - To upstream: {"using":"css selector","value":"input[name=email]"}
+15:24:30.708 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-4"}}
+15:24:30.711 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.711 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-4/value (handler: ServicedSession)
+15:24:30.712 INFO - To upstream: {"value":["r","u","q","q","y","@","g","m","a","i","l",".","c","o","m"]}
+15:24:30.802 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.804 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.805 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:30.805 INFO - To upstream: {"using":"css selector","value":"input[name=password]"}
+15:24:30.810 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-5"}}
+15:24:30.813 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.813 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-5/value (handler: ServicedSession)
+15:24:30.813 INFO - To upstream: {"value":["j","o","y","c","e","1","2","3"]}
+15:24:30.872 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.876 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.876 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:30.877 INFO - To upstream: {"using":"css selector","value":"input[name=cpassword]"}
+15:24:30.883 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-6"}}
+15:24:30.885 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.886 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-6/value (handler: ServicedSession)
+15:24:30.886 INFO - To upstream: {"value":["j","o","y","c","e","1","2","3"]}
+15:24:30.942 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.944 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.944 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:30.945 INFO - To upstream: {"using":"css selector","value":"button.btn.btn-outline-danger.btn-lg.btn-block"}
+15:24:30.951 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-7"}}
+15:24:30.952 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.953 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-7/click (handler: ServicedSession)
+15:24:30.953 INFO - To upstream: 
+15:24:30.996 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:30.998 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:30.998 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:30.999 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:31.011 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.015831420275158603-8"}]}
+15:24:31.013 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.013 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-8/displayed (handler: ServicedSession)
+15:24:31.026 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.029 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.029 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.030 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:31.043 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.015831420275158603-8"}}
+15:24:31.045 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.045 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-8/text (handler: ServicedSession)
+15:24:31.059 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"All field are required"}
+15:24:31.061 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.061 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:31.062 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:31.069 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.015831420275158603-8"}]}
+15:24:31.071 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.071 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.015831420275158603-8/displayed (handler: ServicedSession)
+15:24:31.076 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.079 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.079 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:31.080 INFO - To upstream: {"url":"http://localhost:8000/signup"}
+15:24:31.169 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.171 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.171 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:31.172 INFO - To upstream: {"using":"css selector","value":"#signup-form"}
+15:24:31.177 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.7745174733160103-1"}]}
+15:24:31.183 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.184 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.7745174733160103-1/displayed (handler: ServicedSession)
+15:24:31.197 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.201 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.201 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.202 INFO - To upstream: {"using":"css selector","value":"input[name=\"username\"]"}
+15:24:31.210 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.7745174733160103-2"}}
+15:24:31.212 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.212 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.7745174733160103-2/value (handler: ServicedSession)
+15:24:31.213 INFO - To upstream: {"value":["r","u","q","o","y","a","h"]}
+15:24:31.266 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.268 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.268 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.269 INFO - To upstream: {"using":"css selector","value":"input[name=\"fullName\"]"}
+15:24:31.278 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.7745174733160103-3"}}
+15:24:31.281 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.282 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.7745174733160103-3/value (handler: ServicedSession)
+15:24:31.283 INFO - To upstream: {"value":["b","u","n","m","i"," ","j","o","h","n"]}
+15:24:31.356 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.358 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.358 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:31.359 INFO - To upstream: {"using":"css selector","value":"#username-invalid"}
+15:24:31.369 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.7745174733160103-4"}]}
+15:24:31.371 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.371 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.7745174733160103-4/displayed (handler: ServicedSession)
+15:24:31.382 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.384 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.384 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.385 INFO - To upstream: {"using":"css selector","value":"#username-invalid"}
+15:24:31.393 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.7745174733160103-4"}}
+15:24:31.395 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.395 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.7745174733160103-4/text (handler: ServicedSession)
+15:24:31.406 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Username already exist"}
+15:24:31.409 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.409 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:31.410 INFO - To upstream: {"url":"http://localhost:8000/signup"}
+15:24:31.499 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.501 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.502 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:31.502 INFO - To upstream: {"using":"css selector","value":"#signup-form"}
+15:24:31.508 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.6509160912147707-1"}]}
+15:24:31.511 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.511 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6509160912147707-1/displayed (handler: ServicedSession)
+15:24:31.526 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.528 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.528 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.529 INFO - To upstream: {"using":"css selector","value":"input[name=\"email\"]"}
+15:24:31.539 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6509160912147707-2"}}
+15:24:31.541 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.541 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6509160912147707-2/value (handler: ServicedSession)
+15:24:31.542 INFO - To upstream: {"value":["r","u","k","a","y","a","t","@","g","m","a","i","l",".","c","o","m"]}
+15:24:31.639 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.641 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.641 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.641 INFO - To upstream: {"using":"css selector","value":"input[name=\"password\"]"}
+15:24:31.651 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6509160912147707-3"}}
+15:24:31.653 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.653 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6509160912147707-3/value (handler: ServicedSession)
+15:24:31.654 INFO - To upstream: {"value":["j","o","y","c","e","e"]}
+15:24:31.706 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.708 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.708 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:31.709 INFO - To upstream: {"using":"css selector","value":"#email-invalid"}
+15:24:31.719 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.6509160912147707-4"}]}
+15:24:31.721 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.721 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6509160912147707-4/displayed (handler: ServicedSession)
+15:24:31.733 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.735 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.736 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.736 INFO - To upstream: {"using":"css selector","value":"#email-invalid"}
+15:24:31.745 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6509160912147707-4"}}
+15:24:31.748 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.749 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6509160912147707-4/text (handler: ServicedSession)
+15:24:31.760 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Email already exist"}
+15:24:31.765 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.765 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:31.766 INFO - To upstream: {"url":"http://localhost:8000/login"}
+15:24:31.852 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.855 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.855 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:31.856 INFO - To upstream: {"using":"css selector","value":"#login-form"}
+15:24:31.867 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.6229882588755504-1"}]}
+15:24:31.871 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.871 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6229882588755504-1/displayed (handler: ServicedSession)
+15:24:31.889 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:31.891 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.892 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.892 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:24:31.900 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6229882588755504-2"}}
+15:24:31.902 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.902 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6229882588755504-2/value (handler: ServicedSession)
+15:24:31.903 INFO - To upstream: {"value":["w","r","o","n","g","u","s","e","r","n","a","m","e"]}
+15:24:31.978 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:31.980 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.981 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:31.982 INFO - To upstream: {"using":"css selector","value":"input[name=password]"}
+15:24:31.987 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6229882588755504-3"}}
+15:24:31.988 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:31.989 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6229882588755504-3/value (handler: ServicedSession)
+15:24:31.989 INFO - To upstream: {"value":["w","r","o","n","g","p","a","s","s","w","o","r","d"]}
+15:24:32.057 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:32.059 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.059 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:32.060 INFO - To upstream: {"using":"css selector","value":"button.btn.btn-outline-success.btn-lg.btn-block"}
+15:24:32.070 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6229882588755504-4"}}
+15:24:32.072 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.072 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6229882588755504-4/click (handler: ServicedSession)
+15:24:32.073 INFO - To upstream: 
+15:24:32.124 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:32.128 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.128 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:32.129 INFO - To upstream: {"using":"css selector","value":"#invalid-credential"}
+15:24:32.140 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6229882588755504-5"}}
+15:24:32.142 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.142 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6229882588755504-5/text (handler: ServicedSession)
+15:24:32.155 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Invalid Credentials"}
+15:24:32.159 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.159 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:32.159 INFO - To upstream: {"url":"http://localhost:8000/login"}
+15:24:32.244 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:32.248 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.248 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:32.249 INFO - To upstream: {"using":"css selector","value":"body"}
+15:24:32.260 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.5793186875711307-1"}]}
+15:24:32.263 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.263 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5793186875711307-1/displayed (handler: ServicedSession)
+15:24:32.275 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:32.277 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.277 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:32.278 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:24:32.284 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5793186875711307-2"}}
+15:24:32.286 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.286 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5793186875711307-2/value (handler: ServicedSession)
+15:24:32.287 INFO - To upstream: {"value":["r","u","q","o","y","a","h"]}
+15:24:32.337 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:32.339 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.339 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:32.339 INFO - To upstream: {"using":"css selector","value":"input[name=password]"}
+15:24:32.345 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5793186875711307-3"}}
+15:24:32.349 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.349 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5793186875711307-3/value (handler: ServicedSession)
+15:24:32.350 INFO - To upstream: {"value":["o","r","i","y","o","m","i","1","2","3"]}
+15:24:32.411 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:32.413 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.413 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:32.415 INFO - To upstream: {"using":"css selector","value":"button.btn.btn-outline-success.btn-lg.btn-block"}
+15:24:32.420 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5793186875711307-4"}}
+15:24:32.422 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.422 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5793186875711307-4/click (handler: ServicedSession)
+15:24:32.423 INFO - To upstream: 
+15:24:32.477 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:32.480 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.480 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:32.482 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:32.492 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:32.995 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:32.996 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:32.997 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:33.004 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.5793186875711307-5"}]}
+15:24:33.006 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.006 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5793186875711307-5/displayed (handler: ServicedSession)
+15:24:33.018 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:33.022 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.022 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:33.022 INFO - To upstream: {"url":"http://localhost:8000/add-recipe"}
+15:24:33.126 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:33.128 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.129 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:33.132 INFO - To upstream: {"using":"css selector","value":"#add-form"}
+15:24:33.143 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.10941250742214681-1"}]}
+15:24:33.145 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.145 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-1/displayed (handler: ServicedSession)
+15:24:33.157 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:33.160 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.161 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:33.161 INFO - To upstream: {"using":"css selector","value":"input[name=recipeName]"}
+15:24:33.172 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.10941250742214681-2"}}
+15:24:33.174 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.174 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-2/value (handler: ServicedSession)
+15:24:33.175 INFO - To upstream: {"value":[" "]}
+15:24:33.201 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:33.203 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.203 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:33.204 INFO - To upstream: {"using":"css selector","value":"textarea[name=ingredient]"}
+15:24:33.213 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.10941250742214681-3"}}
+15:24:33.216 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.216 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-3/value (handler: ServicedSession)
+15:24:33.217 INFO - To upstream: {"value":[" "]}
+15:24:33.243 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:33.244 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.245 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:33.245 INFO - To upstream: {"using":"css selector","value":"textarea[name=details]"}
+15:24:33.255 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.10941250742214681-4"}}
+15:24:33.257 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.257 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-4/value (handler: ServicedSession)
+15:24:33.258 INFO - To upstream: {"value":[" "]}
+15:24:33.284 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:33.286 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.286 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:33.287 INFO - To upstream: {"using":"css selector","value":"#add-it"}
+15:24:33.295 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.10941250742214681-5"}}
+15:24:33.298 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.298 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-5/click (handler: ServicedSession)
+15:24:33.298 INFO - To upstream: 
+15:24:33.341 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:33.343 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.344 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:33.344 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:33.349 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.10941250742214681-6"}}
+15:24:33.355 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.356 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-6/text (handler: ServicedSession)
+15:24:33.369 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"All field are required"}
+15:24:33.376 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.376 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:33.377 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:33.384 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.10941250742214681-6"}]}
+15:24:33.386 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.386 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.10941250742214681-6/displayed (handler: ServicedSession)
+15:24:33.395 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:33.400 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:33.400 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:33.401 INFO - To upstream: {"url":"http://localhost:8000/recipes"}
+15:24:35.075 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.077 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.077 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:35.078 INFO - To upstream: {"using":"css selector","value":"#add-recipe"}
+15:24:35.090 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.8314907867834822-1"}]}
+15:24:35.092 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.092 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-1/displayed (handler: ServicedSession)
+15:24:35.103 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:35.105 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.106 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:35.106 INFO - To upstream: {"using":"css selector","value":"#add-recipe"}
+15:24:35.115 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.8314907867834822-1"}}
+15:24:35.117 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.117 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-1/click (handler: ServicedSession)
+15:24:35.117 INFO - To upstream: 
+15:24:35.162 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.165 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.165 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:35.166 INFO - To upstream: {"using":"css selector","value":"input[name=recipeName]"}
+15:24:35.173 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.8314907867834822-2"}}
+15:24:35.175 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.175 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-2/value (handler: ServicedSession)
+15:24:35.176 INFO - To upstream: {"value":["C","h","i","n"," ","c","h","i","n"]}
+15:24:35.242 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.244 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.244 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:35.245 INFO - To upstream: {"using":"css selector","value":"textarea[name=ingredient]"}
+15:24:35.251 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.8314907867834822-3"}}
+15:24:35.252 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.253 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-3/value (handler: ServicedSession)
+15:24:35.253 INFO - To upstream: {"value":["f","l","o","u","r"," ","a","n","d"," ","w","a","t","e","r"]}
+15:24:35.333 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.335 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.335 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:35.336 INFO - To upstream: {"using":"css selector","value":"textarea[name=details]"}
+15:24:35.340 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.8314907867834822-4"}}
+15:24:35.344 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.344 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-4/value (handler: ServicedSession)
+15:24:35.344 INFO - To upstream: {"value":["b","a","k","e"," ","t","h","e"," ","c","h","i","n"," ","c","h","i","n"]}
+15:24:35.429 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.431 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.431 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:35.432 INFO - To upstream: {"using":"css selector","value":"#exampleInputFile"}
+15:24:35.441 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.8314907867834822-5"}}
+15:24:35.443 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.443 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-5/value (handler: ServicedSession)
+15:24:35.444 INFO - To upstream: {"value":["/","U","s","e","r","s","/","a","n","d","e","l","a","d","e","v","e","l","o","p","e","r","/","D","o","w","n","l","o","a","d","s","/","c","h","i","n","-","c","h","i","n",".","j","p","g"]}
+15:24:35.458 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.459 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.460 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:35.460 INFO - To upstream: {"using":"css selector","value":"#add-it"}
+15:24:35.472 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.8314907867834822-6"}}
+15:24:35.474 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.474 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-6/click (handler: ServicedSession)
+15:24:35.475 INFO - To upstream: 
+15:24:35.509 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:35.510 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:35.511 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:35.511 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:35.516 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:36.023 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:36.024 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:36.024 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:36.032 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:36.540 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:36.540 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:36.541 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:36.547 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:37.055 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:37.056 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:37.056 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:37.063 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:37.566 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:37.566 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:37.567 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:37.573 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:38.082 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:38.082 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:38.083 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:38.090 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:38.597 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:38.598 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:38.599 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:38.605 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:39.115 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:39.116 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:39.116 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:39.123 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:39.633 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:39.633 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:39.634 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:39.640 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:40.149 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:40.150 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:40.150 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:40.157 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:40.666 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:40.666 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:40.667 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:40.673 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:41.183 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:41.183 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:41.184 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:41.191 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:41.700 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:41.700 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:41.701 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:41.707 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:42.215 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:42.215 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:42.216 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:42.223 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:42.731 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:42.731 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:42.732 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:42.740 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:43.248 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:43.249 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:43.250 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:43.256 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:43.764 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:43.765 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:43.765 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:43.772 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:44.280 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:44.280 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:44.281 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:44.288 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:44.791 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:44.792 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:44.792 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:44.799 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:45.308 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:45.308 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:45.309 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:45.316 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:45.824 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:45.824 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:45.825 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:45.832 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:46.341 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:46.341 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:46.342 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:46.349 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:46.857 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:46.857 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:46.858 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:46.866 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:47.373 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:47.374 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:47.375 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:47.382 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:47.890 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:47.890 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:47.891 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:47.898 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:48.406 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:48.407 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:48.407 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:48.414 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:48.917 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:48.917 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:48.918 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:48.924 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:49.432 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:49.432 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:49.432 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:49.439 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:49.948 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:49.948 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:49.949 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:49.956 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.8314907867834822-7"}]}
+15:24:49.958 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:49.958 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.8314907867834822-7/displayed (handler: ServicedSession)
+15:24:49.968 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:49.972 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:49.972 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:49.973 INFO - To upstream: {"url":"http://localhost:8000/add-recipe"}
+15:24:50.155 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:50.159 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.159 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:50.160 INFO - To upstream: {"using":"css selector","value":"#add-form"}
+15:24:50.173 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.0024969743183953508-1"}]}
+15:24:50.175 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.175 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-1/displayed (handler: ServicedSession)
+15:24:50.189 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:50.191 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.191 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:50.192 INFO - To upstream: {"using":"css selector","value":"input[name=recipeName]"}
+15:24:50.206 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.0024969743183953508-2"}}
+15:24:50.208 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.208 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-2/value (handler: ServicedSession)
+15:24:50.209 INFO - To upstream: {"value":["C","h","i","n"," ","c","h","i","n"]}
+15:24:50.274 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:50.276 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.277 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:50.277 INFO - To upstream: {"using":"css selector","value":"textarea[name=ingredient]"}
+15:24:50.286 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.0024969743183953508-3"}}
+15:24:50.288 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.289 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-3/value (handler: ServicedSession)
+15:24:50.289 INFO - To upstream: {"value":["f","l","o","u","r"," ","a","n","d"," ","w","a","t","e","r"]}
+15:24:50.369 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:50.371 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.371 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:50.372 INFO - To upstream: {"using":"css selector","value":"textarea[name=details]"}
+15:24:50.382 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.0024969743183953508-4"}}
+15:24:50.384 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.384 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-4/value (handler: ServicedSession)
+15:24:50.385 INFO - To upstream: {"value":["b","a","k","e"," ","t","h","e"," ","c","h","i","n"," ","c","h","i","n"]}
+15:24:50.499 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:50.501 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.501 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:50.501 INFO - To upstream: {"using":"css selector","value":"#exampleInputFile"}
+15:24:50.510 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.0024969743183953508-5"}}
+15:24:50.512 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.512 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-5/value (handler: ServicedSession)
+15:24:50.512 INFO - To upstream: {"value":["/","U","s","e","r","s","/","a","n","d","e","l","a","d","e","v","e","l","o","p","e","r","/","D","o","w","n","l","o","a","d","s","/","c","h","i","n","-","c","h","i","n",".","j","p","g"]}
+15:24:50.527 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:50.529 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.529 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:50.530 INFO - To upstream: {"using":"css selector","value":"#add-it"}
+15:24:50.552 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.0024969743183953508-6"}}
+15:24:50.554 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.554 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-6/click (handler: ServicedSession)
+15:24:50.555 INFO - To upstream: 
+15:24:50.591 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:24:50.593 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:50.594 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:50.594 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:50.600 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:51.105 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:51.105 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:51.106 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:51.112 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:51.616 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:51.616 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:51.617 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:51.625 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:52.132 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:52.132 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:52.133 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:52.139 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:52.646 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:52.646 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:52.648 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:52.654 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:53.163 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:53.163 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:53.164 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:53.171 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:53.676 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:53.676 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:53.676 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:53.682 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:54.191 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:54.191 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:54.192 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:54.198 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:54.706 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:54.707 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:54.707 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:54.714 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:55.218 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:55.218 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:55.218 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:55.224 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:55.730 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:55.730 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:55.731 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:55.738 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:56.246 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:56.247 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:56.248 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:56.255 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:56.758 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:56.758 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:56.759 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:56.765 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:57.273 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:57.273 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:57.274 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:57.281 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:57.789 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:57.789 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:57.790 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:57.796 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:58.299 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:58.300 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:58.300 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:58.312 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:24:58.818 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:58.818 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:24:58.818 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:58.824 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.0024969743183953508-7"}]}
+15:24:58.826 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:58.826 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-7/displayed (handler: ServicedSession)
+15:24:58.837 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:24:58.840 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:58.840 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:24:58.840 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:24:58.850 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.0024969743183953508-7"}}
+15:24:58.853 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:58.853 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.0024969743183953508-7/text (handler: ServicedSession)
+15:24:58.865 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"You have already created recipe"}
+15:24:58.868 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:24:58.868 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:24:58.869 INFO - To upstream: {"url":"http://localhost:8000/recipes"}
+15:25:02.517 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:02.521 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.521 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:02.522 INFO - To upstream: {"using":"css selector","value":".form-control.mr-sm-2"}
+15:25:02.535 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.46140431853419916-1"}]}
+15:25:02.539 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.539 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.46140431853419916-1/displayed (handler: ServicedSession)
+15:25:02.551 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:02.553 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.553 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:02.554 INFO - To upstream: {"using":"css selector","value":"input[type=text]"}
+15:25:02.564 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.46140431853419916-1"}}
+15:25:02.566 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.566 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.46140431853419916-1/value (handler: ServicedSession)
+15:25:02.566 INFO - To upstream: {"value":["C","h","i","n"," ","c","h","i","n"]}
+15:25:02.794 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:02.797 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.797 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:25:02.798 INFO - To upstream: {"url":"http://localhost:8000/recipes"}
+15:25:02.939 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:02.941 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.941 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:02.942 INFO - To upstream: {"using":"css selector","value":"#favorite"}
+15:25:02.953 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.6491985837643708-1"}]}
+15:25:02.955 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.955 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6491985837643708-1/displayed (handler: ServicedSession)
+15:25:02.964 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:02.966 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.966 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:02.966 INFO - To upstream: {"using":"css selector","value":"#favorite"}
+15:25:02.975 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.6491985837643708-1"}}
+15:25:02.977 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:02.977 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6491985837643708-1/click (handler: ServicedSession)
+15:25:02.977 INFO - To upstream: 
+15:25:03.010 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:03.012 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.012 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:03.013 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:25:03.020 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:03.525 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.525 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:03.526 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:25:03.533 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.6491985837643708-2"}]}
+15:25:03.535 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.535 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.6491985837643708-2/displayed (handler: ServicedSession)
+15:25:03.545 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:03.549 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.549 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:25:03.550 INFO - To upstream: {"url":"http://localhost:8000/recipes"}
+15:25:03.686 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:03.692 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.692 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.692 INFO - To upstream: {"using":"css selector","value":"#read-more"}
+15:25:03.705 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-1"}}
+15:25:03.707 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.707 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-1/click (handler: ServicedSession)
+15:25:03.708 INFO - To upstream: 
+15:25:03.775 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:03.778 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.778 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:03.778 INFO - To upstream: {"using":"css selector","value":"body"}
+15:25:03.826 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.38662461120956837-2"}]}
+15:25:03.828 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.828 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-2/displayed (handler: ServicedSession)
+15:25:03.840 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:03.843 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.843 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.844 INFO - To upstream: {"using":"css selector","value":"#recipe-name"}
+15:25:03.853 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-3"}}
+15:25:03.855 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.855 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-3/text (handler: ServicedSession)
+15:25:03.866 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Chin Chin"}
+15:25:03.868 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.868 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.869 INFO - To upstream: {"using":"css selector","value":"h4.ingredients"}
+15:25:03.877 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-4"}}
+15:25:03.879 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.879 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-4/text (handler: ServicedSession)
+15:25:03.890 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Ingredients"}
+15:25:03.892 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.892 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.893 INFO - To upstream: {"using":"css selector","value":"#input-ingredients"}
+15:25:03.902 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-5"}}
+15:25:03.903 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.903 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-5/text (handler: ServicedSession)
+15:25:03.914 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"flour and water"}
+15:25:03.915 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.916 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.916 INFO - To upstream: {"using":"css selector","value":"h4.details"}
+15:25:03.924 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-6"}}
+15:25:03.926 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.926 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-6/text (handler: ServicedSession)
+15:25:03.936 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Details"}
+15:25:03.939 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.939 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.939 INFO - To upstream: {"using":"css selector","value":"#input-details"}
+15:25:03.948 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-7"}}
+15:25:03.949 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.949 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-7/text (handler: ServicedSession)
+15:25:03.960 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"bake the chin chin"}
+15:25:03.962 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.962 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:03.963 INFO - To upstream: {"using":"css selector","value":"button.review"}
+15:25:03.972 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.38662461120956837-8"}}
+15:25:03.973 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.973 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-8/text (handler: ServicedSession)
+15:25:03.984 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Post Review"}
+15:25:03.986 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.986 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:03.986 INFO - To upstream: {"using":"css selector","value":"img.img-thumbnail"}
+15:25:03.995 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.38662461120956837-9"}]}
+15:25:03.996 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:03.996 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.38662461120956837-9/attribute/src (handler: ServicedSession)
+15:25:04.000 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"http://res.cloudinary.com/ruqoyah/image/upload/c_fill,h_600,w_900/wmn08rurj2es2w27pkkq"}
+15:25:04.003 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.003 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:25:04.003 INFO - To upstream: {"url":"http://localhost:8000/favorite-recipe"}
+15:25:04.130 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:04.134 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.134 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.134 INFO - To upstream: {"using":"css selector","value":"body"}
+15:25:04.139 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.5009522162914233-1"}]}
+15:25:04.141 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.141 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5009522162914233-1/displayed (handler: ServicedSession)
+15:25:04.151 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:04.153 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.153 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.153 INFO - To upstream: {"using":"css selector","value":"h4.card-title"}
+15:25:04.162 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5009522162914233-2"}}
+15:25:04.163 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.163 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5009522162914233-2/text (handler: ServicedSession)
+15:25:04.176 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Chin Chin"}
+15:25:04.178 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.178 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.178 INFO - To upstream: {"using":"css selector","value":"p.card-text"}
+15:25:04.187 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5009522162914233-3"}}
+15:25:04.188 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.189 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5009522162914233-3/text (handler: ServicedSession)
+15:25:04.200 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"bake the chin chin"}
+15:25:04.202 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.202 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.203 INFO - To upstream: {"using":"css selector","value":"#read-more"}
+15:25:04.208 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5009522162914233-4"}}
+15:25:04.210 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.210 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5009522162914233-4/text (handler: ServicedSession)
+15:25:04.224 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Read more"}
+15:25:04.227 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.227 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.227 INFO - To upstream: {"using":"css selector","value":"small.text-muted"}
+15:25:04.235 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.5009522162914233-5"}}
+15:25:04.237 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.237 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5009522162914233-5/text (handler: ServicedSession)
+15:25:04.248 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Recipe by ruqoyah"}
+15:25:04.251 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.251 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.251 INFO - To upstream: {"using":"css selector","value":"img.card-img-top"}
+15:25:04.260 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.5009522162914233-6"}]}
+15:25:04.262 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.262 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.5009522162914233-6/attribute/src (handler: ServicedSession)
+15:25:04.266 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"http://res.cloudinary.com/ruqoyah/image/upload/c_fill,h_200,w_302/wmn08rurj2es2w27pkkq"}
+15:25:04.270 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.270 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:25:04.270 INFO - To upstream: {"url":"http://localhost:8000/profile"}
+15:25:04.380 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:04.383 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.383 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.384 INFO - To upstream: {"using":"css selector","value":"body"}
+15:25:04.390 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.18035795293374934-1"}]}
+15:25:04.391 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.392 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-1/displayed (handler: ServicedSession)
+15:25:04.402 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:04.404 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.404 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.405 INFO - To upstream: {"using":"css selector","value":"#profile-button"}
+15:25:04.413 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-2"}}
+15:25:04.415 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.415 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-2/text (handler: ServicedSession)
+15:25:04.428 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Profile"}
+15:25:04.431 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.431 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.432 INFO - To upstream: {"using":"css selector","value":"#edit-profile"}
+15:25:04.440 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-3"}}
+15:25:04.441 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.441 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-3/text (handler: ServicedSession)
+15:25:04.452 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Edit"}
+15:25:04.454 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.455 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.455 INFO - To upstream: {"using":"css selector","value":"#username"}
+15:25:04.463 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-4"}}
+15:25:04.465 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.465 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-4/text (handler: ServicedSession)
+15:25:04.476 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"ruqoyah"}
+15:25:04.478 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.478 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.479 INFO - To upstream: {"using":"css selector","value":"#fullName"}
+15:25:04.492 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-5"}}
+15:25:04.494 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.494 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-5/text (handler: ServicedSession)
+15:25:04.505 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"Rukayat Odukoya"}
+15:25:04.506 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.507 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.507 INFO - To upstream: {"using":"css selector","value":"#email"}
+15:25:04.516 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-6"}}
+15:25:04.517 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.517 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-6/text (handler: ServicedSession)
+15:25:04.528 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"rukayat@gmail.com"}
+15:25:04.529 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.530 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.530 INFO - To upstream: {"using":"css selector","value":"img"}
+15:25:04.538 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.18035795293374934-7"},{"ELEMENT":"0.18035795293374934-8"}]}
+15:25:04.540 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.540 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-7/attribute/src (handler: ServicedSession)
+15:25:04.544 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":"http://localhost:8000/images/recipe-logo.png"}
+15:25:04.545 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.545 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.546 INFO - To upstream: {"using":"css selector","value":"#edit-profile"}
+15:25:04.554 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.18035795293374934-3"}]}
+15:25:04.555 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.556 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-3/displayed (handler: ServicedSession)
+15:25:04.564 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:04.566 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.566 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.566 INFO - To upstream: {"using":"css selector","value":"#edit-profile"}
+15:25:04.571 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-3"}}
+15:25:04.572 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.572 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-3/click (handler: ServicedSession)
+15:25:04.573 INFO - To upstream: 
+15:25:04.604 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:04.606 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.606 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.607 INFO - To upstream: {"using":"css selector","value":"#profile-username"}
+15:25:04.619 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.18035795293374934-9"}]}
+15:25:04.622 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.622 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-9/displayed (handler: ServicedSession)
+15:25:04.633 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:04.635 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.636 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.636 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:25:04.650 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-9"}}
+15:25:04.652 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.652 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-9/clear (handler: ServicedSession)
+15:25:04.653 INFO - To upstream: 
+15:25:04.667 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:04.670 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.670 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.670 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:25:04.675 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-9"}}
+15:25:04.676 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.676 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-9/value (handler: ServicedSession)
+15:25:04.677 INFO - To upstream: {"value":["r","u","k","k","i","e","y"]}
+15:25:04.727 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:04.729 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.729 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:04.730 INFO - To upstream: {"using":"css selector","value":"#save-changes"}
+15:25:04.739 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-10"}}
+15:25:04.740 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.740 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-10/click (handler: ServicedSession)
+15:25:04.741 INFO - To upstream: 
+15:25:04.790 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:04.792 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:04.792 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:04.793 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:25:04.802 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:05.310 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.310 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:05.311 INFO - To upstream: {"using":"css selector","value":".toast-message"}
+15:25:05.318 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.18035795293374934-11"}]}
+15:25:05.319 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.320 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-11/displayed (handler: ServicedSession)
+15:25:05.330 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:05.332 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.332 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:05.333 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:05.341 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.18035795293374934-12"}]}
+15:25:05.343 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.343 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-12/displayed (handler: ServicedSession)
+15:25:05.352 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:05.355 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.355 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:05.356 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:05.364 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-12"}}
+15:25:05.366 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.366 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-12/click (handler: ServicedSession)
+15:25:05.367 INFO - To upstream: 
+15:25:05.405 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:05.407 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.407 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:05.408 INFO - To upstream: {"using":"css selector","value":"#logout"}
+15:25:05.419 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.18035795293374934-13"}}
+15:25:05.421 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.424 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.18035795293374934-13/click (handler: ServicedSession)
+15:25:05.425 INFO - To upstream: 
+15:25:05.589 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:05.594 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.594 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:25:05.594 INFO - To upstream: {"url":"http://localhost:8000/signup"}
+15:25:05.682 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:05.684 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.684 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:05.684 INFO - To upstream: {"using":"css selector","value":"body"}
+15:25:05.704 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.893763483766792-1"}]}
+15:25:05.706 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.706 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-1/displayed (handler: ServicedSession)
+15:25:05.725 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:05.727 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.727 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:05.727 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:25:05.734 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-2"}}
+15:25:05.735 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.736 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-2/value (handler: ServicedSession)
+15:25:05.736 INFO - To upstream: {"value":["j","o","h","n","n","y"]}
+15:25:05.785 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:05.787 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.787 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:05.788 INFO - To upstream: {"using":"css selector","value":"input[name=fullName]"}
+15:25:05.797 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-3"}}
+15:25:05.799 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.799 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-3/value (handler: ServicedSession)
+15:25:05.799 INFO - To upstream: {"value":["j","o","h","n"," ","j","o","s","h"]}
+15:25:05.859 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:05.861 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.861 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:05.861 INFO - To upstream: {"using":"css selector","value":"input[name=email]"}
+15:25:05.871 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-4"}}
+15:25:05.872 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.872 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-4/value (handler: ServicedSession)
+15:25:05.873 INFO - To upstream: {"value":["j","o","s","h","@","g","m","a","i","l",".","c","o","m"]}
+15:25:05.958 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:05.960 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.960 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:05.960 INFO - To upstream: {"using":"css selector","value":"input[name=password]"}
+15:25:05.971 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-5"}}
+15:25:05.972 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:05.972 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-5/value (handler: ServicedSession)
+15:25:05.973 INFO - To upstream: {"value":["j","o","h","n","n","y","1","2","3"]}
+15:25:06.035 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:06.036 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:06.037 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:06.037 INFO - To upstream: {"using":"css selector","value":"input[name=cpassword]"}
+15:25:06.045 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-6"}}
+15:25:06.048 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:06.049 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-6/value (handler: ServicedSession)
+15:25:06.049 INFO - To upstream: {"value":["j","o","h","n","n","y","1","2","3"]}
+15:25:06.109 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:06.110 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:06.110 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:06.111 INFO - To upstream: {"using":"css selector","value":"button.btn.btn-outline-danger.btn-lg.btn-block"}
+15:25:06.122 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-7"}}
+15:25:06.123 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:06.123 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-7/click (handler: ServicedSession)
+15:25:06.123 INFO - To upstream: 
+15:25:06.182 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:06.184 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:06.184 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:06.185 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:06.195 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:06.703 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:06.704 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:06.704 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:06.711 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:07.215 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:07.216 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:07.216 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:07.223 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:07.727 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:07.728 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:07.728 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:07.735 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:08.240 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:08.240 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:08.241 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:08.247 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:08.751 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:08.751 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:08.751 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:08.758 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:09.266 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.267 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:09.268 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:09.318 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:09.823 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.823 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:09.824 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:09.831 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.893763483766792-8"}]}
+15:25:09.833 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.833 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-8/displayed (handler: ServicedSession)
+15:25:09.843 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:09.845 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.845 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:09.846 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-up"}
+15:25:09.854 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-8"}}
+15:25:09.856 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.856 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-8/click (handler: ServicedSession)
+15:25:09.856 INFO - To upstream: 
+15:25:09.886 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:09.888 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.889 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:09.889 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-down"}
+15:25:09.900 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.893763483766792-9"}]}
+15:25:09.902 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.903 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-9/displayed (handler: ServicedSession)
+15:25:09.922 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:09.925 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.925 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:09.926 INFO - To upstream: {"using":"css selector","value":".fa.fa-thumbs-down"}
+15:25:09.937 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-9"}}
+15:25:09.939 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.939 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-9/click (handler: ServicedSession)
+15:25:09.939 INFO - To upstream: 
+15:25:09.968 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:09.970 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.970 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:09.971 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:09.976 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-10"}}
+15:25:09.979 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:09.979 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-10/click (handler: ServicedSession)
+15:25:09.980 INFO - To upstream: 
+15:25:10.027 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:10.029 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.029 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:10.029 INFO - To upstream: {"using":"css selector","value":"#logout"}
+15:25:10.039 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.893763483766792-11"}}
+15:25:10.041 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.041 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.893763483766792-11/click (handler: ServicedSession)
+15:25:10.041 INFO - To upstream: 
+15:25:10.192 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:10.197 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.197 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/url (handler: ServicedSession)
+15:25:10.197 INFO - To upstream: {"url":"http://localhost:8000/login"}
+15:25:10.292 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:10.294 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.294 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:10.294 INFO - To upstream: {"using":"css selector","value":"body"}
+15:25:10.303 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-1"}]}
+15:25:10.304 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.305 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-1/displayed (handler: ServicedSession)
+15:25:10.315 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:10.318 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.318 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:10.319 INFO - To upstream: {"using":"css selector","value":"input[name=username]"}
+15:25:10.323 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-2"}}
+15:25:10.325 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.325 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-2/value (handler: ServicedSession)
+15:25:10.325 INFO - To upstream: {"value":["r","u","k","k","i","e","y"]}
+15:25:10.374 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:10.376 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.376 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:10.376 INFO - To upstream: {"using":"css selector","value":"input[name=password]"}
+15:25:10.381 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-3"}}
+15:25:10.383 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.383 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-3/value (handler: ServicedSession)
+15:25:10.384 INFO - To upstream: {"value":["o","r","i","y","o","m","i","1","2","3"]}
+15:25:10.443 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:10.445 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.445 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:10.445 INFO - To upstream: {"using":"css selector","value":"button.btn.btn-outline-success.btn-lg.btn-block"}
+15:25:10.455 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-4"}}
+15:25:10.456 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.457 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-4/click (handler: ServicedSession)
+15:25:10.457 INFO - To upstream: 
+15:25:10.508 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:10.511 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:10.511 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:10.511 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:10.518 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:11.027 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:11.027 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:11.027 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:11.034 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:11.537 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:11.538 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:11.538 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:11.545 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:12.053 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:12.054 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:12.054 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:12.061 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:12.569 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:12.569 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:12.570 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:12.577 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:13.083 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.083 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:13.084 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:13.090 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:13.593 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.593 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:13.594 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:13.617 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-5"}]}
+15:25:13.620 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.620 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-5/displayed (handler: ServicedSession)
+15:25:13.657 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:13.659 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.659 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:13.660 INFO - To upstream: {"using":"css selector","value":"#dropdownMenu2"}
+15:25:13.666 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-5"}}
+15:25:13.668 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.669 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-5/click (handler: ServicedSession)
+15:25:13.669 INFO - To upstream: 
+15:25:13.709 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:13.711 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.711 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:13.711 INFO - To upstream: {"using":"css selector","value":"#my-recipe"}
+15:25:13.726 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-6"}]}
+15:25:13.727 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.727 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-6/displayed (handler: ServicedSession)
+15:25:13.739 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:13.741 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.741 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:13.741 INFO - To upstream: {"using":"css selector","value":"#my-recipe"}
+15:25:13.751 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-6"}}
+15:25:13.753 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.753 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-6/click (handler: ServicedSession)
+15:25:13.753 INFO - To upstream: 
+15:25:13.802 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:13.805 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.805 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:13.806 INFO - To upstream: {"using":"css selector","value":"#edit"}
+15:25:13.824 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-7"}]}
+15:25:13.825 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.825 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-7/displayed (handler: ServicedSession)
+15:25:13.838 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:13.840 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.840 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:13.840 INFO - To upstream: {"using":"css selector","value":"#edit"}
+15:25:13.850 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-7"}}
+15:25:13.852 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.852 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-7/click (handler: ServicedSession)
+15:25:13.852 INFO - To upstream: 
+15:25:13.884 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:13.886 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.886 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:13.886 INFO - To upstream: {"using":"css selector","value":"textarea[name=details]"}
+15:25:13.896 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-8"}}
+15:25:13.898 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.898 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-8/clear (handler: ServicedSession)
+15:25:13.898 INFO - To upstream: 
+15:25:13.911 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:13.913 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.913 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:13.914 INFO - To upstream: {"using":"css selector","value":"textarea[name=details]"}
+15:25:13.919 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-8"}}
+15:25:13.920 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:13.920 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-8/value (handler: ServicedSession)
+15:25:13.920 INFO - To upstream: {"value":["B","a","k","e"," ","t","h","e"," ","c","h","i","n"," ","c","h","i","n"," ","t","h","e"," ","r","i","g","h","t"," ","w","a","y"]}
+15:25:14.054 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:14.056 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:14.056 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:14.056 INFO - To upstream: {"using":"css selector","value":"#submit-edit"}
+15:25:14.065 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-9"}}
+15:25:14.067 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:14.067 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-9/click (handler: ServicedSession)
+15:25:14.067 INFO - To upstream: 
+15:25:14.099 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:14.101 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:14.101 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:14.102 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:14.117 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:14.625 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:14.626 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:14.626 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:14.633 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:15.141 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:15.141 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:15.141 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:15.148 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:15.656 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:15.656 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:15.657 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:15.664 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:16.167 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:16.167 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:16.168 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:16.174 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:16.682 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:16.682 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:16.683 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:16.690 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[]}
+15:25:17.198 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.198 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:17.199 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:17.205 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-10"}]}
+15:25:17.208 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.208 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-10/displayed (handler: ServicedSession)
+15:25:17.218 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:17.220 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.220 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:17.220 INFO - To upstream: {"using":"css selector","value":"#delete"}
+15:25:17.230 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-10"}}
+15:25:17.232 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.232 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-10/click (handler: ServicedSession)
+15:25:17.233 INFO - To upstream: 
+15:25:17.280 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:17.283 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.283 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:17.283 INFO - To upstream: {"using":"css selector","value":".swal-button--confirm.swal-button--danger"}
+15:25:17.293 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-11"}]}
+15:25:17.295 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.295 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-11/displayed (handler: ServicedSession)
+15:25:17.309 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":false}
+15:25:17.816 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.817 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-11/displayed (handler: ServicedSession)
+15:25:17.824 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:17.826 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.827 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:17.827 INFO - To upstream: {"using":"css selector","value":".swal-button--confirm.swal-button--danger"}
+15:25:17.837 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-11"}}
+15:25:17.838 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.838 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-11/click (handler: ServicedSession)
+15:25:17.839 INFO - To upstream: 
+15:25:17.889 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:17.892 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.892 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:17.892 INFO - To upstream: {"using":"css selector","value":".swal-button--confirm"}
+15:25:17.912 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-11"}]}
+15:25:17.918 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.918 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-11/displayed (handler: ServicedSession)
+15:25:17.927 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":10,"value":{"message":"stale element reference: element is not attached to the page document\n  (Session info: chrome=63.0.3239.132)\n  (Driver info: chromedriver=2.34.522932 (4140ab217e1ca1bec0c4b4d1b148f3361eb3a03e),platform=Mac OS X 10.12.6 x86_64)"}}
+15:25:17.930 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.930 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/elements (handler: ServicedSession)
+15:25:17.931 INFO - To upstream: {"using":"css selector","value":".swal-button--confirm"}
+15:25:17.942 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":[{"ELEMENT":"0.30655532732001856-12"}]}
+15:25:17.946 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.947 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing GET on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-12/displayed (handler: ServicedSession)
+15:25:17.961 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":true}
+15:25:17.964 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.964 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element (handler: ServicedSession)
+15:25:17.965 INFO - To upstream: {"using":"css selector","value":".swal-button--confirm"}
+15:25:17.979 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":{"ELEMENT":"0.30655532732001856-12"}}
+15:25:17.982 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:17.982 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing POST on /session/ab66d9505a260388981bdb2a21188c5e/element/0.30655532732001856-12/click (handler: ServicedSession)
+15:25:17.983 INFO - To upstream: 
+15:25:18.035 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:18.037 INFO - Found handler: org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:18.037 INFO - Handler thread for session ab66d9505a260388981bdb2a21188c5e (chrome): Executing DELETE on /session/ab66d9505a260388981bdb2a21188c5e (handler: ServicedSession)
+15:25:18.090 INFO - To downstream: {"sessionId":"ab66d9505a260388981bdb2a21188c5e","status":0,"value":null}
+15:25:18.090 INFO - Removing session org.openqa.selenium.remote.server.ServicedSession@72ce13d3
+15:25:18.100 INFO - To downstream: {"sessionId":"","status":0,"value":null}

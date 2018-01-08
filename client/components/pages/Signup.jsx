@@ -100,14 +100,17 @@ export class Signup extends Component {
     }
     this.setState({ isLoading: true });
     this.props.actions.signUpAction(this.state)
-      .then((data) => {
+      .then((message) => {
         toastrOption();
         toastr.success('You have successfully signed up');
         setTimeout(() => {
           this.setState({ redirectUser: true });
         }, 3000);
       })
-      .catch((error) => error);
+      .catch(message => {
+        toastrOption();
+        toastr.error(message);
+      });
   }
 
   /**
@@ -199,7 +202,8 @@ export class Signup extends Component {
     return (
       this.state.redirectUser ?
         <Redirect to="/recipes"/> :
-        <div>
+        <div
+          id="signup-form">
           <div className="header-signup">
             <h4>Signup</h4>
           </div>
@@ -221,6 +225,7 @@ export class Signup extends Component {
                 {this.state.usernameError}
               </div>
               <div
+                id="username-invalid"
                 className="invalid-feedback">
                 {this.state.userExist}
               </div>
@@ -259,6 +264,7 @@ export class Signup extends Component {
                 {this.state.emailError}
               </div>
               <div
+                id="email-invalid"
                 className="invalid-feedback">
                 {this.state.emailExist}
               </div>
@@ -337,7 +343,8 @@ export function mapDispatchToProps(dispatch) {
 }
 
 Signup.propTypes = {
-  actions: PropTypes.object
+  actions: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default connect(null, mapDispatchToProps)(Signup);

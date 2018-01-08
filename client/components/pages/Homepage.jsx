@@ -24,10 +24,10 @@ export default class Homepage extends Component {
       <div>
         <nav
           className="navbar navbar-expand-lg navbar-dark">
-          <a
+          <Link
             className="navbar-brand"
-            href="#">More Recipes
-          </a>
+            to="/">More Recipes
+          </Link>
           <button
             className="navbar-toggler"
             type="button"

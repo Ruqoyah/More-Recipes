@@ -299,42 +299,19 @@ export default {
       })
       .then((foundRecipes) => {
         results = foundRecipes.slice(0);
+        if (results.length < 1) {
+          return res.status(404).json({
+            message: 'No match Recipe found'
+          });
+        }
+        return res.status(200).json({
+          status: true,
+          data: results
+        });
       })
-      .then(() => {
-        models.Users
-          .findAll({
-            attributes: ['fullName'],
-            where: {
-              $or: [
-                {
-                  fullName: {
-                    $iLike: `%${req.query.search}%`
-                  }
-                },
-                {
-                  username: {
-                    $iLike: `%${req.query.search}%`
-                  }
-                },
-              ]
-            }
-          })
-          .then((recipe) => {
-            if (results.concat(recipe).length < 1) {
-              return res.status(404).json({
-                message: 'No match Recipe found',
-                data: []
-              });
-            }
-            return res.status(200).json({
-              status: true,
-              data: results.concat(recipe)
-            });
-          })
-          .catch(() => res.status(500).json({
-            error: 'Internal sever Error'
-          }));
-      });
+      .catch(() => res.status(500).json({
+        error: 'Internal sever Error'
+      }));
   },
 
   /** Get recipes with the most upvote

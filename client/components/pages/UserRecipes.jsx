@@ -26,6 +26,9 @@ class UserRecipes extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      loader: false
+    };
     this.renderPagination = this.renderPagination.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
   }
@@ -36,7 +39,15 @@ class UserRecipes extends Component {
    *
    */
   componentDidMount() {
-    this.props.actions.getUserRecipeAction(1);
+    this.setState({
+      loader: true
+    });
+    this.props.actions.getUserRecipeAction(1)
+      .then(() => {
+        this.setState({
+          loader: false
+        });
+      });
   }
 
   /**
@@ -93,8 +104,8 @@ class UserRecipes extends Component {
     const allUserRecipe = this.props.userRecipes;
     if (allUserRecipe.length < 1) {
       return (
-        <div style={{ textAlign: 'center' }}>
-          <Loader size={'70px'} />
+        <div className="not-found">
+          <h1>No recipe found </h1>
         </div>
       );
     }
@@ -130,8 +141,15 @@ class UserRecipes extends Component {
     return (
       <div>
         <Header />
-        {this.renderRecipe()}
-        {this.renderPagination(0)}
+        { this.state.loader ?
+          <div style={{ marginTop: '200px', textAlign: 'center' }}>
+            <Loader size={'70px'} />
+          </div> :
+          <div>
+            {this.renderRecipe()}
+            {this.renderPagination(0)}
+          </div>
+        }
         <Footer />
       </div>);
   }

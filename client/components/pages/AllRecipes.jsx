@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../common/Header';
-import { getAllRecipeAction } from '../../actions/recipesActions';
+import {
+  getAllRecipeAction,
+  searchRecipesAction
+} from '../../actions/recipesActions';
 import RecipesCard from '../common/RecipesCard';
 import Footer from '../common/Footer';
 import Loader from '../common/Loader';
-
 
 /**
  * @class RecipePage
@@ -28,10 +30,14 @@ class AllRecipes extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      loader: false,
+      searchRecipes: ''
+    };
+    this.searchHandler = this.searchHandler.bind(this);
     this.renderPagination = this.renderPagination.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
   }
-
 
   /**
    * @description - gets all recipes
@@ -39,7 +45,50 @@ class AllRecipes extends Component {
    * @return {void} no return or void
    */
   componentDidMount() {
-    this.props.actions.getAllRecipeAction(1);
+    this.setState({
+      loader: true
+    });
+    this.props.actions.getAllRecipeAction(1)
+      .then(() => {
+        this.setState({
+          loader: false
+        });
+      });
+  }
+
+  /**
+   * @description - handles search recipes event
+   *
+   * @param  {object} event the event for the content field
+   *
+   * @return {void} no return or void
+   *
+   */
+  searchHandler(event) {
+    this.setState({
+      loader: true
+    });
+    if (event.target.value.trim() !== '') {
+      this.setState({
+        searchRecipes: event.target.value
+      });
+      this.props.actions.searchRecipesAction(event.target.value)
+        .then(() => {
+          this.setState({
+            loader: false
+          });
+        });
+    } else {
+      this.setState({
+        loader: true
+      });
+      this.props.actions.getAllRecipeAction(1)
+        .then(() => {
+          this.setState({
+            loader: false
+          });
+        });
+    }
   }
 
   /**
@@ -52,8 +101,8 @@ class AllRecipes extends Component {
     const allRecipes = this.props.recipes;
     if (allRecipes.length < 1) {
       return (
-        <div style={{ marginTop: '80px', textAlign: 'center' }}>
-          <Loader size={'70px'}/>
+        <div className="not-found">
+          <h1>No recipe found </h1>
         </div>
       );
     }
@@ -131,17 +180,34 @@ class AllRecipes extends Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header
+          searchHandler = {this.searchHandler}/>
         <div style={{ textAlign: 'center', alignItems: 'center', margin: 20 }}>
-          <Link to="/add-recipe" className="btn btn-outline-danger btn-lg">
+          <Link to="/add-recipe"
+            id="add-recipe"
+            className="btn btn-outline-danger btn-lg">
             Add new Recipe
             <i className="fa fa-plus"
               aria-hidden="true" />
           </Link>
         </div>
         <div>
-          {this.renderRecipe()}
-          {this.renderPagination(0)}
+          { this.state.loader ?
+            <div style={{ marginTop: '80px', textAlign: 'center' }}>
+              <Loader size={'70px'} />
+            </div> :
+            <div>
+              {(this.props.error) ?
+                <div className="not-found">
+                  <h1>No match recipe found</h1>
+                </div> :
+                <div>
+                  {this.renderRecipe()}
+                  {this.renderPagination(0)}
+                </div>
+              }
+            </div>
+          }
         </div>
         <Footer />
       </div>);
@@ -160,7 +226,8 @@ function mapStateToProps(state) {
   return {
     recipes: state.recipe.recipes,
     user: state.auth.user.currentUser,
-    count: state.recipe.count
+    count: state.recipe.count,
+    error: state.recipe.error
   };
 }
 
@@ -175,15 +242,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
+      searchRecipesAction,
       getAllRecipeAction
     }, dispatch)
   };
 }
 
 AllRecipes.propTypes = {
-  recipes: PropTypes.array,
   count: PropTypes.number,
-  actions: PropTypes.object
+  actions: PropTypes.object,
+  error: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllRecipes);

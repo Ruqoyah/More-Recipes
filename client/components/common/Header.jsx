@@ -3,10 +3,6 @@ import PropTypes from "prop-types";
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-  searchRecipesAction,
-  getAllRecipeAction
-} from '../../actions/recipesActions';
 import { logoutAction } from '../../actions/authActions';
 
 /**
@@ -26,10 +22,6 @@ export class Header extends Component {
    */
   constructor(props) {
     super(props);
-    this.state = {
-      searchRecipes: ''
-    };
-    this.searchHandler = this.searchHandler.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -43,23 +35,6 @@ export class Header extends Component {
   logout(event) {
     event.preventDefault();
     this.props.actions.logoutAction();
-  }
-
-  /**
-   * @description - handles search recipes event
-   *
-   * @param  {object} event the event for the content field
-   *
-   * @return {void} no return or void
-   *
-   */
-  searchHandler(event) {
-    if (event.target.value.trim() !== '') {
-      this.setState({ searchRecipes: event.target.value });
-      this.props.actions.searchRecipesAction(event.target.value);
-    } else {
-      this.props.actions.getAllRecipeAction(1);
-    }
   }
 
   /**
@@ -99,7 +74,7 @@ export class Header extends Component {
             <ul
               className="navbar-nav col-lg-5">
               { window.location.href.split('/').splice(-1).toString() === 'recipes' &&
-              <input onChange={this.searchHandler}
+              <input onChange={this.props.searchHandler}
                 className="form-control mr-sm-2"
                 type="text"
                 placeholder="Search recipe"
@@ -127,6 +102,7 @@ export class Header extends Component {
                   </NavLink>
                   <NavLink
                     className="dropdown-item"
+                    id="my-recipe"
                     to="/my-recipe">My Recipes
                   </NavLink>
                   <NavLink
@@ -136,6 +112,7 @@ export class Header extends Component {
                   <div className="dropdown-divider" />
                   <a
                     onClick={this.logout}
+                    id="logout"
                     className="dropdown-item">Log out
                   </a>
                 </div>
@@ -172,9 +149,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      logoutAction,
-      searchRecipesAction,
-      getAllRecipeAction
+      logoutAction
     }, dispatch)
   };
 }

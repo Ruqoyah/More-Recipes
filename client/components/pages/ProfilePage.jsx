@@ -55,6 +55,7 @@ export class ProfilePage extends Component {
                   <a
                     data-target="#profile"
                     data-toggle="tab"
+                    id="profile-button"
                     className="nav-link active icon">Profile
                   </a>
                 </li>
@@ -63,6 +64,7 @@ export class ProfilePage extends Component {
                   <a
                     data-target="#edit"
                     data-toggle="tab"
+                    id="edit-profile"
                     className="nav-link icon">Edit
                   </a>
                 </li>
@@ -77,15 +79,18 @@ export class ProfilePage extends Component {
                     <div
                       className="col-md-6">
                       <h6><strong>Username</strong></h6>
-                      <p>
+                      <p
+                        id="username">
                         {this.props.user.username}
                       </p>
                       <h6><strong>Full Name</strong></h6>
-                      <p>
+                      <p
+                        id="fullName">
                         {this.props.user.fullName}
                       </p>
                       <h6><strong>Email</strong></h6>
-                      <p>
+                      <p
+                        id="email">
                         {this.props.user.email}
                       </p>
                     </div>

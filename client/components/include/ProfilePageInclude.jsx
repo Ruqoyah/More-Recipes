@@ -251,6 +251,7 @@ class ProfilePageInclude extends Component {
                   className="form-control"
                   type="text"
                   name="username"
+                  id="profile-username"
                   value={this.state.userDetails.username}
                   onChange={this.onChange}
                   required />
@@ -301,6 +302,7 @@ class ProfilePageInclude extends Component {
                   className="btn btn-outline-danger"
                   type="submit"
                   name="submit"
+                  id="save-changes"
                   style={{ marginLeft: '18px' }}>Save Changes
                 </button>
               </div>
