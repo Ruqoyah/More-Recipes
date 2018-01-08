@@ -143,7 +143,7 @@ export function editProfileAction(userDetails) {
     .then((res) => {
       dispatch({
         type: EDIT_PROFILE,
-        user: res.data
+        user: res.data.data
       });
       return res.data.message;
     })

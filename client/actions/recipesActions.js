@@ -86,7 +86,7 @@ export function getUserRecipeAction(page) {
         payload: res.data
       });
     })
-    .catch(error => error.response);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**

@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
-import {
-  viewRecipeAction,
-  viewUpvoteAction,
-  viewDownvoteAction
-} from '../../actions/recipesActions';
+import { viewRecipeAction } from '../../actions/recipesActions';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import ViewRecipeInclude from '../include/ViewRecipeInclude';
