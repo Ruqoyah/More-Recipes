@@ -3,8 +3,11 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import { AddRecipe, mapStateToProps,
-  mapDispatchToProps } from '../../components/pages/AddRecipe';
+import {
+  AddRecipe,
+  mapStateToProps,
+  mapDispatchToProps
+} from '../../../components/pages/AddRecipe';
 
 configure({ adapter: new Adapter() });
 
@@ -14,10 +17,19 @@ const props = {
   }
 };
 
-jest.mock('../../components/common/Header');
+jest.mock('../../../components/common/Header');
 jest.mock('react-router-dom');
 
 describe('Component: AddRecipe', () => {
+  beforeEach(() => {
+    global.toastr = {
+      success: () => {},
+      error: () => {}
+    };
+  });
+  global.FileReader = () => ({
+    readAsDataURL: () => {}
+  });
   it('tests that the component successfully rendered', () => {
     const wrapper = mount(<AddRecipe {...props}/>);
     expect(wrapper.find('div').length).toBe(9);
@@ -147,18 +159,6 @@ describe('Component: AddRecipe', () => {
     expect(mapDispatchToProps(dispatch).actions.saveImageToCloud).toBeTruthy();
   });
 
-  it('should call uploadImage()', () => {
-    const spy = sinon.spy(AddRecipe.prototype, 'uploadImage');
-    mount(<AddRecipe {...props} uploadImage={spy}/>)
-      .instance().uploadImage({ preventDefault: () => 1 });
-  });
-
-  it('should call onFocus()', () => {
-    const spy = sinon.spy(AddRecipe.prototype, 'onFocus');
-    mount(<AddRecipe {...props} onFocus={spy}/>)
-      .instance().onFocus({ event: () => 1 });
-  });
-
   it('should call onClick()', () => {
     const spy = sinon.spy(AddRecipe.prototype, 'onClick');
     mount(<AddRecipe {...props} onClick={spy}/>)
@@ -169,5 +169,41 @@ describe('Component: AddRecipe', () => {
     const spy = sinon.spy(AddRecipe.prototype, 'handleSubmit');
     mount(<AddRecipe {...props} handleSubmit={spy}/>)
       .instance().handleSubmit({ preventDefault: () => 1 });
+  });
+
+  it('should call uploadImage()', () => {
+    const wrapper = mount(<AddRecipe {...props} />);
+    const action = wrapper.instance();
+    const spy = sinon.spy(AddRecipe.prototype, 'uploadImage');
+    const event = {
+      preventDefault: jest.fn(),
+      target: { name: 'image',
+        files: [{
+          name: "Baked.jpg",
+          lastModified: 1515159157000,
+          size: 226679,
+          type: "image/jpeg",
+          webkitRelativePath: ''
+
+        }] }
+    };
+    mount(<AddRecipe {...props} uploadImage={spy}/>);
+    action.uploadImage(event);
+    action.setState({
+      image: event.target.files
+    });
+    expect(action.state.image).toBe(event.target.files);
+  });
+
+  it('should call onFocus()', () => {
+    const wrapper = mount(<AddRecipe {...props} />);
+    const action = wrapper.instance();
+    const spy = sinon.spy(AddRecipe.prototype, 'onFocus');
+    const event = {
+      target: { name: 'imageError', value: '' }
+    };
+    mount(<AddRecipe {...props} onFocus={spy}/>);
+    action.onFocus(event);
+    expect(action.state.imageError).toBe(event.target.value);
   });
 });

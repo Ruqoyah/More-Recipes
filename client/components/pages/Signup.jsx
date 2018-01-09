@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import $ from 'jquery';
 import { signUpAction } from '../../actions/authActions';
 import {
   userOrEmailExist,
@@ -100,14 +101,17 @@ export class Signup extends Component {
     }
     this.setState({ isLoading: true });
     this.props.actions.signUpAction(this.state)
-      .then((data) => {
+      .then((message) => {
         toastrOption();
         toastr.success('You have successfully signed up');
         setTimeout(() => {
           this.setState({ redirectUser: true });
         }, 3000);
       })
-      .catch((error) => error);
+      .catch(message => {
+        toastrOption();
+        toastr.error(message);
+      });
   }
 
   /**
@@ -143,15 +147,10 @@ export class Signup extends Component {
    *
    */
   onBlur(event) {
-    const pass = document.getElementById('validationServer04').value;
+    const pass = $('#validationServer04').val();
+
     switch (event.target.name) {
     case 'username':
-      userOrEmailExist({ username: event.target.value })
-        .then((res) => {
-          if (res) {
-            this.setState({ userExist: 'Username already exist' });
-          }
-        });
       if (event.target.value.length < 5 || !event.target.value) {
         this.setState({ usernameError: 'Please provide a username with atleast 5 characters' });
         return false;
@@ -159,6 +158,12 @@ export class Signup extends Component {
         this.setState({ usernameError: '' });
         return true;
       }
+      userOrEmailExist({ username: event.target.value })
+        .then((res) => {
+          if (res) {
+            this.setState({ userExist: 'Username already exist' });
+          }
+        });
     case 'email':
       userOrEmailExist({ email: event.target.value })
         .then((res) => {
@@ -199,7 +204,8 @@ export class Signup extends Component {
     return (
       this.state.redirectUser ?
         <Redirect to="/recipes"/> :
-        <div>
+        <div
+          id="signup-form">
           <div className="header-signup">
             <h4>Signup</h4>
           </div>
@@ -221,6 +227,7 @@ export class Signup extends Component {
                 {this.state.usernameError}
               </div>
               <div
+                id="username-invalid"
                 className="invalid-feedback">
                 {this.state.userExist}
               </div>
@@ -259,6 +266,7 @@ export class Signup extends Component {
                 {this.state.emailError}
               </div>
               <div
+                id="email-invalid"
                 className="invalid-feedback">
                 {this.state.emailExist}
               </div>

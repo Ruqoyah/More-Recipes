@@ -3,19 +3,28 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import { Login, mapDispatchToProps } from '../../components/pages/Login';
+import { Login, mapDispatchToProps } from '../../../components/pages/Login';
+import mockLocalStorage from '../../_mocks_/mockLocalStorage';
 
 configure({ adapter: new Adapter() });
 
+window.localStorage = mockLocalStorage;
+
 const props = {
   actions: {
-    loginAction: jest.fn()
+    loginAction: jest.fn(() => Promise.resolve())
   }
 };
 
 jest.mock('react-router-dom');
 
 describe('Component: Login', () => {
+  beforeEach(() => {
+    global.toastr = {
+      success: () => {},
+      error: () => {}
+    };
+  });
   it('tests that the component successfully rendered', () => {
     const wrapper = mount(<Login {...props}/>);
     expect(wrapper.find('div').length).toBe(7);
@@ -57,20 +66,49 @@ describe('Component: Login', () => {
   });
 
   it('should call onChange()', () => {
+    const wrapper = mount(<Login {...props} />);
+    const action = wrapper.instance();
     const spy = sinon.spy(Login.prototype, 'onChange');
-    mount(<Login {...props} onChange={spy}/>)
-      .instance().onChange({ setState: () => 1 });
+    const event = {
+      target: { name: 'username', value: 'ruqoyah' }
+    };
+    mount(<Login {...props} onChange={spy}/>);
+    action.onChange(event);
+    expect(action.state.username).toBe(event.target.value);
   });
 
-  it('should call onFocus()', () => {
+  it('should clear username error when input box is targeted', () => {
+    const wrapper = mount(<Login {...props} />);
+    const action = wrapper.instance();
     const spy = sinon.spy(Login.prototype, 'onFocus');
-    mount(<Login {...props} onFocus={spy}/>)
-      .instance().onFocus({ event: () => 1 });
+    const event = {
+      target: { name: 'username', value: 'ruqoyah' }
+    };
+    mount(<Login {...props} onFocus={spy}/>);
+    action.onFocus(event);
+    expect(action.state.loginError).toBe('');
+  });
+
+  it('should clear password error when input box is targeted', () => {
+    const wrapper = mount(<Login {...props} />);
+    const action = wrapper.instance();
+    const event = {
+      target: { name: 'password', value: 'ruqoyah12' }
+    };
+    action.onFocus(event);
+    expect(action.state.loginError).toBe('');
   });
 
   it('should call handleSubmit()', () => {
+    const wrapper = mount(<Login {...props} />);
+    const action = wrapper.instance();
     const spy = sinon.spy(Login.prototype, 'handleSubmit');
-    mount(<Login {...props} handleSubmit={spy}/>)
-      .instance().handleSubmit({ preventDefault: () => 1 });
+    const event = {
+      preventDefault: jest.fn(),
+      target: { name: 'redirectUser', value: false }
+    };
+    mount(<Login {...props} handleSubmit={spy}/>);
+    action.handleSubmit(event);
+    expect(action.state.redirectUser).toBe(event.target.value);
   });
 });

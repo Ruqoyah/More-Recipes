@@ -14,7 +14,7 @@ import Loader from '../common/Loader';
  * @classdesc get user Profile and allow user to edit profile
  *
  */
-class ProfilePageInclude extends Component {
+export class ProfilePageInclude extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -251,6 +251,7 @@ class ProfilePageInclude extends Component {
                   className="form-control"
                   type="text"
                   name="username"
+                  id="profile-username"
                   value={this.state.userDetails.username}
                   onChange={this.onChange}
                   required />
@@ -301,6 +302,7 @@ class ProfilePageInclude extends Component {
                   className="btn btn-outline-danger"
                   type="submit"
                   name="submit"
+                  id="save-changes"
                   style={{ marginLeft: '18px' }}>Save Changes
                 </button>
               </div>
@@ -320,7 +322,7 @@ class ProfilePageInclude extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   const tempUserDetails = {
     fullName: '',
     id: '',
@@ -343,7 +345,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       editProfileAction,

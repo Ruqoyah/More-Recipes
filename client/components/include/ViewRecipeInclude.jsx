@@ -16,7 +16,7 @@ import VoteAndFavoriteIcon from '../common/VoteAndFavoriteIcon';
  * @classdesc view recipe component
  *
  */
-class ViewRecipeInclude extends Component {
+export class ViewRecipeInclude extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -102,7 +102,8 @@ class ViewRecipeInclude extends Component {
     return (
       <div
         className="container-fluid view-recipe">
-        <h2>
+        <h2
+          id="recipe-name">
           {this.props.recipeName}
         </h2> <hr />
         <div className="row">
@@ -118,12 +119,16 @@ class ViewRecipeInclude extends Component {
             </Image>
           </div>
           <div className="col-sm-6">
-            <h4>Ingredients</h4>
-            <p>
+            <h4
+              className="ingredients">Ingredients</h4>
+            <p
+              id="input-ingredients">
               {this.props.ingredient}
             </p><hr />
-            <h4>Details</h4>
-            <p>
+            <h4
+              className="details">Details</h4>
+            <p
+              id="input-details">
               {this.props.details}
             </p>
             <div
@@ -243,7 +248,7 @@ class ViewRecipeInclude extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
     reviews: state.recipe.reviews,
@@ -259,7 +264,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       reviewRecipeAction,

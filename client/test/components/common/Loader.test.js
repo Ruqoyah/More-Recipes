@@ -3,15 +3,14 @@ import React from 'react';
 import expect from 'expect';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import Footer from '../../components/common/Footer';
+import Loader from '../../../components/common/Loader';
 
 configure({ adapter: new Adapter() });
 
 
-describe('Component: Footer', () => {
+describe('Component: Loader', () => {
   it('tests that the component successfully rendered', () => {
-    const wrapper = mount(<Footer />);
-    expect(wrapper.find('div').length).toBe(2);
-    expect(wrapper.find('p').length).toBe(2);
+    const wrapper = mount(<Loader />);
+    expect(wrapper.find('i').length).toBe(1);
   });
 });

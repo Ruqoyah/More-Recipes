@@ -11,7 +11,7 @@ import VoteAndFavoriteIcon from './VoteAndFavoriteIcon';
  * @classdesc Recipes page component
  *
  */
-class RecipesCard extends Component {
+class RecipeCard extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -77,7 +77,9 @@ class RecipesCard extends Component {
               </p>
               <div className="row">
                 <div className="col">
-                  <button onClick={this.handleViewClick}
+                  <button
+                    onClick={this.handleViewClick}
+                    id="read-more"
                     className="btn btn-success">
             Read more
                   </button>
@@ -105,7 +107,7 @@ class RecipesCard extends Component {
   }
 }
 
-RecipesCard.propTypes = {
+RecipeCard.propTypes = {
   id: PropTypes.number,
   actions: PropTypes.object,
   recipeName: PropTypes.string,
@@ -118,4 +120,4 @@ RecipesCard.propTypes = {
 };
 
 
-export default RecipesCard;
+export default RecipeCard;

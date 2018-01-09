@@ -58,6 +58,159 @@ const mockData = {
       views: 0
     }
   },
+  recipeDetails: [
+    {
+      id: 8,
+      recipeName: "Asdf",
+      ingredient: "dsfg",
+      details: "dsf",
+      picture: "tw2y57mjg7pbdo4dyrci",
+      userId: 1,
+      upvotes: 0,
+      downvotes: 0,
+      views: 0,
+      createdAt: "2018-01-10T01:36:04.250Z",
+      updatedAt: "2018-01-10T01:36:04.250Z"
+    },
+    {
+      id: 7,
+      recipeName: "Wer",
+      ingredient: "asdf",
+      details: "wesrdf",
+      picture: "chnwhqvvdivf06okfv5p",
+      userId: 1,
+      upvotes: 0,
+      downvotes: 0,
+      views: 0,
+      createdAt: "2018-01-10T01:28:32.849Z",
+      updatedAt: "2018-01-10T01:28:32.849Z"
+    }
+  ],
+  saveImageDetails: {
+    bytes: 5991,
+    created_at: "2018-01-12T00:26:19Z",
+    etag: "01658a24ffe0a1b5db75b882294da1ba",
+    format: "png",
+    height: 200,
+    original_filename: "63408-200",
+    placeholder: false,
+    public_id: "qssiljs70ary0lx8xhgx",
+    resource_type: "image",
+    secure_url: "https://res.cloudinary.com/ruqoyah/image/upload/v1515716779/qssiljs70ary0lx8xhgx.png",
+    signature: "23a595aac6f4630c4bc4b64974c4e5cccbc47d87"
+  },
+  recipePropsDetails: [
+    {
+      User: {
+        username: "rukky"
+      },
+      id: 8,
+      recipeName: "Asdf",
+      ingredient: "dsfg",
+      details: "dsf",
+      picture: "tw2y57mjg7pbdo4dyrci",
+      userId: 1,
+      upvotes: 0,
+      downvotes: 0,
+      views: 0,
+      createdAt: "2018-01-10T01:36:04.250Z",
+      updatedAt: "2018-01-10T01:36:04.250Z",
+    },
+    {
+      User: {
+        username: "rukky"
+      },
+      id: 7,
+      recipeName: "Wer",
+      ingredient: "asdf",
+      details: "wesrdf",
+      picture: "chnwhqvvdivf06okfv5p",
+      userId: 1,
+      upvotes: 0,
+      downvotes: 0,
+      views: 0,
+      createdAt: "2018-01-10T01:28:32.849Z",
+      updatedAt: "2018-01-10T01:28:32.849Z"
+    }
+  ],
+  favoriteRecipeDetails: [
+    {
+      Recipe: {
+        User: {
+          username: "rukky"
+        },
+        id: 8,
+        recipeName: "Asdf",
+        ingredient: "dsfg",
+        details: "dsf",
+        picture: "tw2y57mjg7pbdo4dyrci",
+        userId: 1,
+        upvotes: 0,
+        downvotes: 0,
+        views: 0,
+        createdAt: "2018-01-10T01:36:04.250Z",
+        updatedAt: "2018-01-10T01:36:04.250Z",
+      }
+    },
+    {
+      Recipe: {
+        User: {
+          username: "rukky"
+        },
+        id: 7,
+        recipeName: "Wer",
+        ingredient: "asdf",
+        details: "wesrdf",
+        picture: "chnwhqvvdivf06okfv5p",
+        userId: 1,
+        upvotes: 0,
+        downvotes: 0,
+        views: 0,
+        createdAt: "2018-01-10T01:28:32.849Z",
+        updatedAt: "2018-01-10T01:28:32.849Z"
+      }
+    }
+  ],
+  reviewRecipe: [
+    {
+      User: {
+        picture: "tw2y57mjg7pbdo4dyrci",
+        username: "rukkiey"
+      },
+      id: 1,
+      recipeId: 8,
+      userId: 1,
+      review: 'nice',
+      createdAt: "2018-01-10T01:36:04.250Z",
+      updatedAt: "2018-01-10T01:36:04.250Z"
+    }
+  ],
+  recipeUpvote: {
+    id: 8,
+    recipeName: "Asdf",
+    ingredient: "dsfg",
+    details: "dsf",
+    picture: "tw2y57mjg7pbdo4dyrci",
+    userId: 1,
+    upvotes: 1,
+    downvotes: 0,
+    views: 0,
+    createdAt: "2018-01-10T01:36:04.250Z",
+    updatedAt: "2018-01-10T01:36:04.250Z"
+  },
+  recipeDownvote: {
+    id: 7,
+    recipeName: "Wer",
+    ingredient: "asdf",
+    details: "wesrdf",
+    picture: "chnwhqvvdivf06okfv5p",
+    userId: 1,
+    upvotes: 0,
+    downvotes: 1,
+    views: 0,
+    createdAt: "2018-01-10T01:28:32.849Z",
+    updatedAt: "2018-01-10T01:28:32.849Z"
+  },
   viewedRecipe: {
     createdAt: "2017-12-18T17:57:11.735Z",
     details: "recipe",
@@ -172,6 +325,16 @@ const mockData = {
     picture: 'picture.png',
     username: 'rookiey'
   },
+  addedRecipe: {
+    data: {
+      message: "Recipe added successfully"
+    }
+  },
+  userExist: {
+    data: {
+      status: true
+    }
+  },
   editedDetails: {
     data: {
       email: "oriyomi@gmail.com",
@@ -179,6 +342,35 @@ const mockData = {
       id: 1,
       picture: null,
       username: "rookiey"
+    }
+  },
+  viewRecipe: {
+    id: 8,
+    recipeName: 'yam',
+    ingredient: 'water and yam',
+    details: 'dsfaa',
+    picture: 'tw2y57mjg7pbdo4dyrci',
+    userId: 1,
+    upvotes: 2,
+    downvotes: 0,
+    views: 6,
+    createdAt: '2018-01-10T01:36:04.250Z',
+    updatedAt: '2018-01-11T07:52:29.828Z'
+  },
+  viewRecipeProps: {
+    picture: 'tw2y57mjg7pbdo4dyrci',
+    userId: 1,
+    recipeName: 'yam',
+    ingredient: 'water and yam',
+    details: 'dsfaa',
+    upvotes: 2,
+    downvotes: 0,
+    views: 6,
+    review: 'nice',
+    match: {
+      params: {
+        id: 1
+      }
     }
   },
   getUserDetails: {

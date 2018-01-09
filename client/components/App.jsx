@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import AuthenticateUser from '../components/pages/AuthenticateUser';
+import AuthenticateUser from '../components/middleware/AuthenticateUser';
 import Homepage from '../components/pages/Homepage';
 import Signup from '../components/pages/Signup';
 import Login from '../components/pages/Login';
@@ -11,7 +11,6 @@ import ProfilePage from '../components/pages/ProfilePage';
 import ViewRecipe from '../components/pages/ViewRecipe';
 import AllRecipes from '../components/pages/AllRecipes';
 import AddRecipe from '../components/pages/AddRecipe';
-
 
 /**
  * @class App

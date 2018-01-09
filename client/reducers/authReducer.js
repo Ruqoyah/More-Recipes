@@ -20,13 +20,26 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_CURRENT_USER:
-    return { ...state, user: action.user, authenticated: true };
+    return {
+      ...state,
+      user: action.user,
+      authenticated: true
+    };
   case SAVE_PROFILE_IMAGE:
-    return { ...state, imageDetails: action.payload };
+    return {
+      ...state,
+      imageDetails: action.payload
+    };
   case GET_USER:
-    return { ...state, userProfile: action.user };
+    return {
+      ...state,
+      userProfile: action.user
+    };
   case EDIT_PROFILE:
-    return { ...state, userProfile: action.user.data };
+    return {
+      ...state,
+      userProfile: action.user.data
+    };
   default:
     return state;
   }

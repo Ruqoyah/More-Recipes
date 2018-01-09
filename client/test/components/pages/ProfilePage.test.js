@@ -3,8 +3,12 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import { ProfilePage } from '../../components/pages/ProfilePage';
-import mockData from '../_mocks_/mockData';
+import {
+  ProfilePage,
+  mapDispatchToProps,
+  mapStateToProps
+} from '../../../components/pages/ProfilePage';
+import mockData from '../../_mocks_/mockData';
 
 configure({ adapter: new Adapter() });
 
@@ -15,8 +19,8 @@ const props = {
   }
 };
 
-jest.mock('../../components/common/Header');
-jest.mock('../../components/include/ProfilePageInclude');
+jest.mock('../../../components/common/Header');
+jest.mock('../../../components/include/ProfilePageInclude');
 
 describe('Component: ProfilePage', () => {
   it('tests that the component successfully rendered', () => {
@@ -40,5 +44,24 @@ describe('Component: ProfilePage', () => {
   it('should call componentDidMount()', () => {
     const spy = sinon.spy(ProfilePage.prototype, 'componentDidMount');
     mount(<ProfilePage {...props} componentDidMount={spy}/>);
+  });
+
+  it('should ensure mapDispatchToProps returns binded actions', () => {
+    const dispatch = jest.fn();
+    expect(mapDispatchToProps(dispatch).actions.getUserProfileAction).toBeTruthy();
+  });
+
+  it('should ensure mapStateToProps returns prop from redux store', () => {
+    const storeState = {
+      auth: {
+        userProfile: [{
+          fullName: 'ruqoyah',
+          username: 'rukkiey',
+          email: 'rukky@gmail.com',
+          picture: 'picture.png'
+        }]
+      }
+    };
+    expect(mapStateToProps(storeState)).toExist();
   });
 });

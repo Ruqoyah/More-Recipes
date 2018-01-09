@@ -1,2 +1,15 @@
+version: "2"
 exclude_paths:
+- "client/test/"
+- "coverage"
+- "server/test/"
 - "template"
+checks:
+ return-statements:
+   enabled: false
+ similar-code:
+   enabled: false
+ identical-code:
+   enabled: false
+ file-lines:
+   enabled: false

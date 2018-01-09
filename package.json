@@ -11,7 +11,10 @@
     "lint": "eslint ./",
     "build": "webpack --progress --config ./webpack.config.prod.js",
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
-    "client:test": "jest --coverage"
+    "client:test": "jest ./client --coverage",
+    "pree2e:test": "sequelize db:migrate:undo:all --env=localTest && sequelize db:migrate --env=localTest",
+    "e2e:test": "nightwatch ./e2e-tests/*.test.js",
+    "start-server:e2e": "NODE_ENV=localTest babel-node app.js"
   },
   "engines": {
     "node": "8.1.x",
@@ -117,6 +120,7 @@
   "devDependencies": {
     "babel-eslint": "^8.0.3",
     "babel-jest": "^22.0.3",
+    "chai-jest-snapshot": "^2.0.0",
     "codeclimate-test-reporter": "^0.5.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-15": "^1.0.5",
@@ -129,6 +133,7 @@
     "fetch-mock": "^5.13.1",
     "jest": "^22.0.1",
     "moxios": "^0.4.0",
+    "nightwatch": "^0.9.19",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^15.6.1",
     "redux-mock-store": "^1.3.0",

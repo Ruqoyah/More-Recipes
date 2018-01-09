@@ -1,10 +1,11 @@
 import expect from 'expect';
-import AuthReducer from '../../reducers/authReducer';
+import authReducer from '../../reducers/authReducer';
 import {
   SET_CURRENT_USER,
   GET_USER,
   EDIT_PROFILE,
-  SAVE_PROFILE_IMAGE } from '../../actions/types';
+  SAVE_PROFILE_IMAGE
+} from '../../actions/types';
 
 describe('Auth Reducer', () => {
   it('should set the current user when passed with SET_CURRENT_USER', () => {
@@ -23,7 +24,7 @@ describe('Auth Reducer', () => {
       type: SET_CURRENT_USER,
       user,
     };
-    const newState = AuthReducer(initialState, action);
+    const newState = authReducer(initialState, action);
     expect(newState.authenticated).toEqual(true);
     expect(newState.user.currentUser.username).toEqual('ruqoyah');
     expect(newState.user.currentUser.userId).toEqual(1);
@@ -49,7 +50,7 @@ describe('Auth Reducer', () => {
       type: 'TEST',
       user
     };
-    const newState = AuthReducer(initialState, action);
+    const newState = authReducer(initialState, action);
     expect(newState.authenticated).toEqual(false);
     expect(newState.user.currentUser.username).toEqual('');
   });
@@ -70,7 +71,7 @@ describe('Auth Reducer', () => {
       type: GET_USER,
       user: userProfile,
     };
-    const newState = AuthReducer(initialState, action);
+    const newState = authReducer(initialState, action);
     expect(newState.userProfile.username).toEqual('rookie');
     expect(newState.userProfile.email).toEqual('oriyomi@gmail.com');
     expect(newState.userProfile.fullName).toEqual('Rukayat Odukoya');
@@ -89,7 +90,7 @@ describe('Auth Reducer', () => {
       type: SAVE_PROFILE_IMAGE,
       payload: imageDetails,
     };
-    const newState = AuthReducer(initialState, action);
+    const newState = authReducer(initialState, action);
     expect(newState.imageDetails).toEqual('k8sppk4v3048madldvyw');
   });
 
@@ -106,7 +107,7 @@ describe('Auth Reducer', () => {
       type: EDIT_PROFILE,
       user: userProfile,
     };
-    const newState = AuthReducer(initialState, action);
+    const newState = authReducer(initialState, action);
     expect(newState.userProfile.username).toEqual('rookiey');
   });
 });

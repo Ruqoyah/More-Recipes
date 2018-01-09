@@ -22,8 +22,7 @@ const INITIAL_STATE = {
   favoriteRecipes: [],
   viewRecipe: {},
   reviews: [],
-  imageDetails: '',
-  error: ''
+  imageDetails: ''
 };
 
   /**
@@ -39,9 +38,11 @@ const INITIAL_STATE = {
 const recipeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_USER_RECIPES:
-    return { ...state,
+    return {
+      ...state,
       userRecipes: action.payload.recipes.rows,
-      count: action.payload.recipes.count };
+      count: action.payload.recipes.count
+    };
   case EDIT_RECIPE: {
     const newArr = [];
     state.userRecipes.map((obj) => { //eslint-disable-line
@@ -60,34 +61,52 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
     return { ...state, userRecipes: newState };
   }
   case GET_RECIPES:
-    return { ...state,
+    return {
+      ...state,
       recipes: action.payload.recipes.rows,
-      count: action.payload.recipes.count };
+      count: action.payload.recipes.count
+    };
   case SEARCH_RECIPES:
-    return { ...state, recipes: action.payload.data, error: action.payload.data.message };
+    return {
+      ...state,
+      recipes: action.payload.data
+    };
   case GET_FAVORITE_RECIPES:
-    return { ...state,
+    return {
+      ...state,
       favoriteRecipes: action.payload.favoriteRecipes.rows,
       count: action.payload.favoriteRecipes.count };
   case VIEW_RECIPE:
-    return { ...state, viewRecipe: action.payload };
+    return {
+      ...state,
+      viewRecipe: action.payload
+    };
   case ADD_REVIEW:
-    return { ...state, reviews: [...state.reviews, action.payload.data] };
+    return {
+      ...state,
+      reviews: [...state.reviews, action.payload.data]
+    };
   case GET_REVIEW:
-    return { ...state,
+    return {
+      ...state,
       reviews: action.payload.reviews.rows,
-      reviewCount: action.payload.reviews.count };
+      reviewCount: action.payload.reviews.count
+    };
   case LOAD_MORE_REVIEWS: {
     const count = action.payload.reviews.count - state.reviews.length;
 
     const newReviews = state.reviews.concat(action.payload.reviews.rows);
-    return { ...state,
+    return {
+      ...state,
       reviews: newReviews,
       reviewCount: count
     };
   }
   case SAVE_RECIPE_IMAGE:
-    return { ...state, imageDetails: action.payload };
+    return {
+      ...state,
+      imageDetails: action.payload
+    };
   case UPVOTE_RECIPE:
     return {
       ...state,

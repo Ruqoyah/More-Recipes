@@ -15,7 +15,7 @@ import UserRecipesInclude from '../include/UserRecipesInclude';
  * @classdesc get user recipes and allow user to edit or delete recipes
  *
  */
-class UserRecipes extends Component {
+export class UserRecipes extends Component {
   /**
    * @description constructor - contains the constructor
    *
@@ -163,7 +163,7 @@ class UserRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
     userRecipes: state.recipe.userRecipes,
@@ -179,7 +179,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       getUserRecipeAction

@@ -28,9 +28,8 @@ export function signUpAction(userDetails) {
         user: jsonwebtoken.decode(token)
       });
     })
-    .catch(error => error.response.data);
+    .catch(error => Promise.reject(error.response.data.message));
 }
-
 /**
  * @description Request to the API to login user
  *
@@ -81,7 +80,7 @@ export function logoutAction() {
   return (dispatch) => {
     localStorage.removeItem('token');
     setAuthorizationToken(false);
-    window.location.href = '/';
+    window.location = '/';
     dispatch({
       type: UNAUTH_USER,
       user: { currentUser: {} },
@@ -143,7 +142,7 @@ export function editProfileAction(userDetails) {
     .then((res) => {
       dispatch({
         type: EDIT_PROFILE,
-        user: res.data.data
+        user: res.data
       });
       return res.data.message;
     })

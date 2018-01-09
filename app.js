@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   app.use(webpackMiddleware(webpack(webpackConfig)));
 }
 
