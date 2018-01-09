@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Header from '../common/Header';
-import { getAllRecipeAction, searchRecipesAction } from '../../actions/recipesActions';
+import {
+  getAllRecipeAction,
+  searchRecipesAction
+} from '../../actions/recipesActions';
 import RecipesCard from '../common/RecipesCard';
 import Footer from '../common/Footer';
 import Loader from '../common/Loader';
@@ -180,7 +183,9 @@ class AllRecipes extends Component {
         <Header
           searchHandler = {this.searchHandler}/>
         <div style={{ textAlign: 'center', alignItems: 'center', margin: 20 }}>
-          <Link to="/add-recipe" className="btn btn-outline-danger btn-lg">
+          <Link to="/add-recipe"
+            id="add-recipe"
+            className="btn btn-outline-danger btn-lg">
             Add new Recipe
             <i className="fa fa-plus"
               aria-hidden="true" />

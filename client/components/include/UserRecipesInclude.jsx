@@ -329,6 +329,7 @@ class UserRecipesInclude extends Component {
               </button>
               <button
                 type="submit"
+                id="submit-edit"
                 className="btn btn-outline-success">Save
               </button>
             </div>
@@ -367,10 +368,12 @@ class UserRecipesInclude extends Component {
               className="btn-toolbar">
               <button
                 onClick={this.editClick}
+                id="edit"
                 className="btn btn-outline-primary">Edit
               </button>
               <button
                 onClick={this.onClick}
+                id="delete"
                 className="btn btn-outline-danger">Delete
               </button>
             </div>

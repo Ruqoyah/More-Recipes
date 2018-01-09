@@ -157,6 +157,7 @@ class VoteAndFavoriteIcon extends Component {
             onClick={this.handleFavoriteClick} >
             <i
               className="fa fa-heart-o icon"
+              id="favorite"
               aria-hidden="true"
               style={{ fontSize: '22px', color: 'red' }} />
           </a>

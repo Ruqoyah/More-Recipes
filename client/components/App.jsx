@@ -12,7 +12,6 @@ import ViewRecipe from '../components/pages/ViewRecipe';
 import AllRecipes from '../components/pages/AllRecipes';
 import AddRecipe from '../components/pages/AddRecipe';
 
-
 /**
  * @class App
  *

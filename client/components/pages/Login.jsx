@@ -122,7 +122,8 @@ export class Login extends Component {
     return (
       this.state.redirectUser ?
         <Redirect to="/recipes"/> :
-        <div>
+        <div
+          id="login-form">
           <div
             className="header-login">
             <h4> Login</h4>
@@ -131,6 +132,7 @@ export class Login extends Component {
             onSubmit={this.handleSubmit}
             className="form">
             <div
+              id="invalid-credential"
               style={{ color: 'red', textAlign: 'center', marginBottom: '12px' }}>
               {this.state.loginError}
             </div>

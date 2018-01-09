@@ -77,7 +77,9 @@ class RecipesCard extends Component {
               </p>
               <div className="row">
                 <div className="col">
-                  <button onClick={this.handleViewClick}
+                  <button
+                    onClick={this.handleViewClick}
+                    id="read-more"
                     className="btn btn-success">
             Read more
                   </button>

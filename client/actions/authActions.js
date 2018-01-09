@@ -28,7 +28,7 @@ export function signUpAction(userDetails) {
         user: jsonwebtoken.decode(token)
       });
     })
-    .catch(error => error.response.data);
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**
@@ -143,7 +143,7 @@ export function editProfileAction(userDetails) {
     .then((res) => {
       dispatch({
         type: EDIT_PROFILE,
-        user: res.data.data
+        user: res.data
       });
       return res.data.message;
     })

@@ -37,23 +37,6 @@ export class Header extends Component {
     this.props.actions.logoutAction();
   }
 
-  // /**
-  //  * @description - handles search recipes event
-  //  *
-  //  * @param  {object} event the event for the content field
-  //  *
-  //  * @return {void} no return or void
-  //  *
-  //  */
-  // searchHandler(event) {
-  //   if (event.target.value.trim() !== '') {
-  //     this.setState({ searchRecipes: event.target.value });
-  //     this.props.actions.searchRecipesAction(event.target.value);
-  //   } else {
-  //     this.props.actions.getAllRecipeAction(1);
-  //   }
-  // }
-
   /**
    * @description render - renders the class component
    *
@@ -119,6 +102,7 @@ export class Header extends Component {
                   </NavLink>
                   <NavLink
                     className="dropdown-item"
+                    id="my-recipe"
                     to="/my-recipe">My Recipes
                   </NavLink>
                   <NavLink
@@ -128,6 +112,7 @@ export class Header extends Component {
                   <div className="dropdown-divider" />
                   <a
                     onClick={this.logout}
+                    id="logout"
                     className="dropdown-item">Log out
                   </a>
                 </div>

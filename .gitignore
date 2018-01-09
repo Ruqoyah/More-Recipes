@@ -6,4 +6,7 @@ coverage/*
 npm-debug.log*
 package-lock.json
 dist
+screenshots
+bin
 .nyc_output
+e2e_reports

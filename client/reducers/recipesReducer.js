@@ -1,17 +1,7 @@
 import {
-  GET_USER_RECIPES,
-  GET_RECIPES,
-  SEARCH_RECIPES,
-  GET_FAVORITE_RECIPES,
-  ADD_REVIEW,
-  VIEW_RECIPE,
-  GET_REVIEW,
-  UPVOTE_RECIPE,
-  DOWNVOTE_RECIPE,
-  DELETE_RECIPE,
-  EDIT_RECIPE,
-  SAVE_RECIPE_IMAGE,
-  LOAD_MORE_REVIEWS
+  GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, ADD_REVIEW,
+  VIEW_RECIPE, GET_REVIEW, UPVOTE_RECIPE, DOWNVOTE_RECIPE, DELETE_RECIPE,
+  EDIT_RECIPE, SAVE_RECIPE_IMAGE, LOAD_MORE_REVIEWS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,8 +12,7 @@ const INITIAL_STATE = {
   favoriteRecipes: [],
   viewRecipe: {},
   reviews: [],
-  imageDetails: '',
-  error: ''
+  imageDetails: ''
 };
 
   /**
@@ -60,11 +49,9 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
     return { ...state, userRecipes: newState };
   }
   case GET_RECIPES:
-    return { ...state,
-      recipes: action.payload.recipes.rows,
-      count: action.payload.recipes.count };
+    return { ...state, recipes: action.payload.recipes.rows, count: action.payload.recipes.count };
   case SEARCH_RECIPES:
-    return { ...state, recipes: action.payload.data, error: action.payload.data.message };
+    return { ...state, recipes: action.payload.data };
   case GET_FAVORITE_RECIPES:
     return { ...state,
       favoriteRecipes: action.payload.favoriteRecipes.rows,
