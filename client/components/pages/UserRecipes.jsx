@@ -105,7 +105,7 @@ export class UserRecipes extends Component {
     if (allUserRecipe.length < 1) {
       return (
         <div className="not-found">
-          <h1>No recipe found </h1>
+          <h1>You have no recipe</h1>
         </div>
       );
     }
@@ -146,6 +146,7 @@ export class UserRecipes extends Component {
             <Loader size={'70px'} />
           </div> :
           <div>
+            <h3 style={{ marginTop: '10px', marginBottom: '20px', textAlign: 'center' }}>My Recipes</h3>
             {this.renderRecipe()}
             {this.renderPagination(0)}
           </div>
