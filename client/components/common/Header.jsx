@@ -57,6 +57,7 @@ export class Header extends Component {
               alt="logo"
             />
           </Link>
+          { window.location.href.split('/').splice(-1).toString() === 'recipes' &&
           <button
             className="navbar-toggler"
             type="button"
@@ -68,6 +69,7 @@ export class Header extends Component {
             <span
               className="navbar-toggler-icon" />
           </button>
+          }
           <div
             className="collapse navbar-collapse"
             id="navbarNav">

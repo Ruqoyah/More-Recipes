@@ -122,13 +122,15 @@ export class ViewRecipeInclude extends Component {
             <h4
               className="ingredients">Ingredients</h4>
             <p
-              id="input-ingredients">
+              id="input-ingredients"
+              className="wrap">
               {this.props.ingredient}
             </p><hr />
             <h4
               className="details">Details</h4>
             <p
-              id="input-details">
+              id="input-details"
+              className="wrap">
               {this.props.details}
             </p>
             <div

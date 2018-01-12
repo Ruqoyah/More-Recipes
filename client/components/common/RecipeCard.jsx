@@ -69,7 +69,7 @@ class RecipeCard extends Component {
               <p className="card-text ellipses">
                 {this.props.details}
               </p>
-              <p className="card-text text-right">
+              <p className="card-text ellipses text-right">
                 <small
                   className="text-muted recipe-by">
               Recipe by {this.props.username}
@@ -80,7 +80,7 @@ class RecipeCard extends Component {
                   <button
                     onClick={this.handleViewClick}
                     id="read-more"
-                    className="btn btn-success">
+                    className="btn btn-success read-more">
             Read more
                   </button>
                 </div>
@@ -95,7 +95,7 @@ class RecipeCard extends Component {
               </div>
             </div>
             <div
-              className="card-footer">
+              className="card-footer ellipses">
               <small
                 className="text-muted">
             Created: {moment(this.props.createdAt).format('LLLL')}

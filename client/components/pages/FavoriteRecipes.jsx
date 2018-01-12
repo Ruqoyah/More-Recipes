@@ -105,7 +105,7 @@ export class FavoriteRecipes extends Component {
     if (allRecipes.length < 1) {
       return (
         <div className="not-found">
-          <h1>No favorite recipe found</h1>
+          <h1>You have no favorite recipe</h1>
         </div>
       );
     }
@@ -147,6 +147,7 @@ export class FavoriteRecipes extends Component {
             <Loader size={'70px'} />
           </div> :
           <div>
+            <h3 style={{ marginTop: '20px', marginBottom: '20px', textAlign: 'center' }}>Favorite Recipes</h3>
             {this.renderRecipe()}
             {this.renderPagination(0)}
           </div>

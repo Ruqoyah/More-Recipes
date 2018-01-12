@@ -19,6 +19,10 @@ $footer-color: #868585;
   padding: 20px;
 }
 
+.read-more {
+  white-space: normal;
+}
+
 .fa-disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -221,7 +225,6 @@ h5 {
 
 .icon {
   cursor: pointer;
-  margin-top: 10px;
 }
 
 .view-recipe {
@@ -302,6 +305,10 @@ h5 {
   margin-right: 10px;
   margin-left: 10px;
   font-size: 100%;
+  word-wrap: break-word
+}
+
+.wrap {
   word-wrap: break-word
 }
 

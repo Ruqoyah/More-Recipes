@@ -340,7 +340,7 @@ export class UserRecipesInclude extends Component {
             this.state.displayRecipe &&
         <div className="card">
           <div>
-            <img
+            <img className="card-img-top"
               src={`http://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/c_fill,h_200,w_302/${this.props.picture}`}
             />
           </div>
@@ -356,7 +356,7 @@ export class UserRecipesInclude extends Component {
             </p>
             <button
               onClick={this.handleViewClick}
-              className="btn btn-success">Read more
+              className="btn btn-success read-more">Read more
             </button>
             <VoteAndFavoriteIcon
               id={this.props.id}
