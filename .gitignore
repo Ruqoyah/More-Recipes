@@ -10,3 +10,4 @@ screenshots
 bin
 .nyc_output
 e2e_reports
+selenium-debug.log

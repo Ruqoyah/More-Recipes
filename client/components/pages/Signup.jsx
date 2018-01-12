@@ -151,6 +151,12 @@ export class Signup extends Component {
 
     switch (event.target.name) {
     case 'username':
+      userOrEmailExist({ username: event.target.value })
+        .then((res) => {
+          if (res) {
+            this.setState({ userExist: 'Username already exist' });
+          }
+        });
       if (event.target.value.length < 5 || !event.target.value) {
         this.setState({ usernameError: 'Please provide a username with atleast 5 characters' });
         return false;
@@ -158,12 +164,6 @@ export class Signup extends Component {
         this.setState({ usernameError: '' });
         return true;
       }
-      userOrEmailExist({ username: event.target.value })
-        .then((res) => {
-          if (res) {
-            this.setState({ userExist: 'Username already exist' });
-          }
-        });
     case 'email':
       userOrEmailExist({ email: event.target.value })
         .then((res) => {

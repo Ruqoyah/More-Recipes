@@ -22,14 +22,15 @@ module.exports = {
     browser
       .url('http://localhost:8000/signup')
       .waitForElementVisible('#signup-form', 5000)
-      .setValue('input[name=username]', ' ')
-      .setValue('input[name=fullName]', ' ')
+      .setValue('input[name=username]', '    ')
+      .setValue('input[name=fullName]', '    ')
       .setValue('input[name=email]', 'ruqqy@gmail.com')
       .setValue('input[name=password]', 'joyce123')
       .setValue('input[name=cpassword]', 'joyce123')
       .click('button.btn.btn-outline-danger.btn-lg.btn-block')
       .waitForElementVisible('.toast-message', 5000)
       .assert.containsText('.toast-message', 'All field are required')
+      .pause(2000)
       .waitForElementVisible('.toast-message', 5000);
   },
 
@@ -48,9 +49,9 @@ module.exports = {
       .url('http://localhost:8000/signup')
       .waitForElementVisible('#signup-form', 5000)
       .setValue('input[name="email"]', userDetails.email)
-      .setValue('input[name="password"]', 'joycee')
+      .setValue('input[name="password"]', 'joycee123')
       .waitForElementVisible('#email-invalid', 5000)
-      .assert.containsText('#email-invalid', 'Email already exist');
+      .assert.containsText('#email-invalid', 'Email already exist')
   },
 
   'user cannot log in with invalid details': (browser) => {
@@ -60,7 +61,7 @@ module.exports = {
       .setValue('input[name=username]', 'wrongusername')
       .setValue('input[name=password]', 'wrongpassword')
       .click('button.btn.btn-outline-success.btn-lg.btn-block')
-      .assert.containsText('#invalid-credential', 'Invalid Credentials');
+      .assert.containsText('#invalid-credential', 'Invalid Credentials')
   },
 
   "Users can login": (browser) => {
@@ -70,7 +71,7 @@ module.exports = {
       .setValue('input[name=username]', userDetails.username)
       .setValue('input[name=password]', userDetails.password)
       .click('button.btn.btn-outline-success.btn-lg.btn-block')
-      .waitForElementVisible('.toast-message', 5000);
+      .waitForElementVisible('.toast-message', 5000)
   },
 
   'user receives an error if required fields for add recipe are empty': (browser) => {
@@ -95,7 +96,7 @@ module.exports = {
       .setValue('textarea[name=details]', 'bake the chin chin')
       .setValue('#exampleInputFile', path.resolve('../../Downloads/chin-chin.jpg'))
       .click('#add-it')
-      .waitForElementVisible('.toast-message', 50000);
+      .waitForElementVisible('.toast-message', 50000)
   },
 
   'user cannot add recipe with the same recipe name': (browser) => {
@@ -108,14 +109,14 @@ module.exports = {
       .setValue('#exampleInputFile', path.resolve('../../Downloads/chin-chin.jpg'))
       .click('#add-it')
       .waitForElementVisible('.toast-message', 50000)
-      .assert.containsText('.toast-message', 'You have already created recipe');
+      .assert.containsText('.toast-message', 'You have already created recipe')
   },
 
   "Users can search recipe": (browser) => {
     browser
       .url('http://localhost:8000/recipes')
       .waitForElementVisible('.form-control.mr-sm-2', 5000)
-      .setValue('input[type=text]', 'Chin chin');
+      .setValue('input[type=text]', 'Chin chin')
   },
 
   "Users can favorite recipe": (browser) => {
@@ -123,14 +124,14 @@ module.exports = {
       .url('http://localhost:8000/recipes')
       .waitForElementVisible('#favorite', 5000)
       .click('#favorite')
-      .waitForElementVisible('.toast-message', 5000);
+      .waitForElementVisible('.toast-message', 5000)
   },
 
   "Users can view recipe": (browser) => {
     browser
       .url('http://localhost:8000/recipes')
       .click('#read-more')
-      .waitForElementVisible('body', 5000)
+      .waitForElementVisible('#recipe-name', 5000)
       .assert.containsText('#recipe-name', 'Chin Chin')
       .assert.containsText('h4.ingredients', 'Ingredients')
       .assert.containsText('#input-ingredients', 'flour and water')
@@ -148,7 +149,7 @@ module.exports = {
       .assert.containsText('p.card-text', 'bake the chin chin')
       .assert.containsText('#read-more', 'Read more')
       .assert.containsText('small.text-muted', 'Recipe by ruqoyah');
-    browser.expect.element('img.card-img-top').to.have.attribute('src', 'http://res.cloudinary.com/ruqoyah/image/upload/c_fill,h_200,w_302/sckzvzjpxachzod9vdq2');
+    browser.expect.element('img.card-img-top').to.have.attribute('src', 'http://res.cloudinary.com/ruqoyah/image/upload/c_fill,h_200,w_302/sckzvzjpxachzod9vdq2')
   },
 
   "Users can view and edit profile and logout": (browser) => {
@@ -207,7 +208,6 @@ module.exports = {
       .clearValue('textarea[name=details]')
       .setValue('textarea[name=details]', 'Bake the chin chin the right way')
       .click('#submit-edit')
-
       .waitForElementVisible('#delete', 5000)
       .click('#delete')
       .waitForElementVisible('.swal-button--confirm.swal-button--danger', 5000)

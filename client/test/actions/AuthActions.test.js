@@ -11,8 +11,7 @@ import {
   editProfileAction,
   loginAction,
   logoutAction,
-  saveProfileImage,
-  saveImage
+  saveProfileImage
 } from '../../actions/authActions';
 import {
   SET_CURRENT_USER,
