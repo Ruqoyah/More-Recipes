@@ -80,7 +80,7 @@ export class Login extends Component {
     this.props.actions.loginAction(this.state)
       .then((message) => {
         toastrOption();
-        toastr.success('You have successfully signed in');
+        toastr.success(message);
         setTimeout(() => {
           this.setState({ redirectUser: true });
         }, 3000);

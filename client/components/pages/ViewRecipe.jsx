@@ -13,7 +13,7 @@ import ViewRecipeInclude from '../include/ViewRecipeInclude';
  * @classdesc view recipe component
  *
  */
-class ViewRecipe extends Component {
+export class ViewRecipe extends Component {
   /**
    * @description constructor - contains the constructor
    *
@@ -44,32 +44,6 @@ class ViewRecipe extends Component {
           });
         }
       });
-  }
-
-  /**
-   * @description - handles the upvote click event
-   *
-   * @param  {object} event the event for the content field
-   *
-   * @return {void} no return or void
-   *
-   */
-  handleUpvoteClick(event) {
-    event.preventDefault();
-    this.props.actions.viewUpvoteAction(this.props.viewRecipe.id);
-  }
-
-  /**
-   * @description - handles the downvote click event
-   *
-   * @param  {object} event the event for the content field
-   *
-   * @return {void} no return or void
-   *
-   */
-  handleDownvoteClick(event) {
-    event.preventDefault();
-    this.props.actions.viewDownvoteAction(this.props.viewRecipe.id);
   }
 
   /**
@@ -127,7 +101,7 @@ class ViewRecipe extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     viewRecipe: state.recipe.viewRecipe,
     user: state.auth.user.currentUser
@@ -142,7 +116,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       viewRecipeAction

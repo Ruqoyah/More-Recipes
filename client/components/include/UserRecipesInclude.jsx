@@ -19,7 +19,7 @@ import VoteAndFavoriteIcon from '../common/VoteAndFavoriteIcon';
  * @classdesc get user recipes and allow user to edit or delete recipes
  *
  */
-class UserRecipesInclude extends Component {
+export class UserRecipesInclude extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -392,7 +392,7 @@ class UserRecipesInclude extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
     imageUrl: state.recipe.imageDetails
@@ -407,7 +407,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       editRecipeAction,

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getFavoriteAction } from '../../actions/recipesActions';
-import RecipesCard from '../common/RecipesCard';
+import RecipeCard from '../common/RecipeCard';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import Loader from '../common/Loader';
@@ -15,7 +15,7 @@ import Loader from '../common/Loader';
  * @classdesc favorite recipe component
  *
  */
-class FavoriteRecipes extends Component {
+export class FavoriteRecipes extends Component {
   /**
    * @description constructor - contains the constructor
    *
@@ -112,7 +112,7 @@ class FavoriteRecipes extends Component {
     return (<div className="row recipes">
       {
         allRecipes.map((recipe) => (
-          <RecipesCard
+          <RecipeCard
             picture={recipe.Recipe.picture}
             recipeName={recipe.Recipe.recipeName}
             ingredient={recipe.Recipe.ingredient}
@@ -166,7 +166,7 @@ class FavoriteRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
   return {
     user: state.auth.user.currentUser,
     favoriteRecipes: state.recipe.favoriteRecipes,
@@ -183,7 +183,7 @@ function mapStateToProps(state, ownProps) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       getFavoriteAction

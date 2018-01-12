@@ -9,7 +9,7 @@ import {
   getAllRecipeAction,
   searchRecipesAction
 } from '../../actions/recipesActions';
-import RecipesCard from '../common/RecipesCard';
+import RecipeCard from '../common/RecipeCard';
 import Footer from '../common/Footer';
 import Loader from '../common/Loader';
 
@@ -19,7 +19,7 @@ import Loader from '../common/Loader';
  * @classdesc Recipes page component
  *
  */
-class AllRecipes extends Component {
+export class AllRecipes extends Component {
   /**
    * @description constructor - contains the constructor
    *
@@ -32,7 +32,9 @@ class AllRecipes extends Component {
     super(props);
     this.state = {
       loader: false,
-      searchRecipes: ''
+      searchRecipes: '',
+      searchErrorStatus: false,
+      searchError: ''
     };
     this.searchHandler = this.searchHandler.bind(this);
     this.renderPagination = this.renderPagination.bind(this);
@@ -73,14 +75,22 @@ class AllRecipes extends Component {
         searchRecipes: event.target.value
       });
       this.props.actions.searchRecipesAction(event.target.value)
-        .then(() => {
+        .then((message) => {
           this.setState({
             loader: false
+          });
+        })
+        .catch(message => {
+          this.setState({
+            loader: false,
+            searchErrorStatus: true,
+            searchError: message
           });
         });
     } else {
       this.setState({
-        loader: true
+        loader: true,
+        searchErrorStatus: false
       });
       this.props.actions.getAllRecipeAction(1)
         .then(() => {
@@ -109,7 +119,7 @@ class AllRecipes extends Component {
     return (<div className="row recipes">
       {
         allRecipes.map((recipe) => (
-          <RecipesCard
+          <RecipeCard
             picture={recipe.picture}
             recipeName={recipe.recipeName}
             ingredients={recipe.ingredients}
@@ -197,9 +207,9 @@ class AllRecipes extends Component {
               <Loader size={'70px'} />
             </div> :
             <div>
-              {(this.props.error) ?
+              {this.state.searchErrorStatus ?
                 <div className="not-found">
-                  <h1>No match recipe found</h1>
+                  <h1>{this.state.searchError}</h1>
                 </div> :
                 <div>
                   {this.renderRecipe()}
@@ -222,12 +232,11 @@ class AllRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     recipes: state.recipe.recipes,
     user: state.auth.user.currentUser,
-    count: state.recipe.count,
-    error: state.recipe.error
+    count: state.recipe.count
   };
 }
 
@@ -239,7 +248,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       searchRecipesAction,

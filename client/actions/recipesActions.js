@@ -123,12 +123,7 @@ export function searchRecipesAction(search) {
         payload: res.data
       });
     })
-    .catch((error) => {
-      dispatch({
-        type: SEARCH_RECIPES,
-        payload: error.response
-      });
-    });
+    .catch(error => Promise.reject(error.response.data.message));
 }
 
 /**

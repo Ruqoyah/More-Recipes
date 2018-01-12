@@ -11,7 +11,7 @@
     "lint": "eslint ./",
     "build": "webpack --progress --config ./webpack.config.prod.js",
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
-    "client:test": "jest --coverage",
+    "client:test": "jest ./client --coverage",
     "pree2e:test": "sequelize db:migrate:undo:all --env=localTest && sequelize db:migrate --env=localTest",
     "e2e:test": "nightwatch ./e2e-tests/*.test.js",
     "start-server:e2e": "NODE_ENV=localTest babel-node app.js"
@@ -120,6 +120,7 @@
   "devDependencies": {
     "babel-eslint": "^8.0.3",
     "babel-jest": "^22.0.3",
+    "chai-jest-snapshot": "^2.0.0",
     "codeclimate-test-reporter": "^0.5.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-15": "^1.0.5",

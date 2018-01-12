@@ -30,7 +30,6 @@ export function signUpAction(userDetails) {
     })
     .catch(error => Promise.reject(error.response.data.message));
 }
-
 /**
  * @description Request to the API to login user
  *
@@ -81,7 +80,7 @@ export function logoutAction() {
   return (dispatch) => {
     localStorage.removeItem('token');
     setAuthorizationToken(false);
-    window.location.href = '/';
+    window.location = '/';
     dispatch({
       type: UNAUTH_USER,
       user: { currentUser: {} },

@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=feature%2F152323735%2Fimplement-upload-picture)](https://travis-ci.org/Ruqoyah/More-Recipes)
 [![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5961a844495c237819a4/maintainability)](https://codeclimate.com/github/Ruqoyah/More-Recipes/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5961a844495c237819a4/test_coverage)](https://codeclimate.com/github/Ruqoyah/More-Recipes/test_coverage)
 
 # More-Recipes
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a food recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.

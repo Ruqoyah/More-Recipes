@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { logoutAction } from '../../actions/authActions';
@@ -48,7 +48,7 @@ export class Header extends Component {
       <div>
         <nav
           className="navbar navbar-expand-lg navbar-light">
-          <NavLink
+          <Link
             className="navbar-brand"
             to="/recipes">
             <img src="/images/recipe-logo.png"
@@ -56,7 +56,7 @@ export class Header extends Component {
               height="59"
               alt="logo"
             />
-          </NavLink>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -96,19 +96,19 @@ export class Header extends Component {
                 </button>
 
                 <div className="dropdown-menu">
-                  <NavLink
+                  <Link
                     className="dropdown-item"
                     to="/profile">View profile
-                  </NavLink>
-                  <NavLink
+                  </Link>
+                  <Link
                     className="dropdown-item"
                     id="my-recipe"
                     to="/my-recipe">My Recipes
-                  </NavLink>
-                  <NavLink
+                  </Link>
+                  <Link
                     className="dropdown-item"
                     to="/favorite-recipe">Favorite Recipes
-                  </NavLink>
+                  </Link>
                   <div className="dropdown-divider" />
                   <a
                     onClick={this.logout}
@@ -132,7 +132,7 @@ export class Header extends Component {
    * @return {Object} returns state object
    *
    */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated
   };
@@ -146,7 +146,7 @@ function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       logoutAction

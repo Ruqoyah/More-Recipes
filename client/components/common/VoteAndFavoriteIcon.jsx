@@ -15,7 +15,7 @@ import { toastrOption } from '../../helper';
  * @classdesc Recipes page component
  *
  */
-class VoteAndFavoriteIcon extends Component {
+export class VoteAndFavoriteIcon extends Component {
   /**
    * constructor - contains the constructor
    *
@@ -136,7 +136,7 @@ class VoteAndFavoriteIcon extends Component {
             <span style={{ fontSize: '12px', color: 'grey' }}>
               {this.state.upvotes}
             </span>
-            <a onClick={this.handleDownvoteClick}>
+            <a id="downVote" onClick={this.handleDownvoteClick}>
               <i className="fa fa-thumbs-down icon"
                 aria-hidden="true"
                 style={{ fontSize: '22px', color: 'grey' }} />
@@ -176,7 +176,7 @@ class VoteAndFavoriteIcon extends Component {
  * @return {Object} returns state object
  *
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser
   };
@@ -189,7 +189,7 @@ function mapStateToProps(state) {
  *
  * @return {Object} returns an Object
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       upvoteRecipeAction,

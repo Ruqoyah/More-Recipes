@@ -5,8 +5,22 @@ import moxios from 'moxios';
 import jwt from 'jsonwebtoken';
 import mockData from '../_mocks_/mockData';
 import mockLocalStorage from '../_mocks_/mockLocalStorage';
-import { signUpAction, getUserProfileAction, editProfileAction } from '../../actions/authActions';
-import { SET_CURRENT_USER, GET_USER, EDIT_PROFILE } from '../../actions/types';
+import {
+  signUpAction,
+  getUserProfileAction,
+  editProfileAction,
+  loginAction,
+  logoutAction,
+  saveProfileImage,
+  saveImage
+} from '../../actions/authActions';
+import {
+  SET_CURRENT_USER,
+  GET_USER,
+  UNAUTH_USER,
+  EDIT_PROFILE,
+  SAVE_PROFILE_IMAGE
+} from '../../actions/types';
 
 const middlewares = [thunk];
 
@@ -43,7 +57,7 @@ describe('Auth actions', () => {
     const expectedActions = [{ type: SET_CURRENT_USER,
       user: jwt.decode(authResponse.data.token) }];
     const store = mockStore({});
-    await store.dispatch(signUpAction(signinData))
+    await store.dispatch(loginAction(signinData))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
@@ -65,6 +79,21 @@ describe('Auth actions', () => {
     done();
   });
 
+  it('creates UNAUTH_USER when logout action is successful', async (done) => {
+    const expectedActions = [{
+      type: UNAUTH_USER,
+      user: {
+        currentUser: {}
+      },
+      authenticated: false }];
+
+    const store = mockStore({});
+    await store.dispatch(logoutAction());
+
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
+  });
+
   it('creates EDIT_PROFILE when trying to edit profile', async (done) => {
     const { userDetails, editedDetails } = mockData;
     moxios.stubRequest('/api/v1/user', {
@@ -74,6 +103,19 @@ describe('Auth actions', () => {
     const expectedActions = [{ type: EDIT_PROFILE, user: editedDetails }];
     const store = mockStore({});
     await store.dispatch(editProfileAction(userDetails))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    done();
+  });
+
+  it('creates SAVE_PROFILE_IMAGE when edit profile action is successful', async (done) => {
+    const { saveImageDetails } = mockData;
+    window.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({ status: 200, response: saveImageDetails }));
+    const expectedActions = [{ type: SAVE_PROFILE_IMAGE, payload: saveImageDetails }];
+    const store = mockStore({});
+    await store.dispatch(saveProfileImage(saveImageDetails.public_id))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

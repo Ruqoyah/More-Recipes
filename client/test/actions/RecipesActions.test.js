@@ -3,15 +3,40 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import mockData from '../_mocks_/mockData';
-import { getUserRecipeAction, getAllRecipeAction, searchRecipesAction, getFavoriteAction,
-  upvoteRecipeAction, downvoteRecipeAction, viewUpvoteAction, viewDownvoteAction,
-  viewRecipeAction, reviewRecipeAction, getReviewAction, deleteRecipeAction,
-  editRecipeAction } from '../../actions/recipesActions';
-import { GET_USER_RECIPES, GET_RECIPES, SEARCH_RECIPES, GET_FAVORITE_RECIPES, UPVOTE_RECIPE,
-  DOWNVOTE_RECIPE, ADD_REVIEW, VIEW_RECIPE, GET_REVIEW, EDIT_RECIPE, DELETE_RECIPE,
-  VIEW_UPVOTE_RECIPE, VIEW_DOWNVOTE_RECIPE, LOAD_MORE_REVIEWS } from '../../actions/types';
+import {
+  getUserRecipeAction,
+  getAllRecipeAction,
+  searchRecipesAction,
+  getFavoriteAction,
+  upvoteRecipeAction,
+  downvoteRecipeAction,
+  viewRecipeAction,
+  reviewRecipeAction,
+  getReviewAction,
+  deleteRecipeAction,
+  editRecipeAction,
+  saveImageToCloud,
+  addRecipeAction,
+  favoriteAction
+} from '../../actions/recipesActions';
+import {
+  GET_USER_RECIPES,
+  GET_RECIPES,
+  SEARCH_RECIPES,
+  GET_FAVORITE_RECIPES,
+  UPVOTE_RECIPE,
+  DOWNVOTE_RECIPE,
+  ADD_REVIEW,
+  VIEW_RECIPE,
+  GET_REVIEW,
+  EDIT_RECIPE,
+  DELETE_RECIPE,
+  LOAD_MORE_REVIEWS,
+  SAVE_RECIPE_IMAGE
+} from '../../actions/types';
 
 const middlewares = [thunk];
+
 
 const mockStore = configureMockStore(middlewares);
 describe('Recipe actions', () => {
@@ -20,7 +45,7 @@ describe('Recipe actions', () => {
 
   it('creates GET_USER_RECIPES when trying to get user recipes', async (done) => {
     const { getUserRecipes } = mockData;
-    moxios.stubRequest(`/api/v1/recipes?page=${1}`, {
+    moxios.stubRequest(`/api/v1/user/recipes?page=${1}`, {
       status: 200,
       response: getUserRecipes
     });
@@ -102,36 +127,6 @@ describe('Recipe actions', () => {
     const expectedActions = [{ type: DOWNVOTE_RECIPE, payload: downvotedRecipe }];
     const store = mockStore({});
     await store.dispatch(downvoteRecipeAction(1))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-    done();
-  });
-
-  it('creates VIEW_UPVOTE_RECIPE when trying to upvote view recipe', async (done) => {
-    const { upvotedRecipe } = mockData;
-    moxios.stubRequest(`/api/v1/users/upvote/${1}`, {
-      status: 200,
-      response: upvotedRecipe
-    });
-    const expectedActions = [{ type: VIEW_UPVOTE_RECIPE, payload: upvotedRecipe }];
-    const store = mockStore({});
-    await store.dispatch(viewUpvoteAction(1))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-    done();
-  });
-
-  it('creates VIEW_DOWNVOTE_RECIPE when trying to downvote view recipe', async (done) => {
-    const { downvotedRecipe } = mockData;
-    moxios.stubRequest(`/api/v1/users/downvote/${1}`, {
-      status: 200,
-      response: downvotedRecipe
-    });
-    const expectedActions = [{ type: VIEW_DOWNVOTE_RECIPE, payload: downvotedRecipe }];
-    const store = mockStore({});
-    await store.dispatch(viewDownvoteAction(1))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
@@ -222,6 +217,46 @@ describe('Recipe actions', () => {
     const expectedActions = [{ type: EDIT_RECIPE, payload: editedRecipe.data }];
     const store = mockStore({});
     await store.dispatch(editRecipeAction(1, inputRecipeData))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    done();
+  });
+
+  it('should add recipe', async (done) => {
+    const { inputRecipeData, addedRecipe } = mockData;
+    moxios.stubRequest('/api/v1/recipes', {
+      status: 200,
+      response: addedRecipe
+    });
+
+    await addRecipeAction(inputRecipeData)
+      .then(() => {
+        expect(addedRecipe.data.message).toEqual('Recipe added successfully');
+      });
+    done();
+  });
+
+  it('should favorite recipe', async (done) => {
+    const { addedRecipe } = mockData;
+    moxios.stubRequest(`/api/v1/users/${1}/recipes`, {
+      status: 200,
+      response: addedRecipe
+    });
+
+    await favoriteAction(1)
+      .then(() => {
+        expect(addedRecipe.data.message).toEqual('Recipe added successfully');
+      });
+    done();
+  });
+
+  it('creates SAVE_RECIPE_IMAGE when add recipe action is successful', async (done) => {
+    global.fetch = jest.fn(() => Promise.resolve());
+    const expectedActions = [{ type: SAVE_RECIPE_IMAGE,
+      payload: 'picture.png' }];
+    const store = mockStore({});
+    await store.dispatch(saveImageToCloud('picture.png'))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });

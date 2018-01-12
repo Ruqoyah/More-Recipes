@@ -9,14 +9,14 @@ $button-success: #28a745;
 $footer-color: #868585;
 
 .header-login {
-    width: 432px;
-    margin: 15% auto 0px;
-    color: $input-color;
-    background: $button-success;
-    text-align: center;
-    border-bottom: none;
-    border-radius: 10px 10px 0px 0px;
-    padding: 20px;
+  width: 432px;
+  margin: 15% auto 0px;
+  color: $input-color;
+  background: $button-success;
+  text-align: center;
+  border-bottom: none;
+  border-radius: 10px 10px 0px 0px;
+  padding: 20px;
 }
 
 .fa-disabled {
@@ -271,7 +271,7 @@ h5 {
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
-	margin-left: 20%;
+  margin-left: 20%;
 	margin-bottom: 2%;
 }
 
@@ -300,6 +300,7 @@ h5 {
 	border-radius: 10px;
   color: $input-color;
   margin-right: 10px;
+  margin-left: 10px;
   font-size: 100%;
   word-wrap: break-word
 }
