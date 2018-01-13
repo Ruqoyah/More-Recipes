@@ -79,7 +79,7 @@ const recipeReducer = (state = INITIAL_STATE, action) => {
   case VIEW_RECIPE:
     return {
       ...state,
-      viewRecipe: action.payload
+      viewRecipe: action.payload.recipe
     };
   case ADD_REVIEW:
     return {

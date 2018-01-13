@@ -227,7 +227,7 @@ export const checkParamInvalidInput = (req, res, next) => {
 };
 
 
-/** Check invalid input for recipe field
+/** Check invalid input for recipe name field
  *
  * @param  {object} req - request
  *
@@ -237,32 +237,59 @@ export const checkParamInvalidInput = (req, res, next) => {
  *
  */
 
-export const checkRecipeInvalidInput = (req, res, next) => {
+export const checkRecipeNameInvalidInput = (req, res, next) => {
   const numberCheck = /((\d)+)/gi;
   const countMutipleSpace = /(\s){2}/;
 
+  if (!req.body.recipeName) { return next(); }
   if (numberCheck.test(req.body.recipeName) ||
     countMutipleSpace.test(req.body.recipeName) ||
     /(\s)+/.test(req.body.recipeName[0])) {
     return res.status(400).json({
       status: false,
-      message: 'Invalid Recipe Name'
+      message: 'Invalid input in recipe name field'
     });
   }
+  next();
+};
 
-  if (countMutipleSpace.test(req.body.ingredient) ||
-  /(\s)+/.test(req.body.ingredient[0])) {
+/** Check invalid input for recipe ingredient field
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const checkRecipeIngredientInput = (req, res, next) => {
+  if (!req.body.ingredient) { return next(); }
+  if (/(\s)+/.test(req.body.ingredient[0])) {
     return res.status(400).json({
       status: false,
-      message: 'Invalid Ingredient'
+      message: 'Invalid input in ingredient field'
     });
   }
+  next();
+};
 
-  if (countMutipleSpace.test(req.body.details) ||
-  /(\s)+/.test(req.body.details[0])) {
+/** Check invalid input for recipe details field
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const checkRecipeDetailsInput = (req, res, next) => {
+  if (!req.body.details) { return next(); }
+  if (/(\s)+/.test(req.body.details[0])) {
     return res.status(400).json({
       status: false,
-      message: 'Invalid Details'
+      message: 'Invalid input in cooking direction field'
     });
   }
   next();
@@ -728,5 +755,51 @@ export const recipeExist = (req, res, next) => {
         status: false,
         message: 'You have already created recipe'
       });
+    });
+};
+
+/** Check if user already post recipe
+ *
+ * @param  {object} req - request
+ *
+ * @param  {object} res - response
+ *
+ * @param  {object} next - next
+ *
+ */
+
+export const modifyRecipeExist = (req, res, next) => {
+  if (!req.body.recipeName) { return next(); }
+  const { userId } = req.decoded.currentUser;
+  return Recipes
+    .findOne({
+      where: {
+        userId,
+        recipeName: capitalize(req.body.recipeName)
+      }
+    })
+    .then((recipe) => {
+      if (recipe) {
+        Recipes
+          .findOne({
+            where: {
+              userId,
+              id: req.params.recipeId
+            }
+          })
+          .then((edit) => {
+            if (req.body.recipeName === edit.recipeName) {
+              next();
+            } else if (req.body.recipeName === recipe.recipeName &&
+              recipe.recipeName !== edit.recipeName) {
+              return res.status(409).json({
+                status: false,
+                message: 'You have already created recipe'
+              });
+            }
+          });
+      } else {
+        next();
+      }
     });
 };

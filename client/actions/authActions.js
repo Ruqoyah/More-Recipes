@@ -17,8 +17,8 @@ import { setAuthorizationToken } from '../helper';
  * @return {object} dispatch object
  *
  */
-export function signUpAction(userDetails) {
-  return dispatch => axios.post('/api/v1/users/signup', userDetails)
+export const signUpAction = (userDetails) => (dispatch) =>
+  axios.post('/api/v1/users/signup', userDetails)
     .then((res) => {
       const token = res.data.data.token;
       localStorage.setItem('token', res.data.data.token);
@@ -29,7 +29,7 @@ export function signUpAction(userDetails) {
       });
     })
     .catch(error => Promise.reject(error.response.data.message));
-}
+
 /**
  * @description Request to the API to login user
  *
@@ -38,8 +38,8 @@ export function signUpAction(userDetails) {
  * @return {object} dispatch object
  *
  */
-export function loginAction(userDetails) {
-  return dispatch => axios.post('/api/v1/users/signin', userDetails)
+export const loginAction = (userDetails) => (dispatch) =>
+  axios.post('/api/v1/users/signin', userDetails)
     .then((res) => {
       const token = res.data.data.token;
       localStorage.setItem('token', res.data.data.token);
@@ -51,7 +51,6 @@ export function loginAction(userDetails) {
       return res.data.message;
     })
     .catch(error => Promise.reject(error.response.data.message));
-}
 
 /**
  * @description Request to the API to get user details
@@ -59,8 +58,8 @@ export function loginAction(userDetails) {
  * @return {object} dispatch object
  *
  */
-export function getUserProfileAction() {
-  return dispatch => axios.get('/api/v1/user')
+export const getUserProfileAction = () => (dispatch) =>
+  axios.get('/api/v1/users/profile')
     .then((res) => {
       dispatch({
         type: GET_USER,
@@ -68,7 +67,6 @@ export function getUserProfileAction() {
       });
     })
     .catch(error => Promise.reject(error.response.data.message));
-}
 
 /**
  * @description Request to logout user
@@ -76,18 +74,16 @@ export function getUserProfileAction() {
  * @return {object} dispatch object
  *
  */
-export function logoutAction() {
-  return (dispatch) => {
-    localStorage.removeItem('token');
-    setAuthorizationToken(false);
-    window.location = '/';
-    dispatch({
-      type: UNAUTH_USER,
-      user: { currentUser: {} },
-      authenticated: false
-    });
-  };
-}
+export const logoutAction = () => (dispatch) => {
+  localStorage.removeItem('token');
+  setAuthorizationToken(false);
+  window.location = '/';
+  dispatch({
+    type: UNAUTH_USER,
+    user: { currentUser: {} },
+    authenticated: false
+  });
+};
 
 /**
  * @description Save image
@@ -96,12 +92,10 @@ export function logoutAction() {
  *
  * @return {object} dispatch object
  */
-export function saveImage(response) {
-  return {
-    type: SAVE_PROFILE_IMAGE,
-    payload: response
-  };
-}
+export const saveImage = (response) => ({
+  type: SAVE_PROFILE_IMAGE,
+  payload: response
+});
 
 /**
  * @description Request to save image to cloudinary
@@ -111,7 +105,7 @@ export function saveImage(response) {
  * @return {object} dispatch object
  *
  */
-export function saveProfileImage(image) {
+export const saveProfileImage = (image) => {
   const request = process.env.REQUEST;
   const cloudPreset = process.env.CLOUD_PRESET;
 
@@ -128,7 +122,7 @@ export function saveProfileImage(image) {
     .catch((error) => {
       throw (error);
     });
-}
+};
 
 /**
  * @description Request to the API to edit user profile
@@ -137,8 +131,8 @@ export function saveProfileImage(image) {
  *
  * @return {object} dispatch object
  */
-export function editProfileAction(userDetails) {
-  return dispatch => axios.put('/api/v1/user', userDetails)
+export const editProfileAction = (userDetails) => (dispatch) =>
+  axios.put('/api/v1/users/profile', userDetails)
     .then((res) => {
       dispatch({
         type: EDIT_PROFILE,
@@ -147,4 +141,3 @@ export function editProfileAction(userDetails) {
       return res.data.message;
     })
     .catch(error => Promise.reject(error.response.data.message));
-}

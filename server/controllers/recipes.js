@@ -58,7 +58,7 @@ export default {
           })
           .then(recipe => recipe
             .update({
-              recipeName: req.body.recipeName || recipe.recipeName,
+              recipeName: capitalize(req.body.recipeName || recipe.recipeName),
               ingredient: req.body.ingredient || recipe.ingredient,
               details: req.body.details || recipe.details,
               picture: req.body.picture || recipe.picture
@@ -202,7 +202,7 @@ export default {
       .then((recipe) => {
         recipe.increment('views').then(() => {
           recipe.reload()
-            .then(() => res.status(200).json(recipe));
+            .then(() => res.status(200).json({ recipe }));
         });
       })
       .catch(() => res.status(500).json({
@@ -245,7 +245,7 @@ export default {
         const pages = Math.ceil(recipes.count / limit);
         if (!recipes.count) {
           return res.status(404).json({
-            message: 'No recipe found'
+            message: 'You have no recipe'
           });
         } else if (pageNumber > pages) {
           return res.status(404).json({
@@ -315,9 +315,13 @@ export default {
   },
 
   /** Get recipes with the most upvote
+   *
    * @param  {object} req - request
+   *
    * @param  {object} res - response
+   *
    * @param  {object} next - next
+   *
    */
 
   sortRecipes(req, res, next) {

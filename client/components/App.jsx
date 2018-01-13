@@ -4,7 +4,7 @@ import AuthenticateUser from '../components/middleware/AuthenticateUser';
 import Homepage from '../components/pages/Homepage';
 import Signup from '../components/pages/Signup';
 import Login from '../components/pages/Login';
-import PageNotFound from '../components/pageNotFound/PageNotFound';
+import PageNotFound from '../components/pageNotFound';
 import UserRecipes from '../components/pages/UserRecipes';
 import FavoriteRecipes from '../components/pages/FavoriteRecipes';
 import ProfilePage from '../components/pages/ProfilePage';

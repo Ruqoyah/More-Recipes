@@ -1,4 +1,9 @@
-import { SET_CURRENT_USER, GET_USER, EDIT_PROFILE, SAVE_PROFILE_IMAGE } from '../actions/types';
+import {
+  SET_CURRENT_USER,
+  GET_USER,
+  EDIT_PROFILE,
+  SAVE_PROFILE_IMAGE
+} from '../actions/types';
 
 const INITIAL_STATE = {
   userExist: '',
@@ -33,7 +38,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
   case GET_USER:
     return {
       ...state,
-      userProfile: action.user
+      userProfile: action.user.data
     };
   case EDIT_PROFILE:
     return {

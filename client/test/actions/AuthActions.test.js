@@ -2,7 +2,7 @@ import expect from 'expect';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import jwt from 'jsonwebtoken';
+import jsonwebtoken from 'jsonwebtoken';
 import mockData from '../_mocks_/mockData';
 import mockLocalStorage from '../_mocks_/mockLocalStorage';
 import {
@@ -38,7 +38,7 @@ describe('Auth actions', () => {
       response: authResponse
     });
     const expectedActions = [{ type: SET_CURRENT_USER,
-      user: jwt.decode(authResponse.data.token) }];
+      user: jsonwebtoken.decode(authResponse.data.token) }];
     const store = mockStore({});
     await store.dispatch(signUpAction(signupData))
       .then(() => {
@@ -54,7 +54,7 @@ describe('Auth actions', () => {
       response: authResponse
     });
     const expectedActions = [{ type: SET_CURRENT_USER,
-      user: jwt.decode(authResponse.data.token) }];
+      user: jsonwebtoken.decode(authResponse.data.token) }];
     const store = mockStore({});
     await store.dispatch(loginAction(signinData))
       .then(() => {
@@ -65,7 +65,7 @@ describe('Auth actions', () => {
 
   it('creates GET_USER when trying to get user details', async (done) => {
     const { getUserDetails } = mockData;
-    moxios.stubRequest('/api/v1/user', {
+    moxios.stubRequest('/api/v1/users/profile', {
       status: 200,
       response: getUserDetails
     });
@@ -95,7 +95,7 @@ describe('Auth actions', () => {
 
   it('creates EDIT_PROFILE when trying to edit profile', async (done) => {
     const { userDetails, editedDetails } = mockData;
-    moxios.stubRequest('/api/v1/user', {
+    moxios.stubRequest('/api/v1/users/profile', {
       status: 200,
       response: editedDetails
     });

@@ -7,7 +7,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .post('/api/v1/recipes')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -16,7 +16,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .put('/api/v1/recipes/:recipeId')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -25,7 +25,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .delete('/api/v1/recipes/:recipeId')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -34,7 +34,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .post('/api/v1/recipes/:recipeId/reviews')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -43,7 +43,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .get('/api/v1/recipes/:recipeId/reviews')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -52,7 +52,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .post('/api/v1/recipes/:recipeId/reviews')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -61,25 +61,25 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .get('/api/v1/users/recipes')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
   });
   it('should return \'No token provided.\' (POST /api/v1/users/upvote/:recipeId)', (done) => {
     supertest(app)
-      .post('/api/v1/users/upvote/:recipeId')
+      .post('/api/v1/recipes/:recipeId/upvote')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
   });
   it('should return \'No token provided.\' (POST /api/v1/users/downvote/:recipeId)', (done) => {
     supertest(app)
-      .post('/api/v1/users/downvote/:recipeId')
+      .post('/api/v1/recipes/:recipeId/downvote')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });
@@ -88,7 +88,7 @@ describe('Protected routes (middleware)', () => {
     supertest(app)
       .get('/api/v1/recipes/sort=upvotes&order=descending')
       .end((err, res) => {
-        expect(res.status).toBe(403);
+        expect(res.status).toBe(401);
         expect(res.body.message).toBe('No token provided.');
         done();
       });

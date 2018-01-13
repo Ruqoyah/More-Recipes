@@ -29,10 +29,9 @@ The API documentation can be viewed at <a href="http://more-recipes.getforge.io/
 2.  Change your directory `cd More-Recipes`
 3.  Install all dependencies `npm install`
 4.  Create .env file which will be used to load environment variables see sample in `.env.example` file in the project
-5.  Create a database to be used with application
 6.  Migrate `sequelize db:migrate`
 7.  Start the app `npm start` for development 
-8.  Navigate to `localhost:8000`
+8.  Navigate to `localhost:8000` in your browser
 
 
 ## Tests

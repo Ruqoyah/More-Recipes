@@ -45,7 +45,7 @@ describe('Recipe actions', () => {
 
   it('creates GET_USER_RECIPES when trying to get user recipes', async (done) => {
     const { getUserRecipes } = mockData;
-    moxios.stubRequest(`/api/v1/user/recipes?page=${1}`, {
+    moxios.stubRequest(`/api/v1/users/recipes?page=${1}`, {
       status: 200,
       response: getUserRecipes
     });
@@ -90,7 +90,7 @@ describe('Recipe actions', () => {
 
   it('creates GET_FAVORITE_RECIPES when trying to get all recipe', async (done) => {
     const { getRecipes } = mockData;
-    moxios.stubRequest(`/api/v1/users/recipes?page=${1}`, {
+    moxios.stubRequest(`/api/v1/users/recipes/favorite?page=${1}`, {
       status: 200,
       response: getRecipes
     });
@@ -105,7 +105,7 @@ describe('Recipe actions', () => {
 
   it('creates UPVOTE_RECIPE when trying to upvote recipe', async (done) => {
     const { upvotedRecipe } = mockData;
-    moxios.stubRequest(`/api/v1/users/upvote/${1}`, {
+    moxios.stubRequest(`/api/v1/recipes/${1}/upvote`, {
       status: 200,
       response: upvotedRecipe
     });
@@ -120,7 +120,7 @@ describe('Recipe actions', () => {
 
   it('creates DOWNVOTE_RECIPE when trying to downvote recipe', async (done) => {
     const { downvotedRecipe } = mockData;
-    moxios.stubRequest(`/api/v1/users/downvote/${1}`, {
+    moxios.stubRequest(`/api/v1/recipes/${1}/downvote`, {
       status: 200,
       response: downvotedRecipe
     });
@@ -196,7 +196,7 @@ describe('Recipe actions', () => {
   it('creates DELETE_RECIPE when trying to view more review', async (done) => {
     const { deletedRecipe } = mockData;
     moxios.stubRequest(`/api/v1/recipes/${1}`, {
-      status: 200,
+      status: 204,
       response: deletedRecipe
     });
     const expectedActions = [{ type: DELETE_RECIPE, id: deletedRecipe.data.id }];
@@ -226,7 +226,7 @@ describe('Recipe actions', () => {
   it('should add recipe', async (done) => {
     const { inputRecipeData, addedRecipe } = mockData;
     moxios.stubRequest('/api/v1/recipes', {
-      status: 200,
+      status: 201,
       response: addedRecipe
     });
 
@@ -239,7 +239,7 @@ describe('Recipe actions', () => {
 
   it('should favorite recipe', async (done) => {
     const { addedRecipe } = mockData;
-    moxios.stubRequest(`/api/v1/users/${1}/recipes`, {
+    moxios.stubRequest(`/api/v1/recipes/${1}/favorite`, {
       status: 200,
       response: addedRecipe
     });
