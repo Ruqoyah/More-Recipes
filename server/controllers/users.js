@@ -172,11 +172,13 @@ export default {
         }
         return res.status(200).json({
           status: true,
-          id: user.id,
-          username: user.username,
-          fullName: user.fullName,
-          email: user.email,
-          picture: user.picture
+          data: {
+            id: user.id,
+            username: user.username,
+            fullName: user.fullName,
+            email: user.email,
+            picture: user.picture
+          }
         });
       })
       .catch(() => res.status(500).json({

@@ -3,12 +3,31 @@ import users from '../controllers/users';
 import recipes from '../controllers/recipes';
 import reviews from '../controllers/reviews';
 import favoriteRecipes from '../controllers/favoriteRecipes';
-import { validateRecipesId, checkRecipeInput,
-  checkUserInput, checkValidUserInput, checkUserInvalidInput,
-  checkReviewInvalidInput, validateUsers, validateLoginUser, checkReviewInput,
-  validatefavRecipe, verifyEditUsername, verifyEditEmail, upVote, downVote,
-  checkRecipeInvalidInput, validateUserId, checkParamInvalidInput,
-  recipeExist, editProfilePassword, checkEditProfileInput } from '../middleware/validation';
+import {
+  validateRecipesId,
+  checkRecipeInput,
+  checkUserInput,
+  checkValidUserInput,
+  checkUserInvalidInput,
+  checkReviewInvalidInput,
+  validateUsers,
+  validateLoginUser,
+  checkReviewInput,
+  validatefavRecipe,
+  verifyEditUsername,
+  verifyEditEmail,
+  upVote,
+  downVote,
+  checkRecipeNameInvalidInput,
+  checkRecipeIngredientInput,
+  checkRecipeDetailsInput,
+  validateUserId,
+  checkParamInvalidInput,
+  recipeExist,
+  editProfilePassword,
+  checkEditProfileInput,
+  modifyRecipeExist
+} from '../middleware/validation';
 import authentication from '../middleware/authentication';
 
 
@@ -57,7 +76,7 @@ app.post(
  *
  */
 app.get(
-  '/api/v1/user',
+  '/api/v1/users/profile',
   authentication.authenticate,
   users.getUser
 );
@@ -77,7 +96,7 @@ app.get(
  * @param  {} recipes.editProfile
  */
 app.put(
-  '/api/v1/user',
+  '/api/v1/users/profile',
   authentication.authenticate,
   checkEditProfileInput,
   editProfilePassword,
@@ -105,7 +124,7 @@ app.post(
  *
  * @param  {} checkRecipeInput
  *
- * @param  {} checkRecipeInvalidInput
+ * @param  {} checkRecipeNameInvalidInput
  *
  * @param  {} validateUserId
  *
@@ -116,7 +135,9 @@ app.post(
   '/api/v1/recipes',
   authentication.authenticate,
   checkRecipeInput,
-  checkRecipeInvalidInput,
+  checkRecipeNameInvalidInput,
+  checkRecipeIngredientInput,
+  checkRecipeDetailsInput,
   validateUserId,
   recipeExist,
   recipes.addRecipe
@@ -132,7 +153,7 @@ app.post(
  *
  */
 app.get(
-  '/api/v1/user/recipes',
+  '/api/v1/users/recipes',
   authentication.authenticate,
   recipes.getUserRecipes
 );
@@ -175,7 +196,10 @@ app.put(
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,
-  checkRecipeInvalidInput,
+  checkRecipeNameInvalidInput,
+  checkRecipeIngredientInput,
+  checkRecipeDetailsInput,
+  modifyRecipeExist,
   recipes.modifyRecipe
 );
 
@@ -288,7 +312,7 @@ app.get(
  *
  */
 app.post(
-  '/api/v1/users/:recipeId/recipes',
+  '/api/v1/recipes/:recipeId/favorite',
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,
@@ -307,7 +331,7 @@ app.post(
  *
  */
 app.get(
-  '/api/v1/users/recipes',
+  '/api/v1/users/recipes/favorite',
   authentication.authenticate,
   favoriteRecipes.getfavoriteRecipe
 );
@@ -330,7 +354,7 @@ app.get(
  *
  */
 app.post(
-  '/api/v1/users/upvote/:recipeId',
+  '/api/v1/recipes/:recipeId/upvote',
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,
@@ -356,7 +380,7 @@ app.post(
  *
  */
 app.post(
-  '/api/v1/users/downvote/:recipeId',
+  '/api/v1/recipes/:recipeId/downvote',
   authentication.authenticate,
   checkParamInvalidInput,
   validateRecipesId,

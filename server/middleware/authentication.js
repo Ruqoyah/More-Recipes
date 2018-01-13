@@ -37,7 +37,7 @@ export default {
         }
       });
     } else {
-      return res.status(403).json({
+      return res.status(401).json({
         status: false,
         message: 'No token provided.'
       });

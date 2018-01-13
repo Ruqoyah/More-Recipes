@@ -72,7 +72,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to upvote recipes', (done) => {
     supertest(app)
-      .post(`/api/v1/users/upvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/upvote`)
       .send({
         token: `${token}`
       })
@@ -87,7 +87,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not upvote twice', (done) => {
     supertest(app)
-      .post(`/api/v1/users/upvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/upvote`)
       .send({
         token: `${token}`
       })
@@ -102,7 +102,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to downvote recipe', (done) => {
     supertest(app)
-      .post(`/api/v1/users/downvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/downvote`)
       .send({
         token: `${token}`
       })
@@ -117,7 +117,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not downvote twice', (done) => {
     supertest(app)
-      .post(`/api/v1/users/downvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/downvote`)
       .send({
         token: `${token}`
       })
@@ -132,7 +132,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to upvote recipe', (done) => {
     supertest(app)
-      .post(`/api/v1/users/upvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/upvote`)
       .send({
         token: `${token}`
       })
@@ -147,7 +147,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to downvote recipe', (done) => {
     supertest(app)
-      .post(`/api/v1/users/downvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/downvote`)
       .send({
         token: `${token}`
       })
@@ -162,7 +162,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to upvote recipe', (done) => {
     supertest(app)
-      .post(`/api/v1/users/upvote/${recipeId}`)
+      .post(`/api/v1/recipes/${recipeId}/upvote`)
       .send({
         token: `${token}`
       })
@@ -177,7 +177,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not upvote recipe if provided recipe id does not exist', (done) => {
     supertest(app)
-      .post('/api/v1/users/upvote/6')
+      .post('/api/v1/recipes/6/upvote')
       .send({
         token: `${token}`
       })

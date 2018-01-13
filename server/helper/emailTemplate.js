@@ -234,7 +234,7 @@ More-Recipes is a platform for users to share the <br> awesome and exciting reci
 
         <tr>
           <td align="center" style="font-family: 'Lato', sans-serif; font-size:18px; color:#757575; line-height:24px; font-weight: 300;">
-           Someone just review your recipe
+           Someone just reviewed your recipe
           </td>
         </tr>
 

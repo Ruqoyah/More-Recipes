@@ -70,7 +70,7 @@ describe('More-Recipe API: ', () => {
         details: 'grind pepper and onion then bake',
         picture: 'http://localhost:8000/images/dessert%20salad.png'
       })
-      .expect(403)
+      .expect(401)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -185,7 +185,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Invalid Recipe Name');
+        expect(res.body.message).toBe('Invalid input in recipe name field');
         done();
       });
   });
@@ -204,7 +204,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Invalid Ingredient');
+        expect(res.body.message).toBe('Invalid input in ingredient field');
         done();
       });
   });
@@ -223,7 +223,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('Invalid Details');
+        expect(res.body.message).toBe('Invalid input in cooking direction field');
         done();
       });
   });
@@ -470,7 +470,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not get recipes if the user does not have recipes', (done) => {
     supertest(app)
-      .get('/api/v1/user/recipes?page=1')
+      .get('/api/v1/users/recipes?page=1')
       .send({
         token: `${token}`
       })
@@ -479,7 +479,7 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('No recipe found');
+        expect(res.body.message).toBe('You have no recipe');
         done();
       });
   });

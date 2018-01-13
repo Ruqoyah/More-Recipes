@@ -127,7 +127,7 @@ export class ViewRecipeInclude extends Component {
               {this.props.ingredient}
             </p><hr />
             <h4
-              className="details">Details</h4>
+              className="details">Cooking Direction</h4>
             <p
               id="input-details"
               className="wrap">

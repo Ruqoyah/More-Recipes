@@ -450,7 +450,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to edit profile', (done) => {
     supertest(app)
-      .put('/api/v1/user')
+      .put('/api/v1/users/profile')
       .send({
         username: 'temitayo',
         token: `${token}`
@@ -466,7 +466,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not be able to edit profile if username exist', (done) => {
     supertest(app)
-      .put('/api/v1/user')
+      .put('/api/v1/users/profile')
       .send({
         username: 'ruqoyah',
         email: 'bukky@example.com',
@@ -484,7 +484,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not be able to edit profile if email already exist', (done) => {
     supertest(app)
-      .put('/api/v1/user')
+      .put('/api/v1/users/profile')
       .send({
         username: 'bukky',
         email: 'ruqoyah@example.com',
@@ -502,7 +502,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should get user details', (done) => {
     supertest(app)
-      .get('/api/v1/user')
+      .get('/api/v1/users/profile')
       .send({
         token: `${token}`
       })

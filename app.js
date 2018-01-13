@@ -7,6 +7,7 @@ import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
 import webpackConfig from './webpack.config';
+import webpackProduction from './webpack.config.prod';
 import routes from './server/routes';
 
 dotenv.config();
@@ -16,6 +17,10 @@ const port = process.env.PORT || 8000;
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(webpackMiddleware(webpack(webpackConfig)));
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(webpackMiddleware(webpack(webpackProduction)));
 }
 
 app.use(bodyParser.json());

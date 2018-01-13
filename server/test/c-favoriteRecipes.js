@@ -65,7 +65,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not be able to get favorite recipes that does not exist', (done) => {
     supertest(app)
-      .get('/api/v1/users/recipes?page=1')
+      .get('/api/v1/users/recipes/favorite?page=1')
       .send({
         token: `${token}`
       })
@@ -80,7 +80,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to add favorite recipes', (done) => {
     supertest(app)
-      .post(`/api/v1/users/${recipeId}/recipes`)
+      .post(`/api/v1/recipes/${recipeId}/favorite`)
       .send({
         token: `${token}`
       })
@@ -93,9 +93,9 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should be able to add favorite recipes', (done) => {
+  it('should not be able to add favorite recipes', (done) => {
     supertest(app)
-      .post(`/api/v1/users/${recipeId}/recipes`)
+      .post(`/api/v1/recipes/${recipeId}/favorite`)
       .send({
         token: `${token}`
       })
@@ -110,7 +110,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should not be able to add favorite recipes if no recipe id', (done) => {
     supertest(app)
-      .post('/api/v1/users/8/recipes')
+      .post('/api/v1/recipes/8/favorite')
       .send({
         token: `${token}`
       })
@@ -125,7 +125,7 @@ describe('More-Recipe API: ', () => {
   });
   it('should be able to get favorite recipes', (done) => {
     supertest(app)
-      .get('/api/v1/users/recipes?page=1')
+      .get('/api/v1/users/recipes/favorite?page=1')
       .send({
         token: `${token}`
       })

@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import PageNotFound from '../../../components/pageNotFound/PageNotFound';
+import PageNotFound from '../../../components/pageNotFound';
 
 configure({ adapter: new Adapter() });
 
