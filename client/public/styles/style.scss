@@ -290,13 +290,6 @@ h5 {
 	width: 100%;
 }
 
-.invalid-feedback {
-  display: block;
-  margin-top: .25rem;
-  font-size: .875rem;
-  color: #dc3545;
-}
-
 .chat .chat-message {
 	width: 80%;
 	padding: 15px;
@@ -306,6 +299,13 @@ h5 {
   margin-left: 10px;
   font-size: 100%;
   word-wrap: break-word
+}
+
+.invalid-feedback {
+  display: block;
+  margin-top: .25rem;
+  font-size: .875rem;
+  color: #dc3545;
 }
 
 .wrap {
@@ -486,6 +486,44 @@ div.modal div.modal-backdrop {
     width: 300px;
   }
 
+  .logo {
+    margin-left: 4%;
+  }
+
+  .form {
+    width: 300px;
+    margin: auto;
+    padding: 20px;
+    background: $input-color;
+    border-radius: 0px 0px 10px 10px;
+  }
+
+  .profile-img {
+    margin-bottom: 20px;
+  }
+
+  .header-signup {
+    width: 300px;
+    margin: 20% auto 0px;
+    color: $input-color;
+    background: #D54239;
+    text-align: center;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+  }
+
+  .header-login {
+    width: 300px;
+    margin: 30% auto 0px;
+    color: $input-color;
+    background: $button-success;
+    text-align: center;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+  }
+  
   .footer {
     background-color: $footer-color;
     margin-top: 20%;
@@ -507,10 +545,106 @@ div.modal div.modal-backdrop {
     margin-right: 5%;
   }
 
+  .not-found {
+    text-align: center;
+    margin-top: 50%;
+    padding-top: $default-padding;
+    padding-bottom: 55%;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .chat {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin-left: 20%;
+    margin-bottom: 2%;
+  }
+  
+  .chat .user-photo {
+    width: 50px;
+    height: 50px;
+    background: rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .chat .user-photo img {
+    width: 100%;
+  }
+  
+  .chat .chat-message {
+    width: 70%;
+    padding: 15px;
+    border-radius: 10px;
+    color: $input-color;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 100%;
+    word-wrap: break-word
+  }
+
+}
+
+@media(min-width: 768px) and (max-width: 900px) {
+
+  .footer {
+    background-color: $footer-color;
+    margin-top: 5%;
+    padding-top: 8%;
+    padding-bottom: 8%;
+    text-align: center;
+    color: $input-color;
+  }
+
+  .profile-img {
+    margin-bottom: 20px;
+  }
+
+  .not-found {
+    text-align: center;
+    margin-top: 35%;
+    padding-top: $default-padding;
+    padding-bottom: 35%;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .chat {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin-left: 20%;
+    margin-bottom: 2%;
+  }
+  
+  .chat .user-photo {
+    width: 50px;
+    height: 50px;
+    background: rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .chat .user-photo img {
+    width: 100%;
+  }
+  
+  .chat .chat-message {
+    width: 70%;
+    padding: 15px;
+    border-radius: 10px;
+    color: $input-color;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 100%;
+    word-wrap: break-word
+  }
+
 }
 
 @media(min-width: 1024px) and (max-width: 1366px) {
-
   
   .jumbotron {
     padding: 2rem 1rem;
@@ -530,6 +664,52 @@ div.modal div.modal-backdrop {
     padding-bottom: 8%;
     text-align: center;
     color: $input-color;
+  }
+
+  .container{
+    padding-top: 2%;
+    padding-bottom: $default-padding;
+    margin-bottom: 60%;
+  }
+
+  .not-found {
+    text-align: center;
+    margin-top: 35%;
+    padding-top: $default-padding;
+    padding-bottom: 35%;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .chat {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin-left: 20%;
+    margin-bottom: 2%;
+  }
+  
+  .chat .user-photo {
+    width: 50px;
+    height: 50px;
+    background: rgb(255, 255, 255);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .chat .user-photo img {
+    width: 100%;
+  }
+  
+  .chat .chat-message {
+    width: 70%;
+    padding: 15px;
+    border-radius: 10px;
+    color: $input-color;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 100%;
+    word-wrap: break-word
   }
 
 }

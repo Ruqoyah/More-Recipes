@@ -212,6 +212,7 @@ export class AllRecipes extends Component {
                   <h1>{this.state.searchError}</h1>
                 </div> :
                 <div>
+                  <h3 style={{ marginTop: '30px', marginBottom: '20px', textAlign: 'center' }}>All Recipes</h3>
                   {this.renderRecipe()}
                   {this.renderPagination(0)}
                 </div>

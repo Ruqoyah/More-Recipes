@@ -147,7 +147,7 @@ export class FavoriteRecipes extends Component {
             <Loader size={'70px'} />
           </div> :
           <div>
-            <h3 style={{ marginTop: '20px', marginBottom: '20px', textAlign: 'center' }}>Favorite Recipes</h3>
+            <h3 style={{ marginTop: '30px', marginBottom: '20px', textAlign: 'center' }}>Favorite Recipes</h3>
             {this.renderRecipe()}
             {this.renderPagination(0)}
           </div>

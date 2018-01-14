@@ -37,7 +37,7 @@ export class ProfilePage extends Component {
         <div className="container">
           <div className="row my-2">
             <div className="col-lg-4 order-lg-1 text-center">
-              <div>
+              <div className="profile-img">
                 { !this.props.user.picture ?
                   <img src="/images/picture.png"
                     style={{ width: '300px', height: '300px' }}/> :

@@ -52,6 +52,7 @@ export class Header extends Component {
             className="navbar-brand"
             to="/recipes">
             <img src="/images/recipe-logo.png"
+              className= "logo"
               width="270"
               height="59"
               alt="logo"
