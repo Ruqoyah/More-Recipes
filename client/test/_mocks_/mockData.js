@@ -58,6 +58,37 @@ const mockData = {
       views: 0
     }
   },
+  smallUserInput: {
+    recipeName: 'yam',
+    details: 'cook well',
+    ingredient: 'yam and water',
+    image: 'picture.png'
+  },
+  incompleteUserInput: {
+    recipeName: 'yam',
+    details: 'cook well',
+    ingredient: 'yam and water',
+  },
+  userInput: {
+    recipeName: 'yaum',
+    details: 'cooki well',
+    ingredient: 'yamgfh and water',
+    image: 'picture',
+    imageHeight: 300,
+    imageWidth: 300,
+  },
+  userEditInput: {
+    username: 'ruqoyah',
+    fullName: 'rukayat odukoya',
+    image: 'picture'
+  },
+  userEditPictureInput: {
+    username: 'ruqoyah',
+    fullName: 'rukayat odukoya',
+    image: 'picture',
+    imageHeight: 300,
+    imageWidth: 300
+  },
   recipeDetails: [
     {
       id: 8,
@@ -86,18 +117,30 @@ const mockData = {
       updatedAt: "2018-01-10T01:28:32.849Z"
     }
   ],
-  saveImageDetails: {
-    bytes: 5991,
-    created_at: "2018-01-12T00:26:19Z",
-    etag: "01658a24ffe0a1b5db75b882294da1ba",
-    format: "png",
-    height: 200,
-    original_filename: "63408-200",
+  imageResponse: {
+    bytes: 88762,
+    created_at: "2018-01-15T18:30:03Z",
+    etag: "5e60d0b985e448a2d19dd7b3183448d3",
+    format: "jpg",
+    height: 600,
+    original_filename: "171761",
     placeholder: false,
-    public_id: "qssiljs70ary0lx8xhgx",
+    public_id: "ibjszrugqgqlkc2q9x0y",
     resource_type: "image",
-    secure_url: "https://res.cloudinary.com/ruqoyah/image/upload/v1515716779/qssiljs70ary0lx8xhgx.png",
-    signature: "23a595aac6f4630c4bc4b64974c4e5cccbc47d87"
+    secure_url: "https://res.cloudinary.com/ruqoyah/image/upload/v1516041003/ibjszrugqgqlkc2q9x0y.jpg",
+    signature: "ec119873ac7388df8ab37c0c7e2a23c0a6107a14",
+    tags: [],
+    type: "upload",
+    url: "http://res.cloudinary.com/ruqoyah/image/upload/v1516041003/ibjszrugqgqlkc2q9x0y.jpg",
+    version: 1516041003,
+    width: 600
+  },
+  uploadImage: {
+    name: "Baked.jpg",
+    lastModified: 1515159157000,
+    size: 226679,
+    type: "image/jpeg",
+    webkitRelativePath: ''
   },
   recipePropsDetails: [
     {

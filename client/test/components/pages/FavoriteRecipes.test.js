@@ -1,21 +1,29 @@
 import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
-import { configure, mount } from 'enzyme';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import {
-  FavoriteRecipes,
-  mapDispatchToProps,
-  mapStateToProps
+import ConnectedFavoriteRecipes, {
+  FavoriteRecipes
 } from '../../../components/pages/FavoriteRecipes';
 import mockData from '../../_mocks_/mockData';
 
 configure({ adapter: new Adapter() });
 
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
 const props = {
   favoriteRecipes: mockData.favoriteRecipeDetails,
   actions: {
     getFavoriteAction: jest.fn(() => Promise.resolve())
+  }
+};
+const ownProps = {
+  match: {
+    path: '/'
   }
 };
 
@@ -24,35 +32,47 @@ jest.mock('../../../components/common/VoteAndFavoriteIcon');
 
 describe('Component: FavoriteRecipes', () => {
   process.env.CLOUD_NAME = 'tyutyuu';
-  it('tests that the component successfully rendered', () => {
-    const wrapper = mount(<FavoriteRecipes {...props} />);
-    expect(wrapper.find('div').length).toBe(4);
+
+  describe('FavoriteRecipes component', () => {
+    it('tests that the component successfully rendered', () => {
+      const wrapper = shallow(<FavoriteRecipes {...props} />);
+      expect(wrapper.find('div').length).toBe(2);
+    });
   });
 
-  it('should ensure mapDispatchToProps returns binded actions', () => {
-    const dispatch = jest.fn();
-    expect(mapDispatchToProps(dispatch).actions.getFavoriteAction).toBeTruthy();
+  describe('componentDidMount()', () => {
+    it('should get user favorite recipes', () => {
+      const spy = sinon.spy(FavoriteRecipes.prototype, 'componentDidMount');
+      shallow(<FavoriteRecipes {...props} componentDidMount={spy}/>)
+        .instance().componentDidMount({ setState: () => 1 });
+    });
   });
 
-  it('should ensure mapStateToProps returns prop from redux store', () => {
-    const { recipeDetails } = mockData;
-    const storeState = {
-      auth: {
-        user: [{ userId: 1 }]
-      },
-      recipe: recipeDetails
+  describe('handlePageChange()', () => {
+    const page = {
+      selected: 1
     };
-    const ownProps = {
-      match: {
-        path: '/'
-      }
-    };
-    expect(mapStateToProps(storeState, ownProps)).toExist();
+    it('should get the next user favorite recipes', () => {
+      const spy = sinon.spy(FavoriteRecipes.prototype, 'handlePageChange');
+      shallow(<FavoriteRecipes {...props} handlePageChange={spy}/>)
+        .instance().handlePageChange(page);
+    });
   });
 
-  it('should call componentDidMount()', () => {
-    const spy = sinon.spy(FavoriteRecipes.prototype, 'componentDidMount');
-    mount(<FavoriteRecipes {...props} componentDidMount={spy}/>)
-      .instance().componentDidMount({ setState: () => 1 });
+
+  describe('Connected FavoriteRecipe component', () => {
+    it('tests that the component successfully rendered', () => {
+      const { recipeDetails } = mockData;
+      const store = mockStore({
+        auth: {
+          user: [{ userId: 1 }]
+        },
+        recipe: recipeDetails,
+      });
+      const wrapper = shallow(<ConnectedFavoriteRecipes {...ownProps}
+        store={store}
+      />);
+      expect(wrapper.length).toBe(1);
+    });
   });
 });

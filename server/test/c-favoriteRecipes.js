@@ -63,21 +63,22 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to get favorite recipes that does not exist', (done) => {
-    supertest(app)
-      .get('/api/v1/users/recipes/favorite?page=1')
-      .send({
-        token: `${token}`
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No favorite recipe found');
-        done();
-      });
-  });
+  it('should not be able to get favorite recipes that does not exist',
+    (done) => {
+      supertest(app)
+        .get('/api/v1/users/recipes/favorite?page=1')
+        .send({
+          token: `${token}`
+        })
+        .expect(404)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('No favorite recipe found');
+          done();
+        });
+    });
   it('should be able to add favorite recipes', (done) => {
     supertest(app)
       .post(`/api/v1/recipes/${recipeId}/favorite`)

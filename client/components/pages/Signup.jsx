@@ -41,8 +41,8 @@ export class Signup extends Component {
       passwordConfirmError: '',
       userExist: '',
       emailExist: '',
-      isLoading: false,
-      redirectUser: false
+      redirectUser: false,
+      disableBtn: false
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -99,7 +99,7 @@ export class Signup extends Component {
       toastrOption();
       return toastr.error('All field are required');
     }
-    this.setState({ isLoading: true });
+    this.setState({ disableBtn: true });
     this.props.actions.signUpAction(this.state)
       .then((message) => {
         toastrOption();
@@ -147,21 +147,31 @@ export class Signup extends Component {
    *
    */
   onBlur(event) {
-    const pass = $('#validationServer04').val();
+    const pass = $('#signup-password').val();
 
     switch (event.target.name) {
     case 'username':
-      userOrEmailExist({ username: event.target.value })
+      userOrEmailExist({
+        username: event.target.value
+      })
         .then((res) => {
           if (res) {
-            this.setState({ userExist: 'Username already exist' });
+            this.setState({
+              userExist: 'Username already exist'
+            });
           }
         });
       if (event.target.value.length < 5 || !event.target.value) {
-        this.setState({ usernameError: 'Please provide a username with atleast 5 characters' });
+        this.setState({
+          usernameError: 'Please provide a username with atleast 5 characters',
+          disableBtn: true
+        });
         return false;
       } else {
-        this.setState({ usernameError: '' });
+        this.setState({
+          usernameError: '',
+          disableBtn: false
+        });
         return true;
       }
     case 'email':
@@ -173,23 +183,32 @@ export class Signup extends Component {
         });
     case 'password':
       if (event.target.value.length < 8 || !event.target.value) {
-        this.setState({ passwordError: 'Provide a valid password with minimum of 8 characters' });
+        this.setState({
+          passwordError: 'Provide a valid password with minimum of 8 characters',
+          disableBtn: true
+        });
         return false;
       } else {
-        this.setState({ passwordError: '' });
+        this.setState({
+          passwordError: '',
+          disableBtn: false
+        });
         return true;
       }
     case 'cpassword':
       if (event.target.value !== pass) {
-        this.setState({ passwordConfirmError: 'Password does not match' });
-        return false;
+        this.setState({
+          passwordConfirmError: 'Password does not match',
+          disableBtn: true
+        });
       } else {
-        this.setState({ passwordConfirmError: '' });
-        return true;
+        this.setState({
+          passwordConfirmError: '',
+          disableBtn: false
+        });
       }
     }
   }
-
 
   /**
    * @description render - renders the class component
@@ -209,7 +228,7 @@ export class Signup extends Component {
           <div className="header-signup">
             <h4>Signup</h4>
           </div>
-          <form onSubmit={this.handleSubmit} className="form">
+          <form onSubmit={this.handleSubmit} className="form signup-form">
 
             <div className="form-group">
               <input
@@ -219,7 +238,7 @@ export class Signup extends Component {
                 onChange={this.onChange}
                 onFocus={this.onFocus}
                 className="form-control is-valid"
-                id="validationServer01"
+                id="signup-username"
                 placeholder="Username"
                 required />
               <div
@@ -240,7 +259,7 @@ export class Signup extends Component {
                 type="text"
                 onChange={this.onChange}
                 className="form-control is-valid"
-                id="validationServer02"
+                id="signup-fullName"
                 placeholder="Full Name"
                 required />
               <div
@@ -258,7 +277,7 @@ export class Signup extends Component {
                 onChange={this.onChange}
                 onFocus={this.onFocus}
                 className="form-control is-valid"
-                id="validationServer03"
+                id="signup-email"
                 placeholder="Email"
                 required />
               <div
@@ -281,7 +300,7 @@ export class Signup extends Component {
                 onChange={this.onChange}
                 onFocus={this.onFocus}
                 className="form-control is-valid"
-                id="validationServer04"
+                id="signup-password"
                 placeholder="Password"
                 required />
               <div
@@ -299,7 +318,7 @@ export class Signup extends Component {
                 onChange={this.onChange}
                 onFocus={this.onFocus}
                 className="form-control is-valid"
-                id="validationServer05"
+                id="signup-cpassword"
                 placeholder="Confirm Password"
                 required />
               <div
@@ -314,7 +333,7 @@ export class Signup extends Component {
                 className="btn btn-outline-danger btn-lg btn-block"
                 type="submit"
                 name="submit"
-                disabled={this.state.isLoading}>Finish
+                disabled={this.state.disableBtn}>Finish
               </button>
             </div>
             <div
@@ -336,7 +355,7 @@ export class Signup extends Component {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       signUpAction

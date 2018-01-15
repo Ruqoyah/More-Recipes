@@ -233,7 +233,7 @@ export class AllRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     recipes: state.recipe.recipes,
     user: state.auth.user.currentUser,
@@ -249,7 +249,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       searchRecipesAction,

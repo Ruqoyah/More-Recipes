@@ -101,7 +101,7 @@ export class ViewRecipe extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     viewRecipe: state.recipe.viewRecipe,
     user: state.auth.user.currentUser
@@ -116,7 +116,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       viewRecipeAction
