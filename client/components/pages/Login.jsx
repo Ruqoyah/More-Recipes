@@ -130,7 +130,7 @@ export class Login extends Component {
           </div>
           <form
             onSubmit={this.handleSubmit}
-            className="form">
+            className="form login-form">
             <div
               id="invalid-credential"
               style={{ color: 'red', textAlign: 'center', marginBottom: '12px' }}>
@@ -144,7 +144,7 @@ export class Login extends Component {
                 type="text"
                 className="form-control is-valid"
                 onChange={this.onChange}
-                id="validationServer01"
+                id="login-username"
                 placeholder="Username"
                 required/>
             </div>
@@ -156,7 +156,7 @@ export class Login extends Component {
                 name="password" type="password"
                 className="form-control is-valid"
                 onChange={this.onChange}
-                id="validationServer02"
+                id="login-password"
                 placeholder="Password"
                 required/>
             </div>

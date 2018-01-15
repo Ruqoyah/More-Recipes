@@ -60,12 +60,14 @@ describe('Auth Reducer', () => {
       userProfile: {}
     };
     const userProfile = {
-      email: 'oriyomi@gmail.com',
-      fullName: 'Rukayat Odukoya',
-      id: 2,
-      picture: null,
-      status: true,
-      username: 'rookie'
+      data: {
+        email: 'oriyomi@gmail.com',
+        fullName: 'Rukayat Odukoya',
+        id: 2,
+        picture: null,
+        status: true,
+        username: 'rookie'
+      }
     };
     const action = {
       type: GET_USER,

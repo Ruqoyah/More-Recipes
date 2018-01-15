@@ -1,15 +1,18 @@
 import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
-import { configure, mount } from 'enzyme';
+import { configure, shallow } from 'enzyme';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import Adapter from 'enzyme-adapter-react-15';
-import {
-  Header,
-  mapDispatchToProps,
-  mapStateToProps
+import ConnectedHeader, {
+  Header
 } from '../../../components/common/Header';
 
 configure({ adapter: new Adapter() });
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 const props = {
   actions: {
@@ -20,32 +23,31 @@ const props = {
 jest.mock('react-router-dom');
 
 describe('Component: Header', () => {
-  it('tests that the component successfully rendered', () => {
-    const wrapper = mount(<Header {...props} />);
-    expect(wrapper.find('div').length).toBe(2);
-    expect(wrapper.find('nav').length).toBe(1);
-    expect(wrapper.find('button').length).toBe(1);
-    expect(wrapper.find('ul').length).toBe(1);
-    expect(wrapper.find('Link').length).toBe(1);
+  describe('Header component', () => {
+    it('tests that the component successfully rendered', () => {
+      const wrapper = shallow(<Header {...props} />);
+      expect(wrapper.find('div').length).toBe(2);
+      expect(wrapper.find('nav').length).toBe(1);
+      expect(wrapper.find('ul').length).toBe(1);
+      expect(wrapper.find('Link').length).toBe(1);
+    });
   });
 
   it('should call logout()', () => {
     const spy = sinon.spy(Header.prototype, 'logout');
-    mount(<Header {...props} logout={spy}/>)
+    shallow(<Header {...props} logout={spy}/>)
       .instance().logout({ preventDefault: () => 1 });
   });
 
-  it('should ensure mapDispatchToProps returns binded actions', () => {
-    const dispatch = jest.fn();
-    expect(mapDispatchToProps(dispatch).actions.logoutAction).toBeTruthy();
-  });
-
-  it('should ensure mapStateToProps returns prop from redux store', () => {
-    const storeState = {
-      auth: {
-        authenticated: true
-      }
-    };
-    expect(mapStateToProps(storeState)).toExist();
+  describe('Connected ConnectedHeader component', () => {
+    it('renders without crashing', () => {
+      const store = mockStore({
+        auth: {
+          authenticated: true
+        }
+      });
+      const wrapper = shallow(<ConnectedHeader store={store} />);
+      expect(wrapper.length).toBe(1);
+    });
   });
 });

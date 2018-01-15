@@ -42,11 +42,11 @@ export const saveImageToCloud = (image) => {
   const newFormData = new FormData();
   newFormData.append('file', image);
   newFormData.append('upload_preset', cloudPreset);
-  return dispatch => fetch(request, {
-    method: 'POST',
-    body: newFormData })
-    .then((res) => res.json())
-    .then((data) => {
+  delete axios.defaults.headers.common.Authorization; // eslint-disable-line
+  return dispatch => axios.post(request, newFormData)
+    .then(({ data }) => {
+      let token = localStorage.getItem('token');
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       dispatch(saveImage(data.public_id));
     })
     .catch((error) => {

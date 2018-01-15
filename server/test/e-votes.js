@@ -175,21 +175,22 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not upvote recipe if provided recipe id does not exist', (done) => {
-    supertest(app)
-      .post('/api/v1/recipes/6/upvote')
-      .send({
-        token: `${token}`
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No recipe Id found');
-        done();
-      });
-  });
+  it('should not upvote recipe if provided recipe id does not exist',
+    (done) => {
+      supertest(app)
+        .post('/api/v1/recipes/6/upvote')
+        .send({
+          token: `${token}`
+        })
+        .expect(404)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('No recipe Id found');
+          done();
+        });
+    });
   it('should be able to get recipes with the most upvote', (done) => {
     supertest(app)
       .get('/api/v1/recipes?sort=upvotes&order=descending')

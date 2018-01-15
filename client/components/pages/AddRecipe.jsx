@@ -191,11 +191,13 @@ export class AddRecipe extends Component {
             className="container-fluid add-form">
             <form
               name="add_recipe"
+              className="add-recipe-form"
               onSubmit={this.handleSubmit}>
               <div
                 className="post-form">
                 <h4 >Food Name</h4>
                 <input
+                  id="recipe-name"
                   name="recipeName"
                   onChange={this.onChange}
                   className="form-control is-valid"
@@ -203,6 +205,7 @@ export class AddRecipe extends Component {
                 <h4>Ingredients</h4>
                 <div>
                   <textarea
+                    id="ingredient"
                     name="ingredient"
                     onChange={this.onChange}
                     required />
@@ -210,6 +213,7 @@ export class AddRecipe extends Component {
                 <h4>Cooking direction</h4>
                 <div>
                   <textarea
+                    id="cooking-direction"
                     name="details"
                     onChange={this.onChange}
                     required />

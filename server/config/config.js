@@ -10,7 +10,8 @@ module.exports = {
     dialect: 'postgres'
   },
   test: {
-    use_env_variable: 'DB_URL'
+    use_env_variable: 'DB_URL',
+    logging: "false"
   },
   localTest: {
     username: process.env.DB_USERNAME,

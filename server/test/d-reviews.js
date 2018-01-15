@@ -111,21 +111,22 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to post reviews for recipe if no review inputed', (done) => {
-    supertest(app)
-      .post(`/api/v1/recipes/${recipeId}/reviews`)
-      .send({
-        token: `${token}`
-      })
-      .expect(400)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Review can\'t be empty');
-        done();
-      });
-  });
+  it('should not be able to post reviews for recipe if no review inputed',
+    (done) => {
+      supertest(app)
+        .post(`/api/v1/recipes/${recipeId}/reviews`)
+        .send({
+          token: `${token}`
+        })
+        .expect(400)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('Review can\'t be empty');
+          done();
+        });
+    });
   it('should be able to get reviews for recipe', (done) => {
     supertest(app)
       .get(`/api/v1/recipes/${recipeId}/reviews?page=1`)

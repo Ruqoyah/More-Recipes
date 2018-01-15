@@ -295,29 +295,31 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('sorry! you can only edit your own recipe');
+        expect(res.body.message)
+          .toBe('sorry! you can only edit your own recipe');
         done();
       });
   });
-  it('should not be able to modify recipe if recipe id does not exist', (done) => {
-    supertest(app)
-      .put('/api/v1/recipes/5')
-      .send({
-        recipeName: 'Meat Pie',
-        ingredient: 'pepper, flour, onions',
-        details: 'grind pepper and onion then bake',
-        picture: 'http://localhost:8000/images/dessert%20salad.png',
-        token: `${token}`
-      })
-      .expect(404)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('No recipe Id found');
-        done();
-      });
-  });
+  it('should not be able to modify recipe if recipe id does not exist',
+    (done) => {
+      supertest(app)
+        .put('/api/v1/recipes/5')
+        .send({
+          recipeName: 'Meat Pie',
+          ingredient: 'pepper, flour, onions',
+          details: 'grind pepper and onion then bake',
+          picture: 'http://localhost:8000/images/dessert%20salad.png',
+          token: `${token}`
+        })
+        .expect(404)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('No recipe Id found');
+          done();
+        });
+    });
   it('should not be able to get recipes if no match result', (done) => {
     supertest(app)
       .get('/api/v1/recipes?search=book')
@@ -333,21 +335,22 @@ describe('More-Recipe API: ', () => {
         done();
       });
   });
-  it('should not be able to get recipes if sorting with invalid name', (done) => {
-    supertest(app)
-      .get('/api/v1/recipes?sort=job&order=descending')
-      .send({
-        token: `${token}`
-      })
-      .expect(403)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.message).toBe('Invalid Request');
-        done();
-      });
-  });
+  it('should not be able to get recipes if sorting with invalid name',
+    (done) => {
+      supertest(app)
+        .get('/api/v1/recipes?sort=job&order=descending')
+        .send({
+          token: `${token}`
+        })
+        .expect(403)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          expect(res.body.message).toBe('Invalid Request');
+          done();
+        });
+    });
   it('should not delete recipe if passed in invalid recipe id', (done) => {
     supertest(app)
       .delete('/api/v1/recipes/"5"')
@@ -434,7 +437,8 @@ describe('More-Recipe API: ', () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.message).toBe('sorry! you can only delete your own recipe');
+        expect(res.body.message)
+          .toBe('sorry! you can only delete your own recipe');
         done();
       });
   });

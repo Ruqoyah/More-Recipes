@@ -204,6 +204,7 @@ export class ProfilePageInclude extends Component {
         {
           <form
             role="form"
+            className="profile-editing"
             onSubmit={this.onSubmit} >
             <div
               className="form-group row">
@@ -217,6 +218,7 @@ export class ProfilePageInclude extends Component {
                   className="form-control"
                   type="text"
                   name="fullName"
+                  id="profile-fullname"
                   value={this.state.userDetails.fullName}
                   onChange={this.onChange}
                   required />
@@ -234,6 +236,7 @@ export class ProfilePageInclude extends Component {
                   className="form-control"
                   type="email"
                   name="email"
+                  id="profile-email"
                   value={this.state.userDetails.email}
                   onChange={this.onChange}
                   required />
@@ -322,7 +325,7 @@ export class ProfilePageInclude extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   const tempUserDetails = {
     fullName: '',
     id: '',
@@ -345,7 +348,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       editProfileAction,

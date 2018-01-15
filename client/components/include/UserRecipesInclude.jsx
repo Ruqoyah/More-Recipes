@@ -270,12 +270,14 @@ export class UserRecipesInclude extends Component {
           {
             this.state.editRecipe &&
         <form name="add_recipe"
+          className="edit-recipe"
           onSubmit={this.onSubmit}>
           <div
             className="post-form">
             <h4>Food Name</h4>
             <input
               name="recipeName"
+              id="edit-recipe-name"
               className="form-control is-valid"
               defaultValue={this.state.recipeName}
               onChange={this.onChange}
@@ -283,12 +285,14 @@ export class UserRecipesInclude extends Component {
             <h4>Ingredients</h4>
             <textarea
               name="ingredient"
+              id="edit-ingredient"
               defaultValue={this.state.ingredient}
               onChange={this.onChange}
               required />
             <h4>Cooking direction</h4>
             <textarea
               name="details"
+              id="edit-details"
               defaultValue={this.state.details}
               onChange={this.onChange}
               required />
@@ -373,7 +377,7 @@ export class UserRecipesInclude extends Component {
               </button>
               <button
                 onClick={this.onClick}
-                id="delete"
+                id="delete-recipe"
                 className="btn btn-outline-danger">Delete
               </button>
             </div>
@@ -392,7 +396,7 @@ export class UserRecipesInclude extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
     imageUrl: state.recipe.imageDetails
@@ -407,7 +411,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       editRecipeAction,
