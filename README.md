@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Ruqoyah/More-Recipes.svg?branch=feature%2F152323735%2Fimplement-upload-picture)](https://travis-ci.org/Ruqoyah/More-Recipes)
-[![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5961a844495c237819a4/maintainability)](https://codeclimate.com/github/Ruqoyah/More-Recipes/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/Ruqoyah/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Ruqoyah/More-Recipes?branch=develop)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5961a844495c237819a4/test_coverage)](https://codeclimate.com/github/Ruqoyah/More-Recipes/test_coverage)
 
 # More-Recipes
