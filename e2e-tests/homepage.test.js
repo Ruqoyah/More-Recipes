@@ -10,8 +10,10 @@ module.exports = {
       .assert.containsText('a.btn.btn-outline-danger.btn-lg', 'Create a profile')
       .assert.containsText('a.btn.btn-outline-success.btn-lg', 'Login')
       .assert.visible('div.footer');
-    browser.expect.element('img').to.have.attribute('src').which.contains('images/logo.png');
-    browser.expect.element('img.d-block.w-100').to.have.attribute('src').which.contains('images/slide1.png');
+    browser.expect.element('img').to.have.attribute('src')
+      .which.contains('images/logo.png');
+    browser.expect.element('img.d-block.w-100').to.have.attribute('src')
+      .which.contains('images/slide1.png');
     browser.end();
   }
 };
