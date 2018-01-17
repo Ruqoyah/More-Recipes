@@ -319,7 +319,7 @@ describe('Recipe actions', () => {
   describe('save image to cloudinary action creator', () => {
     it('creates SAVE_RECIPE_IMAGE when add recipe action is successful',
       async (done) => {
-        process.env.REQUEST = 'https://api.cloudinary.com/v1_1/ruqoyah/upload';
+        process.env.REQUEST = 'https://api.cloudinary.com/v1_1/ghdjskdf/upload';
         const request = process.env.REQUEST;
         const { imageResponse, uploadImage } = mockData;
         moxios.stubRequest(request, {

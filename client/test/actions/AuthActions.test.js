@@ -126,7 +126,7 @@ describe('Auth actions', () => {
   describe('save image to cloudinary action creator', () => {
     it('creates SAVE_PROFILE_IMAGE when edit profile action is successful',
       async (done) => {
-        process.env.REQUEST = 'https://api.cloudinary.com/v1_1/ruqoyah/upload';
+        process.env.REQUEST = 'https://api.cloudinary.com/v1_1/eghdjdjf/upload';
         const request = process.env.REQUEST;
         const { imageResponse, uploadImage } = mockData;
         moxios.stubRequest(request, {
