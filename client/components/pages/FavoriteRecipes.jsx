@@ -147,7 +147,7 @@ export class FavoriteRecipes extends Component {
             <Loader size={'70px'} />
           </div> :
           <div>
-            <h3 style={{ marginTop: '20px', marginBottom: '20px', textAlign: 'center' }}>Favorite Recipes</h3>
+            <h3 style={{ marginTop: '30px', marginBottom: '20px', textAlign: 'center' }}>Favorite Recipes</h3>
             {this.renderRecipe()}
             {this.renderPagination(0)}
           </div>
@@ -167,7 +167,7 @@ export class FavoriteRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) {
   return {
     user: state.auth.user.currentUser,
     favoriteRecipes: state.recipe.favoriteRecipes,
@@ -184,7 +184,7 @@ export function mapStateToProps(state, ownProps) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       getFavoriteAction

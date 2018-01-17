@@ -191,17 +191,19 @@ describe('Recipes Reducer', () => {
       viewRecipe: {}
     };
     const viewRecipe = {
-      id: 8,
-      recipeName: "Yam",
-      ingredient: "yam and water",
-      details: "cook it well",
-      picture: "tw2y57mjg7pbdo4dyrci",
-      userId: 1,
-      upvotes: 0,
-      downvotes: 0,
-      views: 0,
-      createdAt: "2018-01-10T01:36:04.250Z",
-      updatedAt: "2018-01-10T01:36:04.250Z"
+      recipe: {
+        id: 8,
+        recipeName: "Yam",
+        ingredient: "yam and water",
+        details: "cook it well",
+        picture: "tw2y57mjg7pbdo4dyrci",
+        userId: 1,
+        upvotes: 0,
+        downvotes: 0,
+        views: 0,
+        createdAt: "2018-01-10T01:36:04.250Z",
+        updatedAt: "2018-01-10T01:36:04.250Z"
+      }
     };
     const action = {
       type: VIEW_RECIPE,

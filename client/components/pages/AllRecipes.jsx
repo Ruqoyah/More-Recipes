@@ -212,6 +212,7 @@ export class AllRecipes extends Component {
                   <h1>{this.state.searchError}</h1>
                 </div> :
                 <div>
+                  <h3 style={{ marginTop: '30px', marginBottom: '20px', textAlign: 'center' }}>All Recipes</h3>
                   {this.renderRecipe()}
                   {this.renderPagination(0)}
                 </div>
@@ -232,7 +233,7 @@ export class AllRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     recipes: state.recipe.recipes,
     user: state.auth.user.currentUser,
@@ -248,7 +249,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       searchRecipesAction,

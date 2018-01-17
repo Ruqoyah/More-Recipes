@@ -52,6 +52,7 @@ export class Header extends Component {
             className="navbar-brand"
             to="/recipes">
             <img src="/images/recipe-logo.png"
+              className= "logo"
               width="270"
               height="59"
               alt="logo"
@@ -134,7 +135,7 @@ export class Header extends Component {
    * @return {Object} returns state object
    *
    */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated
   };
@@ -148,7 +149,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       logoutAction

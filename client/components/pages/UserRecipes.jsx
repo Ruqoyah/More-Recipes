@@ -146,7 +146,7 @@ export class UserRecipes extends Component {
             <Loader size={'70px'} />
           </div> :
           <div>
-            <h3 style={{ marginTop: '10px', marginBottom: '20px', textAlign: 'center' }}>My Recipes</h3>
+            <h3 style={{ marginTop: '30px', marginBottom: '20px', textAlign: 'center' }}>My Recipes</h3>
             {this.renderRecipe()}
             {this.renderPagination(0)}
           </div>
@@ -164,7 +164,7 @@ export class UserRecipes extends Component {
  * @return {Object} returns state object
  *
  */
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     user: state.auth.user.currentUser,
     userRecipes: state.recipe.userRecipes,
@@ -180,7 +180,7 @@ export function mapStateToProps(state) {
  * @return {Object} returns an Object
  *
  */
-export function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       getUserRecipeAction
