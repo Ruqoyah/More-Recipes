@@ -17,6 +17,6 @@ export default function store(initialState = {}) {
   return createStore(
     reducers,
     initialState,
-    compose(applyMiddleware(thunk), window.devToolsExtension && process.env.NODE_ENV === 'development ? window.devToolsExtension() : f => f),
+    compose(applyMiddleware(thunk), window.devToolsExtension && process.env.NODE_ENV === 'development' ? window.devToolsExtension() : f => f),
   );
 }
