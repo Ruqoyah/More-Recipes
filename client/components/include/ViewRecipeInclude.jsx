@@ -103,7 +103,8 @@ export class ViewRecipeInclude extends Component {
       <div
         className="container-fluid view-recipe">
         <h2
-          id="recipe-name">
+          id="recipe-name"
+          className="wrap">
           {this.props.recipeName}
         </h2> <hr />
         <div className="row">
