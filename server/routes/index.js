@@ -33,6 +33,21 @@ import authentication from '../middleware/authentication';
 
 const app = express.Router();
 
+/**
+* @param  {string} '/api/v1/'
+*
+* @param  {object} req - request object
+*
+* @param  {object} res - response object
+*/
+app.get('/api/v1', (req, res) => {
+  res.status(200)
+    .json({
+      status: true,
+      message: "Welcome to More recipes API."
+    });
+});
+
 /** Signup
  * @param  {} '/api/v1/users/signup'
  *
