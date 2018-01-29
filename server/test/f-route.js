@@ -131,4 +131,17 @@ describe('Protected routes (middleware)', () => {
           });
       });
   });
+
+  describe('(GET /api/v1)', () => {
+    it('should return welcome to More recipes API',
+      (done) => {
+        supertest(app)
+          .get('/api/v1')
+          .end((err, res) => {
+            expect(res.status).toBe(200);
+            expect(res.body.message).toBe('Welcome to More recipes API.');
+            done();
+          });
+      });
+  });
 });

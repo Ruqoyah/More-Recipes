@@ -89,7 +89,6 @@ export class AllRecipes extends Component {
         });
     } else {
       this.setState({
-        loader: true,
         searchErrorStatus: false
       });
       this.props.actions.getAllRecipeAction(1)

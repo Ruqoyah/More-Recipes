@@ -131,7 +131,7 @@ export class Signup extends Component {
       this.setState({ passwordError: '' });
       break;
     case 'cpassword':
-      this.setState({ passwordConfirmError: '' });
+      this.setState({ passwordConfirmError: '', disableBtn: false });
       break;
     case 'email':
       this.setState({ emailError: '', emailExist: '' });
