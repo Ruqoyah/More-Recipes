@@ -45,6 +45,7 @@
     "cloudinary-react": "^1.0.4",
     "colors": "^1.1.2",
     "compression": "^1.7.1",
+    "cors": "^2.8.5",
     "coveralls": "^2.13.1",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",

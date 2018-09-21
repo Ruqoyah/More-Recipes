@@ -11,6 +11,7 @@ import {
 } from '../../actions/recipesActions';
 import RecipeCard from '../common/RecipeCard';
 import Footer from '../common/Footer';
+
 import Loader from '../common/Loader';
 
 /**
